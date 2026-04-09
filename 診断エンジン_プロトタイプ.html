@@ -20,92 +20,79 @@
     --gray-900: #111827;
     --radius: 10px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif; background: var(--gray-50); color: var(--gray-900); }
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-    background: var(--gray-50);
-    color: var(--gray-900);
-    min-height: 100vh;
+  .container { max-width: 860px; margin: 0 auto; padding: 32px 16px; }
+
+  h1 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: var(--gray-600); margin-bottom: 28px; }
+
+  /* Section */
+  .section { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); margin-bottom: 24px; overflow: hidden; }
+  .section-header { background: var(--primary); color: white; padding: 14px 20px; }
+  .section-header h2 { font-size: 14px; font-weight: 700; }
+  .section-header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+  .section-body { padding: 20px; }
+
+  /* Field */
+  .field { margin-bottom: 20px; }
+  .field:last-child { margin-bottom: 0; }
+  .field-label { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--gray-700); }
+  .field-label .q { color: var(--primary); margin-right: 6px; }
+  .field-note { font-size: 11px; color: var(--gray-600); margin-bottom: 8px; line-height: 1.5; }
+
+  /* Radio / Checkbox */
+  .choices { display: flex; flex-direction: column; gap: 8px; }
+  .choice-row { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+  .choice-row input { margin-top: 2px; accent-color: var(--primary); width: 16px; height: 16px; flex-shrink: 0; }
+  .choice-row span { font-size: 13px; line-height: 1.5; }
+  .choice-row span .badge {
+    display: inline-block;
+    font-size: 11px;
+    background: var(--accent-light);
+    color: #065f46;
+    border-radius: 4px;
+    padding: 1px 6px;
+    margin-left: 4px;
+    vertical-align: middle;
   }
 
-  header {
+  /* Text input */
+  input[type="text"], input[type="number"], textarea {
+    width: 100%;
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    padding: 9px 12px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--gray-900);
+  }
+  input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+  textarea { resize: vertical; min-height: 80px; }
+
+  .inline-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Submit */
+  .submit-area { text-align: center; margin: 28px 0; }
+  .btn-submit {
     background: var(--primary);
     color: white;
-    padding: 20px 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  header h1 { font-size: 18px; font-weight: 700; }
-  header p { font-size: 13px; opacity: 0.85; margin-top: 2px; }
-
-  .container { max-width: 820px; margin: 0 auto; padding: 24px 16px; }
-
-  /* Progress */
-  .progress-bar {
-    background: var(--gray-200);
-    border-radius: 99px;
-    height: 6px;
-    margin-bottom: 28px;
-  }
-  .progress-fill {
-    background: var(--primary);
-    height: 6px;
-    border-radius: 99px;
-    transition: width 0.4s ease;
-  }
-  .step-label { font-size: 12px; color: var(--gray-600); margin-bottom: 8px; }
-
-  /* Card */
-  .card {
-    background: white;
-    border-radius: var(--radius);
-    border: 1px solid var(--gray-200);
-    padding: 24px;
-    margin-bottom: 16px;
-  }
-  .card h2 { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
-  .card p.desc { font-size: 13px; color: var(--gray-600); margin-bottom: 16px; }
-
-  /* Options */
-  .option-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
-  .option-btn {
-    border: 2px solid var(--gray-200);
-    border-radius: 8px;
-    padding: 12px 14px;
-    text-align: left;
-    cursor: pointer;
-    background: white;
-    font-size: 14px;
-    font-family: inherit;
-    transition: all 0.15s;
-    line-height: 1.4;
-  }
-  .option-btn:hover { border-color: var(--primary); background: var(--primary-light); }
-  .option-btn.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary); font-weight: 600; }
-  .option-btn .emoji { display: block; font-size: 20px; margin-bottom: 4px; }
-
-  /* Nav */
-  .nav { display: flex; justify-content: space-between; margin-top: 24px; }
-  .btn {
-    padding: 11px 24px;
-    border-radius: 8px;
     border: none;
+    border-radius: 8px;
+    padding: 14px 48px;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
-    font-size: 14px;
     font-family: inherit;
-    font-weight: 600;
-    transition: all 0.15s;
   }
-  .btn-primary { background: var(--primary); color: white; }
-  .btn-primary:hover { background: #1447c0; }
-  .btn-secondary { background: var(--gray-100); color: var(--gray-700); }
-  .btn-secondary:hover { background: var(--gray-200); }
-  .btn:disabled { opacity: 0.4; cursor: default; }
+  .btn-submit:hover { background: #1447c0; }
 
   /* Results */
+  #results { display: none; }
   .results-header {
     background: linear-gradient(135deg, var(--primary) 0%, #0e47c0 100%);
     color: white;
@@ -114,1099 +101,973 @@
     margin-bottom: 20px;
     text-align: center;
   }
-  .results-header h2 { font-size: 22px; margin-bottom: 8px; }
-  .results-header p { opacity: 0.9; font-size: 14px; }
+  .results-header h2 { font-size: 20px; margin-bottom: 6px; }
+  .results-header .count { font-size: 13px; opacity: 0.9; }
   .total-badge {
     display: inline-block;
     background: rgba(255,255,255,0.2);
     border: 1px solid rgba(255,255,255,0.4);
     border-radius: 99px;
-    padding: 6px 18px;
-    font-size: 24px;
+    padding: 6px 20px;
+    font-size: 22px;
     font-weight: 700;
-    margin: 12px 0 4px;
+    margin: 10px 0 4px;
   }
+  .caveat { font-size: 11px; opacity: 0.7; margin-top: 4px; }
 
-  /* Stacking panel */
+  /* Stack panel */
   .stack-panel {
     background: var(--accent-light);
     border: 1px solid #aadbc8;
     border-radius: var(--radius);
     padding: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
-  .stack-panel h3 { font-size: 15px; font-weight: 700; color: #065f46; margin-bottom: 12px; }
-  .stack-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-  .stack-item {
-    background: white;
-    border: 1px solid #6ee7b7;
-    border-radius: 6px;
-    padding: 6px 12px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #065f46;
-  }
-  .stack-arrow { font-size: 16px; color: #059669; }
-  .stack-total { font-size: 15px; font-weight: 700; color: #065f46; margin-top: 4px; }
+  .stack-panel h3 { font-size: 14px; font-weight: 700; color: #065f46; margin-bottom: 14px; }
+  .stack-combo { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #c6e8db; }
+  .stack-combo:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .stack-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+  .stack-item { background: white; border: 1px solid #6ee7b7; border-radius: 6px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: #065f46; }
+  .stack-arrow { color: #059669; font-size: 16px; }
+  .stack-total { font-size: 14px; font-weight: 700; color: #065f46; }
+  .stack-note { font-size: 11px; color: #047857; margin-top: 2px; }
 
-  /* Conflict warning */
+  /* Conflict */
   .conflict-panel {
     background: var(--warning-light);
     border: 1px solid #fcd9bd;
     border-radius: var(--radius);
-    padding: 16px 20px;
-    margin-bottom: 20px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
     font-size: 13px;
     color: #9a3412;
   }
-  .conflict-panel strong { display: block; margin-bottom: 6px; font-size: 14px; }
+  .conflict-panel strong { display: block; margin-bottom: 6px; }
 
-  /* Subsidy cards */
-  .subsidy-card {
-    background: white;
-    border: 1px solid var(--gray-200);
-    border-radius: var(--radius);
-    margin-bottom: 12px;
-    overflow: hidden;
-  }
-  .subsidy-card-header {
-    display: flex;
-    align-items: center;
-    padding: 16px 20px;
-    gap: 14px;
-    cursor: pointer;
-  }
-  .rank-badge {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--primary-light);
-    color: var(--primary);
-    font-weight: 700;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .rank-badge.top { background: #fef3c7; color: #92400e; }
-  .subsidy-card-title { flex: 1; }
-  .subsidy-card-title h4 { font-size: 15px; font-weight: 700; }
-  .subsidy-card-title .tags { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
-  .tag {
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 99px;
-    background: var(--gray-100);
-    color: var(--gray-600);
-  }
-  .tag.green { background: var(--accent-light); color: #065f46; }
+  /* Subsidy card */
+  .subsidy-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); margin-bottom: 10px; }
+  .subsidy-header { display: flex; align-items: center; padding: 15px 18px; gap: 14px; cursor: pointer; }
+  .rank { width: 30px; height: 30px; border-radius: 50%; background: var(--primary-light); color: var(--primary); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .rank.gold { background: #fef3c7; color: #92400e; }
+  .subsidy-info { flex: 1; min-width: 0; }
+  .subsidy-name { font-size: 14px; font-weight: 700; line-height: 1.3; }
+  .subsidy-tags { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+  .tag { font-size: 11px; padding: 2px 7px; border-radius: 99px; background: var(--gray-100); color: var(--gray-600); }
   .tag.blue { background: var(--primary-light); color: #1e40af; }
-  .subsidy-amount {
-    text-align: right;
-    flex-shrink: 0;
-  }
-  .subsidy-amount .amount { font-size: 18px; font-weight: 700; color: var(--primary); }
-  .subsidy-amount .label { font-size: 11px; color: var(--gray-600); }
+  .tag.green { background: var(--accent-light); color: #065f46; }
+  .tag.orange { background: #fff7ed; color: #9a3412; }
+  .subsidy-amt { text-align: right; flex-shrink: 0; }
+  .subsidy-amt .amt { font-size: 17px; font-weight: 700; color: var(--primary); }
+  .subsidy-amt .lbl { font-size: 11px; color: var(--gray-600); }
 
-  .subsidy-detail {
-    display: none;
-    padding: 0 20px 20px;
-    border-top: 1px solid var(--gray-100);
-  }
+  .subsidy-detail { display: none; padding: 0 18px 18px; border-top: 1px solid var(--gray-100); }
   .subsidy-detail.open { display: block; }
-
   .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
-  .detail-item { }
-  .detail-item .label { font-size: 11px; color: var(--gray-600); margin-bottom: 2px; }
-  .detail-item .value { font-size: 14px; font-weight: 600; }
+  .detail-item .lbl { font-size: 11px; color: var(--gray-600); margin-bottom: 2px; }
+  .detail-item .val { font-size: 13px; font-weight: 600; }
+  .match-box { background: var(--gray-50); border-radius: 7px; padding: 12px; margin-top: 12px; font-size: 12px; }
+  .match-box strong { display: block; margin-bottom: 6px; color: var(--gray-700); font-size: 12px; }
+  .mtag { display: inline-block; background: #d1fae5; color: #065f46; border-radius: 4px; padding: 2px 8px; margin: 2px; }
+  .ctag { display: inline-block; background: #dbeafe; color: #1e40af; border-radius: 4px; padding: 2px 8px; margin: 2px; font-size: 11px; }
 
-  .match-reasons {
-    margin-top: 14px;
-    background: var(--gray-50);
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 13px;
-  }
-  .match-reasons strong { display: block; margin-bottom: 6px; color: var(--gray-700); }
-  .match-tag {
-    display: inline-block;
-    background: #d1fae5;
-    color: #065f46;
-    border-radius: 4px;
-    padding: 2px 8px;
-    margin: 2px;
-    font-size: 12px;
-  }
+  /* Compare table */
+  .compare-wrap { overflow-x: auto; margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: var(--gray-100); padding: 9px 12px; text-align: left; font-weight: 600; border-bottom: 2px solid var(--gray-200); white-space: nowrap; }
+  td { padding: 9px 12px; border-bottom: 1px solid var(--gray-100); }
+  tr:last-child td { border-bottom: none; }
+  .d1c { color: #059669; font-weight: 700; }
+  .d2c { color: #d97706; font-weight: 700; }
+  .d3c { color: #dc2626; font-weight: 700; }
 
-  /* Comparison table */
-  .compare-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
-  .compare-table th {
-    background: var(--gray-100);
-    padding: 10px 12px;
-    text-align: left;
-    font-weight: 600;
-    border-bottom: 2px solid var(--gray-200);
-    font-size: 12px;
-  }
-  .compare-table td { padding: 10px 12px; border-bottom: 1px solid var(--gray-100); }
-  .compare-table tr:last-child td { border-bottom: none; }
-  .difficulty-dot {
-    display: inline-block;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    margin-right: 2px;
-  }
-  .d1 { background: #10b981; }
-  .d2 { background: #f59e0b; }
-  .d3 { background: #ef4444; }
+  .reset-area { text-align: center; margin-top: 24px; }
+  .btn-reset { background: none; border: 1px solid var(--gray-200); border-radius: 8px; padding: 10px 24px; color: var(--gray-600); cursor: pointer; font-family: inherit; font-size: 14px; }
+  .btn-reset:hover { background: var(--gray-100); }
 
-  /* Reset */
-  .reset-btn { text-align: center; margin-top: 20px; }
-  .reset-btn button {
-    background: none;
-    border: 1px solid var(--gray-200);
-    border-radius: 8px;
-    padding: 10px 24px;
-    color: var(--gray-600);
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 14px;
-  }
-  .reset-btn button:hover { background: var(--gray-100); }
-
-  .hidden { display: none; }
+  .section-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-200); }
+  .result-section { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
 </style>
 </head>
 <body>
+<div class="container">
 
-<header>
-  <div>
-    <h1>💰 助成金・補助金 診断エンジン</h1>
-    <p>ヒアリング結果から最適な助成金の組み合わせを算出します</p>
-  </div>
-</header>
+<!-- HEARING FORM -->
+<div id="form-area">
+  <h1>💰 助成金・補助金 診断シート</h1>
+  <p class="subtitle">貴社に最適な補助金・助成金をご提案するため、以下の項目についてご回答をお願いいたします。まだ未定の部分は「検討中」や概算で構いません。</p>
 
-<div class="container" id="app">
-  <!-- Hearing steps -->
-  <div id="hearing-section">
-    <div class="step-label" id="step-label">ステップ 1 / 6</div>
-    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:16%"></div></div>
-    <div id="questions-container"></div>
-    <div class="nav">
-      <button class="btn btn-secondary" id="back-btn" onclick="goBack()" disabled>← 戻る</button>
-      <button class="btn btn-primary" id="next-btn" onclick="goNext()">次へ →</button>
+  <!-- Part 1 -->
+  <div class="section">
+    <div class="section-header">
+      <h2>■ 第1部：基本情報（申請資格・枠の判定）</h2>
+      <p>業種・法人形態・従業員数によって利用できる補助金が異なります</p>
+    </div>
+    <div class="section-body">
+
+      <div class="inline-fields">
+        <div class="field">
+          <div class="field-label"><span class="q">Q1</span>貴社名</div>
+          <input type="text" id="q1" placeholder="例：株式会社○○">
+        </div>
+        <div class="field">
+          <div class="field-label"><span class="q">Q2</span>ご担当者名</div>
+          <input type="text" id="q2" placeholder="例：山田 太郎">
+        </div>
+      </div>
+
+      <div class="inline-fields">
+        <div class="field">
+          <div class="field-label"><span class="q">Q3</span>連絡先（電話／メール）</div>
+          <input type="text" id="q3" placeholder="例：03-XXXX-XXXX">
+        </div>
+        <div class="field">
+          <div class="field-label"><span class="q">Q4</span>所在地（都道府県・市区町村）</div>
+          <input type="text" id="q4" placeholder="例：東京都渋谷区">
+        </div>
+      </div>
+
+      <div class="inline-fields">
+        <div class="field">
+          <div class="field-label"><span class="q">Q5</span>設立・創業年月</div>
+          <input type="text" id="q5" placeholder="例：2018年4月">
+        </div>
+        <div class="field">
+          <div class="field-label"><span class="q">Q9</span>資本金（法人の場合）</div>
+          <input type="number" id="q9" placeholder="例：500（万円）">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q6</span>法人形態</div>
+        <p class="field-note">※補助金によって対象となる法人が厳密に規定されています</p>
+        <div class="choices">
+          <label class="choice-row"><input type="radio" name="q6" value="法人（株式・合同・有限）"><span>株式会社・合同会社・有限会社</span></label>
+          <label class="choice-row"><input type="radio" name="q6" value="個人事業主"><span>個人事業主</span></label>
+          <label class="choice-row"><input type="radio" name="q6" value="社会福祉法人等"><span>社会福祉法人・医療法人</span></label>
+          <label class="choice-row"><input type="radio" name="q6" value="NPO等"><span>NPO法人・一般社団法人・その他</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q7</span>業種</div>
+        <div class="choices">
+          <label class="choice-row"><input type="radio" name="q7" value="製造業"><span>製造業</span></label>
+          <label class="choice-row"><input type="radio" name="q7" value="建設業"><span>建設業</span></label>
+          <label class="choice-row"><input type="radio" name="q7" value="卸売業"><span>卸売業</span></label>
+          <label class="choice-row"><input type="radio" name="q7" value="小売業"><span>小売業</span></label>
+          <label class="choice-row"><input type="radio" name="q7" value="医療・介護・福祉"><span>医療・介護・福祉</span></label>
+          <label class="choice-row"><input type="radio" name="q7" value="サービス業（宿泊・娯楽以外）"><span>サービス業（宿泊・娯楽以外）</span></label>
+          <label class="choice-row"><input type="radio" name="q7" value="サービス業（宿泊・娯楽）"><span>サービス業（宿泊・娯楽）</span></label>
+          <label class="choice-row"><input type="radio" name="q7" value="その他"><span>その他</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q8</span>従業員数（役員・個人事業主本人を除く、常時使用する従業員数）</div>
+        <input type="number" id="q8" placeholder="例：12（名）" min="0">
+      </div>
+
     </div>
   </div>
 
-  <!-- Results -->
-  <div id="results-section" class="hidden"></div>
+  <!-- Part 2 -->
+  <div class="section">
+    <div class="section-header">
+      <h2>■ 第2部：経営・財務・雇用の状況（特例枠・加点要件の判定）</h2>
+      <p>賃上げやインボイス対応の特例枠・上限引き上げの優遇を判定します</p>
+    </div>
+    <div class="section-body">
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q10</span>直近の決算状況</div>
+        <p class="field-note">※赤字事業者の場合、補助率が2/3から3/4に引き上がるなどの優遇措置があります</p>
+        <div class="choices">
+          <label class="choice-row"><input type="radio" name="q10" value="黒字"><span>黒字</span></label>
+          <label class="choice-row"><input type="radio" name="q10" value="赤字"><span>赤字 <span class="badge">補助率UP</span></span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q11</span>インボイス発行事業者への登録状況</div>
+        <div class="choices">
+          <label class="choice-row"><input type="radio" name="q11" value="登録済み"><span>登録済み</span></label>
+          <label class="choice-row"><input type="radio" name="q11" value="未登録（免税事業者）"><span>未登録（免税事業者）<span class="badge">特例枠あり</span></span></label>
+          <label class="choice-row"><input type="radio" name="q11" value="転換検討中"><span>未登録だが、今後インボイス発行事業者への転換を検討中</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q12</span>現在の事業場内最低賃金</div>
+        <p class="field-note">※貴社内で時給換算して最も低い方の金額</p>
+        <input type="number" id="q12" placeholder="例：1050（円）" min="0">
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q13</span>今後の「賃上げ」に対するお考え</div>
+        <p class="field-note">※賃上げは多くの補助金で必須要件または加点条件となります。医療・介護・福祉関連事業者様などは一部の補助金で賃上げ要件の適用外（免除）となります</p>
+        <div class="choices">
+          <label class="choice-row"><input type="radio" name="q13" value="ベースアップ可能"><span>ベースアップや給与総額の引き上げ（年率1.5%〜6.0%等）が可能である</span></label>
+          <label class="choice-row"><input type="radio" name="q13" value="最低賃金引き上げ可能"><span>事業場内最低賃金の引き上げ（地域別最低賃金＋30円〜50円以上等）が可能である</span></label>
+          <label class="choice-row"><input type="radio" name="q13" value="公定価格のため困難"><span>医療・介護・福祉事業者等であり、公定価格の影響を受けるため賃上げは難しい<span class="badge">免除枠あり</span></span></label>
+          <label class="choice-row"><input type="radio" name="q13" value="賃上げ困難"><span>賃上げは難しい・制度次第で検討したい</span></label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Part 3 -->
+  <div class="section">
+    <div class="section-header">
+      <h2>■ 第3部：今後の投資計画・事業課題（最適な補助金の選定）</h2>
+      <p>どのような課題を解決し、何に投資したいかによって申請する補助金を絞り込みます</p>
+    </div>
+    <div class="section-body">
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q14</span>現状の経営課題や解決したいこと（複数選択可）</div>
+        <div class="choices">
+          <label class="choice-row">
+            <input type="checkbox" name="q14" value="jizokuka">
+            <span>販路を開拓したい、チラシやWebサイトを作りたい <span class="badge">★小規模事業者持続化補助金</span></span>
+          </label>
+          <label class="choice-row">
+            <input type="checkbox" name="q14" value="shooryoka">
+            <span>人手不足を解消したい、配膳ロボットや自動精算機を入れたい <span class="badge">★省力化投資補助金 カタログ型</span></span>
+          </label>
+          <label class="choice-row">
+            <input type="checkbox" name="q14" value="it-donyu">
+            <span>ITツールやAIソフトを導入して業務効率化したい <span class="badge">★IT導入補助金</span></span>
+          </label>
+          <label class="choice-row">
+            <input type="checkbox" name="q14" value="monozukuri">
+            <span>革新的な新製品・新サービスを開発したい <span class="badge">★ものづくり補助金</span></span>
+          </label>
+          <label class="choice-row">
+            <input type="checkbox" name="q14" value="jigyo-shinsyutsu">
+            <span>既存事業から新市場・新分野へ進出したい、店舗や工場を新築・改装したい <span class="badge">★新事業進出補助金</span></span>
+          </label>
+          <label class="choice-row">
+            <input type="checkbox" name="q14" value="seichokasoku">
+            <span>売上100億円を目指すような大規模な工場・拠点投資をしたい <span class="badge">★中小企業成長加速化補助金</span></span>
+          </label>
+          <label class="choice-row">
+            <input type="checkbox" name="q14" value="shoene">
+            <span>古い設備を高効率な機器に更新して光熱費を下げたい <span class="badge">★省エネ補助金</span></span>
+          </label>
+          <label class="choice-row">
+            <input type="checkbox" name="q14" value="jinzai">
+            <span>従業員に研修やリスキリングを受けさせたい <span class="badge">★人材開発支援助成金</span></span>
+          </label>
+          <label class="choice-row">
+            <input type="checkbox" name="q14" value="jigyo-shokei">
+            <span>事業承継やM&A、それに伴う廃業を行いたい <span class="badge">★事業承継・M&A補助金</span></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q15</span>具体的に導入したい設備やITツール、実施したい取り組み内容</div>
+        <textarea id="q15" placeholder="例：会計ソフトの導入、ECサイト構築、フォークリフト購入、パート従業員の正社員転換 など"></textarea>
+      </div>
+
+      <div class="inline-fields">
+        <div class="field">
+          <div class="field-label"><span class="q">Q16</span>想定している投資金額（概算）</div>
+          <input type="number" id="q16" placeholder="例：500（万円）" min="0">
+        </div>
+        <div class="field">
+          <div class="field-label"><span class="q">Q17</span>実施予定時期</div>
+          <p class="field-note">※補助金は原則、交付決定前の契約・発注は対象外</p>
+          <div class="choices">
+            <label class="choice-row"><input type="radio" name="q17" value="1〜2ヶ月以内"><span>できるだけ早く（1〜2ヶ月以内）</span></label>
+            <label class="choice-row"><input type="radio" name="q17" value="半年以内"><span>半年以内</span></label>
+            <label class="choice-row"><input type="radio" name="q17" value="1年以内"><span>1年以内</span></label>
+            <label class="choice-row"><input type="radio" name="q17" value="じっくり検討"><span>補助金が通ってからじっくり検討したい</span></label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Part 4 -->
+  <div class="section">
+    <div class="section-header">
+      <h2>■ 第4部：過去の受給歴・加点要素の準備状況（採択率向上のための確認）</h2>
+      <p>事前の準備状況により、審査の有利さやスケジュールが大きく変わります</p>
+    </div>
+    <div class="section-body">
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q18</span>「gBizIDプライムアカウント」はお持ちですか？</div>
+        <p class="field-note">※多くの補助金申請で必須。取得に約2週間かかります</p>
+        <div class="choices">
+          <label class="choice-row"><input type="radio" name="q18" value="取得済み"><span>取得済み <span class="badge">申請可能</span></span></label>
+          <label class="choice-row"><input type="radio" name="q18" value="未取得"><span>未取得</span></label>
+          <label class="choice-row"><input type="radio" name="q18" value="申請中"><span>申請中</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q19</span>過去に受給した、または現在申請中の補助金はありますか？</div>
+        <p class="field-note">※過去に交付決定を受けている場合、再申請時により高い賃上げ目標（3.5%以上など）が求められるケースがあります</p>
+        <div class="choices">
+          <label class="choice-row"><input type="radio" name="q19" value="なし"><span>ない</span></label>
+          <label class="choice-row"><input type="radio" name="q19" value="あり"><span>ある</span></label>
+        </div>
+        <div style="margin-top:8px"><input type="text" id="q19_detail" placeholder="補助金名と受給年度（例：ものづくり補助金 2023年）"></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q20</span>以下の認定・宣言で取得・実施済みのものはありますか？（複数選択可）</div>
+        <p class="field-note">※審査における有利な「加点項目」となります</p>
+        <div class="choices">
+          <label class="choice-row"><input type="checkbox" name="q20" value="経営革新計画"><span>経営革新計画の承認</span></label>
+          <label class="choice-row"><input type="checkbox" name="q20" value="パートナーシップ構築宣言"><span>パートナーシップ構築宣言</span></label>
+          <label class="choice-row"><input type="checkbox" name="q20" value="SECURITY ACTION"><span>SECURITY ACTION（情報セキュリティ自己宣言）</span></label>
+          <label class="choice-row"><input type="checkbox" name="q20" value="事業継続力強化計画"><span>事業継続力強化計画（BCP）</span></label>
+          <label class="choice-row"><input type="checkbox" name="q20" value="みらデジ経営チェック"><span>みらデジ経営チェック</span></label>
+          <label class="choice-row"><input type="checkbox" name="q20" value="なし"><span>特にない（これから取得を検討したい）</span></label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="submit-area">
+    <button class="btn-submit" onclick="runDiagnosis()">🔍 診断する</button>
+  </div>
 </div>
+
+<!-- RESULTS -->
+<div id="results"></div>
 
 <script>
 // ─────────────────────────────────────────────
-// SUBSIDY DATABASE (from YAML frontmatter)
+// 会社規模の判定
+// ─────────────────────────────────────────────
+function getCompanySize(q6, q7, q8, q9) {
+  const employees = parseInt(q8) || 0;
+  const capital = parseInt(q9) || 0;
+  const industry = q7;
+  const legalForm = q6;
+
+  // 個人事業主は小規模扱い
+  if (legalForm === '個人事業主') return ['個人事業主', '小規模事業者', '中小企業'];
+
+  // 小規模判定（従業員数ベース）
+  let isSmall = false;
+  if (['製造業', '建設業', '卸売業'].includes(industry) && employees <= 20) isSmall = true;
+  if (['小売業', 'サービス業（宿泊・娯楽以外）', 'サービス業（宿泊・娯楽）'].includes(industry) && employees <= 5) isSmall = true;
+  if (employees <= 5) isSmall = true; // 汎用フォールバック
+
+  // 中小判定
+  let isSME = false;
+  if (industry === '製造業' && (capital <= 30000 || employees <= 300)) isSME = true;
+  if (industry === '卸売業' && (capital <= 10000 || employees <= 100)) isSME = true;
+  if (['小売業', 'サービス業（宿泊・娯楽以外）', 'サービス業（宿泊・娯楽）'].includes(industry) && (capital <= 5000 || employees <= 100)) isSME = true;
+  if (employees <= 300 || capital <= 30000) isSME = true; // フォールバック
+
+  const sizes = [];
+  if (isSmall) sizes.push('小規模事業者');
+  if (isSME) sizes.push('中小企業');
+  sizes.push('大企業'); // 大企業向けも一応チェック
+  return sizes;
+}
+
+// ─────────────────────────────────────────────
+// 助成金DB
 // ─────────────────────────────────────────────
 const SUBSIDIES = [
-  {
-    id: "career-up-seishainuka",
-    name: "キャリアアップ助成金 正社員化コース",
-    parent: "キャリアアップ助成金",
-    max_amount: 800000,
-    amount_note: "1人あたり80万円（中小企業）",
-    application_timing: "after_hire",
-    lead_time_months: 9,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["有期雇用を正社員にしたい","パートを正社員にしたい","非正規の正規化","雇用形態転換","非正規社員がいる","アルバイトを正社員にしたい"],
-    compatible_with: ["career-up-chingin-kaitei","career-up-chingin-kyotsu","career-up-shoyo-taishokukin"],
-    incompatible_with: ["career-up-shogaisha-seishainuka"]
-  },
-  {
-    id: "career-up-shogaisha-seishainuka",
-    name: "キャリアアップ助成金 障害者正社員化コース",
-    parent: "キャリアアップ助成金",
-    max_amount: 1200000,
-    amount_note: "1人あたり120万円（中小企業）",
-    application_timing: "after_hire",
-    lead_time_months: 9,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["障害者を正社員にしたい","障害者雇用率を上げたい","障害者の有期雇用を転換したい","障害者採用","障害者を採用したい"],
-    compatible_with: ["trial-shogaisha","tokutei-shushokukonnansha","jinzai-shogaisha-nouryoku"],
-    incompatible_with: ["career-up-seishainuka"]
-  },
-  {
-    id: "career-up-chingin-kaitei",
-    name: "キャリアアップ助成金 賃金規定等改定コース",
-    parent: "キャリアアップ助成金",
-    max_amount: 500000,
-    amount_note: "1事業所あたり最大50万円",
-    application_timing: "after_raise",
-    lead_time_months: 6,
-    difficulty: 2,
-    company_size: ["中小企業"],
-    triggers: ["非正規の賃金を上げたい","パートの時給を上げたい","賃金規定を整備したい","賃上げ","最低賃金"],
-    compatible_with: ["career-up-seishainuka","gyomu-kaizen"],
-    incompatible_with: []
-  },
-  {
-    id: "career-up-chingin-kyotsu",
-    name: "キャリアアップ助成金 賃金規定等共通化コース",
-    parent: "キャリアアップ助成金",
-    max_amount: 720000,
-    amount_note: "1事業所あたり最大72万円",
-    application_timing: "after_raise",
-    lead_time_months: 6,
-    difficulty: 3,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["正規・非正規で賃金体系を統一したい","同一労働同一賃金に対応したい","賃金規定を共通化したい","同一労働同一賃金"],
-    compatible_with: ["career-up-seishainuka"],
-    incompatible_with: []
-  },
-  {
-    id: "career-up-shoyo-taishokukin",
-    name: "キャリアアップ助成金 賞与・退職金制度導入コース",
-    parent: "キャリアアップ助成金",
-    max_amount: 500000,
-    amount_note: "1事業所あたり最大50万円",
-    application_timing: "after_payment",
-    lead_time_months: 9,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["非正規にボーナスを出したい","パートに賞与制度を作りたい","退職金制度を導入したい","賞与","退職金"],
-    compatible_with: ["career-up-seishainuka","career-up-chingin-kaitei"],
-    incompatible_with: []
-  },
-  {
-    id: "career-up-tanjikan-enchyo",
-    name: "キャリアアップ助成金 短時間労働者労働時間延長支援コース",
-    parent: "キャリアアップ助成金",
-    max_amount: 255000,
-    amount_note: "1人あたり最大25.5万円",
-    application_timing: "after_change",
-    lead_time_months: 6,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["パートの労働時間を増やしたい","週20時間以上にしたい","社会保険に加入させたい","短時間労働者","パート"],
-    compatible_with: [],
-    incompatible_with: []
-  },
-  {
-    id: "trial-ippan",
-    name: "トライアル雇用助成金 一般トライアルコース",
-    parent: "トライアル雇用助成金",
-    max_amount: 120000,
-    amount_note: "月4万円×3ヶ月＝12万円/人",
-    application_timing: "before_hire",
-    lead_time_months: 4,
-    difficulty: 1,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["まず試用してから採用を決めたい","フリーター・長期失業者を採用したい","採用リスクを下げたい","ハローワーク経由で採用したい","試用期間"],
-    compatible_with: ["tokutei-shushokukonnansha","tokutei-hyogaki"],
-    incompatible_with: ["trial-shogaisha","trial-shogaisha-tanjikan"]
-  },
-  {
-    id: "trial-shogaisha",
-    name: "トライアル雇用助成金 障害者トライアルコース",
-    parent: "トライアル雇用助成金",
-    max_amount: 240000,
-    amount_note: "月8万円×3ヶ月＝24万円/人（精神・発達障害者）",
-    application_timing: "before_hire",
-    lead_time_months: 4,
-    difficulty: 1,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["精神障害者を採用したい","発達障害者を採用したい","障害者採用を初めて試みたい","障害者の採用に不安がある","障害者雇用","障害者を採用したい"],
-    compatible_with: ["tokutei-shushokukonnansha","career-up-shogaisha-seishainuka"],
-    incompatible_with: ["trial-ippan","trial-shogaisha-tanjikan"]
-  },
-  {
-    id: "trial-shogaisha-tanjikan",
-    name: "トライアル雇用助成金 障害者短時間トライアルコース",
-    parent: "トライアル雇用助成金",
-    max_amount: 240000,
-    amount_note: "月2万円×最大12ヶ月＝24万円/人",
-    application_timing: "before_hire",
-    lead_time_months: 4,
-    difficulty: 1,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["精神障害者を週10〜20時間未満で採用したい","段階的に就労時間を増やしたい","就労移行支援からの採用","障害者を短時間から始めたい"],
-    compatible_with: ["tokutei-shushokukonnansha","trial-shogaisha","career-up-shogaisha-seishainuka"],
-    incompatible_with: ["trial-ippan","trial-shogaisha"]
-  },
-  {
-    id: "tokutei-shushokukonnansha",
-    name: "特定求職者雇用開発助成金 特定就職困難者コース",
-    parent: "特定求職者雇用開発助成金",
-    max_amount: 2400000,
-    amount_note: "障害者：240万円、高齢者：70万円（中小企業）",
-    application_timing: "after_hire",
-    lead_time_months: 9,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["障害者を採用したい","高齢者を採用したい","母子家庭の方を採用したい","就職困難者を雇用したい","障害者雇用率を達成したい","障害者雇用","障害者を採用したい"],
-    compatible_with: ["trial-shogaisha","trial-ippan","career-up-shogaisha-seishainuka"],
-    incompatible_with: []
-  },
-  {
-    id: "tokutei-hyogaki",
-    name: "特定求職者雇用開発助成金 就職氷河期世代安定雇用実現コース",
-    parent: "特定求職者雇用開発助成金",
-    max_amount: 600000,
-    amount_note: "60万円/人（中小企業）",
-    application_timing: "after_hire",
-    lead_time_months: 9,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["35〜55歳の即戦力を正社員で採用したい","氷河期世代を採用したい","非正規が長かった中堅層を採用したい","フリーター・長期失業者を採用したい"],
-    compatible_with: ["jinzai-ikusei-shien","trial-ippan"],
-    incompatible_with: []
-  },
-  {
-    id: "tokutei-shogai-genkyu",
-    name: "特定求職者雇用開発助成金 生涯現役コース",
-    parent: "特定求職者雇用開発助成金",
-    max_amount: 700000,
-    amount_note: "70万円/人（中小企業のみ）",
-    application_timing: "after_hire",
-    lead_time_months: 9,
-    difficulty: 2,
-    company_size: ["中小企業"],
-    triggers: ["65歳以上を採用したい","シニア人材を活用したい","定年延長・廃止をしている","高齢者雇用を推進したい","高齢者を採用したい"],
-    compatible_with: ["jinzai-ikusei-shien"],
-    incompatible_with: []
-  },
-  {
-    id: "tokutei-chiiki-koyo",
-    name: "特定求職者雇用開発助成金 地域雇用開発コース",
-    parent: "特定求職者雇用開発助成金",
-    max_amount: 2400000,
-    amount_note: "設備費の1/3（上限240万円）＋雇い入れ助成",
-    application_timing: "before_facility",
-    lead_time_months: 12,
-    difficulty: 3,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["過疎地・地方に事業所を開設したい","地方移転を検討している","地域の住民を採用したい","地方で雇用を創出したい"],
-    compatible_with: [],
-    incompatible_with: []
-  },
-  {
-    id: "jinzai-ikusei-shien",
-    name: "人材開発支援助成金 人材育成支援コース",
-    parent: "人材開発支援助成金",
-    max_amount: 500000,
-    amount_note: "訓練費の45%（中小企業）＋賃金助成",
-    application_timing: "before_training",
-    lead_time_months: 3,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["社員研修をしたい","外部セミナーを受けさせたい","資格取得を支援したい","スキルアップ","人材育成","研修費を補助してほしい","従業員教育"],
-    compatible_with: ["tokutei-shogai-genkyu","tokutei-hyogaki","jinzai-kyuka-fuyo"],
-    incompatible_with: []
-  },
-  {
-    id: "jinzai-hito-investment",
-    name: "人材開発支援助成金 人への投資促進コース",
-    parent: "人材開発支援助成金",
-    max_amount: 1000000,
-    amount_note: "訓練費の75%（中小企業）",
-    application_timing: "before_training",
-    lead_time_months: 3,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["DX・AI研修をしたい","デジタル人材を育成したい","グリーン・脱炭素研修","自己啓発支援制度を作りたい","DX","AI研修","IT人材育成"],
-    compatible_with: [],
-    incompatible_with: []
-  },
-  {
-    id: "jinzai-reskilling",
-    name: "人材開発支援助成金 事業展開等リスキリング支援コース",
-    parent: "人材開発支援助成金",
-    max_amount: 1500000,
-    amount_note: "訓練費の75%（中小企業）",
-    application_timing: "before_training",
-    lead_time_months: 3,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["新規事業に合わせて社員を教育したい","事業転換に伴うリスキリング","新サービス立ち上げで社員スキルアップ","リスキリング","新事業","事業転換"],
-    compatible_with: ["jigyo-saikochiku"],
-    incompatible_with: []
-  },
-  {
-    id: "jinzai-kyuka-fuyo",
-    name: "人材開発支援助成金 教育訓練休暇等付与コース",
-    parent: "人材開発支援助成金",
-    max_amount: 300000,
-    amount_note: "1事業所あたり最大30万円",
-    application_timing: "before_training",
-    lead_time_months: 3,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["従業員の自己啓発を支援したい","有給教育訓練休暇制度を作りたい","社員が自発的に学べる制度整備"],
-    compatible_with: ["jinzai-ikusei-shien"],
-    incompatible_with: []
-  },
-  {
-    id: "jinzai-shogaisha-nouryoku",
-    name: "人材開発支援助成金 障害者職業能力開発コース",
-    parent: "人材開発支援助成金",
-    max_amount: 5000000,
-    amount_note: "施設費の50%（上限500万円）＋運営費",
-    application_timing: "before_facility",
-    lead_time_months: 12,
-    difficulty: 3,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["障害者専用の訓練施設を設置したい","特例子会社で職業訓練施設を運営したい","障害者向け職業能力開発"],
-    compatible_with: ["career-up-shogaisha-seishainuka"],
-    incompatible_with: []
-  },
-  {
-    id: "ryoritsu-papa-shien",
-    name: "両立支援等助成金 出生時両立支援コース",
-    parent: "両立支援等助成金",
-    max_amount: 400000,
-    amount_note: "1人目：20万円、2人目以降：10万円",
-    application_timing: "after_return",
-    lead_time_months: 6,
-    difficulty: 1,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["男性の育休を取らせたい","男性育休取得率を上げたい","パパ育休","産後パパ育休","男性の育児参加を推進したい"],
-    compatible_with: ["ryoritsu-ikukyu-kouhyo"],
-    incompatible_with: []
-  },
-  {
-    id: "ryoritsu-ikukyu-shien",
-    name: "両立支援等助成金 育児休業等支援コース",
-    parent: "両立支援等助成金",
-    max_amount: 1200000,
-    amount_note: "休業取得時30万円＋職場復帰時30万円など最大120万円",
-    application_timing: "after_return",
-    lead_time_months: 6,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["育休から復帰する社員がいる","育休取得率を上げたい","女性の育休復帰を支援したい","代替要員を確保したい","くるみん認定を目指したい","育休","育児休業"],
-    compatible_with: ["ryoritsu-ikukyu-kouhyo","ryoritsu-funin-shien"],
-    incompatible_with: []
-  },
-  {
-    id: "ryoritsu-kaigo-boushi",
-    name: "両立支援等助成金 介護離職防止支援コース",
-    parent: "両立支援等助成金",
-    max_amount: 1000000,
-    amount_note: "介護休業取得時30万円＋復帰時30万円など最大100万円",
-    application_timing: "after_return",
-    lead_time_months: 6,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["介護で退職した社員がいる","介護離職を防止したい","介護休業制度を整備したい","テレワーク・時差出勤で介護対応したい","介護"],
-    compatible_with: [],
-    incompatible_with: []
-  },
-  {
-    id: "ryoritsu-funin-shien",
-    name: "両立支援等助成金 不妊治療両立支援コース",
-    parent: "両立支援等助成金",
-    max_amount: 900000,
-    amount_note: "1事業所あたり最大90万円",
-    application_timing: "after_leave",
-    lead_time_months: 6,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["不妊治療中の社員を支援したい","30〜40代の女性従業員が多い","不妊治療と仕事を両立できる制度を作りたい","福利厚生を充実させたい"],
-    compatible_with: ["ryoritsu-ikukyu-shien"],
-    incompatible_with: []
-  },
-  {
-    id: "ryoritsu-ikukyu-kouhyo",
-    name: "両立支援等助成金 育児休業等情報公表支援コース",
-    parent: "両立支援等助成金",
-    max_amount: 1000000,
-    amount_note: "1事業所あたり最大100万円（中小企業）",
-    application_timing: "after_publish",
-    lead_time_months: 6,
-    difficulty: 1,
-    company_size: ["中小企業"],
-    triggers: ["育休取得率を公開してアピールしたい","採用で子育て支援をPRしたい","中小企業で自主的に育休情報を公表したい","くるみん認定","採用力強化"],
-    compatible_with: ["ryoritsu-ikukyu-shien","ryoritsu-papa-shien"],
-    incompatible_with: []
-  },
-  {
-    id: "koyo-chosei",
-    name: "雇用調整助成金",
-    parent: null,
-    max_amount: 15000,
-    amount_note: "休業手当の2/3（中小企業）、1日1人あたり上限15,000円",
-    application_timing: "after_leave",
-    lead_time_months: 2,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    triggers: ["売上が急減した","従業員を休業させたい","解雇したくないが仕事がない","景気悪化で仕事が減った","休業手当を補助してほしい","売上減少"],
-    compatible_with: [],
-    incompatible_with: []
-  },
-  {
-    id: "gyomu-kaizen",
-    name: "業務改善助成金",
-    parent: null,
-    max_amount: 6000000,
-    amount_note: "設備投資費の80%（上限600万円）＋賃金引上げが条件",
-    application_timing: "before_investment",
-    lead_time_months: 6,
-    difficulty: 2,
-    company_size: ["中小企業", "小規模事業者"],
-    triggers: ["最低賃金を上げたい","賃上げしながら設備も入れたい","POSレジ・自動化設備を導入したい","飲食・小売・介護で省力化したい","設備投資","賃上げ","省力化"],
-    compatible_with: ["career-up-chingin-kaitei"],
-    incompatible_with: []
-  },
+  // ── 補助金系（Q14直結）──
   {
     id: "jizokuka-hojyokin",
     name: "小規模事業者持続化補助金",
-    parent: null,
+    q14_key: "jizokuka",
     max_amount: 2500000,
-    amount_note: "対象経費の2/3（通常枠50万円、特別枠250万円）",
-    application_timing: "before_investment",
+    amount_note: "通常枠50万円、特別枠最大250万円（対象経費の2/3）",
+    timing: "before_investment",
     lead_time_months: 6,
     difficulty: 2,
-    company_size: ["小規模事業者"],
-    triggers: ["販路開拓をしたい","チラシ・HP・広告を作りたい","展示会に出展したい","個人事業主","店舗改装をしたい","小規模事業者","集客","マーケティング"],
+    company_size: ["小規模事業者", "個人事業主"],
+    conditions: ["商工会議所・商工会の支援を受けて経営計画書を作成", "採択後に経費執行"],
     compatible_with: [],
-    incompatible_with: []
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: { "パートナーシップ構築宣言": 1, "事業継続力強化計画": 1, "経営革新計画": 1 }
   },
   {
     id: "it-donyu",
     name: "IT導入補助金",
-    parent: null,
+    q14_key: "it-donyu",
     max_amount: 4500000,
-    amount_note: "ソフト費用の50%（通常枠）〜最大450万円",
-    application_timing: "before_investment",
+    amount_note: "ソフト・クラウド費用の50%（通常枠最大150万円、デジタル化枠最大450万円）",
+    timing: "before_investment",
     lead_time_months: 3,
     difficulty: 1,
-    company_size: ["中小企業", "小規模事業者"],
-    triggers: ["ITツールを導入したい","業務効率化システムを入れたい","インボイス対応のソフトが欲しい","会計・給与・勤怠管理システム","ECサイト構築","セキュリティ対策","システム","IT"],
+    company_size: ["中小企業", "小規模事業者", "個人事業主"],
+    conditions: ["IT導入支援事業者（認定ベンダー）経由での申請", "gBizIDプライムが必要"],
     compatible_with: [],
-    incompatible_with: []
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: { "SECURITY ACTION": 1, "みらデジ経営チェック": 1 }
   },
   {
     id: "monozukuri-hojyokin",
     name: "ものづくり補助金",
-    parent: null,
+    q14_key: "monozukuri",
     max_amount: 40000000,
-    amount_note: "対象経費の50%（通常枠750万円〜最大4,000万円）",
-    application_timing: "before_investment",
+    amount_note: "対象経費の50%（通常枠最大750万円〜省力化枠最大4,000万円）",
+    timing: "before_investment",
     lead_time_months: 12,
     difficulty: 3,
     company_size: ["中小企業", "小規模事業者"],
-    triggers: ["設備投資をしたい","機械・装置を購入したい","システム開発をしたい","革新的なサービス・製品を作りたい","省力化・自動化をしたい","製造業","設備"],
+    conditions: ["革新的製品・サービス開発または生産プロセス改善", "付加価値額・給与総額の増加目標を設定"],
     compatible_with: [],
-    incompatible_with: []
+    incompatible_with: [],
+    wage_required: true,
+    bonus_points: { "経営革新計画": 1, "パートナーシップ構築宣言": 1, "事業継続力強化計画": 1, "SECURITY ACTION": 1 }
   },
   {
-    id: "jigyo-saikochiku",
-    name: "事業再構築補助金",
-    parent: null,
+    id: "shooryoka",
+    name: "省力化投資補助金（カタログ型）",
+    q14_key: "shooryoka",
+    max_amount: 15000000,
+    amount_note: "設備費用の1/2〜2/3（上限1,500万円）",
+    timing: "before_investment",
+    lead_time_months: 6,
+    difficulty: 2,
+    company_size: ["中小企業", "小規模事業者"],
+    conditions: ["カタログ掲載製品の中から選択", "賃上げ計画を提出"],
+    compatible_with: [],
+    incompatible_with: [],
+    wage_required: true,
+    bonus_points: {}
+  },
+  {
+    id: "jigyo-shinsyutsu",
+    name: "新事業進出補助金（旧・事業再構築補助金）",
+    q14_key: "jigyo-shinsyutsu",
     max_amount: 70000000,
-    amount_note: "対象経費の50%（最大7,000万円）",
-    application_timing: "before_investment",
+    amount_note: "対象経費の50%（成長分野枠など上限7,000万円）",
+    timing: "before_investment",
     lead_time_months: 12,
     difficulty: 3,
     company_size: ["中小企業", "中堅企業"],
-    triggers: ["新規事業に参入したい","事業転換・業種転換をしたい","既存事業から新分野に展開したい","売上が大幅に減った","思い切って新しいことをしたい","新事業","事業転換"],
+    conditions: ["認定経営革新等支援機関（認定支援機関）の確認必須", "採択後に経費執行"],
     compatible_with: ["jinzai-reskilling"],
-    incompatible_with: []
+    incompatible_with: [],
+    wage_required: true,
+    bonus_points: { "経営革新計画": 1, "パートナーシップ構築宣言": 1 }
+  },
+  {
+    id: "shoene",
+    name: "省エネ補助金（省エネルギー設備導入補助）",
+    q14_key: "shoene",
+    max_amount: 10000000,
+    amount_note: "省エネ効果に応じて対象経費の1/3〜1/2（上限1,000万円程度）",
+    timing: "before_investment",
+    lead_time_months: 9,
+    difficulty: 2,
+    company_size: ["中小企業", "小規模事業者"],
+    conditions: ["省エネ効果の計算・報告が必要", "省エネルギー診断の実施推奨"],
+    compatible_with: [],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {}
+  },
+  {
+    id: "jigyo-shokei",
+    name: "事業承継・M&A補助金",
+    q14_key: "jigyo-shokei",
+    max_amount: 8000000,
+    amount_note: "廃業費用または専門家費用の2/3（上限800万円）",
+    timing: "before_investment",
+    lead_time_months: 9,
+    difficulty: 2,
+    company_size: ["中小企業", "小規模事業者", "個人事業主"],
+    conditions: ["後継者不在等の要件", "認定支援機関の確認"],
+    compatible_with: [],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {}
+  },
+  // ── 助成金系 ──
+  {
+    id: "jinzai-ikusei-shien",
+    name: "人材開発支援助成金 人材育成支援コース",
+    q14_key: "jinzai",
+    max_amount: 500000,
+    amount_note: "訓練費の45%（中小企業）＋賃金助成 1人1時間760円",
+    timing: "before_training",
+    lead_time_months: 3,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    conditions: ["訓練実施計画届を訓練開始1ヶ月前に提出", "雇用保険被保険者が対象", "10時間以上のOFF-JT"],
+    compatible_with: ["jinzai-reskilling", "jinzai-kyuka-fuyo"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {}
+  },
+  {
+    id: "jinzai-reskilling",
+    name: "人材開発支援助成金 事業展開等リスキリング支援コース",
+    q14_key: "jinzai",
+    max_amount: 1500000,
+    amount_note: "訓練費の75%（中小企業）＋賃金助成",
+    timing: "before_training",
+    lead_time_months: 3,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    conditions: ["新事業展開計画書の作成", "訓練内容と新事業の関連を明示", "訓練開始1ヶ月前に届出"],
+    compatible_with: ["jigyo-shinsyutsu"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {}
+  },
+  {
+    id: "jinzai-hito-investment",
+    name: "人材開発支援助成金 人への投資促進コース",
+    q14_key: "jinzai",
+    max_amount: 1000000,
+    amount_note: "訓練費の75%（中小企業）＋賃金助成",
+    timing: "before_training",
+    lead_time_months: 3,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    conditions: ["DX・AI・グリーン分野等の高度デジタル訓練", "訓練開始1ヶ月前に届出"],
+    compatible_with: [],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {}
+  },
+  {
+    id: "career-up-seishainuka",
+    name: "キャリアアップ助成金 正社員化コース",
+    q14_key: null,
+    max_amount: 800000,
+    amount_note: "1人あたり80万円（中小企業）",
+    timing: "after_hire",
+    lead_time_months: 9,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    conditions: ["キャリアアップ計画書を転換前に提出", "転換後6ヶ月雇用継続", "転換後賃金3%以上増加"],
+    compatible_with: ["career-up-chingin-kaitei", "career-up-shoyo-taishokukin"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {}
+  },
+  {
+    id: "career-up-chingin-kaitei",
+    name: "キャリアアップ助成金 賃金規定等改定コース",
+    q14_key: null,
+    max_amount: 500000,
+    amount_note: "1事業所あたり最大50万円（中小企業）",
+    timing: "after_raise",
+    lead_time_months: 6,
+    difficulty: 2,
+    company_size: ["中小企業"],
+    conditions: ["3%以上の賃金引上げ", "就業規則に賃金規定を整備", "キャリアアップ計画書を事前提出"],
+    compatible_with: ["career-up-seishainuka"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {}
+  },
+  {
+    id: "gyomu-kaizen",
+    name: "業務改善助成金",
+    q14_key: "shooryoka",
+    max_amount: 6000000,
+    amount_note: "設備投資費の80%（上限600万円）。30円以上の賃上げが条件",
+    timing: "before_investment",
+    lead_time_months: 6,
+    difficulty: 2,
+    company_size: ["中小企業", "小規模事業者"],
+    conditions: ["最低賃金付近の従業員がいること（差額50円以内）", "30円以上の賃金引上げ計画", "交付決定後に設備購入"],
+    compatible_with: ["career-up-chingin-kaitei"],
+    incompatible_with: [],
+    wage_required: true,
+    bonus_points: {}
+  },
+  {
+    id: "ryoritsu-papa-shien",
+    name: "両立支援等助成金 出生時両立支援コース（子育てパパ支援助成金）",
+    q14_key: null,
+    max_amount: 400000,
+    amount_note: "1人目20万円、2人目以降10万円",
+    timing: "after_return",
+    lead_time_months: 6,
+    difficulty: 1,
+    company_size: ["中小企業", "大企業"],
+    conditions: ["育休・育児目的休暇規定を就業規則に整備", "男性社員が子の出生後8週間以内に連続5日以上取得"],
+    compatible_with: ["ryoritsu-ikukyu-kouhyo"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {}
+  },
+  {
+    id: "ryoritsu-ikukyu-shien",
+    name: "両立支援等助成金 育児休業等支援コース",
+    q14_key: null,
+    max_amount: 1200000,
+    amount_note: "休業取得時30万円＋職場復帰時30万円×複数回等 最大120万円",
+    timing: "after_return",
+    lead_time_months: 6,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    conditions: ["育休復帰支援プランを育休取得前に策定", "就業規則に育休規定"],
+    compatible_with: ["ryoritsu-ikukyu-kouhyo"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {}
+  },
+  {
+    id: "koyo-chosei",
+    name: "雇用調整助成金",
+    q14_key: null,
+    max_amount: 15000,
+    amount_note: "休業手当の2/3（中小企業）、1人1日上限15,000円",
+    timing: "after_leave",
+    lead_time_months: 2,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    conditions: ["最近3ヶ月で売上・生産量が10%以上減少", "雇用保険適用事業所", "解雇せず休業・訓練で対応"],
+    compatible_with: [],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {}
   }
 ];
 
 // ─────────────────────────────────────────────
-// HEARING QUESTIONS
+// スタッキングパターン
 // ─────────────────────────────────────────────
-const STEPS = [
+const STACKING_PATTERNS = [
   {
-    id: "company_size",
-    title: "会社規模を教えてください",
-    desc: "規模によって対象となる助成金が異なります",
-    multi: false,
-    options: [
-      { label: "小規模事業者\n（製造業20人以下、商業・サービス業5人以下）", value: "小規模事業者", emoji: "🏠" },
-      { label: "中小企業\n（資本金3億円以下または従業員300人以下）", value: "中小企業", emoji: "🏢" },
-      { label: "中堅・大企業\n（上記より大きい規模）", value: "大企業", emoji: "🏙️" },
-    ]
+    ids: ["jigyo-shinsyutsu", "jinzai-reskilling"],
+    label: "新事業進出 × リスキリング",
+    note: "新事業に向けて設備投資と社員教育を同時に実施"
   },
   {
-    id: "hire_challenge",
-    title: "採用・雇用に関する課題は？\n（複数選択可）",
-    desc: "当てはまるものをすべて選んでください",
-    multi: true,
-    options: [
-      { label: "障害者を採用したい", value: "障害者を採用したい", emoji: "♿" },
-      { label: "非正規を正社員にしたい", value: "有期雇用を正社員にしたい", emoji: "📋" },
-      { label: "フリーター・長期失業者を採用したい", value: "フリーター・長期失業者を採用したい", emoji: "🔍" },
-      { label: "65歳以上のシニアを採用したい", value: "65歳以上を採用したい", emoji: "👴" },
-      { label: "氷河期世代を正社員採用したい", value: "氷河期世代を採用したい", emoji: "📅" },
-      { label: "採用リスクを下げて試用したい", value: "まず試用してから採用を決めたい", emoji: "🔎" },
-      { label: "地方・過疎地に展開したい", value: "過疎地・地方に事業所を開設したい", emoji: "🌾" },
-      { label: "特になし", value: "none_hire", emoji: "—" },
-    ]
+    ids: ["monozukuri-hojyokin", "jinzai-ikusei-shien"],
+    label: "ものづくり × 人材育成",
+    note: "設備導入と社員研修を一体で進める王道コース"
   },
   {
-    id: "equipment_investment",
-    title: "設備投資・IT・事業展開の予定は？\n（複数選択可）",
-    desc: "補助金（返済不要）の対象になる場合があります",
-    multi: true,
-    options: [
-      { label: "機械・設備を購入したい（製造業など）", value: "設備投資をしたい", emoji: "🔧" },
-      { label: "ITシステム・ソフトを導入したい", value: "ITツールを導入したい", emoji: "💻" },
-      { label: "新規事業・事業転換を考えている", value: "新規事業に参入したい", emoji: "🚀" },
-      { label: "販路開拓・広告・HP制作をしたい", value: "販路開拓をしたい", emoji: "📣" },
-      { label: "賃上げしながら設備も入れたい", value: "賃上げしながら設備も入れたい", emoji: "💰" },
-      { label: "売上が急減・休業が必要", value: "売上が急減した", emoji: "📉" },
-      { label: "特になし", value: "none_invest", emoji: "—" },
-    ]
+    ids: ["career-up-seishainuka", "career-up-chingin-kaitei"],
+    label: "正社員化 × 賃金改定",
+    note: "パートを正社員化しつつ賃金規定も整備"
   },
   {
-    id: "training",
-    title: "人材育成・研修の予定は？\n（複数選択可）",
-    desc: "訓練費用や賃金の一部が助成されます",
-    multi: true,
-    options: [
-      { label: "社員に外部研修・セミナーを受けさせたい", value: "社員研修をしたい", emoji: "📚" },
-      { label: "DX・AI・IT分野の研修をしたい", value: "DX・AI研修をしたい", emoji: "🤖" },
-      { label: "新規事業に合わせてリスキリングしたい", value: "新規事業に合わせて社員を教育したい", emoji: "🔄" },
-      { label: "自己啓発・休暇制度を整備したい", value: "従業員の自己啓発を支援したい", emoji: "🎓" },
-      { label: "特になし", value: "none_training", emoji: "—" },
-    ]
+    ids: ["career-up-seishainuka", "career-up-shoyo-taishokukin"],
+    label: "正社員化 × 賞与・退職金制度",
+    note: "正社員転換と待遇改善を同時に達成"
   },
   {
-    id: "work_life",
-    title: "職場環境・両立支援の課題は？\n（複数選択可）",
-    desc: "働き方改善系の助成金が対象になる場合があります",
-    multi: true,
-    options: [
-      { label: "男性の育休取得を推進したい", value: "男性の育休を取らせたい", emoji: "👶" },
-      { label: "産休・育休復帰を支援したい", value: "育休から復帰する社員がいる", emoji: "🤱" },
-      { label: "介護で離職しそうな社員がいる", value: "介護離職を防止したい", emoji: "🏥" },
-      { label: "不妊治療と仕事を両立させたい", value: "不妊治療中の社員を支援したい", emoji: "🌸" },
-      { label: "採用力強化のため育休情報を公表したい", value: "育休取得率を公開してアピールしたい", emoji: "📢" },
-      { label: "特になし", value: "none_worklife", emoji: "—" },
-    ]
+    ids: ["it-donyu", "jinzai-hito-investment"],
+    label: "IT導入 × DX人材育成",
+    note: "ツール導入と社員スキルアップをセットで"
   },
   {
-    id: "wage",
-    title: "賃金・待遇改善の予定は？\n（複数選択可）",
-    desc: "賃上げ関連の助成金が対象になる場合があります",
-    multi: true,
-    options: [
-      { label: "パートの時給・賃金を引き上げたい", value: "非正規の賃金を上げたい", emoji: "📈" },
-      { label: "同一労働同一賃金に対応したい", value: "同一労働同一賃金に対応したい", emoji: "⚖️" },
-      { label: "非正規にも賞与・退職金を出したい", value: "非正規にボーナスを出したい", emoji: "🎁" },
-      { label: "パートの労働時間を増やして社会保険に加入させたい", value: "パートの労働時間を増やしたい", emoji: "⏰" },
-      { label: "特になし", value: "none_wage", emoji: "—" },
-    ]
+    ids: ["gyomu-kaizen", "career-up-chingin-kaitei"],
+    label: "業務改善助成金 × 賃金改定コース",
+    note: "設備投資による賃上げと、非正規の賃金規定整備を両立"
+  },
+  {
+    ids: ["ryoritsu-papa-shien", "ryoritsu-ikukyu-shien"],
+    label: "パパ育休 × 育休等支援",
+    note: "男性・女性両方の育休を整備して採用力を強化"
   }
 ];
 
 // ─────────────────────────────────────────────
-// STATE
+// 診断エンジン
 // ─────────────────────────────────────────────
-let currentStep = 0;
-let answers = {}; // { stepId: [values] }
+function runDiagnosis() {
+  // 値の収集
+  const q6 = document.querySelector('input[name="q6"]:checked')?.value || '';
+  const q7 = document.querySelector('input[name="q7"]:checked')?.value || '';
+  const q8 = document.getElementById('q8').value;
+  const q9 = document.getElementById('q9').value;
+  const q10 = document.querySelector('input[name="q10"]:checked')?.value || '';
+  const q11 = document.querySelector('input[name="q11"]:checked')?.value || '';
+  const q12 = parseInt(document.getElementById('q12').value) || 0;
+  const q13 = document.querySelector('input[name="q13"]:checked')?.value || '';
+  const q14 = [...document.querySelectorAll('input[name="q14"]:checked')].map(e => e.value);
+  const q15 = document.getElementById('q15').value;
+  const q16 = parseInt(document.getElementById('q16').value) || 0;
+  const q17 = document.querySelector('input[name="q17"]:checked')?.value || '';
+  const q18 = document.querySelector('input[name="q18"]:checked')?.value || '';
+  const q20 = [...document.querySelectorAll('input[name="q20"]:checked')].map(e => e.value);
 
-function getSelectedForStep(stepId) {
-  return answers[stepId] || [];
-}
+  if (!q6 || !q7) { alert('法人形態と業種は必須です'); return; }
 
-function renderStep() {
-  const step = STEPS[currentStep];
-  const total = STEPS.length;
-  const pct = Math.round(((currentStep + 1) / (total + 1)) * 100);
+  const companySizes = getCompanySize(q6, q7, q8, q9);
+  const isSmall = companySizes.includes('小規模事業者') || companySizes.includes('個人事業主');
+  const isSME = companySizes.includes('中小企業');
+  const wageUp = ['ベースアップ可能', '最低賃金引き上げ可能'].includes(q13);
+  const isDeficit = q10 === '赤字';
+  const isMedical = q7 === '医療・介護・福祉';
+  const canWage = wageUp || isMedical;
 
-  document.getElementById('step-label').textContent = `ステップ ${currentStep + 1} / ${total}`;
-  document.getElementById('progress-fill').style.width = pct + '%';
-
-  const selected = getSelectedForStep(step.id);
-
-  const html = `
-    <div class="card">
-      <h2>${step.title.replace(/\n/g, '<br>')}</h2>
-      ${step.desc ? `<p class="desc">${step.desc}</p>` : ''}
-      <div class="option-grid">
-        ${step.options.map(opt => `
-          <button class="option-btn ${selected.includes(opt.value) ? 'selected' : ''}"
-                  onclick="selectOption('${step.id}', '${opt.value}', ${step.multi})">
-            <span class="emoji">${opt.emoji}</span>
-            ${opt.label.replace(/\n/g, '<br>')}
-          </button>
-        `).join('')}
-      </div>
-    </div>
-  `;
-  document.getElementById('questions-container').innerHTML = html;
-
-  document.getElementById('back-btn').disabled = currentStep === 0;
-  document.getElementById('next-btn').textContent =
-    currentStep === total - 1 ? '診断する 🔍' : '次へ →';
-}
-
-function selectOption(stepId, value, multi) {
-  if (!answers[stepId]) answers[stepId] = [];
-
-  if (value.startsWith('none_')) {
-    // Selecting "none" clears everything else
-    answers[stepId] = [value];
-  } else {
-    // Remove "none" if selecting real option
-    answers[stepId] = answers[stepId].filter(v => !v.startsWith('none_'));
-
-    if (multi) {
-      const idx = answers[stepId].indexOf(value);
-      if (idx >= 0) answers[stepId].splice(idx, 1);
-      else answers[stepId].push(value);
-    } else {
-      answers[stepId] = [value];
-    }
-  }
-  renderStep();
-}
-
-function goNext() {
-  const step = STEPS[currentStep];
-  if (!answers[step.id] || answers[step.id].length === 0) {
-    alert('選択肢を1つ以上選んでください');
-    return;
-  }
-  if (currentStep < STEPS.length - 1) {
-    currentStep++;
-    renderStep();
-  } else {
-    showResults();
-  }
-}
-
-function goBack() {
-  if (currentStep > 0) {
-    currentStep--;
-    renderStep();
-  }
-}
-
-// ─────────────────────────────────────────────
-// SCORING ENGINE
-// ─────────────────────────────────────────────
-function scoreSubsidies() {
-  // Collect all selected values
-  const allSelected = Object.values(answers).flat().filter(v => !v.startsWith('none_'));
-  const companySizes = answers['company_size'] || [];
-
+  // スコアリング
   const scored = SUBSIDIES.map(s => {
-    // Filter by company size
-    if (!s.company_size.some(sz => companySizes.includes(sz))) return null;
+    let score = 0;
+    const reasons = [];
 
-    // Score: count matching triggers
-    const matchedTriggers = s.triggers.filter(t =>
-      allSelected.some(sel => sel.includes(t) || t.includes(sel))
-    );
+    // 会社規模フィルタ
+    const sizeOK = s.company_size.some(sz => companySizes.includes(sz));
+    if (!sizeOK) return null;
 
-    if (matchedTriggers.length === 0) return null;
-
-    return { ...s, score: matchedTriggers.length, matchedTriggers };
-  }).filter(Boolean);
-
-  scored.sort((a, b) => b.score - a.score || b.max_amount - a.max_amount);
-  return scored;
-}
-
-// Build stacking combinations
-function buildStackingCombos(scored) {
-  const scoredIds = scored.map(s => s.id);
-  const combos = [];
-
-  // Known powerful stacking patterns
-  const patterns = [
-    // Disabled worker full path: trial → tokutei → career-up
-    ["trial-shogaisha", "tokutei-shushokukonnansha", "career-up-shogaisha-seishainuka"],
-    // Disabled short-time path
-    ["trial-shogaisha-tanjikan", "trial-shogaisha", "tokutei-shushokukonnansha", "career-up-shogaisha-seishainuka"],
-    // General hire path
-    ["trial-ippan", "tokutei-hyogaki"],
-    ["trial-ippan", "tokutei-shushokukonnansha"],
-    // Career-up combos
-    ["career-up-seishainuka", "career-up-chingin-kaitei"],
-    ["career-up-seishainuka", "career-up-shoyo-taishokukin"],
-    ["career-up-seishainuka", "career-up-chingin-kaitei", "career-up-shoyo-taishokukin"],
-    // New business + reskilling
-    ["jigyo-saikochiku", "jinzai-reskilling"],
-    // Wage + equipment
-    ["gyomu-kaizen", "career-up-chingin-kaitei"],
-    //育休combos
-    ["ryoritsu-papa-shien", "ryoritsu-ikukyu-kouhyo"],
-    ["ryoritsu-ikukyu-shien", "ryoritsu-ikukyu-kouhyo"],
-    ["ryoritsu-papa-shien", "ryoritsu-ikukyu-shien", "ryoritsu-ikukyu-kouhyo"],
-    // Training
-    ["jinzai-ikusei-shien", "tokutei-hyogaki"],
-    ["jinzai-ikusei-shien", "tokutei-shogai-genkyu"],
-  ];
-
-  patterns.forEach(pattern => {
-    const available = pattern.filter(id => scoredIds.includes(id));
-    if (available.length >= 2) {
-      const items = available.map(id => scored.find(s => s.id === id));
-      const total = items.reduce((sum, s) => sum + s.max_amount, 0);
-      combos.push({ items, total });
+    // Q14直結マッチ（最高優先）
+    if (s.q14_key && q14.includes(s.q14_key)) {
+      score += 5;
+      reasons.push('経営課題として選択');
     }
-  });
 
-  // Sort by total
-  combos.sort((a, b) => b.total - a.total);
-  return combos.slice(0, 3); // Top 3 combos
-}
+    // 賃上げ要件チェック
+    if (s.wage_required && !canWage) {
+      score -= 3; // 賃上げ必要なのに難しい場合はスコアダウン
+    }
 
-// Detect conflicts
-function detectConflicts(scored) {
+    // Q15自由記述マッチ
+    const freeText = q15.toLowerCase();
+    if (freeText) {
+      const keywords = {
+        "jizokuka-hojyokin": ["チラシ", "hp", "web", "広告", "販路"],
+        "it-donyu": ["it", "システム", "ソフト", "クラウド", "ai", "デジタル"],
+        "monozukuri-hojyokin": ["設備", "機械", "製品", "開発", "装置"],
+        "shooryoka": ["ロボット", "自動", "省力", "配膳", "精算"],
+        "jinzai-ikusei-shien": ["研修", "セミナー", "資格", "育成"],
+        "jinzai-reskilling": ["リスキリング", "新事業", "転換"],
+        "jinzai-hito-investment": ["dx", "ai", "デジタル", "グリーン"],
+        "career-up-seishainuka": ["正社員", "転換", "パート", "非正規"],
+        "gyomu-kaizen": ["設備", "ロボット", "賃上げ", "最低賃金"],
+        "ryoritsu-papa-shien": ["育休", "パパ", "男性"],
+        "ryoritsu-ikukyu-shien": ["育休", "産休", "復帰"],
+      };
+      const kws = keywords[s.id] || [];
+      kws.forEach(kw => {
+        if (freeText.includes(kw)) { score += 1; reasons.push(`記述内容「${kw}」に合致`); }
+      });
+    }
+
+    if (score <= 0) return null;
+
+    // 加点計算
+    let bonusScore = 0;
+    let bonusReasons = [];
+    if (isSmall && s.id === 'jizokuka-hojyokin') { bonusScore += 1; bonusReasons.push('小規模事業者向け最適'); }
+    if (isDeficit && ['monozukuri-hojyokin', 'jigyo-shinsyutsu'].includes(s.id)) { bonusScore += 1; bonusReasons.push('赤字事業者→補助率引き上げ枠あり'); }
+    q20.forEach(cert => { if (s.bonus_points[cert]) { bonusScore += s.bonus_points[cert]; bonusReasons.push(`「${cert}」加点あり`); } });
+    if (q18 === '取得済み') { bonusScore += 0.5; }
+
+    // タイミング警告
+    let timingWarning = null;
+    if (q17 === '1〜2ヶ月以内' && s.lead_time_months > 3) {
+      timingWarning = `⚠️ 準備期間が${s.lead_time_months}ヶ月必要なため、今すぐ着手が必要です`;
+    }
+
+    // Q11: インボイス特例
+    let invoiceNote = null;
+    if (q11 === '未登録（免税事業者）' && ['it-donyu', 'jizokuka-hojyokin'].includes(s.id)) {
+      invoiceNote = '📌 インボイス転換枠への対象となる可能性あり';
+    }
+
+    return {
+      ...s,
+      score: score + bonusScore,
+      reasons,
+      bonusReasons,
+      timingWarning,
+      invoiceNote,
+      companySizes
+    };
+  }).filter(Boolean).sort((a, b) => b.score - a.score || b.max_amount - a.max_amount);
+
+  // スタッキング検出
+  const scoredIds = scored.map(s => s.id);
+  const combos = STACKING_PATTERNS.filter(p =>
+    p.ids.filter(id => scoredIds.includes(id)).length >= 2
+  ).map(p => {
+    const items = p.ids.map(id => scored.find(s => s.id === id)).filter(Boolean);
+    return { ...p, items, total: items.reduce((sum, s) => sum + s.max_amount, 0) };
+  }).sort((a, b) => b.total - a.total).slice(0, 3);
+
+  // 相互排他検出
   const conflicts = [];
   scored.forEach(s => {
-    s.incompatible_with.forEach(otherId => {
-      const other = scored.find(x => x.id === otherId);
+    s.incompatible_with.forEach(oid => {
+      const other = scored.find(x => x.id === oid);
       if (other) {
-        const pair = [s.id, otherId].sort().join('|');
+        const pair = [s.id, oid].sort().join('|');
         if (!conflicts.find(c => c.pair === pair)) {
           conflicts.push({ pair, a: s, b: other });
         }
       }
     });
   });
-  return conflicts;
+
+  // 表示
+  renderResults(scored, combos, conflicts, { q13, q18, q20, isSmall, isSME, wageUp, isDeficit, q16, q17 });
 }
 
-// ─────────────────────────────────────────────
-// RENDER RESULTS
-// ─────────────────────────────────────────────
-function showResults() {
-  document.getElementById('hearing-section').classList.add('hidden');
-  const resultsSection = document.getElementById('results-section');
-  resultsSection.classList.remove('hidden');
+function renderResults(scored, combos, conflicts, meta) {
+  document.getElementById('form-area').style.display = 'none';
+  const el = document.getElementById('results');
+  el.style.display = 'block';
 
-  const scored = scoreSubsidies();
-  const combos = buildStackingCombos(scored);
-  const conflicts = detectConflicts(scored);
-  const totalMax = scored.reduce((sum, s) => sum + s.max_amount, 0);
+  const totalMax = scored.reduce((s, x) => s + x.max_amount, 0);
 
-  let html = '';
+  // 準備状況サマリー
+  const readinessItems = [];
+  if (meta.q18 !== '取得済み') readinessItems.push('⚠️ gBizIDプライムが未取得（約2週間かかります）');
+  if (!meta.wageUp && !meta.isDeficit) readinessItems.push('⚠️ 賃上げ予定なしのため一部補助金の要件に注意');
+  if (meta.q20.length === 0 || meta.q20.includes('なし')) readinessItems.push('💡 加点項目（パートナーシップ構築宣言等）がない→今から取得で採択率UP');
 
-  // Header
-  html += `
+  let html = `
     <div class="results-header">
       <h2>🎯 診断結果</h2>
-      <p>${scored.length}件の助成金・補助金が該当しました</p>
-      <div class="total-badge">${scored.length > 0 ? '最大 ' + formatAmount(totalMax) + ' 受給可能' : '該当なし'}</div>
-      <p style="font-size:12px;opacity:0.75;margin-top:6px">※併用・組み合わせによる概算。要件確認が必要です</p>
+      <p class="count">${scored.length}件の助成金・補助金が該当しました</p>
+      <div class="total-badge">最大 ${fmt(totalMax)} 受給可能</div>
+      <p class="caveat">※件数をすべて重複申請した場合の概算。実際の受給には要件確認が必要です</p>
     </div>
   `;
 
-  // Stacking combos
+  // 準備状況アラート
+  if (readinessItems.length > 0) {
+    html += `<div class="conflict-panel"><strong>📋 申請前に確認すべき事項</strong>${readinessItems.map(i => `<div>${i}</div>`).join('')}</div>`;
+  }
+
+  // スタッキング
   if (combos.length > 0) {
     html += `<div class="stack-panel"><h3>⚡ おすすめ組み合わせ（スタッキング）</h3>`;
-    combos.forEach(combo => {
+    combos.forEach(c => {
       html += `
-        <div style="margin-bottom:14px">
+        <div class="stack-combo">
+          <div style="font-size:13px;font-weight:700;color:#065f46;margin-bottom:8px">${c.label}</div>
           <div class="stack-flow">
-            ${combo.items.map((item, i) => `
-              ${i > 0 ? '<span class="stack-arrow">→</span>' : ''}
-              <div class="stack-item">${item.name}</div>
-            `).join('')}
+            ${c.items.map((item, i) => `${i > 0 ? '<span class="stack-arrow">+</span>' : ''}<div class="stack-item">${item.name}</div>`).join('')}
           </div>
-          <div class="stack-total">合計最大: ${formatAmount(combo.total)}</div>
+          <div class="stack-total">合計最大: ${fmt(c.total)}</div>
+          <div class="stack-note">${c.note}</div>
         </div>
       `;
     });
     html += `</div>`;
   }
 
-  // Conflicts
+  // 衝突
   if (conflicts.length > 0) {
-    html += `<div class="conflict-panel"><strong>⚠️ 注意：同時申請できない組み合わせがあります</strong>`;
-    conflicts.forEach(c => {
-      html += `<div>• 「${c.a.name}」と「${c.b.name}」は同一採用案件に対して併用不可</div>`;
-    });
-    html += `</div>`;
+    html += `<div class="conflict-panel"><strong>⛔ 同時申請できない組み合わせ</strong>${conflicts.map(c => `<div>「${c.a.name}」と「${c.b.name}」は同一案件での併用不可</div>`).join('')}</div>`;
   }
 
-  // Ranked subsidies
-  if (scored.length > 0) {
-    html += `<div class="card"><h2>📋 マッチした助成金・補助金一覧</h2>`;
-    scored.forEach((s, i) => {
-      html += renderSubsidyCard(s, i);
-    });
-    html += `</div>`;
-  } else {
-    html += `<div class="card"><p>選択内容に該当する助成金・補助金が見つかりませんでした。別の条件で再診断してみてください。</p></div>`;
-  }
+  // 一覧
+  html += `<div class="result-section"><div class="section-title">📋 該当する助成金・補助金</div>`;
+  scored.forEach((s, i) => { html += renderCard(s, i); });
+  html += `</div>`;
 
-  // Comparison table
+  // 比較表
   if (scored.length >= 2) {
-    html += renderComparisonTable(scored.slice(0, 8));
+    html += `<div class="result-section"><div class="section-title">📊 比較表</div><div class="compare-wrap"><table>
+      <thead><tr><th>名称</th><th>最大受給額</th><th>難易度</th><th>準備期間</th><th>申請タイミング</th></tr></thead>
+      <tbody>
+        ${scored.map(s => `<tr>
+          <td style="font-weight:600;font-size:12px">${s.name}</td>
+          <td style="font-weight:700;color:var(--primary)">${fmt(s.max_amount)}</td>
+          <td class="${['','d1c','d2c','d3c'][s.difficulty]}">${['','易','中','難'][s.difficulty]}</td>
+          <td>約${s.lead_time_months}ヶ月</td>
+          <td style="font-size:11px">${timingLbl(s.timing)}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table></div></div>`;
   }
 
-  // Reset
-  html += `
-    <div class="reset-btn">
-      <button onclick="resetDiagnosis()">🔄 最初からやり直す</button>
-    </div>
-  `;
-
-  resultsSection.innerHTML = html;
+  html += `<div class="reset-area"><button class="btn-reset" onclick="location.reload()">🔄 最初からやり直す</button></div>`;
+  el.innerHTML = html;
+  window.scrollTo(0, 0);
 }
 
-function renderSubsidyCard(s, i) {
-  const diffLabel = ['', '易', '中', '難'][s.difficulty];
-  const diffColor = ['', 'd1', 'd2', 'd3'][s.difficulty];
-
+function renderCard(s, i) {
   return `
     <div class="subsidy-card">
-      <div class="subsidy-card-header" onclick="toggleDetail('detail-${s.id}')">
-        <div class="rank-badge ${i < 3 ? 'top' : ''}">${i + 1}</div>
-        <div class="subsidy-card-title">
-          <h4>${s.name}</h4>
-          <div class="tags">
-            ${s.parent ? `<span class="tag blue">${s.parent}</span>` : ''}
-            <span class="tag green">${difficultyLabel(s.difficulty)}</span>
-            <span class="tag">${timingLabel(s.application_timing)}</span>
-            <span class="tag">準備期間 約${s.lead_time_months}ヶ月</span>
+      <div class="subsidy-header" onclick="toggle('d_${s.id}')">
+        <div class="rank ${i < 3 ? 'gold' : ''}">${i + 1}</div>
+        <div class="subsidy-info">
+          <div class="subsidy-name">${s.name}</div>
+          <div class="subsidy-tags">
+            <span class="tag green">${['','易(★☆☆)','中(★★☆)','難(★★★)'][s.difficulty]}</span>
+            <span class="tag blue">${timingLbl(s.timing)}</span>
+            <span class="tag">準備 約${s.lead_time_months}ヶ月</span>
+            ${s.wage_required ? '<span class="tag orange">賃上げ条件あり</span>' : ''}
           </div>
         </div>
-        <div class="subsidy-amount">
-          <div class="amount">${formatAmount(s.max_amount)}</div>
-          <div class="label">最大受給額</div>
+        <div class="subsidy-amt">
+          <div class="amt">${fmt(s.max_amount)}</div>
+          <div class="lbl">最大受給額</div>
         </div>
       </div>
-      <div class="subsidy-detail" id="detail-${s.id}">
-        <div class="match-reasons">
+      <div class="subsidy-detail" id="d_${s.id}">
+        <div style="margin-top:14px;font-size:13px;font-weight:600;margin-bottom:4px">💴 助成額の内訳</div>
+        <div style="font-size:13px;color:var(--gray-700)">${s.amount_note}</div>
+
+        ${s.timingWarning ? `<div style="margin-top:10px;font-size:12px;color:#9a3412;background:#fff7ed;padding:8px 12px;border-radius:6px">${s.timingWarning}</div>` : ''}
+        ${s.invoiceNote ? `<div style="margin-top:6px;font-size:12px;color:#1e40af;background:#dbeafe;padding:8px 12px;border-radius:6px">${s.invoiceNote}</div>` : ''}
+
+        <div class="match-box">
           <strong>✅ マッチした理由</strong>
-          ${s.matchedTriggers.map(t => `<span class="match-tag">${t}</span>`).join('')}
+          ${s.reasons.map(r => `<span class="mtag">${r}</span>`).join('')}
+          ${s.bonusReasons.map(r => `<span class="mtag" style="background:#fef3c7;color:#92400e">${r}</span>`).join('')}
         </div>
+
         <div class="detail-grid">
           <div class="detail-item">
-            <div class="label">助成額の内訳</div>
-            <div class="value" style="font-size:13px">${s.amount_note}</div>
+            <div class="lbl">申請タイミング</div>
+            <div class="val">${timingDetailLbl(s.timing)}</div>
           </div>
           <div class="detail-item">
-            <div class="label">申請タイミング</div>
-            <div class="value" style="font-size:13px">${timingDetailLabel(s.application_timing)}</div>
+            <div class="lbl">主な要件</div>
+            <div class="val" style="font-size:12px;font-weight:400">${s.conditions.slice(0,2).join('<br>')}</div>
           </div>
           ${s.compatible_with.length > 0 ? `
           <div class="detail-item" style="grid-column:1/-1">
-            <div class="label">一緒に使える助成金</div>
-            <div style="margin-top:4px">
-              ${s.compatible_with.map(id => {
-                const other = SUBSIDIES.find(x => x.id === id);
-                return other ? `<span class="match-tag" style="background:#dbeafe;color:#1e40af">${other.name}</span>` : '';
-              }).join('')}
-            </div>
-          </div>
-          ` : ''}
+            <div class="lbl">一緒に使える助成金・補助金</div>
+            <div style="margin-top:4px">${s.compatible_with.map(id => {
+              const other = SUBSIDIES.find(x => x.id === id);
+              return other ? `<span class="ctag">${other.name}</span>` : '';
+            }).join('')}</div>
+          </div>` : ''}
         </div>
       </div>
     </div>
   `;
 }
 
-function renderComparisonTable(items) {
-  return `
-    <div class="card">
-      <h2>📊 比較表</h2>
-      <div style="overflow-x:auto">
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>助成金名</th>
-              <th>最大受給額</th>
-              <th>難易度</th>
-              <th>準備期間</th>
-              <th>申請タイミング</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${items.map(s => `
-              <tr>
-                <td style="font-weight:600;font-size:12px">${s.name}</td>
-                <td style="font-weight:700;color:var(--primary)">${formatAmount(s.max_amount)}</td>
-                <td>
-                  ${[1,2,3].map(n => `<span class="difficulty-dot ${n <= s.difficulty ? ['','d1','d2','d3'][s.difficulty] : ''}" style="${n <= s.difficulty ? '' : 'opacity:0.2'}"></span>`).join('')}
-                  ${difficultyLabel(s.difficulty)}
-                </td>
-                <td>約${s.lead_time_months}ヶ月</td>
-                <td style="font-size:12px">${timingLabel(s.application_timing)}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
-}
+function toggle(id) { document.getElementById(id)?.classList.toggle('open'); }
 
-function toggleDetail(id) {
-  const el = document.getElementById(id);
-  el.classList.toggle('open');
-}
-
-function resetDiagnosis() {
-  currentStep = 0;
-  answers = {};
-  document.getElementById('hearing-section').classList.remove('hidden');
-  document.getElementById('results-section').classList.add('hidden');
-  renderStep();
-}
-
-// ─────────────────────────────────────────────
-// HELPERS
-// ─────────────────────────────────────────────
-function formatAmount(n) {
-  if (n >= 10000000) return (n / 10000000).toFixed(0) + '億円';
-  if (n >= 10000) return (n / 10000).toFixed(0) + '万円';
+function fmt(n) {
+  if (!n) return '要確認';
+  if (n >= 100000000) return (n/100000000).toFixed(0) + '億円';
+  if (n >= 10000) return (n/10000).toFixed(0) + '万円';
   return n.toLocaleString() + '円';
 }
 
-function difficultyLabel(d) {
-  return ['', '易(★☆☆)', '中(★★☆)', '難(★★★)'][d];
+function timingLbl(t) {
+  return {before_hire:'採用前',after_hire:'採用後',before_investment:'投資前',before_training:'研修前',after_return:'復帰後',after_leave:'休業後',after_raise:'賃上げ後'}[t] || t;
 }
 
-function timingLabel(t) {
-  const map = {
-    before_hire: '採用前',
-    after_hire: '採用後',
-    before_investment: '設備投資前',
-    before_training: '研修開始前',
-    after_return: '復帰後',
-    after_leave: '休業後',
-    after_raise: '賃上げ後',
-    after_change: '制度変更後',
-    after_payment: '支給後',
-    after_publish: '公表後',
-    before_facility: '設置前',
-  };
-  return map[t] || t;
+function timingDetailLbl(t) {
+  return {
+    before_hire:'雇い入れ前に申請が必要（先申請）',
+    after_hire:'雇い入れ後に申請（2週間以内等、期限あり）',
+    before_investment:'設備投資・発注前に申請必須（事前申請）',
+    before_training:'研修開始1ヶ月前に計画届出',
+    after_return:'育休・介護休業からの復帰後に申請',
+    after_leave:'休業実施後に申請',
+    after_raise:'賃上げ実施後に申請',
+  }[t] || t;
 }
-
-function timingDetailLabel(t) {
-  const map = {
-    before_hire: '雇い入れ前に申請が必要',
-    after_hire: '雇い入れ後に申請（2週間以内など期限あり）',
-    before_investment: '設備投資・発注前に申請が必要',
-    before_training: '研修開始1ヶ月前に申請が必要',
-    after_return: '育休・介護休業からの復帰後に申請',
-    after_leave: '休業実施後に申請',
-    after_raise: '賃上げ実施後に申請',
-    after_change: '制度変更・実施後に申請',
-    after_payment: '賞与等の支給後に申請',
-    after_publish: '情報公表後に申請',
-    before_facility: '施設設置前に計画申請が必要',
-  };
-  return map[t] || t;
-}
-
-// ─────────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────────
-renderStep();
 </script>
 </body>
 </html>

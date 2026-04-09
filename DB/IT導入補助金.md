@@ -34,6 +34,13 @@ compatible_with:
 incompatible_with: []
 stackable: false
 renewal: true
+legal_form_eligible:
+  - 法人
+  - 個人事業主
+industry_restriction: null
+requires_employee_insurance: false
+min_employees: 0
+note_eligibility: "IT導入支援事業者（認定ベンダー）経由での申請が必須"
 ---
 
 # デジタル化・AI導入補助金（旧：IT導入補助金）

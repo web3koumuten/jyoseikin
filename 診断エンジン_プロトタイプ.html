@@ -445,42 +445,100 @@
 
 <script>
 // ─────────────────────────────────────────────
-// 会社規模の判定
+// 会社情報の判定（厳密版）
 // ─────────────────────────────────────────────
-function getCompanySize(q6, q7, q8, q9) {
+function classifyCompany(q6, q7, q8, q9) {
   const employees = parseInt(q8) || 0;
   const capital = parseInt(q9) || 0;
-  const industry = q7;
-  const legalForm = q6;
 
-  // 個人事業主は小規模扱い
-  if (legalForm === '個人事業主') return ['個人事業主', '小規模事業者', '中小企業'];
+  // 法人形態の正規化
+  let legalForm = '法人';
+  if (q6 === '個人事業主') legalForm = '個人事業主';
+  else if (q6 === '社会福祉法人等') legalForm = '社会福祉法人等';
+  else if (q6 === 'NPO等') legalForm = 'NPO等';
 
-  // 小規模判定（従業員数ベース）
+  // 小規模事業者判定（中小企業基本法の定義）
   let isSmall = false;
-  if (['製造業', '建設業', '卸売業'].includes(industry) && employees <= 20) isSmall = true;
-  if (['小売業', 'サービス業（宿泊・娯楽以外）', 'サービス業（宿泊・娯楽）'].includes(industry) && employees <= 5) isSmall = true;
-  if (employees <= 5) isSmall = true; // 汎用フォールバック
+  if (legalForm === '個人事業主') {
+    isSmall = true;
+  } else if (['製造業', '建設業', '卸売業'].includes(q7) && employees <= 20) {
+    isSmall = true;
+  } else if (['小売業', 'サービス業（宿泊・娯楽以外）', 'サービス業（宿泊・娯楽）'].includes(q7) && employees <= 5) {
+    isSmall = true;
+  } else if (q7 === 'その他' && employees <= 5) {
+    isSmall = true;
+  }
 
-  // 中小判定
+  // 中小企業判定（資本金または従業員数のどちらかが基準以下）
   let isSME = false;
-  if (industry === '製造業' && (capital <= 30000 || employees <= 300)) isSME = true;
-  if (industry === '卸売業' && (capital <= 10000 || employees <= 100)) isSME = true;
-  if (['小売業', 'サービス業（宿泊・娯楽以外）', 'サービス業（宿泊・娯楽）'].includes(industry) && (capital <= 5000 || employees <= 100)) isSME = true;
-  if (employees <= 300 || capital <= 30000) isSME = true; // フォールバック
+  if (legalForm === '個人事業主') {
+    isSME = true;
+  } else if (q7 === '製造業' && (capital <= 30000 || employees <= 300)) {
+    isSME = true;
+  } else if (q7 === '卸売業' && (capital <= 10000 || employees <= 100)) {
+    isSME = true;
+  } else if (['小売業'].includes(q7) && (capital <= 5000 || employees <= 50)) {
+    isSME = true;
+  } else if (['サービス業（宿泊・娯楽以外）', 'サービス業（宿泊・娯楽）', 'その他', '建設業', '医療・介護・福祉'].includes(q7) && (capital <= 5000 || employees <= 100)) {
+    isSME = true;
+  }
 
   const sizes = [];
   if (isSmall) sizes.push('小規模事業者');
   if (isSME) sizes.push('中小企業');
-  sizes.push('大企業'); // 大企業向けも一応チェック
-  return sizes;
+  if (!isSME && employees > 300) sizes.push('大企業');
+
+  return { legalForm, sizes, employees, capital, industry: q7 };
+}
+
+// 適格性チェック（3段階の厳密判定）
+function checkEligibility(s, company) {
+  const { legalForm, sizes, employees, industry } = company;
+  const reasons = [];
+
+  // ① 法人形態チェック（最重要・NGなら即除外）
+  const legalOK = s.legal_form_eligible.some(lf => {
+    if (lf === '法人') return legalForm === '法人';
+    if (lf === '個人事業主') return legalForm === '個人事業主';
+    if (lf === '社会福祉法人等') return legalForm === '社会福祉法人等';
+    if (lf === 'NPO等') return legalForm === 'NPO等';
+    if (lf === '特定非営利活動法人') return legalForm === 'NPO等';
+    return false;
+  });
+  if (!legalOK) return { ok: false, reason: `法人形態「${legalForm}」は対象外（対象：${s.legal_form_eligible.join('・')}）` };
+
+  // ② 業種制限チェック（NGなら即除外）
+  if (s.industry_restriction) {
+    if (!s.industry_restriction.includes(industry)) {
+      return { ok: false, reason: `業種「${industry}」は対象外（対象業種：${s.industry_restriction.join('・')}のみ）` };
+    }
+    reasons.push(`業種「${industry}」が対象`);
+  }
+
+  // ③ 会社規模チェック
+  const sizeOK = s.company_size.some(sz => sizes.includes(sz));
+  if (!sizeOK) return { ok: false, reason: `規模（${sizes.join('・') || '規模不明'}）は対象外` };
+
+  // ④ 最低従業員数チェック
+  if (s.min_employees > 0 && employees < s.min_employees) {
+    return { ok: false, reason: `従業員${s.min_employees}名以上が必要（現在：${employees}名）` };
+  }
+
+  // ⑤ 雇用保険チェック（従業員0人の場合）
+  if (s.requires_employee_insurance && employees === 0 && legalForm !== '個人事業主') {
+    return { ok: false, reason: '雇用保険適用事業所であること（従業員が必要）' };
+  }
+
+  return { ok: true, reasons };
 }
 
 // ─────────────────────────────────────────────
-// 助成金DB
+// 助成金DB（全助成金・適格性フィールド付き）
 // ─────────────────────────────────────────────
 const SUBSIDIES = [
+  // ════════════════════════════════════════
   // ── 補助金系（Q14直結）──
+  // ════════════════════════════════════════
   {
     id: "jizokuka-hojyokin",
     name: "小規模事業者持続化補助金",
@@ -490,12 +548,18 @@ const SUBSIDIES = [
     timing: "before_investment",
     lead_time_months: 6,
     difficulty: 2,
-    company_size: ["小規模事業者", "個人事業主"],
+    company_size: ["小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主", "NPO等"],
+    industry_restriction: null,
+    requires_employee_insurance: false,
+    min_employees: 0,
+    note_eligibility: "医療法人・社会福祉法人は原則対象外",
     conditions: ["商工会議所・商工会の支援を受けて経営計画書を作成", "採択後に経費執行"],
     compatible_with: [],
     incompatible_with: [],
     wage_required: false,
-    bonus_points: { "パートナーシップ構築宣言": 1, "事業継続力強化計画": 1, "経営革新計画": 1 }
+    bonus_points: { "パートナーシップ構築宣言": 1, "事業継続力強化計画": 1, "経営革新計画": 1 },
+    q15_keywords: ["チラシ", "hp", "web", "広告", "販路", "展示会", "ホームページ"]
   },
   {
     id: "it-donyu",
@@ -506,12 +570,18 @@ const SUBSIDIES = [
     timing: "before_investment",
     lead_time_months: 3,
     difficulty: 1,
-    company_size: ["中小企業", "小規模事業者", "個人事業主"],
-    conditions: ["IT導入支援事業者（認定ベンダー）経由での申請", "gBizIDプライムが必要"],
-    compatible_with: [],
+    company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: false,
+    min_employees: 0,
+    note_eligibility: "社会福祉法人・医療法人・NPO等は原則対象外",
+    conditions: ["IT導入支援事業者（認定ベンダー）経由での申請が必須", "gBizIDプライムが必要"],
+    compatible_with: ["jinzai-hito-investment"],
     incompatible_with: [],
     wage_required: false,
-    bonus_points: { "SECURITY ACTION": 1, "みらデジ経営チェック": 1 }
+    bonus_points: { "SECURITY ACTION": 1, "みらデジ経営チェック": 1 },
+    q15_keywords: ["it", "システム", "ソフト", "クラウド", "ai", "デジタル", "erp", "会計", "勤怠", "ec"]
   },
   {
     id: "monozukuri-hojyokin",
@@ -523,11 +593,17 @@ const SUBSIDIES = [
     lead_time_months: 12,
     difficulty: 3,
     company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: false,
+    min_employees: 0,
+    note_eligibility: "社会福祉法人・医療法人・NPO等は対象外。革新的な製品・サービス開発または生産プロセス改善が条件",
     conditions: ["革新的製品・サービス開発または生産プロセス改善", "付加価値額・給与総額の増加目標を設定"],
-    compatible_with: [],
+    compatible_with: ["jinzai-ikusei-shien", "jinzai-reskilling"],
     incompatible_with: [],
     wage_required: true,
-    bonus_points: { "経営革新計画": 1, "パートナーシップ構築宣言": 1, "事業継続力強化計画": 1, "SECURITY ACTION": 1 }
+    bonus_points: { "経営革新計画": 1, "パートナーシップ構築宣言": 1, "事業継続力強化計画": 1, "SECURITY ACTION": 1 },
+    q15_keywords: ["設備", "機械", "装置", "製品開発", "製造", "加工", "自動化", "省力化"]
   },
   {
     id: "shooryoka",
@@ -539,11 +615,17 @@ const SUBSIDIES = [
     lead_time_months: 6,
     difficulty: 2,
     company_size: ["中小企業", "小規模事業者"],
-    conditions: ["カタログ掲載製品の中から選択", "賃上げ計画を提出"],
-    compatible_with: [],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: false,
+    min_employees: 0,
+    note_eligibility: "カタログ掲載製品からの選択が必須。社会福祉法人・NPO等は対象外",
+    conditions: ["カタログ掲載製品の中から選択（自由調達不可）", "賃上げ計画の提出が必須"],
+    compatible_with: ["gyomu-kaizen"],
     incompatible_with: [],
     wage_required: true,
-    bonus_points: {}
+    bonus_points: {},
+    q15_keywords: ["ロボット", "配膳", "自動精算", "自動化", "省人化", "省力"]
   },
   {
     id: "jigyo-shinsyutsu",
@@ -554,12 +636,18 @@ const SUBSIDIES = [
     timing: "before_investment",
     lead_time_months: 12,
     difficulty: 3,
-    company_size: ["中小企業", "中堅企業"],
-    conditions: ["認定経営革新等支援機関（認定支援機関）の確認必須", "採択後に経費執行"],
+    company_size: ["中小企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: false,
+    min_employees: 0,
+    note_eligibility: "社会福祉法人・医療法人・NPO等は対象外。認定支援機関の確認が必須",
+    conditions: ["認定経営革新等支援機関（認定支援機関）の確認必須", "新市場・新分野への進出であること", "採択後に経費執行"],
     compatible_with: ["jinzai-reskilling"],
     incompatible_with: [],
     wage_required: true,
-    bonus_points: { "経営革新計画": 1, "パートナーシップ構築宣言": 1 }
+    bonus_points: { "経営革新計画": 1, "パートナーシップ構築宣言": 1 },
+    q15_keywords: ["新事業", "新分野", "参入", "転換", "新規", "改装", "新築", "店舗"]
   },
   {
     id: "shoene",
@@ -571,11 +659,17 @@ const SUBSIDIES = [
     lead_time_months: 9,
     difficulty: 2,
     company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: false,
+    min_employees: 0,
+    note_eligibility: "省エネ効果の事前計算・報告が必要",
     conditions: ["省エネ効果の計算・報告が必要", "省エネルギー診断の実施推奨"],
     compatible_with: [],
     incompatible_with: [],
     wage_required: false,
-    bonus_points: {}
+    bonus_points: {},
+    q15_keywords: ["省エネ", "光熱費", "電気代", "エアコン", "冷凍機", "ボイラー", "led"]
   },
   {
     id: "jigyo-shokei",
@@ -586,14 +680,23 @@ const SUBSIDIES = [
     timing: "before_investment",
     lead_time_months: 9,
     difficulty: 2,
-    company_size: ["中小企業", "小規模事業者", "個人事業主"],
+    company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: false,
+    min_employees: 0,
+    note_eligibility: "後継者不在等の要件あり",
     conditions: ["後継者不在等の要件", "認定支援機関の確認"],
     compatible_with: [],
     incompatible_with: [],
     wage_required: false,
-    bonus_points: {}
+    bonus_points: {},
+    q15_keywords: ["承継", "後継者", "m&a", "買収", "廃業", "引継"]
   },
-  // ── 助成金系 ──
+
+  // ════════════════════════════════════════
+  // ── 人材開発支援助成金系 ──
+  // ════════════════════════════════════════
   {
     id: "jinzai-ikusei-shien",
     name: "人材開発支援助成金 人材育成支援コース",
@@ -604,27 +707,17 @@ const SUBSIDIES = [
     lead_time_months: 3,
     difficulty: 2,
     company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "雇用保険被保険者である従業員が対象。10時間以上のOFF-JTが必要",
     conditions: ["訓練実施計画届を訓練開始1ヶ月前に提出", "雇用保険被保険者が対象", "10時間以上のOFF-JT"],
-    compatible_with: ["jinzai-reskilling", "jinzai-kyuka-fuyo"],
+    compatible_with: ["jinzai-kyuka-fuyo", "monozukuri-hojyokin"],
     incompatible_with: [],
     wage_required: false,
-    bonus_points: {}
-  },
-  {
-    id: "jinzai-reskilling",
-    name: "人材開発支援助成金 事業展開等リスキリング支援コース",
-    q14_key: "jinzai",
-    max_amount: 1500000,
-    amount_note: "訓練費の75%（中小企業）＋賃金助成",
-    timing: "before_training",
-    lead_time_months: 3,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    conditions: ["新事業展開計画書の作成", "訓練内容と新事業の関連を明示", "訓練開始1ヶ月前に届出"],
-    compatible_with: ["jigyo-shinsyutsu"],
-    incompatible_with: [],
-    wage_required: false,
-    bonus_points: {}
+    bonus_points: {},
+    q15_keywords: ["研修", "セミナー", "資格", "育成", "教育", "スキルアップ", "訓練"]
   },
   {
     id: "jinzai-hito-investment",
@@ -636,44 +729,500 @@ const SUBSIDIES = [
     lead_time_months: 3,
     difficulty: 2,
     company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "DX・AI・グリーン分野等の高度デジタル訓練が対象。通常の研修は別コース",
     conditions: ["DX・AI・グリーン分野等の高度デジタル訓練", "訓練開始1ヶ月前に届出"],
-    compatible_with: [],
+    compatible_with: ["it-donyu"],
     incompatible_with: [],
     wage_required: false,
-    bonus_points: {}
+    bonus_points: {},
+    q15_keywords: ["dx", "ai", "デジタル", "グリーン", "it人材", "高度"]
   },
+  {
+    id: "jinzai-reskilling",
+    name: "人材開発支援助成金 事業展開等リスキリング支援コース",
+    q14_key: "jinzai",
+    max_amount: 1500000,
+    amount_note: "訓練費の75%（中小企業）＋賃金助成",
+    timing: "before_training",
+    lead_time_months: 3,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "新事業展開計画書の作成が必要。訓練内容と新事業の関連を明示すること",
+    conditions: ["新事業展開計画書の作成", "訓練内容と新事業の関連を明示", "訓練開始1ヶ月前に届出"],
+    compatible_with: ["jigyo-shinsyutsu", "monozukuri-hojyokin"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["リスキリング", "新事業", "転換", "配置転換", "新サービス"]
+  },
+  {
+    id: "jinzai-kyuka-fuyo",
+    name: "人材開発支援助成金 教育訓練休暇等付与コース",
+    q14_key: "jinzai",
+    max_amount: 300000,
+    amount_note: "1事業所あたり最大30万円",
+    timing: "before_training",
+    lead_time_months: 3,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "有給の教育訓練休暇制度を就業規則に新規整備すること",
+    conditions: ["有給の教育訓練休暇制度を就業規則に新規整備", "実際に従業員が取得して訓練受講"],
+    compatible_with: ["jinzai-ikusei-shien"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["自己啓発", "休暇", "自発的", "制度整備"]
+  },
+  {
+    id: "jinzai-kensetsu-gino",
+    name: "人材開発支援助成金 建設労働者技能実習コース",
+    q14_key: "jinzai",
+    max_amount: 200000,
+    amount_note: "訓練費の実費＋賃金助成（上限20万円程度）",
+    timing: "before_training",
+    lead_time_months: 3,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: ["建設業"],
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "建設業のみ対象",
+    conditions: ["建設業の事業主", "自社主催のOFF-JT（通常業務と明確に区別）"],
+    compatible_with: [],
+    incompatible_with: ["jinzai-kensetsu-nintei"],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["建設", "技能実習", "職人"]
+  },
+  {
+    id: "jinzai-kensetsu-nintei",
+    name: "人材開発支援助成金 建設労働者認定訓練コース",
+    q14_key: "jinzai",
+    max_amount: 300000,
+    amount_note: "訓練費の1/6（上限30万円）",
+    timing: "before_training",
+    lead_time_months: 3,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: ["建設業"],
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "建設業のみ対象。都道府県知事認定の職業訓練に受講させること",
+    conditions: ["建設業の事業主", "都道府県知事認定の職業訓練に受講させる"],
+    compatible_with: [],
+    incompatible_with: ["jinzai-kensetsu-gino"],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["建設", "認定訓練", "技能検定"]
+  },
+
+  // ════════════════════════════════════════
+  // ── キャリアアップ助成金系 ──
+  // ════════════════════════════════════════
   {
     id: "career-up-seishainuka",
     name: "キャリアアップ助成金 正社員化コース",
     q14_key: null,
     max_amount: 800000,
-    amount_note: "1人あたり80万円（中小企業）",
+    amount_note: "1人あたり80万円（中小企業）、大企業60万円",
     timing: "after_hire",
     lead_time_months: 9,
     difficulty: 2,
     company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "有期雇用労働者（パート・アルバイト等）が在籍していること",
     conditions: ["キャリアアップ計画書を転換前に提出", "転換後6ヶ月雇用継続", "転換後賃金3%以上増加"],
-    compatible_with: ["career-up-chingin-kaitei", "career-up-shoyo-taishokukin"],
-    incompatible_with: [],
+    compatible_with: ["career-up-chingin-kaitei", "career-up-shoyo-taishokukin", "career-up-chingin-kyotsu"],
+    incompatible_with: ["career-up-shogaisha-seishainuka"],
     wage_required: false,
-    bonus_points: {}
+    bonus_points: {},
+    q15_keywords: ["パート", "アルバイト", "非正規", "正社員転換", "正規化", "有期"]
+  },
+  {
+    id: "career-up-shogaisha-seishainuka",
+    name: "キャリアアップ助成金 障害者正社員化コース",
+    q14_key: null,
+    max_amount: 1200000,
+    amount_note: "1人あたり120万円（中小企業）、重度障害者は20万円加算",
+    timing: "after_hire",
+    lead_time_months: 9,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "有期雇用の障害者が在籍していること。障害者手帳等の取得が必要",
+    conditions: ["キャリアアップ計画書を転換前に提出", "転換後6ヶ月雇用継続", "転換後賃金3%以上増加", "障害者手帳等の取得"],
+    compatible_with: ["trial-shogaisha", "tokutei-shushokukonnansha"],
+    incompatible_with: ["career-up-seishainuka"],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["障害者", "障がい者", "障害", "手帳"]
   },
   {
     id: "career-up-chingin-kaitei",
     name: "キャリアアップ助成金 賃金規定等改定コース",
     q14_key: null,
     max_amount: 500000,
-    amount_note: "1事業所あたり最大50万円（中小企業）",
+    amount_note: "1事業所あたり最大50万円（中小企業のみ）",
     timing: "after_raise",
     lead_time_months: 6,
     difficulty: 2,
     company_size: ["中小企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "中小企業のみ対象。有期雇用労働者の賃金を3%以上引き上げること",
     conditions: ["3%以上の賃金引上げ", "就業規則に賃金規定を整備", "キャリアアップ計画書を事前提出"],
+    compatible_with: ["career-up-seishainuka", "gyomu-kaizen"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["賃上げ", "時給アップ", "賃金引上げ", "非正規の待遇改善"]
+  },
+  {
+    id: "career-up-chingin-kyotsu",
+    name: "キャリアアップ助成金 賃金規定等共通化コース",
+    q14_key: null,
+    max_amount: 720000,
+    amount_note: "1事業所あたり最大72万円",
+    timing: "after_raise",
+    lead_time_months: 6,
+    difficulty: 3,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "正規・非正規共通の賃金規定を就業規則に整備すること",
+    conditions: ["正規・非正規共通の賃金規定を就業規則に整備", "整備後6ヶ月分の賃金支払い"],
     compatible_with: ["career-up-seishainuka"],
     incompatible_with: [],
     wage_required: false,
-    bonus_points: {}
+    bonus_points: {},
+    q15_keywords: ["同一労働同一賃金", "賃金体系統一", "共通化"]
   },
+  {
+    id: "career-up-shoyo-taishokukin",
+    name: "キャリアアップ助成金 賞与・退職金制度導入コース",
+    q14_key: null,
+    max_amount: 500000,
+    amount_note: "1事業所あたり最大50万円",
+    timing: "after_payment",
+    lead_time_months: 9,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "有期雇用労働者に実際に賞与または退職金を支給すること",
+    conditions: ["就業規則に賞与・退職金規定を整備", "対象者に賞与または退職金を実際に支給"],
+    compatible_with: ["career-up-seishainuka", "career-up-chingin-kaitei"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["賞与", "ボーナス", "退職金", "非正規の待遇"]
+  },
+  {
+    id: "career-up-tanjikan-enchyo",
+    name: "キャリアアップ助成金 短時間労働者労働時間延長支援コース",
+    q14_key: null,
+    max_amount: 255000,
+    amount_note: "1人あたり最大25.5万円",
+    timing: "after_change",
+    lead_time_months: 6,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "週所定労働時間が20時間未満のパートが在籍していること",
+    conditions: ["週所定労働時間を延長", "延長後6ヶ月雇用継続", "社会保険適用要件を満たす"],
+    compatible_with: [],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["短時間", "週20時間", "社会保険加入", "扶養"]
+  },
+
+  // ════════════════════════════════════════
+  // ── トライアル雇用助成金系 ──
+  // ════════════════════════════════════════
+  {
+    id: "trial-ippan",
+    name: "トライアル雇用助成金 一般トライアルコース",
+    q14_key: null,
+    max_amount: 120000,
+    amount_note: "月4万円×3ヶ月＝12万円/人",
+    timing: "before_hire",
+    lead_time_months: 4,
+    difficulty: 1,
+    company_size: ["中小企業", "大企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 0,
+    note_eligibility: "ハローワーク等の紹介状が必須。採用前の申請が必要",
+    conditions: ["ハローワーク等の紹介状が必須", "トライアル実施計画書を雇い入れ前に提出", "3ヶ月のトライアル期間"],
+    compatible_with: ["tokutei-shushokukonnansha", "tokutei-hyogaki"],
+    incompatible_with: ["trial-shogaisha", "trial-shogaisha-tanjikan"],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["フリーター", "長期失業", "試用", "ハローワーク採用", "採用リスク"]
+  },
+  {
+    id: "trial-shogaisha",
+    name: "トライアル雇用助成金 障害者トライアルコース",
+    q14_key: null,
+    max_amount: 240000,
+    amount_note: "月8万円×3ヶ月＝24万円/人（精神・発達障害者）",
+    timing: "before_hire",
+    lead_time_months: 4,
+    difficulty: 1,
+    company_size: ["中小企業", "大企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 0,
+    note_eligibility: "ハローワーク等の紹介状が必須。障害者の採用前に申請が必要",
+    conditions: ["ハローワーク等の紹介状が必須", "トライアル実施計画書を事前提出", "精神・発達・知的障害者が対象"],
+    compatible_with: ["tokutei-shushokukonnansha", "career-up-shogaisha-seishainuka"],
+    incompatible_with: ["trial-ippan", "trial-shogaisha-tanjikan"],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["障害者採用", "障がい者", "精神障害", "発達障害", "知的障害"]
+  },
+  {
+    id: "trial-shogaisha-tanjikan",
+    name: "トライアル雇用助成金 障害者短時間トライアルコース",
+    q14_key: null,
+    max_amount: 240000,
+    amount_note: "月2万円×最大12ヶ月＝24万円/人",
+    timing: "before_hire",
+    lead_time_months: 4,
+    difficulty: 1,
+    company_size: ["中小企業", "大企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 0,
+    note_eligibility: "週10時間以上20時間未満での雇用。精神・発達障害者等が対象",
+    conditions: ["ハローワーク等の紹介状が必須", "週10〜20時間未満の雇用から段階的に延長", "精神・発達障害者等"],
+    compatible_with: ["tokutei-shushokukonnansha", "career-up-shogaisha-seishainuka"],
+    incompatible_with: ["trial-ippan"],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["短時間障害者", "就労移行", "週10時間", "段階的就労"]
+  },
+
+  // ════════════════════════════════════════
+  // ── 特定求職者雇用開発助成金系 ──
+  // ════════════════════════════════════════
+  {
+    id: "tokutei-shushokukonnansha",
+    name: "特定求職者雇用開発助成金 特定就職困難者コース",
+    q14_key: null,
+    max_amount: 2400000,
+    amount_note: "障害者：240万円、60歳以上高齢者：70万円（いずれも中小企業）",
+    timing: "after_hire",
+    lead_time_months: 9,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 0,
+    note_eligibility: "ハローワーク等の紹介状が必須。雇い入れ後2週間以内に受給資格確認申請",
+    conditions: ["ハローワーク等の紹介状が必須", "雇い入れ後2週間以内に受給資格確認申請", "1年以上の継続雇用見込み"],
+    compatible_with: ["trial-shogaisha", "trial-ippan", "career-up-shogaisha-seishainuka"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["障害者採用", "高齢者採用", "母子家庭", "就職困難者", "障害者雇用率"]
+  },
+  {
+    id: "tokutei-hyogaki",
+    name: "特定求職者雇用開発助成金 就職氷河期世代安定雇用実現コース",
+    q14_key: null,
+    max_amount: 600000,
+    amount_note: "60万円/人（中小企業）",
+    timing: "after_hire",
+    lead_time_months: 9,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 0,
+    note_eligibility: "35〜55歳の就職氷河期世代を正規雇用（無期・フルタイム）で採用すること",
+    conditions: ["35〜55歳の就職困難者", "正規雇用（無期・フルタイム）での採用", "ハローワーク等の紹介状が必須"],
+    compatible_with: ["jinzai-ikusei-shien", "trial-ippan"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["氷河期", "35歳", "45歳", "50歳", "長期フリーター", "中堅層採用"]
+  },
+  {
+    id: "tokutei-shogai-genkyu",
+    name: "特定求職者雇用開発助成金 生涯現役コース",
+    q14_key: null,
+    max_amount: 700000,
+    amount_note: "70万円/人（中小企業のみ）",
+    timing: "after_hire",
+    lead_time_months: 9,
+    difficulty: 2,
+    company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 0,
+    note_eligibility: "中小企業のみ対象。65歳以上の新規雇い入れ（継続雇用は対象外）",
+    conditions: ["中小企業のみ対象", "65歳以上の新規雇い入れ（継続雇用は対象外）", "週20時間以上の雇用"],
+    compatible_with: ["jinzai-ikusei-shien"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["65歳", "シニア", "高齢者雇用", "定年後", "シルバー"]
+  },
+
+  // ════════════════════════════════════════
+  // ── 両立支援等助成金系 ──
+  // ════════════════════════════════════════
+  {
+    id: "ryoritsu-papa-shien",
+    name: "両立支援等助成金 出生時両立支援コース（子育てパパ支援助成金）",
+    q14_key: null,
+    max_amount: 400000,
+    amount_note: "1人目20万円、2人目以降10万円（中小企業）",
+    timing: "after_return",
+    lead_time_months: 6,
+    difficulty: 1,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "育休・育児目的休暇規定を就業規則に整備していること",
+    conditions: ["育休・育児目的休暇規定を就業規則に整備", "男性社員が子の出生後8週間以内に連続5日以上取得"],
+    compatible_with: ["ryoritsu-ikukyu-kouhyo"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["パパ育休", "男性育休", "産後パパ", "男性の育児"]
+  },
+  {
+    id: "ryoritsu-ikukyu-shien",
+    name: "両立支援等助成金 育児休業等支援コース",
+    q14_key: null,
+    max_amount: 1200000,
+    amount_note: "休業取得時30万円＋職場復帰時30万円等 最大120万円",
+    timing: "after_return",
+    lead_time_months: 6,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "育休復帰支援プランを育休取得前に策定すること",
+    conditions: ["育休復帰支援プランを育休取得前に策定", "就業規則に育休規定"],
+    compatible_with: ["ryoritsu-ikukyu-kouhyo"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["育休", "育児休業", "産休", "復帰支援", "くるみん"]
+  },
+  {
+    id: "ryoritsu-kaigo-boushi",
+    name: "両立支援等助成金 介護離職防止支援コース",
+    q14_key: null,
+    max_amount: 1000000,
+    amount_note: "介護休業取得時30万円＋復帰時30万円等 最大100万円",
+    timing: "after_return",
+    lead_time_months: 6,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "介護支援プランの事前策定が必要",
+    conditions: ["介護支援プランの事前策定", "就業規則に介護休業・短時間勤務規定"],
+    compatible_with: [],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["介護", "介護離職", "介護休業", "40代", "50代"]
+  },
+  {
+    id: "ryoritsu-funin-shien",
+    name: "両立支援等助成金 不妊治療両立支援コース",
+    q14_key: null,
+    max_amount: 900000,
+    amount_note: "1事業所あたり最大90万円",
+    timing: "after_leave",
+    lead_time_months: 6,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "不妊治療のための休暇制度を就業規則に整備し、実際に取得した従業員がいること",
+    conditions: ["不妊治療のための休暇制度を就業規則に整備", "実際に休暇取得した従業員がいること"],
+    compatible_with: ["ryoritsu-ikukyu-shien"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["不妊治療", "女性活躍", "福利厚生", "30代女性", "40代女性"]
+  },
+  {
+    id: "ryoritsu-ikukyu-kouhyo",
+    name: "両立支援等助成金 育児休業等情報公表支援コース",
+    q14_key: null,
+    max_amount: 1000000,
+    amount_note: "1事業所あたり最大100万円（中小企業のみ）",
+    timing: "after_publish",
+    lead_time_months: 6,
+    difficulty: 1,
+    company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "中小企業（常時雇用1,000人以下）のみ対象。自主的な育休取得率の公表が条件",
+    conditions: ["育休取得率等の情報を自社HP等で自主的に公表", "育休取得促進の取り組みを実施"],
+    compatible_with: ["ryoritsu-ikukyu-shien", "ryoritsu-papa-shien"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["採用力", "育休公表", "くるみん", "採用PR"]
+  },
+
+  // ════════════════════════════════════════
+  // ── その他 ──
+  // ════════════════════════════════════════
   {
     id: "gyomu-kaizen",
     name: "業務改善助成金",
@@ -684,43 +1233,17 @@ const SUBSIDIES = [
     lead_time_months: 6,
     difficulty: 2,
     company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "事業場内最低賃金と地域別最低賃金の差が50円以内であること",
     conditions: ["最低賃金付近の従業員がいること（差額50円以内）", "30円以上の賃金引上げ計画", "交付決定後に設備購入"],
     compatible_with: ["career-up-chingin-kaitei"],
     incompatible_with: [],
     wage_required: true,
-    bonus_points: {}
-  },
-  {
-    id: "ryoritsu-papa-shien",
-    name: "両立支援等助成金 出生時両立支援コース（子育てパパ支援助成金）",
-    q14_key: null,
-    max_amount: 400000,
-    amount_note: "1人目20万円、2人目以降10万円",
-    timing: "after_return",
-    lead_time_months: 6,
-    difficulty: 1,
-    company_size: ["中小企業", "大企業"],
-    conditions: ["育休・育児目的休暇規定を就業規則に整備", "男性社員が子の出生後8週間以内に連続5日以上取得"],
-    compatible_with: ["ryoritsu-ikukyu-kouhyo"],
-    incompatible_with: [],
-    wage_required: false,
-    bonus_points: {}
-  },
-  {
-    id: "ryoritsu-ikukyu-shien",
-    name: "両立支援等助成金 育児休業等支援コース",
-    q14_key: null,
-    max_amount: 1200000,
-    amount_note: "休業取得時30万円＋職場復帰時30万円×複数回等 最大120万円",
-    timing: "after_return",
-    lead_time_months: 6,
-    difficulty: 2,
-    company_size: ["中小企業", "大企業"],
-    conditions: ["育休復帰支援プランを育休取得前に策定", "就業規則に育休規定"],
-    compatible_with: ["ryoritsu-ikukyu-kouhyo"],
-    incompatible_with: [],
-    wage_required: false,
-    bonus_points: {}
+    bonus_points: {},
+    q15_keywords: ["最低賃金", "設備投資", "賃上げ", "省力化", "ポスレジ"]
   },
   {
     id: "koyo-chosei",
@@ -732,11 +1255,17 @@ const SUBSIDIES = [
     lead_time_months: 2,
     difficulty: 2,
     company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "最近3ヶ月で売上・生産量が10%以上減少",
     conditions: ["最近3ヶ月で売上・生産量が10%以上減少", "雇用保険適用事業所", "解雇せず休業・訓練で対応"],
     compatible_with: [],
     incompatible_with: [],
     wage_required: false,
-    bonus_points: {}
+    bonus_points: {},
+    q15_keywords: ["売上減少", "休業", "解雇回避", "雇用維持", "不況"]
   }
 ];
 
@@ -744,40 +1273,64 @@ const SUBSIDIES = [
 // スタッキングパターン
 // ─────────────────────────────────────────────
 const STACKING_PATTERNS = [
+  // ── 障害者採用の最強コンボ ──
+  {
+    ids: ["trial-shogaisha", "tokutei-shushokukonnansha", "career-up-shogaisha-seishainuka"],
+    label: "障害者採用 完全スタック（トライアル→特定→正社員化）",
+    note: "同一人物に対して順番に適用。最大384万円/人の受給が可能"
+  },
+  // ── フリーター・長期失業者採用コンボ ──
+  {
+    ids: ["trial-ippan", "tokutei-hyogaki"],
+    label: "氷河期世代採用 スタック（トライアル→特定）",
+    note: "試用期間で見極めながら採用。72万円/人が上限"
+  },
+  // ── 非正規の処遇改善トリプルコンボ ──
+  {
+    ids: ["career-up-seishainuka", "career-up-chingin-kaitei", "career-up-shoyo-taishokukin"],
+    label: "非正規処遇改善 トリプルコンボ",
+    note: "正社員化＋賃金規定整備＋賞与制度を一括申請。最大180万円/事業所"
+  },
+  // ── 正社員化+賃金 ──
+  {
+    ids: ["career-up-seishainuka", "career-up-chingin-kaitei"],
+    label: "正社員化 × 賃金規定整備",
+    note: "パートを正社員化しつつ賃金規定も整備。130万円が目安"
+  },
+  // ── 新事業展開コンボ ──
   {
     ids: ["jigyo-shinsyutsu", "jinzai-reskilling"],
     label: "新事業進出 × リスキリング",
-    note: "新事業に向けて設備投資と社員教育を同時に実施"
+    note: "設備投資と社員教育を同時に申請。補助率75%の研修費を組み合わせ"
   },
-  {
-    ids: ["monozukuri-hojyokin", "jinzai-ikusei-shien"],
-    label: "ものづくり × 人材育成",
-    note: "設備導入と社員研修を一体で進める王道コース"
-  },
-  {
-    ids: ["career-up-seishainuka", "career-up-chingin-kaitei"],
-    label: "正社員化 × 賃金改定",
-    note: "パートを正社員化しつつ賃金規定も整備"
-  },
-  {
-    ids: ["career-up-seishainuka", "career-up-shoyo-taishokukin"],
-    label: "正社員化 × 賞与・退職金制度",
-    note: "正社員転換と待遇改善を同時に達成"
-  },
+  // ── IT×DX人材育成 ──
   {
     ids: ["it-donyu", "jinzai-hito-investment"],
     label: "IT導入 × DX人材育成",
-    note: "ツール導入と社員スキルアップをセットで"
+    note: "ツール導入（50%補助）と社員スキルアップ（75%補助）をセットで"
   },
+  // ── 設備投資×賃上げ ──
   {
     ids: ["gyomu-kaizen", "career-up-chingin-kaitei"],
-    label: "業務改善助成金 × 賃金改定コース",
-    note: "設備投資による賃上げと、非正規の賃金規定整備を両立"
+    label: "業務改善 × 賃金規定改定",
+    note: "設備投資で生産性を上げながら、非正規の賃金体系も整備"
+  },
+  // ── 製造業王道 ──
+  {
+    ids: ["monozukuri-hojyokin", "jinzai-ikusei-shien"],
+    label: "ものづくり × 人材育成",
+    note: "設備導入（最大4,000万円）と社員研修（訓練費45%）を同時進行"
+  },
+  // ── 育休×採用力強化 ──
+  {
+    ids: ["ryoritsu-papa-shien", "ryoritsu-ikukyu-shien", "ryoritsu-ikukyu-kouhyo"],
+    label: "育休整備トリプル（パパ育休＋育休支援＋情報公表）",
+    note: "男女の育休制度を丸ごと整備。採用力強化と最大260万円受給"
   },
   {
-    ids: ["ryoritsu-papa-shien", "ryoritsu-ikukyu-shien"],
-    label: "パパ育休 × 育休等支援",
-    note: "男性・女性両方の育休を整備して採用力を強化"
+    ids: ["ryoritsu-papa-shien", "ryoritsu-ikukyu-kouhyo"],
+    label: "パパ育休 × 育休情報公表",
+    note: "男性育休の整備と採用PRを一体で実施"
   }
 ];
 
@@ -803,87 +1356,101 @@ function runDiagnosis() {
 
   if (!q6 || !q7) { alert('法人形態と業種は必須です'); return; }
 
-  const companySizes = getCompanySize(q6, q7, q8, q9);
-  const isSmall = companySizes.includes('小規模事業者') || companySizes.includes('個人事業主');
-  const isSME = companySizes.includes('中小企業');
+  // 会社情報を厳密に分類
+  const company = classifyCompany(q6, q7, q8, q9);
+  const { legalForm, sizes } = company;
+  const isSmall = sizes.includes('小規模事業者');
+  const isSME = sizes.includes('中小企業');
   const wageUp = ['ベースアップ可能', '最低賃金引き上げ可能'].includes(q13);
   const isDeficit = q10 === '赤字';
   const isMedical = q7 === '医療・介護・福祉';
   const canWage = wageUp || isMedical;
+  const freeText = (q15 || '').toLowerCase();
+  const employees = parseInt(q8) || 0;
 
-  // スコアリング
+  // ── 不適格な提案を完全に除外するスコアリング ──
   const scored = SUBSIDIES.map(s => {
+
+    // ① 厳密な適格性チェック（NGなら絶対に除外）
+    const elig = checkEligibility(s, company);
+    if (!elig.ok) return null; // 法人形態・業種・規模が合わない → 出さない
+
     let score = 0;
     const reasons = [];
+    let bonusReasons = [];
 
-    // 会社規模フィルタ
-    const sizeOK = s.company_size.some(sz => companySizes.includes(sz));
-    if (!sizeOK) return null;
-
-    // Q14直結マッチ（最高優先）
+    // ② Q14直結マッチ（最高優先度：5点）
     if (s.q14_key && q14.includes(s.q14_key)) {
       score += 5;
       reasons.push('経営課題として選択');
     }
 
-    // 賃上げ要件チェック
-    if (s.wage_required && !canWage) {
-      score -= 3; // 賃上げ必要なのに難しい場合はスコアダウン
-    }
-
-    // Q15自由記述マッチ
-    const freeText = q15.toLowerCase();
-    if (freeText) {
-      const keywords = {
-        "jizokuka-hojyokin": ["チラシ", "hp", "web", "広告", "販路"],
-        "it-donyu": ["it", "システム", "ソフト", "クラウド", "ai", "デジタル"],
-        "monozukuri-hojyokin": ["設備", "機械", "製品", "開発", "装置"],
-        "shooryoka": ["ロボット", "自動", "省力", "配膳", "精算"],
-        "jinzai-ikusei-shien": ["研修", "セミナー", "資格", "育成"],
-        "jinzai-reskilling": ["リスキリング", "新事業", "転換"],
-        "jinzai-hito-investment": ["dx", "ai", "デジタル", "グリーン"],
-        "career-up-seishainuka": ["正社員", "転換", "パート", "非正規"],
-        "gyomu-kaizen": ["設備", "ロボット", "賃上げ", "最低賃金"],
-        "ryoritsu-papa-shien": ["育休", "パパ", "男性"],
-        "ryoritsu-ikukyu-shien": ["育休", "産休", "復帰"],
-      };
-      const kws = keywords[s.id] || [];
-      kws.forEach(kw => {
-        if (freeText.includes(kw)) { score += 1; reasons.push(`記述内容「${kw}」に合致`); }
+    // ③ Q15自由記述マッチ（各キーワード1点）
+    if (freeText && s.q15_keywords) {
+      s.q15_keywords.forEach(kw => {
+        if (freeText.includes(kw.toLowerCase())) {
+          score += 1;
+          reasons.push(`記述「${kw}」に合致`);
+        }
       });
     }
 
+    // ④ Q13 賃上げ意向との整合（賃上げ条件ありの補助金）
+    if (s.wage_required) {
+      if (canWage) {
+        score += 1;
+        reasons.push('賃上げ計画あり→要件を満たせる可能性');
+      } else {
+        score -= 4; // 賃上げ必須なのに難しい→大幅ダウン（除外はしないが最下位に）
+      }
+    }
+
+    // Q14で「研修」を選んでいない場合、研修系助成金は自由記述マッチのみ
+    const isTrainingSubsidy = ['jinzai-ikusei-shien','jinzai-hito-investment','jinzai-reskilling','jinzai-kyuka-fuyo','jinzai-kensetsu-gino','jinzai-kensetsu-nintei'].includes(s.id);
+    if (isTrainingSubsidy && !q14.includes('jinzai') && score < 1) return null;
+
+    // 雇用関連助成金はQ15記述マッチが最低1点ないと除外
+    const isEmploymentSubsidy = ['career-up-seishainuka','career-up-shogaisha-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu','career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','trial-ippan','trial-shogaisha','trial-shogaisha-tanjikan','tokutei-shushokukonnansha','tokutei-hyogaki','tokutei-shogai-genkyu','ryoritsu-papa-shien','ryoritsu-ikukyu-shien','ryoritsu-kaigo-boushi','ryoritsu-funin-shien','ryoritsu-ikukyu-kouhyo','koyo-chosei'].includes(s.id);
+    if (isEmploymentSubsidy && score < 1) return null;
+
     if (score <= 0) return null;
 
-    // 加点計算
-    let bonusScore = 0;
-    let bonusReasons = [];
-    if (isSmall && s.id === 'jizokuka-hojyokin') { bonusScore += 1; bonusReasons.push('小規模事業者向け最適'); }
-    if (isDeficit && ['monozukuri-hojyokin', 'jigyo-shinsyutsu'].includes(s.id)) { bonusScore += 1; bonusReasons.push('赤字事業者→補助率引き上げ枠あり'); }
-    q20.forEach(cert => { if (s.bonus_points[cert]) { bonusScore += s.bonus_points[cert]; bonusReasons.push(`「${cert}」加点あり`); } });
-    if (q18 === '取得済み') { bonusScore += 0.5; }
+    // ⑤ 加点（採択率・補助率向上要素）
+    if (isSmall && s.id === 'jizokuka-hojyokin') {
+      bonusReasons.push('小規模事業者向け最適枠');
+    }
+    if (isDeficit && ['monozukuri-hojyokin', 'jigyo-shinsyutsu'].includes(s.id)) {
+      score += 1; bonusReasons.push('赤字事業者→補助率引き上げ枠あり');
+    }
+    q20.forEach(cert => {
+      if (s.bonus_points[cert]) {
+        score += s.bonus_points[cert];
+        bonusReasons.push(`「${cert}」加点あり`);
+      }
+    });
+    if (q18 === '取得済み' && ['monozukuri-hojyokin','it-donyu','jizokuka-hojyokin','jigyo-shinsyutsu','shooryoka'].includes(s.id)) {
+      bonusReasons.push('gBizID取得済み→即時申請可能');
+    }
 
-    // タイミング警告
+    // ⑥ タイミング警告
     let timingWarning = null;
     if (q17 === '1〜2ヶ月以内' && s.lead_time_months > 3) {
-      timingWarning = `⚠️ 準備期間が${s.lead_time_months}ヶ月必要なため、今すぐ着手が必要です`;
+      timingWarning = `⚠️ この助成金は準備期間が約${s.lead_time_months}ヶ月必要です。すぐに着手しないと間に合いません`;
+    }
+    if (['trial-ippan','trial-shogaisha','trial-shogaisha-tanjikan'].includes(s.id)) {
+      timingWarning = '⚠️ 採用前の申請が必須です。採用が決まってからでは遅い';
+    }
+    if (['jizokuka-hojyokin','monozukuri-hojyokin','it-donyu','jigyo-shinsyutsu','shooryoka'].includes(s.id)) {
+      if (!timingWarning) timingWarning = '⚠️ 補助金は設備投資・発注前に申請が必要。交付決定前の契約は補助対象外になります';
     }
 
-    // Q11: インボイス特例
+    // ⑦ インボイス特例
     let invoiceNote = null;
-    if (q11 === '未登録（免税事業者）' && ['it-donyu', 'jizokuka-hojyokin'].includes(s.id)) {
-      invoiceNote = '📌 インボイス転換枠への対象となる可能性あり';
+    if (q11 !== '登録済み' && ['it-donyu', 'jizokuka-hojyokin'].includes(s.id)) {
+      invoiceNote = '📌 インボイス未登録事業者向けの特例枠が利用できる可能性あり';
     }
 
-    return {
-      ...s,
-      score: score + bonusScore,
-      reasons,
-      bonusReasons,
-      timingWarning,
-      invoiceNote,
-      companySizes
-    };
+    return { ...s, score, reasons, bonusReasons, timingWarning, invoiceNote };
   }).filter(Boolean).sort((a, b) => b.score - a.score || b.max_amount - a.max_amount);
 
   // スタッキング検出

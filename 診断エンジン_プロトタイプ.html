@@ -1223,6 +1223,58 @@ const SUBSIDIES = [
   // ════════════════════════════════════════
   // ── その他 ──
   // ════════════════════════════════════════
+  // ════════════════════════════════════════
+  // ── 成長・大規模投資補助金 ──
+  // ════════════════════════════════════════
+  {
+    id: "seichokasoku",
+    name: "中小企業成長加速化補助金",
+    q14_key: "seichokasoku",
+    max_amount: 200000000,
+    amount_note: "設備投資等の対象経費の1/2（上限2億円程度）。工場・拠点の新増設、大型設備導入が対象",
+    timing: "before_investment",
+    lead_time_months: 12,
+    difficulty: 3,
+    company_size: ["中小企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: false,
+    min_employees: 0,
+    note_eligibility: "成長目標（売上・付加価値額等）の設定が必須。大規模投資が前提のため、通常枠（ものづくり補助金）との使い分けが重要",
+    conditions: ["認定経営革新等支援機関（認定支援機関）の確認必須", "明確な成長目標と事業計画書の提出", "大規模な設備投資（数千万円〜）が対象"],
+    compatible_with: ["jinzai-reskilling", "jinzai-hito-investment", "monozukuri-hojyokin"],
+    incompatible_with: [],
+    wage_required: true,
+    bonus_points: { "経営革新計画": 2, "パートナーシップ構築宣言": 1 },
+    q15_keywords: ["工場", "拠点", "大型設備", "増設", "新設", "100億", "大規模投資"]
+  },
+
+  // ════════════════════════════════════════
+  // ── 高年齢者雇用推進 ──
+  // ════════════════════════════════════════
+  {
+    id: "konenreisha-koyosuishin",
+    name: "65歳超雇用推進助成金",
+    q14_key: null,
+    max_amount: 1600000,
+    amount_note: "高年齢者就業確保措置整備助成：最大160万円。継続雇用助成：1人あたり最大15万円",
+    timing: "after_hire",
+    lead_time_months: 6,
+    difficulty: 2,
+    company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "定年延長・継続雇用制度の整備または実際の65歳超雇用が必要。中小企業のみ対象",
+    conditions: ["65歳以上への定年延長または継続雇用制度の整備", "就業規則への規定整備", "ハローワークへの届出"],
+    compatible_with: ["jinzai-ikusei-shien", "tokutei-shogai-genkyu"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["定年延長", "再雇用", "シニア", "65歳", "70歳", "高齢者活躍", "継続雇用"]
+  },
+
   {
     id: "gyomu-kaizen",
     name: "業務改善助成金",
@@ -1331,6 +1383,18 @@ const STACKING_PATTERNS = [
     ids: ["ryoritsu-papa-shien", "ryoritsu-ikukyu-kouhyo"],
     label: "パパ育休 × 育休情報公表",
     note: "男性育休の整備と採用PRを一体で実施"
+  },
+  // ── 成長加速化+リスキリング ──
+  {
+    ids: ["seichokasoku", "jinzai-reskilling"],
+    label: "成長加速化補助金 × リスキリング",
+    note: "大規模設備投資と社員の新事業スキル習得を同時申請"
+  },
+  // ── 65歳超雇用+人材育成 ──
+  {
+    ids: ["konenreisha-koyosuishin", "tokutei-shogai-genkyu"],
+    label: "65歳超雇用推進 × 生涯現役コース",
+    note: "シニア活躍の制度整備（最大160万円）と採用助成（70万円/人）をダブル取得"
   }
 ];
 
@@ -1636,18 +1700,32 @@ function fmt(n) {
 }
 
 function timingLbl(t) {
-  return {before_hire:'採用前',after_hire:'採用後',before_investment:'投資前',before_training:'研修前',after_return:'復帰後',after_leave:'休業後',after_raise:'賃上げ後'}[t] || t;
+  return {
+    before_hire: '採用前',
+    after_hire: '採用後',
+    before_investment: '投資前',
+    before_training: '研修前',
+    after_return: '復帰後',
+    after_leave: '休業後',
+    after_raise: '賃上げ後',
+    after_change: '処遇変更後',
+    after_publish: '情報公表後',
+    after_payment: '支払い後',
+  }[t] || t;
 }
 
 function timingDetailLbl(t) {
   return {
-    before_hire:'雇い入れ前に申請が必要（先申請）',
-    after_hire:'雇い入れ後に申請（2週間以内等、期限あり）',
-    before_investment:'設備投資・発注前に申請必須（事前申請）',
-    before_training:'研修開始1ヶ月前に計画届出',
-    after_return:'育休・介護休業からの復帰後に申請',
-    after_leave:'休業実施後に申請',
-    after_raise:'賃上げ実施後に申請',
+    before_hire: '雇い入れ前に申請が必要（先申請）',
+    after_hire: '雇い入れ後に申請（2週間以内等、期限あり）',
+    before_investment: '設備投資・発注前に申請必須（事前申請）',
+    before_training: '研修開始1ヶ月前に計画届出',
+    after_return: '育休・介護休業からの復帰後に申請',
+    after_leave: '休業実施後に申請',
+    after_raise: '賃上げ実施後に申請',
+    after_change: '処遇変更（労働時間延長等）の実施後に申請',
+    after_publish: '育休取得率等の情報公表後に申請',
+    after_payment: '賞与・退職金の実際の支払い後に申請',
   }[t] || t;
 }
 </script>

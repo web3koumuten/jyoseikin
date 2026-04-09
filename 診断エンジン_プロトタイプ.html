@@ -1297,6 +1297,158 @@ const SUBSIDIES = [
     bonus_points: {},
     q15_keywords: ["最低賃金", "設備投資", "賃上げ", "省力化", "ポスレジ"]
   },
+  // ════════════════════════════════════════
+  // ── 働き方改革推進支援助成金 ──
+  // ════════════════════════════════════════
+  {
+    id: "hatarakikata-jikangai",
+    name: "働き方改革推進支援助成金 時間外労働等改善助成金コース",
+    q14_key: null,
+    max_amount: 1000000,
+    amount_note: "対象費用の3/4（上限100万円）。勤怠管理システム・専門家指導費等が対象",
+    timing: "before_investment",
+    lead_time_months: 3,
+    difficulty: 1,
+    company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "中小企業のみ対象。事業実施計画の事前提出が必要",
+    conditions: ["時間外労働の上限設定（36協定の整備）", "実施計画書を取り組み前に提出", "取り組み後に成果報告書を提出"],
+    compatible_with: ["hatarakikata-interval", "jinzai-ikusei-shien"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["勤怠", "36協定", "残業削減", "時間外", "勤怠システム", "労務管理", "長時間労働", "シフト"]
+  },
+  {
+    id: "hatarakikata-interval",
+    name: "働き方改革推進支援助成金 勤務間インターバル導入コース",
+    q14_key: null,
+    max_amount: 1000000,
+    amount_note: "対象費用の3/4（上限100万円）。インターバル制度導入に係る費用が対象",
+    timing: "before_investment",
+    lead_time_months: 3,
+    difficulty: 2,
+    company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "中小企業のみ対象。就業規則にインターバル規定を整備すること",
+    conditions: ["就業規則に勤務間インターバル規定を整備（9時間以上推奨）", "実施計画書を事前提出"],
+    compatible_with: ["hatarakikata-jikangai"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["インターバル", "休息時間", "深夜労働", "シフト改善", "夜勤"]
+  },
+
+  // ════════════════════════════════════════
+  // ── 人材確保等支援助成金 ──
+  // ════════════════════════════════════════
+  {
+    id: "jinzai-kakuho-koyokanri",
+    name: "人材確保等支援助成金 雇用管理制度助成コース",
+    q14_key: null,
+    max_amount: 570000,
+    amount_note: "制度整備助成12.5万円＋離職率目標達成時57万円（中小企業）",
+    timing: "after_hire",
+    lead_time_months: 12,
+    difficulty: 2,
+    company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "中小企業のみ対象。離職率改善目標の達成が最終支給の条件",
+    conditions: ["評価・処遇制度や研修制度等の雇用管理制度を整備", "整備後1年間の離職率が目標値以下に低下", "制度整備前後の離職率を比較・報告"],
+    compatible_with: ["career-up-seishainuka", "jinzai-ikusei-shien"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["離職率", "定着率", "人材定着", "評価制度", "人事制度", "採用強化", "従業員定着"]
+  },
+
+  // ════════════════════════════════════════
+  // ── 産業雇用安定助成金 ──
+  // ════════════════════════════════════════
+  {
+    id: "sangyo-koyo-antei-shukko",
+    name: "産業雇用安定助成金（在籍型出向支援コース）",
+    q14_key: null,
+    max_amount: 12000,
+    amount_note: "出向中の賃金の最大9/10（中小企業）。1人1日最大12,000円",
+    timing: "before_hire",
+    lead_time_months: 2,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "経営上の理由で一時的に余剰が生じた労働者の在籍型出向が対象",
+    conditions: ["経営上の理由による余剰人員の発生", "出向先と三者（出向元・出向先・労働者）の合意", "出向期間中の雇用保険料は出向元が負担"],
+    compatible_with: ["koyo-chosei"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["出向", "在籍出向", "人員調整", "余剰人員", "売上減少", "雇用維持"]
+  },
+
+  // ════════════════════════════════════════
+  // ── 障害者雇用安定助成金 ──
+  // ════════════════════════════════════════
+  {
+    id: "shogaisha-shokubasekio-enjo",
+    name: "障害者雇用安定助成金 障害者職場適応援助コース",
+    q14_key: null,
+    max_amount: 800000,
+    amount_note: "訪問型ジョブコーチ：月8万円（最大24ヶ月）。企業在籍型：月20万円",
+    timing: "after_hire",
+    lead_time_months: 3,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 0,
+    note_eligibility: "雇用した障害者の職場定着に課題がある場合に利用。ジョブコーチが職場に派遣される",
+    conditions: ["雇用している（またはこれから雇用する）障害者がいること", "ハローワークを通じた支援計画の策定"],
+    compatible_with: ["trial-shogaisha", "tokutei-shushokukonnansha", "career-up-shogaisha-seishainuka"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["障害者定着", "ジョブコーチ", "職場適応", "障害者支援", "定着支援"]
+  },
+
+  // ════════════════════════════════════════
+  // ── 受動喫煙防止対策助成金 ──
+  // ════════════════════════════════════════
+  {
+    id: "judokyuen-boushi",
+    name: "受動喫煙防止対策助成金",
+    q14_key: null,
+    max_amount: 1000000,
+    amount_note: "対象費用の2/3（飲食業等：上限100万円、その他業種：上限50万円）",
+    timing: "before_investment",
+    lead_time_months: 3,
+    difficulty: 1,
+    company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "中小企業のみ対象。喫煙専用室・加熱式たばこ専用喫煙室の設置工事が対象",
+    conditions: ["喫煙専用室等の設置工事（設備費・工事費が対象）", "工事前にハローワーク等へ申請が必要", "労働者の受動喫煙防止が目的であること"],
+    compatible_with: ["hatarakikata-jikangai"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["喫煙室", "禁煙", "受動喫煙", "分煙", "喫煙ブース", "飲食店", "たばこ"]
+  },
+
   {
     id: "koyo-chosei",
     name: "雇用調整助成金",
@@ -1395,6 +1547,24 @@ const STACKING_PATTERNS = [
     ids: ["konenreisha-koyosuishin", "tokutei-shogai-genkyu"],
     label: "65歳超雇用推進 × 生涯現役コース",
     note: "シニア活躍の制度整備（最大160万円）と採用助成（70万円/人）をダブル取得"
+  },
+  // ── 障害者採用の完全サポートコンボ ──
+  {
+    ids: ["trial-shogaisha", "shogaisha-shokubasekio-enjo", "tokutei-shushokukonnansha", "career-up-shogaisha-seishainuka"],
+    label: "障害者採用 完全定着コンボ（トライアル→ジョブコーチ→特定→正社員化）",
+    note: "採用→定着支援→雇用安定→正社員化の全ステップを助成。最大400万円超/人"
+  },
+  // ── 働き方改革ダブル ──
+  {
+    ids: ["hatarakikata-jikangai", "hatarakikata-interval"],
+    label: "働き方改革 ダブル申請（時間外削減＋インターバル）",
+    note: "2コースを同時申請で最大200万円。勤怠システム導入と制度整備をまとめて"
+  },
+  // ── 雇用維持コンボ ──
+  {
+    ids: ["sangyo-koyo-antei-shukko", "koyo-chosei"],
+    label: "雇用維持 ダブル（在籍出向＋雇用調整）",
+    note: "売上減少時に休業・出向の両方を組み合わせて雇用を守る"
   }
 ];
 

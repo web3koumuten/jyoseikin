@@ -1405,15 +1405,30 @@ function runDiagnosis() {
       }
     }
 
-    // Q14で「研修」を選んでいない場合、研修系助成金は自由記述マッチのみ
-    const isTrainingSubsidy = ['jinzai-ikusei-shien','jinzai-hito-investment','jinzai-reskilling','jinzai-kyuka-fuyo','jinzai-kensetsu-gino','jinzai-kensetsu-nintei'].includes(s.id);
-    if (isTrainingSubsidy && !q14.includes('jinzai') && score < 1) return null;
+    // ⑤ ベースライン付与のルール
+    // 【原則】適格性を通過した助成金は、Q14・Q15でマッチしなくても
+    //         「可能性あり」として最低スコア1点を与える。
+    //         ただし以下の例外で除外する。
+    //
+    // ──例外①：業種制限は checkEligibility で既に除外済み（建設業専用等）
+    //
+    // ──例外②：補助金系（Q14が主な入口）はQ14で選択しないと対象外
+    //   → Q14未選択 かつ Q15マッチなし の場合は除外
+    const isSubsidy = ['jizokuka-hojyokin','it-donyu','monozukuri-hojyokin','shooryoka','jigyo-shinsyutsu','shoene','jigyo-shokei'].includes(s.id);
+    if (isSubsidy && score < 1) return null; // 補助金：Q14かQ15のマッチなしなら除外
 
-    // 雇用関連助成金はQ15記述マッチが最低1点ないと除外
-    const isEmploymentSubsidy = ['career-up-seishainuka','career-up-shogaisha-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu','career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','trial-ippan','trial-shogaisha','trial-shogaisha-tanjikan','tokutei-shushokukonnansha','tokutei-hyogaki','tokutei-shogai-genkyu','ryoritsu-papa-shien','ryoritsu-ikukyu-shien','ryoritsu-kaigo-boushi','ryoritsu-funin-shien','ryoritsu-ikukyu-kouhyo','koyo-chosei'].includes(s.id);
-    if (isEmploymentSubsidy && score < 1) return null;
+    // ──例外③：障害者向け助成金は、従業員が0人の個人事業主には基本不要
+    const isDisabilitySubsidy = ['trial-shogaisha','trial-shogaisha-tanjikan','career-up-shogaisha-seishainuka','jinzai-shogaisha-nouryoku'].includes(s.id);
+    if (isDisabilitySubsidy && employees === 0) return null;
 
-    if (score <= 0) return null;
+    // ──例外④：雇用調整助成金は売上減少が前提。Q14/Q15に言及なければ除外
+    if (s.id === 'koyo-chosei' && score < 1) return null;
+
+    // ──それ以外の助成金：適格性OKなら最低1点（可能性あり）
+    if (score < 1) {
+      score = 1;
+      reasons.push('適格要件を満たしており、活用できる可能性あり');
+    }
 
     // ⑤ 加点（採択率・補助率向上要素）
     if (isSmall && s.id === 'jizokuka-hojyokin') {

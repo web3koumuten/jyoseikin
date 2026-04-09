@@ -1,3 +1,41 @@
+---
+id: "it-donyu"
+name: "IT導入補助金"
+parent: null
+category: "設備IT"
+type: "補助金"
+managing_body: "経済産業省"
+max_amount: 4500000
+amount_note: "通常枠5〜150万円（補助率1/2）、セキュリティ対策推進枠最大100万円（2/3）、インボイス枠最大350万円（3/4〜4/5）"
+subsidy_rate: 0.5
+company_size:
+  - 中小企業
+  - 小規模事業者
+industry:
+  - all
+application_timing: "before_investment"
+lead_time_months: 12
+difficulty: 1
+triggers:
+  - ITツールを導入したい
+  - 業務効率化システムを入れたい
+  - インボイス対応のソフトが欲しい
+  - 会計・給与・勤怠管理システム
+  - ECサイト構築
+  - セキュリティ対策
+conditions_required:
+  - IT導入支援事業者（認定ベンダー）を通じた申請
+  - 中小企業・小規模事業者
+  - ITツールがIT導入補助金の登録ツールであること
+compatible_with:
+  - jizokuka-hojyokin
+  - jinzai-ikusei-shien
+  - gyomu-kaizen
+incompatible_with: []
+stackable: false
+renewal: true
+---
+
 # デジタル化・AI導入補助金（旧：IT導入補助金）
 
 ## 基本情報

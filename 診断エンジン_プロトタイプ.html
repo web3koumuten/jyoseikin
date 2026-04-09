@@ -764,9 +764,9 @@ const SUBSIDIES = [
     industry_restriction: null,
     requires_employee_insurance: true,
     min_employees: 1,
-    note_eligibility: "新事業展開計画書の作成が必要。訓練内容と新事業の関連を明示すること",
-    description: "新事業展開に向けて従業員をリスキリング（新しいスキル習得）させる際の訓練費用を補助するコース（補助率75%）。新事業展開計画書を作成し、訓練内容と新事業の関連性を明示することが必要です。事業再構築・新分野進出と組み合わせて申請するケースが多いです。",
-    conditions: ["新事業展開計画書の作成", "訓練内容と新事業の関連を明示", "訓練開始1ヶ月前に届出"],
+    note_eligibility: "【令和8年3月2日改正施行】対象訓練の範囲が大幅拡充。新事業展開に伴う配置転換に加え、今後3年以内の人事・人材育成計画に基づく訓練も対象に追加された",
+    description: "新事業展開に向けて従業員をリスキリング（新しいスキル習得）させる際の訓練費用を補助するコース（補助率75%）。【令和8年3月2日改正】従来の「事業展開に伴う配置転換」に加え、「今後3年以内の人事構想・育成計画に基づく訓練」も助成対象に追加され、より長期的・計画的な人材育成にも活用できるようになりました。令和8年度が最終年度の見込みのため、早めの活用を推奨。",
+    conditions: ["人事・人材育成計画の策定（今後3年以内の計画）または新事業展開計画書の作成", "訓練内容と計画の関連を明示", "訓練開始1ヶ月前に届出"],
     compatible_with: ["jigyo-shinsyutsu", "monozukuri-hojyokin"],
     incompatible_with: [],
     wage_required: false,
@@ -1185,7 +1185,7 @@ const SUBSIDIES = [
     name: "両立支援等助成金 介護離職防止支援コース",
     q14_key: null,
     max_amount: 1000000,
-    amount_note: "介護休業取得時30万円＋復帰時30万円等 最大100万円",
+    amount_note: "介護休業取得時30万円＋復帰時30万円等 最大100万円。【令和8年度新設】介護休暇有給化助成：有給介護休暇導入で30万円、年10日以上なら50万円",
     timing: "after_return",
     lead_time_months: 6,
     difficulty: 2,
@@ -1194,8 +1194,8 @@ const SUBSIDIES = [
     industry_restriction: null,
     requires_employee_insurance: true,
     min_employees: 1,
-    note_eligibility: "介護支援プランの事前策定が必要",
-    description: "介護が必要な家族を持つ従業員のために介護支援プランを策定し、介護休業取得・職場復帰を支援した事業主に支給される助成金。介護を理由とした離職は企業にとっても大きな損失であり、これを予防・支援する制度です。取り組み前に介護支援プランの策定が必須です。",
+    note_eligibility: "介護支援プランの事前策定が必要。【令和8年度新設】介護休暇有給化助成は有給の介護休暇制度を就業規則に規定・導入することが条件",
+    description: "介護が必要な家族を持つ従業員のために介護支援プランを策定し、介護休業取得・職場復帰を支援した事業主に支給される助成金。介護を理由とした離職は企業にとっても大きな損失であり、これを予防・支援する制度です。【令和8年度から新設】介護休暇を有給化した企業への助成が追加。有給の介護休暇制度を導入した場合は30万円、年10日以上の場合は50万円が支給されます。",
     conditions: ["介護支援プランの事前策定", "就業規則に介護休業・短時間勤務規定"],
     compatible_with: [],
     incompatible_with: [],
@@ -1249,6 +1249,29 @@ const SUBSIDIES = [
     bonus_points: {},
     q15_keywords: ["採用力", "育休公表", "くるみん", "採用PR"]
   },
+  {
+    id: "ryoritsu-gyomu-daigae",
+    name: "両立支援等助成金 育休中等業務代替支援コース",
+    q14_key: null,
+    max_amount: 990000,
+    amount_note: "【令和8年度拡充】手当支給等（育児休業）最長1年以上：99万円/人（従来82.5万円）。短時間勤務対応：最大67.5万円。代替要員新規雇用：最大67.5万円。有期雇用労働者加算：10万円",
+    timing: "before_hire",
+    lead_time_months: 1,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "【令和8年度】常時雇用労働者数の要件撤廃で使いやすくなった。業務代替の見直し・効率化と手当制度の就業規則規定が必須。7日以上の育休取得者の業務代替実績が必要",
+    description: "育児休業取得者や短時間勤務者の業務を代替する周囲の労働者に手当を支給、または代替要員を新規雇用した場合に受給できる助成金（2024年1月新設）。令和8年度から最長1年以上の育休の場合は最大99万円/人（従来82.5万円から増額）に拡充。業務代替者への手当支給に必要な雇用労働者数の要件も撤廃されより使いやすくなりました。育休者の「周囲の頑張り」に直接報いることができる制度です。",
+    conditions: ["業務代替の見直し・効率化と就業規則への手当制度規定", "7日以上の育休取得者の業務代替実績", "代替業務体制の整備記録"],
+    compatible_with: ["ryoritsu-ikukyu-shien", "ryoritsu-papa-shien", "ryoritsu-ikukyu-kouhyo"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["育休", "業務代替", "育児休業", "代替要員", "周囲の負担", "育休代替手当"]
+  },
 
   // ════════════════════════════════════════
   // ── その他 ──
@@ -1288,7 +1311,7 @@ const SUBSIDIES = [
     name: "65歳超雇用推進助成金",
     q14_key: null,
     max_amount: 1600000,
-    amount_note: "高年齢者就業確保措置整備助成：最大160万円。継続雇用助成：1人あたり最大15万円",
+    amount_note: "【令和8年度改正】65歳超継続雇用促進コース：被保険者数で段階的（15万円〜160万円）。高年齢者無期雇用転換コース：1人あたり30万円（中小企業以外23万円）。高年齢者評価制度等雇用管理改善コース：支出経費の60%（上限50万円）",
     timing: "after_hire",
     lead_time_months: 6,
     difficulty: 2,
@@ -1297,8 +1320,8 @@ const SUBSIDIES = [
     industry_restriction: null,
     requires_employee_insurance: true,
     min_employees: 1,
-    note_eligibility: "定年延長・継続雇用制度の整備または実際の65歳超雇用が必要。中小企業のみ対象",
-    description: "65歳以降も継続して活躍できる職場環境を整備した中小企業に支給される助成金。定年延長・継続雇用制度の整備（就業規則改定）に対する制度整備助成と、実際に65歳超の労働者を雇用し続けた際の継続雇用助成の2段階構成です。高齢化社会に対応した人材活用に取り組む企業を後押しします。",
+    note_eligibility: "定年延長・継続雇用制度の整備または実際の65歳超雇用が必要。【令和8年4月8日改正】65歳超継続雇用促進コースの支給額が被保険者数に応じた段階制（15〜160万円）に改正",
+    description: "65歳以降も継続して活躍できる職場環境を整備した事業主に支給される助成金（3コース）。①65歳超継続雇用促進コース：65歳以上への定年引上げ等を実施した場合、被保険者数に応じて最大160万円（令和8年4月改正で段階制に変更）。②高年齢者無期雇用転換コース：50歳以上の有期→無期転換で1人あたり30万円。③高年齢者評価制度等雇用管理改善コース：制度整備経費の60%補助。高齢化社会に対応した人材活用・定年延長に取り組む企業を後押しします。",
     conditions: ["65歳以上への定年延長または継続雇用制度の整備", "就業規則への規定整備", "ハローワークへの届出"],
     compatible_with: ["jinzai-ikusei-shien", "tokutei-shogai-genkyu"],
     incompatible_with: [],
@@ -1575,6 +1598,12 @@ const STACKING_PATTERNS = [
     ids: ["ryoritsu-papa-shien", "ryoritsu-ikukyu-kouhyo"],
     label: "パパ育休 × 育休情報公表",
     note: "男性育休の整備と採用PRを一体で実施"
+  },
+  // ── 育休×業務代替 ──
+  {
+    ids: ["ryoritsu-gyomu-daigae", "ryoritsu-ikukyu-shien", "ryoritsu-ikukyu-kouhyo"],
+    label: "育休取得 × 業務代替手当 × 情報公表（最大3役）",
+    note: "育休取得支援＋周囲へ手当支給（99万円）＋情報公表で採用PRも強化"
   },
   // ── 成長加速化+リスキリング ──
   {

@@ -2095,24 +2095,125 @@ function runDiagnosis() {
   const freeText = (q15 || '').toLowerCase();
   const employees = parseInt(q8) || 0;
 
+  // ─────────────────────────────────────────────
+  // プロフィールベース自動スコアマップ
+  // Q14 を選ばなくても「業種・規模・財務・投資額」から補助金を自動判定する
+  // ─────────────────────────────────────────────
+  const profileScoreMap = {};
+  const addP = (id, pts, reason) => {
+    if (!profileScoreMap[id]) profileScoreMap[id] = { pts: 0, reasons: [] };
+    profileScoreMap[id].pts += pts;
+    profileScoreMap[id].reasons.push(reason);
+  };
+
+  // ── 製造業
+  if (q7 === '製造業') {
+    if (q16 >= 500) {
+      addP('monozukuri-hojyokin', 3, '製造業×設備投資予定→ものづくり補助金が最適候補');
+      addP('monozukuri-shooryoka', 3, '製造業×設備投資予定→省力化（オーダーメード）枠が最適候補');
+      addP('gyomu-kaizen', 2, '製造業×設備投資予定→業務改善助成金で賃上げと設備を両立');
+    }
+    if (q16 >= 1000) {
+      addP('shooryoka', 2, '1,000万円超の投資予定→省力化投資補助金（カタログ型）も有効');
+      addP('monozukuri-shooryoka', 1, '1,000万円超の大型投資→省力化オーダーメード枠（最大1億円補助）');
+    }
+    addP('jinzai-ikusei-shien', 2, '製造業→技能研修・OJT訓練費の人材開発支援助成金が有効');
+    addP('jinzai-reskilling', 1, '製造業→DX・新技術習得のリスキリング支援コース');
+  }
+
+  // ── 建設業
+  if (q7 === '建設業') {
+    addP('jinzai-kensetsu-gino', 3, '建設業→建設労働者確保育成助成金が専用制度');
+    addP('jinzai-kensetsu-nintei', 2, '建設業→認定訓練助成金が対象');
+    addP('it-donyu', 2, '建設業DX化→IT導入補助金で施工管理ツール導入');
+  }
+
+  // ── サービス・小売・飲食
+  if (['小売業','サービス業（宿泊・娯楽以外）','サービス業（宿泊・娯楽）'].includes(q7)) {
+    if (q16 >= 200) {
+      addP('jizokuka-hojyokin', 2, '小売・サービス業→持続化補助金が最適候補（販路開拓・店舗改善）');
+      addP('it-donyu', 2, 'サービス業×DX化→IT導入補助金が高相性');
+    }
+    if (q7 === 'サービス業（宿泊・娯楽）') {
+      addP('shooryoka', 2, '宿泊・飲食→省力化補助金（配膳ロボット等）の主要ターゲット業種');
+    }
+  }
+
+  // ── 医療・介護・福祉
+  if (isMedical) {
+    addP('career-up-seishainuka', 2, '医療・介護業→非正規の正社員化で人材安定');
+    addP('ryoritsu-kaigo-boushi', 2, '医療・介護→介護休業支援コース');
+    addP('shooryoka', 2, '医療・介護→省力化投資でスタッフ負担軽減');
+  }
+
+  // ── 赤字企業
+  if (isDeficit) {
+    addP('monozukuri-hojyokin', 2, '赤字企業→補助率引き上げ枠（2/3）の適用可能性');
+    addP('monozukuri-shooryoka', 2, '赤字企業→省力化オーダーメード枠で補助率2/3に優遇');
+    addP('koyo-chosei', 3, '赤字・業況悪化→雇用調整助成金で雇用維持が最優先');
+    addP('sangyo-koyo-antei-shukko', 2, '赤字→在籍型出向で雇用を守りながらスキルアップ');
+    addP('sangyo-koyo-skillup', 2, '赤字→スキルアップ支援コースで人材力を温存');
+  }
+
+  // ── 小規模事業者
+  if (isSmall) {
+    addP('jizokuka-hojyokin', 3, '小規模事業者→持続化補助金の優遇枠（最大250万円）が最適');
+    addP('gyomu-kaizen', 1, '小規模→業務改善助成金の特例事業者枠で上限600万円');
+  }
+
+  // ── 従業員規模別
+  if (employees >= 1) {
+    addP('career-up-seishainuka', 1, '非正規労働者がいれば正社員化コースが活用可能');
+    addP('hatarakikata-jikangai', 1, '従業員あり→時間外削減の働き方改革推進助成金が対象');
+  }
+  if (employees >= 5) {
+    addP('ryoritsu-ikukyu-shien', 1, '従業員5名以上→育休支援コースの活用余地あり');
+    addP('konenreisha-koyosuishin', 1, '従業員5名以上→65歳超雇用推進助成金の制度整備が可能');
+  }
+
+  // ── 投資規模別
+  if (q16 >= 300) {
+    addP('shoene', 2, '設備投資予定あり→省エネ補助金で光熱費削減と合わせて検討を');
+  }
+  if (q16 >= 1000) {
+    addP('jigyo-shinsyutsu', 1, '1,000万円超の大型投資→新事業進出補助金も選択肢に');
+  }
+
+  // ── 最低賃金・賃上げ状況
+  if (q12 > 0 && q12 < 1100) {
+    addP('gyomu-kaizen', 2, '賃金水準が低め→業務改善助成金で設備投資しながら賃上げ');
+  }
+
+  // ── IT系プロフィール（インボイス未登録）
+  if (q11 === '未登録（免税事業者）' || q11 === '転換検討中') {
+    addP('it-donyu', 2, 'インボイス未登録→IT導入補助金のインボイス特例枠が利用可能');
+  }
+
   // ── 不適格な提案を完全に除外するスコアリング ──
   const scored = SUBSIDIES.map(s => {
 
     // ① 厳密な適格性チェック（NGなら絶対に除外）
     const elig = checkEligibility(s, company);
-    if (!elig.ok) return null; // 法人形態・業種・規模が合わない → 出さない
+    if (!elig.ok) return null;
 
     let score = 0;
     const reasons = [];
     let bonusReasons = [];
 
-    // ② Q14直結マッチ（最高優先度：5点）
-    if (s.q14_key && q14.includes(s.q14_key)) {
-      score += 5;
-      reasons.push('経営課題として選択');
+    // ② プロフィールベース自動スコア（Q14未選択でも業種・規模・財務から判定）
+    const ps = profileScoreMap[s.id];
+    if (ps && ps.pts > 0) {
+      score += ps.pts;
+      ps.reasons.forEach(r => reasons.push(r));
     }
 
-    // ③ Q15自由記述マッチ（各キーワード1点）
+    // ③ Q14直結マッチ（最高優先度：+5点）
+    if (s.q14_key && q14.includes(s.q14_key)) {
+      score += 5;
+      reasons.push('経営課題として明示的に選択');
+    }
+
+    // ④ Q15自由記述マッチ（各キーワード+1点）
     if (freeText && s.q15_keywords) {
       s.q15_keywords.forEach(kw => {
         if (freeText.includes(kw.toLowerCase())) {
@@ -2122,27 +2223,20 @@ function runDiagnosis() {
       });
     }
 
-    // ④ Q13 賃上げ意向との整合（賃上げ条件ありの補助金）
+    // ⑤ Q13 賃上げ意向との整合
     if (s.wage_required) {
       if (canWage) {
         score += 1;
         reasons.push('賃上げ計画あり→要件を満たせる可能性');
       } else {
-        score -= 4; // 賃上げ必須なのに難しい→大幅ダウン（除外はしないが最下位に）
+        score -= 4;
       }
     }
 
-    // ⑤ ベースライン付与のルール
-    // 【原則】適格性を通過した助成金は、Q14・Q15でマッチしなくても
-    //         「可能性あり」として最低スコア1点を与える。
-    //         ただし以下の例外で除外する。
-    //
-    // ──例外①：業種制限は checkEligibility で既に除外済み（建設業専用等）
-    //
-    // ──例外②：補助金系（Q14が主な入口）はQ14で選択しないと対象外
-    //   → Q14未選択 かつ Q15マッチなし の場合は除外
-    const isSubsidy = ['jizokuka-hojyokin','it-donyu','monozukuri-hojyokin','shooryoka','jigyo-shinsyutsu','shoene','jigyo-shokei'].includes(s.id);
-    if (isSubsidy && score < 1) return null; // 補助金：Q14かQ15のマッチなしなら除外
+    // ⑥ 補助金系の除外ルール（プロフィールスコアが付いた場合は除外しない）
+    // Q14未選択 かつ Q15未記載 かつ プロフィールスコアもない → 除外
+    const isSubsidy = ['jizokuka-hojyokin','it-donyu','monozukuri-hojyokin','shooryoka','jigyo-shinsyutsu','shoene','jigyo-shokei','monozukuri-shooryoka'].includes(s.id);
+    if (isSubsidy && score < 1) return null;
 
     // ──例外③：障害者向け助成金は、従業員が0人の個人事業主には基本不要
     const isDisabilitySubsidy = ['trial-shogaisha','trial-shogaisha-tanjikan','career-up-shogaisha-seishainuka','jinzai-shogaisha-nouryoku'].includes(s.id);

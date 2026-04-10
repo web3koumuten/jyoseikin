@@ -284,6 +284,54 @@
   .section-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-200); }
   .result-section { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
 
+  /* ── 次の一手パネル ─────────────────────── */
+  .next-action-panel {
+    background: white;
+    border: 2px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 18px;
+  }
+  .next-action-panel h3 { font-size: 15px; font-weight: 800; color: var(--primary); margin-bottom: 14px; }
+  .next-steps { display: flex; flex-direction: column; gap: 10px; }
+  .next-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .next-step-num {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .next-step-num.done { background: var(--accent); }
+  .next-step-body { flex: 1; }
+  .next-step-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .next-step-detail { font-size: 12px; color: var(--gray-600); line-height: 1.6; }
+  .next-step-link { font-size: 12px; color: var(--primary); font-weight: 600; text-decoration: none; }
+  .next-step-link:hover { text-decoration: underline; }
+  .next-step-badge {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+  .next-step-badge.green { background: #d1fae5; color: #065f46; }
+
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
     background: linear-gradient(135deg, #0f2b6b 0%, #1a56db 60%, #0e9f6e 100%);
@@ -1886,6 +1934,60 @@ const SUBSIDIES = [
   },
 
   // ════════════════════════════════════════
+  // ── IT導入補助金 セキュリティ対策推進枠 ──
+  // ════════════════════════════════════════
+  {
+    id: "it-security",
+    name: "IT導入補助金 セキュリティ対策推進枠",
+    q14_key: "it-donyu",
+    max_amount: 1000000,
+    amount_note: "対象費用の1/2（上限100万円）。2年間のサービス利用料が対象",
+    timing: "before_investment",
+    lead_time_months: 3,
+    difficulty: 1,
+    company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: false,
+    min_employees: 0,
+    note_eligibility: "「サイバーセキュリティお助け隊サービスリスト」登録サービスの導入が対象。IT導入補助金（デジタル化・AI導入補助金2026）の一枠",
+    description: "中小企業のサイバーセキュリティ対策強化のため、登録セキュリティサービス（UTM・EDR・セキュリティ監視サービス等）の導入費用の1/2（上限100万円）を補助する制度。不正アクセス・ランサムウェア被害が増加する中、製造業・医療・小売など幅広い業種でサイバー対策が急務となっています。IT導入補助金の一枠で、gBizIDプライムがあれば比較的シンプルに申請できます。",
+    conditions: ["サイバーセキュリティお助け隊サービスリスト登録サービスを導入すること", "gBizIDプライムアカウントの取得", "SECURITY ACTIONの宣言"],
+    compatible_with: ["it-donyu", "hatarakikata-jikangai"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: { "SECURITY ACTION": 1 },
+    q15_keywords: ["セキュリティ", "サイバー", "不正アクセス", "ウイルス", "ランサムウェア", "UTM", "EDR", "情報漏洩", "個人情報"]
+  },
+
+  // ════════════════════════════════════════
+  // ── 障害者作業施設設置等助成金 ──
+  // ════════════════════════════════════════
+  {
+    id: "shogaisha-shisetsu-setchino",
+    name: "障害者作業施設設置等助成金",
+    q14_key: null,
+    max_amount: 4500000,
+    amount_note: "設置・整備費用の2/3（上限450万円/人）",
+    timing: "before_investment",
+    lead_time_months: 3,
+    difficulty: 2,
+    company_size: ["中小企業", "大企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "雇用している障害者が作業しやすくなる施設・設備の設置・整備費用を助成。JEED（高齢・障害・求職者雇用支援機構）が実施",
+    description: "雇用している障害者が、その障害特性に応じて円滑に就業できるよう、専用の作業施設・設備・車両等を設置・整備する際の費用（2/3・上限450万円/人）を助成する制度。工場・店舗のバリアフリー改修、専用作業台・補助装置の導入、送迎車両の整備などが対象。障害者雇用義務のある企業（常用労働者43.5人以上）はもちろん、積極的に障害者採用を進める企業にとっても有効な制度です。",
+    conditions: ["雇用している（またはこれから雇用する）障害者の作業環境改善が目的", "JEED（機構）への事前相談・申請が必要", "設置・整備後に報告書の提出"],
+    compatible_with: ["trial-shogaisha", "shogaisha-shokubasekio-enjo", "tokutei-shushokukonnansha"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["バリアフリー", "障害者採用", "車いす", "車椅子", "スロープ", "障害者就労", "作業施設", "障害者雇用"]
+  },
+
+  // ════════════════════════════════════════
   // ── ものづくり補助金 省力化（オーダーメード）枠 ──
   // 製造業・設備投資1,500万円規模のペルソナに最重要
   // ════════════════════════════════════════
@@ -2190,7 +2292,7 @@ function runDiagnosis() {
   }
 
   // ── 不適格な提案を完全に除外するスコアリング ──
-  const scored = SUBSIDIES.map(s => {
+  const rawScored = SUBSIDIES.map(s => {
 
     // ① 厳密な適格性チェック（NGなら絶対に除外）
     const elig = checkEligibility(s, company);
@@ -2238,14 +2340,48 @@ function runDiagnosis() {
     const isSubsidy = ['jizokuka-hojyokin','it-donyu','monozukuri-hojyokin','shooryoka','jigyo-shinsyutsu','shoene','jigyo-shokei','monozukuri-shooryoka'].includes(s.id);
     if (isSubsidy && score < 1) return null;
 
-    // ──例外③：障害者向け助成金は、従業員が0人の個人事業主には基本不要
-    const isDisabilitySubsidy = ['trial-shogaisha','trial-shogaisha-tanjikan','career-up-shogaisha-seishainuka','jinzai-shogaisha-nouryoku'].includes(s.id);
+    // ── 例外③：雇用保険適用が必須な補助金は従業員0名には不要
+    if (s.requires_employee_insurance && employees === 0) return null;
+
+    // ── 例外④：障害者向け助成金は従業員のいない事業者には不要
+    const isDisabilitySubsidy = ['trial-shogaisha','trial-shogaisha-tanjikan','career-up-shogaisha-seishainuka'].includes(s.id);
     if (isDisabilitySubsidy && employees === 0) return null;
 
-    // ──例外④：雇用調整助成金は売上減少が前提。Q14/Q15に言及なければ除外
+    // ── 例外⑤：雇用調整助成金はプロフィールスコアor売上減少前提のみ
     if (s.id === 'koyo-chosei' && score < 1) return null;
 
-    // ──それ以外の助成金：適格性OKなら最低1点（可能性あり）
+    // ── 例外⑥：成長加速化補助金は大型投資（5億円以上）が前提
+    if (s.id === 'seichokasoku' && q16 < 50000) {
+      // 5億円未満なら表示しない
+      if (score < 3) return null;
+    }
+
+    // ── 投資額下限チェック（明らかに合わない補助金を下げる）
+    const MIN_INVEST_MAP = {
+      'monozukuri-hojyokin': 100,
+      'monozukuri-shooryoka': 100,
+      'shooryoka': 50,
+      'jigyo-shinsyutsu': 500,
+      'seichokasoku': 50000,
+      'shoene': 100,
+      'jigyo-shokei': 50,
+    };
+    const minInvest = MIN_INVEST_MAP[s.id];
+    if (minInvest && q16 > 0 && q16 < minInvest) {
+      score -= 3;
+      reasons.push(`⚠️ 投資予定額（${q16}万円）がこの補助金の目安（${minInvest}万円以上）を下回っています`);
+    }
+
+    // ── 難易度×タイミングのペナルティ（「今すぐ」なのに審査3段階）
+    if (q17 === '1〜2ヶ月以内' && s.difficulty === 3) {
+      score -= 2;
+      bonusReasons.push('⏰ 準備が複雑（難易度3）。急ぎなら専門家（認定支援機関）に今日連絡を');
+    } else if (q17 === '半年以内' && s.difficulty === 3 && s.lead_time_months > 6) {
+      score -= 1;
+      bonusReasons.push('⏰ 準備期間が半年を超える可能性あり。早めに着手を');
+    }
+
+    // ── それ以外の助成金：適格性OKなら最低1点（可能性あり）
     if (score < 1) {
       score = 1;
       reasons.push('適格要件を満たしており、活用できる可能性あり');
@@ -2318,7 +2454,20 @@ function runDiagnosis() {
     }
 
     return { ...s, score, reasons, bonusReasons, timingWarning, invoiceNote };
-  }).filter(Boolean).sort((a, b) => b.score - a.score || b.max_amount - a.max_amount);
+  }).filter(Boolean);
+
+  // ── compatible_with ボーナス（同時申請できる組み合わせが揃った場合に加点）
+  const rawIds = rawScored.map(s => s.id);
+  rawScored.forEach(s => {
+    const matches = (s.compatible_with || []).filter(id => rawIds.includes(id));
+    if (matches.length > 0) {
+      s.score += matches.length * 0.5;
+      const matchNames = matches.map(id => rawScored.find(x => x.id === id)?.name || id);
+      s.bonusReasons.push(`🤝 「${matchNames.join('・')}」と同時申請可能→費用対効果が高い`);
+    }
+  });
+
+  const scored = rawScored.sort((a, b) => b.score - a.score || b.max_amount - a.max_amount);
 
   // スタッキング検出
   const scoredIds = scored.map(s => s.id);
@@ -2384,6 +2533,76 @@ function renderResults(scored, combos, conflicts, meta) {
       <p class="caveat">※件数をすべて重複申請した場合の概算。実際の受給には要件確認が必要です</p>
     </div>
   `;
+
+  // ══════════════════════════════════════════════════════
+  // 「次の一手」セクション（上位補助金に対する具体的アクション）
+  // ══════════════════════════════════════════════════════
+  if (scored.length > 0) {
+    const top = scored[0];
+    const hasGbiz = meta.q18 === '取得済み';
+    const hasSecAction = (meta.q20 || []).includes('SECURITY ACTION');
+
+    // 補助金ごとの申請ステップ定義
+    const NEXT_STEPS_MAP = {
+      'monozukuri-hojyokin': [
+        { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '申請システムへのログインに必須。無料で取得でき、郵送手続きで約2週間かかります。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: '→ gBizID公式サイト' },
+        { done: false, title: '認定支援機関（中小企業診断士・商工会議所等）に連絡する', detail: '事業計画書の作成・確認に専門家の伴走が必須。早めに相談先を確保してください。', link: 'https://www.chusho.meti.go.jp/keiei/kakushin/nintei/', linkText: '→ 認定支援機関を探す' },
+        { done: false, title: '事業計画書の骨子を作る', detail: '「何に投資して・どれだけ生産性が上がるか・いくら売上が増えるか」を数字で示します。現状の課題と投資効果を整理しましょう。' },
+        { done: (meta.q20||[]).includes('経営革新計画'), title: '経営革新計画または事業継続力強化計画（BCP）を取得する', detail: '審査で加点に。商工会議所や中小企業庁に相談すると手続きがスムーズです。', badge: '採択率UP' },
+      ],
+      'monozukuri-shooryoka': [
+        { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '補助金申請の必須ツール。無料・郵送手続きで約2週間。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: '→ gBizID公式サイト' },
+        { done: false, title: '導入したい設備の概要をまとめる', detail: '「どんな作業を・どの設備で・どれだけ省力化できるか」を具体的に整理。機械メーカーや商社に相見積もりを依頼してください。' },
+        { done: false, title: '認定支援機関に事業計画書の相談をする', detail: 'オーダーメード枠は事業計画書の審査が重要。認定支援機関の早期確保が採択の鍵です。', link: 'https://www.chusho.meti.go.jp/keiei/kakushin/nintei/', linkText: '→ 認定支援機関を探す' },
+        { done: (meta.q20||[]).includes('パートナーシップ構築宣言'), title: 'パートナーシップ構築宣言をする（無料・即日）', detail: 'オンラインで宣言するだけ。ものづくり補助金の審査で加点になります。', link: 'https://www.biz-partnership.jp/', linkText: '→ 宣言サイト', badge: '採択率UP', badgeColor: 'green' },
+      ],
+      'shooryoka': [
+        { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '申請に必須。無料・約2週間かかります。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: '→ gBizID公式サイト' },
+        { done: false, title: 'カタログ掲載製品を確認する', detail: 'この補助金はカタログ登録製品のみが対象です。まず公式サイトでカタログを確認し、自社の課題に合う製品があるか調べましょう。', link: 'https://shoryokuka.smrj.go.jp/', linkText: '→ カタログを見る' },
+        { done: false, title: 'SIer（システムインテグレーター）または販売店に見積もりを依頼する', detail: 'カタログ製品の中でも導入には専門業者の設計が必要です。複数社に相見積もりを取ってください。' },
+      ],
+      'gyomu-kaizen': [
+        { done: false, title: '事業場内最低賃金を確認する', detail: '現在の一番低い時給が「地域別最低賃金」を下回っていないか確認。賃上げ額（30円以上）と設備投資の内容を決めましょう。' },
+        { done: false, title: '導入予定設備の見積もりを取る', detail: 'POSレジ・加工機械・搬送設備など、業務改善に資する設備なら対象。設備費の4/5（最大600万円）が補助されます。' },
+        { done: false, title: '都道府県労働局に申請書類を確認する', detail: '業務改善助成金の申請窓口は都道府県労働局（雇用環境・均等部）です。事前に電話確認が確実です。' },
+      ],
+      'it-donyu': [
+        { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '申請に必須。無料・約2週間。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: '→ gBizID公式サイト' },
+        { done: hasSecAction, title: 'SECURITY ACTIONを宣言する（無料・5分）', detail: 'IT導入補助金の申請に必要な情報セキュリティ自己宣言。IPAのサイトでオンライン完結です。', link: 'https://security-action.jp/', linkText: '→ SECURITY ACTION公式' },
+        { done: false, title: 'IT導入支援事業者（ベンダー）に相談する', detail: 'IT導入補助金は必ずIT導入支援事業者（登録ベンダー）経由で申請します。導入したいシステムのベンダーに補助金対応か確認してください。' },
+      ],
+      'jizokuka-hojyokin': [
+        { done: false, title: '商工会議所・商工会に相談する', detail: '小規模事業者持続化補助金は商工会議所・商工会の支援が必要です。まず地域の窓口に連絡しましょう。' },
+        { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '電子申請に必要。無料で取得できます。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: '→ gBizID公式サイト' },
+        { done: false, title: '経営計画書・補助事業計画書を作成する', detail: '「なぜこの事業に取り組むか」「売上目標はいくらか」を書面にまとめます。商工会議所の担当者が添削してくれます。' },
+      ],
+    };
+
+    const steps = NEXT_STEPS_MAP[top.id] || [
+      { done: hasGbiz, title: 'gBizIDプライムを取得する（必要な場合）', detail: '多くの補助金申請に必須のアカウントです。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: '→ gBizID公式サイト' },
+      { done: false, title: '地域の商工会議所・認定支援機関に相談する', detail: '申請書類や要件の確認は専門家に相談するのが最短ルートです。' },
+      { done: false, title: '公募要領を確認する', detail: '補助金の締切・対象経費・申請書式を公式サイトで確認してください。' },
+    ];
+
+    html += `
+    <div class="next-action-panel">
+      <h3>⚡ 今すぐやること ── 「${top.name}」申請への道筋</h3>
+      <div class="next-steps">
+        ${steps.map((step, i) => `
+          <div class="next-step">
+            <div class="next-step-num ${step.done ? 'done' : ''}">${step.done ? '✓' : i+1}</div>
+            <div class="next-step-body">
+              <div class="next-step-title">
+                ${step.done ? '<span style="text-decoration:line-through;color:#6b7280">' : ''}${step.title}${step.done ? '</span> <span style="color:#059669;font-size:11px">✅ 完了</span>' : ''}
+                ${step.badge ? `<span class="next-step-badge ${step.badgeColor||''}">${step.badge}</span>` : ''}
+              </div>
+              <div class="next-step-detail">${step.detail}${step.link ? ` <a href="${step.link}" target="_blank" rel="noopener" class="next-step-link">${step.linkText}</a>` : ''}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+  }
 
   // ══════════════════════════════════════════════════════
   // PHASE 2: 赤字×賃上げ → 特例枠 機会転換メッセージ

@@ -962,26 +962,26 @@ const SUBSIDIES = [
   },
   {
     id: "it-donyu",
-    name: "デジタル化・AI導入補助金（旧IT導入補助金）",
+    name: "デジタル化・AI導入補助金2026（旧IT導入補助金）",
     q14_key: "it-donyu",
     max_amount: 4500000,
-    amount_note: "通常枠：費用の1/2（最大150万円）。インボイス枠：1/2〜4/5（最大350万円）。※2026年度より「デジタル化・AI導入補助金」に名称変更",
+    amount_note: "【2026年度改定・申請受付開始2026年3月30日〜】①通常枠（1プロセス以上）：5〜150万円、補助率2/3（小規模事業者は50万円以下3/4）。②通常枠（4プロセス以上）：150〜450万円、補助率2/3。③インボイス枠（電子取引類型）：最大350万円、補助率2/3。④セキュリティ対策推進枠：5〜150万円、補助率1/2",
     timing: "before_investment",
-    lead_time_months: 3,
+    lead_time_months: 2,
     difficulty: 1,
     company_size: ["中小企業", "小規模事業者"],
     legal_form_eligible: ["法人", "個人事業主"],
     industry_restriction: null,
     requires_employee_insurance: false,
     min_employees: 0,
-    note_eligibility: "社会福祉法人・医療法人・NPO等は原則対象外",
-    description: "業務効率化のためのITツール・ソフトウェアの導入費用を補助する制度。会計ソフト・勤怠管理・受発注システム・ECサイト構築など幅広いツールが対象。認定ITベンダー経由での申請が必要ですが難易度は低く、年間を通じて申請機会があります。インボイス未登録の免税事業者向けの特例枠もあります。",
-    conditions: ["IT導入支援事業者（認定ベンダー）経由での申請が必須", "gBizIDプライムが必要"],
-    compatible_with: ["jinzai-hito-investment"],
+    note_eligibility: "社会福祉法人・医療法人・NPO等は原則対象外。IT導入支援事業者（認定ベンダー）経由での申請が必須",
+    description: "2026年度より「デジタル化・AI導入補助金」に名称変更・拡充。会計・勤怠・受発注・在庫管理・AI活用・ECサイト・クラウドサービスなど幅広いITツールが対象。通常枠は5〜150万円（補助率2/3）、4プロセス以上なら最大450万円まで拡大。認定ITベンダー経由で申請でき難易度が低く、2026年3月30日より申請受付開始。インボイス未登録の免税事業者向けの特例枠もあります。製造業でもAI検品・生産管理システムなどに活用可能です。",
+    conditions: ["IT導入支援事業者（認定ベンダー）経由での申請が必須", "gBizIDプライムが必要", "SECURITY ACTION（★1以上）の宣言"],
+    compatible_with: ["jinzai-hito-investment", "it-security"],
     incompatible_with: [],
     wage_required: false,
     bonus_points: { "SECURITY ACTION": 1, "みらデジ経営チェック": 1 },
-    q15_keywords: ["it", "システム", "ソフト", "クラウド", "ai", "デジタル", "erp", "会計", "勤怠", "ec"]
+    q15_keywords: ["it", "システム", "ソフト", "クラウド", "ai", "デジタル", "erp", "会計", "勤怠", "ec", "生産管理", "在庫管理", "ai検品", "受発注"]
   },
   {
     id: "monozukuri-hojyokin",
@@ -1008,10 +1008,10 @@ const SUBSIDIES = [
   },
   {
     id: "shooryoka",
-    name: "省力化投資補助金（カタログ型）",
+    name: "省力化投資補助金（カタログ注文型）",
     q14_key: "shooryoka",
     max_amount: 15000000,
-    amount_note: "設備費用の1/2〜2/3（上限1,500万円）",
+    amount_note: "【2026年3月19日改定】補助率1/2（小規模・再生事業者は2/3）。上限：従業員5人以下→500万円（改定前200万円）、6〜20人→1,000万円、21人以上→1,500万円。収益納付ルール撤廃。最低賃金引き上げ特例：全従業員の30%以上が地域最低賃金+50円以内→補助率2/3に優遇",
     timing: "before_investment",
     lead_time_months: 6,
     difficulty: 2,
@@ -1020,14 +1020,14 @@ const SUBSIDIES = [
     industry_restriction: null,
     requires_employee_insurance: false,
     min_employees: 0,
-    note_eligibility: "カタログ掲載製品からの選択が必須。社会福祉法人・NPO等は対象外",
-    description: "人手不足解消のため、配膳ロボット・自動精算機・自動搬送機などの設備を導入する費用を補助する制度。事前にカタログ登録された製品の中からしか選べないのが特徴で、自由にメーカーを指定することはできません。飲食・小売・製造など幅広い業種が対象で、賃上げ計画の提出が必須です。",
-    conditions: ["カタログ掲載製品の中から選択（自由調達不可）", "賃上げ計画の提出が必須"],
+    note_eligibility: "カタログ掲載製品からの選択が必須。社会福祉法人・NPO等は対象外。2026年3月19日改定で従業員5人以下の上限が大幅引き上げ（200万→500万円）",
+    description: "人手不足解消のため、配膳ロボット・自動精算機・自動搬送機などの設備を導入する費用を補助する制度。2026年3月19日の改定で従業員5人以下の補助上限が200万円→500万円に大幅拡充。収益納付ルールも撤廃され、使いやすくなりました。カタログ登録済み製品から選ぶ必要がありますが難易度は低め。飲食・小売・製造など幅広い業種が対象で、賃上げ計画の提出が必須です。最低賃金水準が低い企業は補助率2/3の特例が適用される可能性があります。",
+    conditions: ["カタログ掲載製品の中から選択（自由調達不可）", "賃上げ計画の提出が必須", "従業員数により補助上限が変動"],
     compatible_with: ["gyomu-kaizen"],
     incompatible_with: [],
     wage_required: true,
     bonus_points: {},
-    q15_keywords: ["ロボット", "配膳", "自動精算", "自動化", "省人化", "省力"]
+    q15_keywords: ["ロボット", "配膳", "自動精算", "自動化", "省人化", "省力", "自動搬送", "協働ロボット", "amr", "自動機"]
   },
   {
     id: "jigyo-shinsyutsu",
@@ -1938,10 +1938,10 @@ const SUBSIDIES = [
   // ════════════════════════════════════════
   {
     id: "it-security",
-    name: "IT導入補助金 セキュリティ対策推進枠",
+    name: "デジタル化・AI導入補助金 セキュリティ対策推進枠",
     q14_key: "it-donyu",
-    max_amount: 1000000,
-    amount_note: "対象費用の1/2（上限100万円）。2年間のサービス利用料が対象",
+    max_amount: 1500000,
+    amount_note: "対象費用の1/2（補助額5〜150万円）。2年間のサービス利用料が対象。デジタル化・AI導入補助金2026の一枠",
     timing: "before_investment",
     lead_time_months: 3,
     difficulty: 1,
@@ -1950,7 +1950,7 @@ const SUBSIDIES = [
     industry_restriction: null,
     requires_employee_insurance: false,
     min_employees: 0,
-    note_eligibility: "「サイバーセキュリティお助け隊サービスリスト」登録サービスの導入が対象。IT導入補助金（デジタル化・AI導入補助金2026）の一枠",
+    note_eligibility: "「サイバーセキュリティお助け隊サービスリスト」登録サービスの導入が対象。デジタル化・AI導入補助金2026のセキュリティ枠として位置づけ",
     description: "中小企業のサイバーセキュリティ対策強化のため、登録セキュリティサービス（UTM・EDR・セキュリティ監視サービス等）の導入費用の1/2（上限100万円）を補助する制度。不正アクセス・ランサムウェア被害が増加する中、製造業・医療・小売など幅広い業種でサイバー対策が急務となっています。IT導入補助金の一枠で、gBizIDプライムがあれば比較的シンプルに申請できます。",
     conditions: ["サイバーセキュリティお助け隊サービスリスト登録サービスを導入すること", "gBizIDプライムアカウントの取得", "SECURITY ACTIONの宣言"],
     compatible_with: ["it-donyu", "hatarakikata-jikangai"],
@@ -2281,14 +2281,21 @@ function runDiagnosis() {
     addP('jigyo-shinsyutsu', 1, '1,000万円超の大型投資→新事業進出補助金も選択肢に');
   }
 
-  // ── 最低賃金・賃上げ状況
-  if (q12 > 0 && q12 < 1100) {
-    addP('gyomu-kaizen', 2, '賃金水準が低め→業務改善助成金で設備投資しながら賃上げ');
+  // ── 最低賃金・賃上げ状況（都道府県別最低賃金を参照）
+  if (q12 > 0) {
+    const { wage: localMin, pref: detectedPref } = getLocalMinWage();
+    if (q12 < localMin + 50) {
+      // 地域最低賃金+50円以内 → 業務改善助成金の「最低賃金引き上げ特例」対象の可能性
+      addP('gyomu-kaizen', 3, `賃金水準が地域最低賃金（${localMin}円）に近い→業務改善助成金で設備投資しながら賃上げ（補助率最大90%）`);
+      addP('shooryoka', 1, '最低賃金水準が低い→省力化補助金の最低賃金引き上げ特例（補助率2/3）の対象になる可能性');
+    } else if (q12 < localMin + 100) {
+      addP('gyomu-kaizen', 2, `賃金水準が${detectedPref || '地域'}最低賃金+100円以内→業務改善助成金で設備投資しながら賃上げ`);
+    }
   }
 
   // ── IT系プロフィール（インボイス未登録）
   if (q11 === '未登録（免税事業者）' || q11 === '転換検討中') {
-    addP('it-donyu', 2, 'インボイス未登録→IT導入補助金のインボイス特例枠が利用可能');
+    addP('it-donyu', 2, 'インボイス未登録→デジタル化・AI導入補助金のインボイス枠（電子取引類型）が利用可能');
   }
 
   // ── 不適格な提案を完全に除外するスコアリング ──
@@ -2848,39 +2855,67 @@ function onQ10Change(val) {
   }
 }
 
-// Q12: 最低賃金 → 地域別最低賃金と比較してアドバイス
+// Q12: 最低賃金 → 都道府県別最低賃金と比較してアドバイス
+// 2025年10月〜2025年12月改定値（都道府県別）
+const PREF_MINWAGE = {
+  '北海道': 1010, '青森': 951, '岩手': 1031, '宮城': 1055, '秋田': 951,
+  '山形': 955, '福島': 955, '茨城': 1005, '栃木': 1004, '群馬': 985,
+  '埼玉': 1078, '千葉': 1069, '東京': 1163, '神奈川': 1162, '新潟': 985,
+  '富山': 998, '石川': 984, '福井': 984, '山梨': 988, '長野': 998,
+  '岐阜': 1001, '静岡': 1034, '愛知': 1077, '三重': 1023, '滋賀': 1017,
+  '京都': 1058, '大阪': 1114, '兵庫': 1052, '奈良': 986, '和歌山': 980,
+  '鳥取': 957, '島根': 962, '岡山': 982, '広島': 1020, '山口': 979,
+  '徳島': 980, '香川': 970, '愛媛': 956, '高知': 956, '福岡': 992,
+  '佐賀': 956, '長崎': 953, '熊本': 952, '大分': 954, '宮崎': 951,
+  '鹿児島': 953, '沖縄': 952
+};
+// 注: 岩手は2025年12月1日改定（旧952円→1031円）
+const NATIONAL_AVG = 1055; // 2025年度加重平均
+
+function getLocalMinWage() {
+  const q4 = (document.getElementById('q4')?.value || '').trim();
+  for (const [pref, wage] of Object.entries(PREF_MINWAGE)) {
+    if (q4.includes(pref)) return { wage, pref };
+  }
+  return { wage: NATIONAL_AVG, pref: null };
+}
+
 function onQ12Change(val) {
   const fb = document.getElementById('q12-feedback');
   if (!fb) return;
-  const wage = parseInt(val);
-  if (!wage || wage < 500) { fb.style.display = 'none'; return; }
+  const inputWage = parseInt(val);
+  if (!inputWage || inputWage < 500) { fb.style.display = 'none'; return; }
 
-  // 2025年度全国最低賃金（加重平均1,055円）を基準に判定
-  const nationalAvg = 1055;
+  const { wage: localMin, pref } = getLocalMinWage();
+  const baseLabel = pref
+    ? `${pref}県の地域最低賃金（<strong>${localMin.toLocaleString()}円</strong>）`
+    : `全国最低賃金加重平均（<strong>${localMin.toLocaleString()}円</strong>）`;
+
   fb.style.display = 'block';
 
-  if (wage < nationalAvg) {
+  if (inputWage < localMin) {
     fb.className = 'inline-feedback warn';
     fb.innerHTML = `
-      ⚠️ 入力した時給 <strong>${wage.toLocaleString()}円</strong> は、2025年度の全国最低賃金加重平均（<strong>${nationalAvg.toLocaleString()}円</strong>）を下回っています。<br>
-      最低賃金法違反の可能性があります。補助金の賃上げ要件（地域最低賃金＋30円以上）を確認のうえ、早めに見直してください。
+      ⚠️ 入力した時給 <strong>${inputWage.toLocaleString()}円</strong> は、${baseLabel}を下回っています。<br>
+      最低賃金法違反の可能性があります。補助金の賃上げ要件（地域最低賃金＋30円以上）を確認のうえ、早めに見直してください。<br>
+      <small>💡 業務改善助成金を活用すれば、賃上げに必要な設備投資費用の最大90%が補助されます</small>
     `;
-  } else if (wage < nationalAvg + 30) {
+  } else if (inputWage < localMin + 30) {
     fb.className = 'inline-feedback warn';
     fb.innerHTML = `
-      💡 時給 <strong>${wage.toLocaleString()}円</strong> は最低賃金をクリアしていますが、多くの補助金で求められる「地域最低賃金＋30円以上」にギリギリの水準です。<br>
+      💡 時給 <strong>${inputWage.toLocaleString()}円</strong> は${baseLabel}はクリアしていますが、多くの補助金で求められる「地域最低賃金＋30円以上」にギリギリの水準です。<br>
       業務改善助成金などを活用すれば、<u>賃上げ費用の最大90%を補助</u>してもらいながら時給を上げることができます。
     `;
-  } else if (wage < nationalAvg + 80) {
+  } else if (inputWage < localMin + 80) {
     fb.className = 'inline-feedback';
     fb.innerHTML = `
-      ✅ 時給 <strong>${wage.toLocaleString()}円</strong> は補助金の賃上げ要件（地域最低賃金＋30円）をクリアできそうです。<br>
+      ✅ 時給 <strong>${inputWage.toLocaleString()}円</strong> — 補助金の賃上げ要件（地域最低賃金＋30円）をクリアできる水準です。<br>
       業務改善助成金で設備投資費用の一部を補助してもらいながら、さらなる賃上げを実現できます。
     `;
   } else {
     fb.className = 'inline-feedback';
     fb.innerHTML = `
-      🌟 時給 <strong>${wage.toLocaleString()}円</strong> — 賃上げへの積極姿勢が伝わります。<br>
+      🌟 時給 <strong>${inputWage.toLocaleString()}円</strong> — ${baseLabel}を大きく上回っています。賃上げへの積極姿勢が伝わります。<br>
       ものづくり補助金・省力化補助金では「高い賃上げ率」が審査加点になります。この水準の継続・さらなる引き上げで採択率が上がります。
     `;
   }

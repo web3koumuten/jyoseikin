@@ -283,21 +283,266 @@
 
   .section-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-200); }
   .result-section { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+
+  /* ── INTRO HERO ─────────────────────────── */
+  #intro-hero {
+    background: linear-gradient(135deg, #0f2b6b 0%, #1a56db 60%, #0e9f6e 100%);
+    border-radius: 16px;
+    padding: 48px 32px 40px;
+    color: white;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .hero-h1 {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 600px) { .hero-h1 { font-size: 20px; } }
+  .hero-accent {
+    background: linear-gradient(90deg, #fbbf24, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 14px;
+    line-height: 1.8;
+    opacity: 0.9;
+    max-width: 560px;
+    margin: 0 auto 24px;
+  }
+  .hero-points {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .hp {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 99px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-hero {
+    background: #fbbf24;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 99px;
+    padding: 16px 48px;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 4px 20px rgba(251,191,36,0.5);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .btn-hero:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(251,191,36,0.6); }
+  .btn-hero:active { transform: translateY(0); }
+  .hero-caution {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-top: 14px;
+  }
+
+  /* ── PROGRESS BAR ───────────────────────── */
+  .progress-wrap {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+  }
+  .progress-bar-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: default;
+  }
+  .ps-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gray-200);
+    color: var(--gray-600);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, color 0.3s;
+  }
+  .ps.active .ps-num { background: var(--primary); color: white; }
+  .ps.done .ps-num { background: var(--accent); color: white; }
+  .ps-label {
+    font-size: 11px;
+    color: var(--gray-600);
+    white-space: nowrap;
+  }
+  .ps.active .ps-label { color: var(--primary); font-weight: 700; }
+  .ps-line {
+    flex: 1;
+    height: 2px;
+    background: var(--gray-200);
+    margin: 0 8px;
+    min-width: 24px;
+    margin-bottom: 14px;
+  }
+
+  /* ── Q14 CARDS ──────────────────────────── */
+  .q14-choices { gap: 10px; }
+  .q14-card {
+    border: 1.5px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 12px 14px;
+    background: var(--gray-50);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    gap: 0;
+    align-items: stretch;
+  }
+  .q14-card:hover { border-color: var(--primary); background: var(--primary-light); }
+  .q14-card input { display: none; }
+  .q14-card:has(input:checked) { border-color: var(--primary); background: var(--primary-light); }
+  .q14-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+  .q14-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    width: 36px;
+    text-align: center;
+  }
+  .q14-text {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .q14-text strong { color: var(--gray-900); }
+  .q14-text small { color: var(--gray-600); font-size: 11px; }
+
+  /* ── TAG SUGGESTIONS ────────────────────── */
+  .tag-suggestions {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+  .tag-suggest-label {
+    font-size: 12px;
+    color: #78350f;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .tag-suggest-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag-btn {
+    background: white;
+    border: 1px solid #fcd34d;
+    border-radius: 99px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: #92400e;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.1s;
+  }
+  .tag-btn:hover { background: #fef3c7; }
+
+  /* ── INLINE FEEDBACK ────────────────────── */
+  .inline-feedback {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #14532d;
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+  .inline-feedback.warn {
+    background: #fff7ed;
+    border-color: #fed7aa;
+    color: #7c2d12;
+  }
+  .help-note {
+    background: #f0f9ff;
+    border-left: 3px solid var(--primary);
+    padding: 8px 12px;
+    border-radius: 0 6px 6px 0;
+    font-size: 12px;
+    color: #1e3a5f;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
 </style>
 </head>
 <body>
 <div class="container">
 
+<!-- INTRO HERO (shown before form starts) -->
+<div id="intro-hero">
+  <div class="hero-eyebrow">中小企業・個人事業主向け 無料診断サービス</div>
+  <h1 class="hero-h1">人手不足、コスト高、賃上げの波…<br><span class="hero-accent">その課題、補助金で解決できます</span></h1>
+  <p class="hero-sub">約5分の質問に答えるだけで、貴社が申請できる補助金・助成金を最大<strong>数千万円分</strong>ご提案。難しい手続きは後でOKです。まず「もらえるお金があるか」を確認しましょう。</p>
+  <div class="hero-points">
+    <div class="hp">⏱️ <span>5分で診断完了</span></div>
+    <div class="hp">💯 <span>2026年4月最新情報</span></div>
+    <div class="hp">🔒 <span>完全無料・登録不要</span></div>
+    <div class="hp">📋 <span>41種類の補助金を自動判定</span></div>
+  </div>
+  <button class="btn-hero" onclick="startDiagnosis()">▶ 無料診断を始める</button>
+  <p class="hero-caution">※ ご入力いただいた情報は診断にのみ使用します</p>
+</div>
+
 <!-- HEARING FORM -->
-<div id="form-area">
-  <h1>💰 助成金・補助金 診断シート</h1>
-  <p class="subtitle">貴社に最適な補助金・助成金をご提案するため、以下の項目についてご回答をお願いいたします。まだ未定の部分は「検討中」や概算で構いません。</p>
+<div id="form-area" style="display:none">
+
+  <!-- Progress Bar -->
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="progress-bar-steps">
+      <div class="ps active" data-step="1"><span class="ps-num">1</span><span class="ps-label">会社情報</span></div>
+      <div class="ps-line"></div>
+      <div class="ps" data-step="2"><span class="ps-num">2</span><span class="ps-label">経営状況</span></div>
+      <div class="ps-line"></div>
+      <div class="ps" data-step="3"><span class="ps-num">3</span><span class="ps-label">課題・投資</span></div>
+      <div class="ps-line"></div>
+      <div class="ps" data-step="4"><span class="ps-num">4</span><span class="ps-label">準備状況</span></div>
+    </div>
+  </div>
 
   <!-- Part 1 -->
-  <div class="section">
+  <div class="section" data-section="1">
     <div class="section-header">
-      <h2>■ 第1部：基本情報（申請資格・枠の判定）</h2>
-      <p>業種・法人形態・従業員数によって利用できる補助金が異なります</p>
+      <h2>STEP 1 ── まず、貴社のことを教えてください</h2>
+      <p>法人の種類・業種・従業員数で、申請できる補助金の「枠」が決まります</p>
     </div>
     <div class="section-body">
 
@@ -368,45 +613,48 @@
   </div>
 
   <!-- Part 2 -->
-  <div class="section">
+  <div class="section" data-section="2">
     <div class="section-header">
-      <h2>■ 第2部：経営・財務・雇用の状況（特例枠・加点要件の判定）</h2>
-      <p>賃上げやインボイス対応の特例枠・上限引き上げの優遇を判定します</p>
+      <h2>STEP 2 ── 今の経営状況を正直に教えてください</h2>
+      <p>「赤字だから不利」は誤解です。状況によっては補助率が上がる特例もあります</p>
     </div>
     <div class="section-body">
 
       <div class="field">
-        <div class="field-label"><span class="q">Q10</span>直近の決算状況</div>
-        <p class="field-note">※赤字事業者の場合、補助率が2/3から3/4に引き上がるなどの優遇措置があります</p>
+        <div class="field-label"><span class="q">Q10</span>直近の決算はどうでしたか？</div>
+        <p class="field-note help-note">💡 赤字でも大丈夫です。国の補助金は「これから立て直す企業」を後押しする制度。補助率が上がる特例枠もあります</p>
         <div class="choices">
-          <label class="choice-row"><input type="radio" name="q10" value="黒字"><span>黒字</span></label>
-          <label class="choice-row"><input type="radio" name="q10" value="赤字"><span>赤字 <span class="badge">補助率UP</span></span></label>
+          <label class="choice-row"><input type="radio" name="q10" value="黒字" onchange="onQ10Change(this.value)"><span>✅ 黒字（利益が出ている）</span></label>
+          <label class="choice-row"><input type="radio" name="q10" value="赤字" onchange="onQ10Change(this.value)"><span>📉 赤字（コスト高・売上減などで苦しい） <span class="badge" style="background:#dcfce7;color:#166534">補助率UP特例あり</span></span></label>
+        </div>
+        <div id="q10-feedback" class="inline-feedback" style="display:none"></div>
+      </div>
+
+      <div class="field">
+        <div class="field-label"><span class="q">Q11</span>消費税のインボイス（適格請求書）発行事業者に登録していますか？</div>
+        <p class="field-note help-note">💡 「インボイス」＝取引先に発行する請求書の新しい形式。2023年10月から始まった制度です</p>
+        <div class="choices">
+          <label class="choice-row"><input type="radio" name="q11" value="登録済み"><span>登録している（登録番号をもらった）</span></label>
+          <label class="choice-row"><input type="radio" name="q11" value="未登録（免税事業者）"><span>登録していない（年商1,000万円以下の免税事業者） <span class="badge">ITツール導入に特例枠あり</span></span></label>
+          <label class="choice-row"><input type="radio" name="q11" value="転換検討中"><span>まだ登録していないが、今後する予定</span></label>
         </div>
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q11</span>インボイス発行事業者への登録状況</div>
-        <div class="choices">
-          <label class="choice-row"><input type="radio" name="q11" value="登録済み"><span>登録済み</span></label>
-          <label class="choice-row"><input type="radio" name="q11" value="未登録（免税事業者）"><span>未登録（免税事業者）<span class="badge">特例枠あり</span></span></label>
-          <label class="choice-row"><input type="radio" name="q11" value="転換検討中"><span>未登録だが、今後インボイス発行事業者への転換を検討中</span></label>
-        </div>
+        <div class="field-label"><span class="q">Q12</span>社内で一番低い時給はいくらですか？（パート・アルバイト含む）</div>
+        <p class="field-note help-note">💡 「事業場内最低賃金」のことです。おおよその金額で大丈夫です</p>
+        <input type="number" id="q12" placeholder="例：1050（円）" min="0" oninput="onQ12Change(this.value)">
+        <div id="q12-feedback" class="inline-feedback" style="display:none;margin-top:8px"></div>
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q12</span>現在の事業場内最低賃金</div>
-        <p class="field-note">※貴社内で時給換算して最も低い方の金額</p>
-        <input type="number" id="q12" placeholder="例：1050（円）" min="0">
-      </div>
-
-      <div class="field">
-        <div class="field-label"><span class="q">Q13</span>今後の「賃上げ」に対するお考え</div>
-        <p class="field-note">※賃上げは多くの補助金で必須要件または加点条件となります。医療・介護・福祉関連事業者様などは一部の補助金で賃上げ要件の適用外（免除）となります</p>
+        <div class="field-label"><span class="q">Q13</span>今後、従業員の給料を上げることはできそうですか？</div>
+        <p class="field-note help-note">💡 賃上げは多くの補助金の条件です。ただし医療・介護・福祉系は「公定価格」の関係で免除される場合があります</p>
         <div class="choices">
-          <label class="choice-row"><input type="radio" name="q13" value="ベースアップ可能"><span>ベースアップや給与総額の引き上げ（年率1.5%〜6.0%等）が可能である</span></label>
-          <label class="choice-row"><input type="radio" name="q13" value="最低賃金引き上げ可能"><span>事業場内最低賃金の引き上げ（地域別最低賃金＋30円〜50円以上等）が可能である</span></label>
-          <label class="choice-row"><input type="radio" name="q13" value="公定価格のため困難"><span>医療・介護・福祉事業者等であり、公定価格の影響を受けるため賃上げは難しい<span class="badge">免除枠あり</span></span></label>
-          <label class="choice-row"><input type="radio" name="q13" value="賃上げ困難"><span>賃上げは難しい・制度次第で検討したい</span></label>
+          <label class="choice-row"><input type="radio" name="q13" value="ベースアップ可能"><span>💪 はい、全体的に給料を上げていけます（年率1.5〜6%程度）</span></label>
+          <label class="choice-row"><input type="radio" name="q13" value="最低賃金引き上げ可能"><span>📈 最低限、一番低い時給は引き上げできます（地域最低賃金＋30〜50円以上）</span></label>
+          <label class="choice-row"><input type="radio" name="q13" value="公定価格のため困難"><span>🏥 医療・介護・福祉なので、価格が決まっていて難しい <span class="badge">免除枠あり</span></span></label>
+          <label class="choice-row"><input type="radio" name="q13" value="賃上げ困難"><span>😔 今は難しい・補助金がとれてから考えたい</span></label>
         </div>
       </div>
 
@@ -414,58 +662,63 @@
   </div>
 
   <!-- Part 3 -->
-  <div class="section">
+  <div class="section" data-section="3">
     <div class="section-header">
-      <h2>■ 第3部：今後の投資計画・事業課題（最適な補助金の選定）</h2>
-      <p>どのような課題を解決し、何に投資したいかによって申請する補助金を絞り込みます</p>
+      <h2>STEP 3 ── どんな課題を解決したいですか？</h2>
+      <p>当てはまるものを全部選んでください。複数選んでOKです</p>
     </div>
     <div class="section-body">
 
       <div class="field">
-        <div class="field-label"><span class="q">Q14</span>現状の経営課題や解決したいこと（複数選択可）</div>
-        <div class="choices">
-          <label class="choice-row">
-            <input type="checkbox" name="q14" value="jizokuka">
-            <span>販路を開拓したい、チラシやWebサイトを作りたい <span class="badge">★小規模事業者持続化補助金</span></span>
+        <div class="field-label"><span class="q">Q14</span>今、一番困っていること・やりたいこと（複数選択可）</div>
+        <div class="choices q14-choices">
+          <label class="choice-row q14-card">
+            <input type="checkbox" name="q14" value="shooryoka" onchange="updateQ15Tags()">
+            <span class="q14-content"><span class="q14-icon">🤖</span><span class="q14-text"><strong>人手が足りない。ロボットや自動機を入れたい</strong><br><small>協働ロボット・配膳ロボット・自動搬送機・自動精算機など</small></span></span>
           </label>
-          <label class="choice-row">
-            <input type="checkbox" name="q14" value="shooryoka">
-            <span>人手不足を解消したい、配膳ロボットや自動精算機を入れたい <span class="badge">★省力化投資補助金 カタログ型</span></span>
+          <label class="choice-row q14-card">
+            <input type="checkbox" name="q14" value="it-donyu" onchange="updateQ15Tags()">
+            <span class="q14-content"><span class="q14-icon">💻</span><span class="q14-text"><strong>ITツールやAIを使って仕事を効率化したい</strong><br><small>会計・受発注・在庫管理・AI検品・勤怠管理システムなど</small></span></span>
           </label>
-          <label class="choice-row">
-            <input type="checkbox" name="q14" value="it-donyu">
-            <span>ITツールやAIソフトを導入して業務効率化したい <span class="badge">★IT導入補助金</span></span>
+          <label class="choice-row q14-card">
+            <input type="checkbox" name="q14" value="monozukuri" onchange="updateQ15Tags()">
+            <span class="q14-content"><span class="q14-icon">⚙️</span><span class="q14-text"><strong>新しい製品・サービスを開発したい。専用設備を入れたい</strong><br><small>特注の加工機・検査装置・新製品開発のための設備など</small></span></span>
           </label>
-          <label class="choice-row">
-            <input type="checkbox" name="q14" value="monozukuri">
-            <span>革新的な新製品・新サービスを開発したい <span class="badge">★ものづくり補助金</span></span>
+          <label class="choice-row q14-card">
+            <input type="checkbox" name="q14" value="jigyo-shinsyutsu" onchange="updateQ15Tags()">
+            <span class="q14-content"><span class="q14-icon">🚀</span><span class="q14-text"><strong>新しい市場・分野に進出したい。店舗や工場を改装したい</strong><br><small>事業転換・新分野参入・店舗新築・工場増設など</small></span></span>
           </label>
-          <label class="choice-row">
-            <input type="checkbox" name="q14" value="jigyo-shinsyutsu">
-            <span>既存事業から新市場・新分野へ進出したい、店舗や工場を新築・改装したい <span class="badge">★新事業進出補助金</span></span>
+          <label class="choice-row q14-card">
+            <input type="checkbox" name="q14" value="jizokuka" onchange="updateQ15Tags()">
+            <span class="q14-content"><span class="q14-icon">📣</span><span class="q14-text"><strong>お客さんを増やしたい。チラシ・ホームページを作りたい</strong><br><small>販路開拓・展示会出展・ECサイト・パンフレット作成など</small></span></span>
           </label>
-          <label class="choice-row">
-            <input type="checkbox" name="q14" value="seichokasoku">
-            <span>売上100億円を目指すような大規模な工場・拠点投資をしたい <span class="badge">★中小企業成長加速化補助金</span></span>
+          <label class="choice-row q14-card">
+            <input type="checkbox" name="q14" value="shoene" onchange="updateQ15Tags()">
+            <span class="q14-content"><span class="q14-icon">🌿</span><span class="q14-text"><strong>電気代・燃料費を下げたい。古い設備を省エネ機器に変えたい</strong><br><small>高効率空調・LED・省エネ型コンプレッサーなど</small></span></span>
           </label>
-          <label class="choice-row">
-            <input type="checkbox" name="q14" value="shoene">
-            <span>古い設備を高効率な機器に更新して光熱費を下げたい <span class="badge">★省エネ補助金</span></span>
+          <label class="choice-row q14-card">
+            <input type="checkbox" name="q14" value="jinzai" onchange="updateQ15Tags()">
+            <span class="q14-content"><span class="q14-icon">🎓</span><span class="q14-text"><strong>従業員に研修・スキルアップをさせたい</strong><br><small>DX研修・資格取得・リスキリング・OJT支援など</small></span></span>
           </label>
-          <label class="choice-row">
-            <input type="checkbox" name="q14" value="jinzai">
-            <span>従業員に研修やリスキリングを受けさせたい <span class="badge">★人材開発支援助成金</span></span>
+          <label class="choice-row q14-card">
+            <input type="checkbox" name="q14" value="seichokasoku" onchange="updateQ15Tags()">
+            <span class="q14-content"><span class="q14-icon">🏭</span><span class="q14-text"><strong>工場・拠点を大規模に新増設したい（数億円規模）</strong><br><small>売上100億円超を目指す大型設備投資</small></span></span>
           </label>
-          <label class="choice-row">
-            <input type="checkbox" name="q14" value="jigyo-shokei">
-            <span>事業承継やM&A、それに伴う廃業を行いたい <span class="badge">★事業承継・M&A補助金</span></span>
+          <label class="choice-row q14-card">
+            <input type="checkbox" name="q14" value="jigyo-shokei" onchange="updateQ15Tags()">
+            <span class="q14-content"><span class="q14-icon">🔄</span><span class="q14-text"><strong>事業を引き継ぎたい・後継者に承継したい</strong><br><small>事業承継・M&A・廃業支援など</small></span></span>
           </label>
         </div>
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q15</span>具体的に導入したい設備やITツール、実施したい取り組み内容</div>
-        <textarea id="q15" placeholder="例：会計ソフトの導入、ECサイト構築、フォークリフト購入、パート従業員の正社員転換 など"></textarea>
+        <div class="field-label"><span class="q">Q15</span>もう少し詳しく教えてください（自由記述）</div>
+        <p class="field-note">上で選んだ内容について、具体的な設備名・悩み・やりたいことを書いてください（任意）</p>
+        <div id="q15-tags" class="tag-suggestions" style="display:none">
+          <div class="tag-suggest-label">💡 よく使われるキーワード（タップで追加）：</div>
+          <div id="q15-tag-btns" class="tag-suggest-btns"></div>
+        </div>
+        <textarea id="q15" placeholder="例：木材の品質検査を自動化したい、協働ロボットで搬送作業を省力化したい、受注管理をクラウドに移したい など"></textarea>
       </div>
 
       <div class="inline-fields">
@@ -489,16 +742,16 @@
   </div>
 
   <!-- Part 4 -->
-  <div class="section">
+  <div class="section" data-section="4">
     <div class="section-header">
-      <h2>■ 第4部：過去の受給歴・加点要素の準備状況（採択率向上のための確認）</h2>
-      <p>事前の準備状況により、審査の有利さやスケジュールが大きく変わります</p>
+      <h2>STEP 4 ── 申請の準備状況を教えてください</h2>
+      <p>これだけで採択率が大きく変わります。今すぐできることも一緒にご提案します</p>
     </div>
     <div class="section-body">
 
       <div class="field">
-        <div class="field-label"><span class="q">Q18</span>「gBizIDプライムアカウント」はお持ちですか？</div>
-        <p class="field-note">※多くの補助金申請で必須。取得に約2週間かかります</p>
+        <div class="field-label"><span class="q">Q18</span>「gBizIDプライム」アカウントは取得していますか？</div>
+        <p class="field-note help-note">💡 gBizIDは、国の補助金申請に必要な「会社の認証カード」のようなものです。無料で取得でき、申請からおよそ2週間かかります。まだの方は今日から手続きすることをおすすめします</p>
         <div class="choices">
           <label class="choice-row"><input type="radio" name="q18" value="取得済み"><span>取得済み <span class="badge">申請可能</span></span></label>
           <label class="choice-row"><input type="radio" name="q18" value="未取得"><span>未取得</span></label>
@@ -507,8 +760,8 @@
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q19</span>過去に受給した、または現在申請中の補助金はありますか？</div>
-        <p class="field-note">※過去に交付決定を受けている場合、再申請時により高い賃上げ目標（3.5%以上など）が求められるケースがあります</p>
+        <div class="field-label"><span class="q">Q19</span>過去に補助金・助成金を受給したことはありますか？</div>
+        <p class="field-note help-note">💡 受給歴がある場合、次の申請では「賃上げ目標を少し高く設定する」条件が付く場合があります。診断時の参考にしますので、おおよそで構いません</p>
         <div class="choices">
           <label class="choice-row"><input type="radio" name="q19" value="なし"><span>ない</span></label>
           <label class="choice-row"><input type="radio" name="q19" value="あり"><span>ある</span></label>
@@ -517,8 +770,8 @@
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q20</span>以下の認定・宣言で取得・実施済みのものはありますか？（複数選択可）</div>
-        <p class="field-note">※審査における有利な「加点項目」となります</p>
+        <div class="field-label"><span class="q">Q20</span>取得済みの「加点アイテム」はありますか？（複数選択可）</div>
+        <p class="field-note help-note">💡 これらは補助金の審査で有利になる「加点項目」です。まだ取得していなくても大丈夫。診断後に「今すぐ取れるもの」をご案内します</p>
         <div class="choices">
           <label class="choice-row"><input type="checkbox" name="q20" value="経営革新計画"><span>経営革新計画の承認</span></label>
           <label class="choice-row"><input type="checkbox" name="q20" value="パートナーシップ構築宣言"><span>パートナーシップ構築宣言</span></label>
@@ -2149,6 +2402,136 @@ function renderCard(s, i) {
     </div>
   `;
 }
+
+// ─────────────────────────────────────────────
+// UX FLOW FUNCTIONS
+// ─────────────────────────────────────────────
+
+function startDiagnosis() {
+  document.getElementById('intro-hero').style.display = 'none';
+  document.getElementById('form-area').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Q10: 決算状況 → 赤字の場合に特例説明を表示
+function onQ10Change(val) {
+  const fb = document.getElementById('q10-feedback');
+  if (!fb) return;
+  if (val === '赤字') {
+    fb.style.display = 'block';
+    fb.className = 'inline-feedback';
+    fb.innerHTML = `
+      <strong>📌 赤字でも補助金は申請できます。むしろチャンスです。</strong><br>
+      ものづくり補助金・省力化補助金などでは、「赤字決算」「業況悪化」の企業向けに<u>補助率が上がる特例枠（例：通常1/2→2/3）</u>が設けられています。
+      「苦しいから申請できない」ではなく、「苦しいから優先的に支援される」制度です。
+    `;
+  } else {
+    fb.style.display = 'none';
+  }
+}
+
+// Q12: 最低賃金 → 地域別最低賃金と比較してアドバイス
+function onQ12Change(val) {
+  const fb = document.getElementById('q12-feedback');
+  if (!fb) return;
+  const wage = parseInt(val);
+  if (!wage || wage < 500) { fb.style.display = 'none'; return; }
+
+  // 2025年度全国最低賃金（加重平均1,055円）を基準に判定
+  const nationalAvg = 1055;
+  fb.style.display = 'block';
+
+  if (wage < nationalAvg) {
+    fb.className = 'inline-feedback warn';
+    fb.innerHTML = `
+      ⚠️ 入力した時給 <strong>${wage.toLocaleString()}円</strong> は、2025年度の全国最低賃金加重平均（<strong>${nationalAvg.toLocaleString()}円</strong>）を下回っています。<br>
+      最低賃金法違反の可能性があります。補助金の賃上げ要件（地域最低賃金＋30円以上）を確認のうえ、早めに見直してください。
+    `;
+  } else if (wage < nationalAvg + 30) {
+    fb.className = 'inline-feedback warn';
+    fb.innerHTML = `
+      💡 時給 <strong>${wage.toLocaleString()}円</strong> は最低賃金をクリアしていますが、多くの補助金で求められる「地域最低賃金＋30円以上」にギリギリの水準です。<br>
+      業務改善助成金などを活用すれば、<u>賃上げ費用の最大90%を補助</u>してもらいながら時給を上げることができます。
+    `;
+  } else if (wage < nationalAvg + 80) {
+    fb.className = 'inline-feedback';
+    fb.innerHTML = `
+      ✅ 時給 <strong>${wage.toLocaleString()}円</strong> は補助金の賃上げ要件（地域最低賃金＋30円）をクリアできそうです。<br>
+      業務改善助成金で設備投資費用の一部を補助してもらいながら、さらなる賃上げを実現できます。
+    `;
+  } else {
+    fb.className = 'inline-feedback';
+    fb.innerHTML = `
+      🌟 時給 <strong>${wage.toLocaleString()}円</strong> — 賃上げへの積極姿勢が伝わります。<br>
+      ものづくり補助金・省力化補助金では「高い賃上げ率」が審査加点になります。この水準の継続・さらなる引き上げで採択率が上がります。
+    `;
+  }
+}
+
+// Q14 → Q15タグ候補を動的に更新
+const Q14_TAG_MAP = {
+  'shooryoka':        ['協働ロボット', '自動搬送機', 'AMR', '自動精算機', '配膳ロボット', '検品自動化', '溶接ロボット'],
+  'it-donyu':         ['クラウド会計', '受発注システム', '在庫管理', 'AI-OCR', '勤怠管理', 'RPA', 'POSレジ'],
+  'monozukuri':       ['CNC加工機', 'レーザー加工機', '3Dプリンター', '試作設備', '検査装置', '乾燥炉', '木工機械'],
+  'jigyo-shinsyutsu': ['店舗改装', '工場増設', '新分野参入', '事業転換', 'EC販売', '海外展開'],
+  'jizokuka':         ['チラシ', 'ホームページ', 'SNS広告', 'ECサイト', '展示会', 'パンフレット'],
+  'shoene':           ['高効率空調', 'LED照明', '省エネコンプレッサー', '断熱改修', '太陽光発電', 'ヒートポンプ'],
+  'jinzai':           ['DX研修', 'リスキリング', 'OJT', '資格取得', 'eラーニング', 'マネジメント研修'],
+  'seichokasoku':     ['大型工場', '新棟建設', '拠点拡張', '生産ライン増設'],
+  'jigyo-shokei':     ['事業承継', '後継者育成', 'M&A', '廃業', '引き継ぎ'],
+};
+
+function updateQ15Tags() {
+  const checked = [...document.querySelectorAll('input[name="q14"]:checked')].map(el => el.value);
+  const container = document.getElementById('q15-tags');
+  const btnArea = document.getElementById('q15-tag-btns');
+  if (!container || !btnArea) return;
+
+  if (checked.length === 0) { container.style.display = 'none'; return; }
+
+  const allTags = new Set();
+  checked.forEach(key => { (Q14_TAG_MAP[key] || []).forEach(t => allTags.add(t)); });
+
+  btnArea.innerHTML = '';
+  allTags.forEach(tag => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'tag-btn';
+    btn.textContent = tag;
+    btn.onclick = () => {
+      const ta = document.getElementById('q15');
+      if (ta) {
+        ta.value = ta.value ? ta.value.trimEnd() + '、' + tag : tag;
+        ta.focus();
+      }
+    };
+    btnArea.appendChild(btn);
+  });
+
+  container.style.display = 'block';
+}
+
+// プログレスバー更新（スクロール連動）
+function updateProgressBar() {
+  const sections = document.querySelectorAll('.section[data-section]');
+  const steps = document.querySelectorAll('.ps[data-step]');
+  let activeSection = 1;
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.6) {
+      activeSection = parseInt(sec.dataset.section);
+    }
+  });
+  steps.forEach(ps => {
+    const step = parseInt(ps.dataset.step);
+    ps.classList.remove('active', 'done');
+    if (step < activeSection) ps.classList.add('done');
+    else if (step === activeSection) ps.classList.add('active');
+  });
+}
+
+// スクロールイベントでプログレスバーを更新
+document.addEventListener('scroll', updateProgressBar, { passive: true });
 
 function toggle(id) { document.getElementById(id)?.classList.toggle('open'); }
 

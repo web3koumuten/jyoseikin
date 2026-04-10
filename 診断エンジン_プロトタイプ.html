@@ -940,7 +940,7 @@ const SUBSIDIES = [
     name: "ものづくり補助金",
     q14_key: "monozukuri",
     max_amount: 40000000,
-    amount_note: "対象経費の50%（通常枠最大750万円〜省力化枠最大4,000万円）",
+    amount_note: "【製品・サービス高付加価値化枠（通常）】対象経費の1/2（小規模・赤字は2/3）、上限750万円〜4,000万円。※自動化専用設備は「省力化（オーダーメード）枠」（別エントリー）を確認",
     timing: "before_investment",
     lead_time_months: 12,
     difficulty: 3,
@@ -956,7 +956,7 @@ const SUBSIDIES = [
     incompatible_with: [],
     wage_required: true,
     bonus_points: { "経営革新計画": 1, "パートナーシップ構築宣言": 1, "事業継続力強化計画": 1, "SECURITY ACTION": 1 },
-    q15_keywords: ["設備", "機械", "装置", "製品開発", "製造", "加工", "自動化", "省力化"]
+    q15_keywords: ["設備", "機械", "装置", "製品開発", "製造", "加工", "自動化", "省力化", "木工", "家具", "木材加工", "CNC", "NC旋盤", "レーザー加工", "3Dプリンター", "検査装置", "試作", "金型"]
   },
   {
     id: "shooryoka",
@@ -1701,7 +1701,7 @@ const SUBSIDIES = [
     incompatible_with: [],
     wage_required: true,
     bonus_points: {},
-    q15_keywords: ["最低賃金", "設備投資", "賃上げ", "省力化", "ポスレジ"]
+    q15_keywords: ["最低賃金", "設備投資", "賃上げ", "省力化", "ポスレジ", "加工機", "木工機械", "工作機械", "製造設備", "機械設備", "生産設備", "乾燥炉", "プレス機", "旋盤", "研削盤"]
   },
   // ════════════════════════════════════════
   // ── 働き方改革推進支援助成金 ──
@@ -1883,6 +1883,62 @@ const SUBSIDIES = [
     wage_required: false,
     bonus_points: {},
     q15_keywords: ["売上減少", "休業", "解雇回避", "雇用維持", "不況"]
+  },
+
+  // ════════════════════════════════════════
+  // ── ものづくり補助金 省力化（オーダーメード）枠 ──
+  // 製造業・設備投資1,500万円規模のペルソナに最重要
+  // ════════════════════════════════════════
+  {
+    id: "monozukuri-shooryoka",
+    name: "ものづくり補助金 省力化（オーダーメード）枠",
+    q14_key: "shooryoka",
+    max_amount: 100000000,
+    amount_note: "【小規模・赤字特例】対象経費の2/3（上限1億円）。中小一般は1/2。1,500万円投資なら最大1,000万円補助",
+    timing: "before_investment",
+    lead_time_months: 12,
+    difficulty: 3,
+    company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: false,
+    min_employees: 0,
+    note_eligibility: "省力化投資補助金（カタログ型）と異なり、カタログ外のカスタム設備・ロボットシステムも対象。小規模事業者・赤字企業は補助率2/3に優遇",
+    description: "ものづくり補助金の「省力化（オーダーメード）枠」は、人手不足解消を目的とした自動化設備・ロボットシステム等の導入に特化した枠。「省力化投資補助金（カタログ型）」と違い、カタログに載っていない専用機械・自社仕様のロボットラインでも申請可能です。小規模事業者と赤字・再生企業は補助率が2/3に優遇（最大1億円）。1,500万円の設備投資なら最大1,000万円が補助対象となる計算です。審査では「人手不足の深刻さ」と「導入による省人化効果」が評価ポイント。付加価値額・給与総額の数値目標設定が必須です。",
+    conditions: ["人手不足解消・省力化を目的とした設備投資（ロボット・自動化装置等）", "付加価値額・給与総額の増加計画（数値目標）", "認定経営革新等支援機関（認定支援機関）の確認が必須"],
+    compatible_with: ["gyomu-kaizen", "jinzai-ikusei-shien", "jinzai-reskilling"],
+    incompatible_with: ["shooryoka"],
+    wage_required: true,
+    bonus_points: { "経営革新計画": 1, "パートナーシップ構築宣言": 1, "事業継続力強化計画": 1, "SECURITY ACTION": 1 },
+    q15_keywords: ["ロボット", "自動化", "省力", "協働ロボット", "自動搬送", "搬送", "自動検査", "木工機械", "加工機", "溶接ロボット", "AMR", "自動化ライン", "生産ライン"]
+  },
+
+  // ════════════════════════════════════════
+  // ── 産業雇用安定助成金 スキルアップ支援コース ──
+  // 赤字製造業が雇用維持しながら技術習得させる制度
+  // ════════════════════════════════════════
+  {
+    id: "sangyo-koyo-skillup",
+    name: "産業雇用安定助成金 スキルアップ支援コース",
+    q14_key: "jinzai",
+    max_amount: 1200000,
+    amount_note: "訓練期間中の賃金の最大9/10（中小企業）＋訓練費最大120万円/人",
+    timing: "before_training",
+    lead_time_months: 2,
+    difficulty: 2,
+    company_size: ["中小企業", "小規模事業者"],
+    legal_form_eligible: ["法人", "個人事業主"],
+    industry_restriction: null,
+    requires_employee_insurance: true,
+    min_employees: 1,
+    note_eligibility: "業況の変化等に対応するため、在籍型出向でスキルアップを図る場合に活用。出向期間中も雇用関係は出向元と継続",
+    description: "業況悪化等で業務量が落ちた際に、解雇せず他社（出向先）でDX・IoT・新加工技術等のスキルを習得させ自社に還元する助成金。訓練中の賃金の最大9/10＋訓練費最大120万円/人を中小企業に助成します。例えば製造業が繁忙期の工場に出向させて溶接・NCプログラミング等の最新技術を学ばせるケースで有効。雇用調整助成金（休業）との組み合わせも可能で、厳しい時期を乗り越えながら人材レベルを上げる戦略的な制度です。",
+    conditions: ["業況悪化・需要変動等による一時的な業務量の減少", "出向先で技能習得・スキルアップを目的とした訓練の実施", "訓練終了後に自社への復帰を前提とすること"],
+    compatible_with: ["koyo-chosei", "sangyo-koyo-antei-shukko", "jinzai-ikusei-shien"],
+    incompatible_with: [],
+    wage_required: false,
+    bonus_points: {},
+    q15_keywords: ["技能習得", "スキルアップ", "出向訓練", "人材育成", "技術習得", "職業訓練", "DX研修", "IoT", "デジタル", "NC旋盤", "溶接", "CAD"]
   }
 ];
 
@@ -1984,6 +2040,24 @@ const STACKING_PATTERNS = [
     ids: ["sangyo-koyo-antei-shukko", "koyo-chosei"],
     label: "雇用維持 ダブル（在籍出向＋雇用調整）",
     note: "売上減少時に休業・出向の両方を組み合わせて雇用を守る"
+  },
+  // ── 製造業 赤字立て直し最強コンボ ──
+  {
+    ids: ["monozukuri-shooryoka", "gyomu-kaizen", "jinzai-ikusei-shien"],
+    label: "🏭 製造業 赤字立て直し 最強コンボ（省力化×賃上げ×人材）",
+    note: "設備自動化（最大1億円補助）＋賃上げ設備費（最大600万円）＋従業員研修（訓練費45%助成）。別々の設備・費用に使えば合計2,000万円超の補助が現実的"
+  },
+  // ── 省力化Wルート ──
+  {
+    ids: ["monozukuri-shooryoka", "shooryoka"],
+    label: "省力化 Wルート（オーダーメード枠×カタログ型）",
+    note: "専用機械はオーダーメード枠（最大1億円）で、汎用ロボットはカタログ型（最大1,500万円）で申請。別設備であれば同時申請可能"
+  },
+  // ── 製造業 設備×賃上げ連携 ──
+  {
+    ids: ["monozukuri-hojyokin", "gyomu-kaizen", "career-up-chingin-kaitei"],
+    label: "製造業 設備投資×賃上げ 連携コンボ",
+    note: "ものづくり補助金（製品開発設備）＋業務改善助成金（別設備で賃上げ）＋賃金規定整備で最大1,200万円超。3制度を別々の投資・課題に紐付けるのがポイント"
   }
 ];
 
@@ -2090,13 +2164,44 @@ function runDiagnosis() {
     if (isDeficit && ['monozukuri-hojyokin', 'jigyo-shinsyutsu'].includes(s.id)) {
       score += 1; bonusReasons.push('赤字事業者→補助率引き上げ枠あり');
     }
+
+    // ── 製造業×赤字×小規模ペルソナへの追加加点 ──
+    const isMfg = (q7 === '製造業');
+    const budget = q16; // 万円
+    if (isMfg && isDeficit) {
+      // 設備投資系：製造業赤字は補助率優遇→スコア+2
+      if (['monozukuri-shooryoka', 'monozukuri-hojyokin', 'shooryoka'].includes(s.id)) {
+        score += 2;
+        bonusReasons.push('製造業×赤字→補助率2/3の優遇枠対象');
+      }
+      // 業務改善：最低賃金+設備で製造業にぴったり
+      if (s.id === 'gyomu-kaizen') {
+        score += 2;
+        bonusReasons.push('製造業×赤字→賃上げ+設備投資の業務改善助成金が高相性');
+      }
+    }
+    if (isMfg && isSmall) {
+      // 小規模製造業は「ものづくり補助金」の採択率・補助率が優遇
+      if (['monozukuri-hojyokin', 'monozukuri-shooryoka'].includes(s.id)) {
+        score += 1;
+        bonusReasons.push('小規模事業者→補助率2/3に優遇（通常は1/2）');
+      }
+    }
+    // 投資規模とのマッチ（1,000万円以上の投資予定）
+    if (budget >= 1000) {
+      if (['monozukuri-hojyokin', 'monozukuri-shooryoka', 'shooryoka', 'jigyo-shinsyutsu'].includes(s.id)) {
+        score += 1;
+        bonusReasons.push(`投資予定${budget.toLocaleString()}万円→高額補助金が有効`);
+      }
+    }
+
     q20.forEach(cert => {
       if (s.bonus_points[cert]) {
         score += s.bonus_points[cert];
         bonusReasons.push(`「${cert}」加点あり`);
       }
     });
-    if (q18 === '取得済み' && ['monozukuri-hojyokin','it-donyu','jizokuka-hojyokin','jigyo-shinsyutsu','shooryoka'].includes(s.id)) {
+    if (q18 === '取得済み' && ['monozukuri-hojyokin','monozukuri-shooryoka','it-donyu','jizokuka-hojyokin','jigyo-shinsyutsu','shooryoka'].includes(s.id)) {
       bonusReasons.push('gBizID取得済み→即時申請可能');
     }
 

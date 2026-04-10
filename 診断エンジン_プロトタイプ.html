@@ -132,6 +132,103 @@
   .stack-total { font-size: 14px; font-weight: 700; color: #065f46; }
   .stack-note { font-size: 11px; color: #047857; margin-top: 2px; }
 
+  /* Phase 1: gBizID Critical Alert */
+  .gbiz-alert {
+    background: #fff1f1;
+    border: 2px solid #ef4444;
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    color: #7f1d1d;
+  }
+  .gbiz-alert .alert-title { font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .gbiz-alert .alert-body { margin-bottom: 12px; line-height: 1.7; }
+  .gbiz-btn {
+    display: inline-block;
+    background: #ef4444;
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 8px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+  .gbiz-btn:hover { background: #dc2626; }
+
+  /* Phase 2: 赤字→特例枠 opportunity panel */
+  .opportunity-panel {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    border: 1.5px solid #6ee7b7;
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    color: #064e3b;
+  }
+  .opportunity-panel .opp-title { font-size: 14px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .opportunity-panel .opp-point { background: white; border-radius: 8px; padding: 10px 14px; margin-top: 8px; display: flex; align-items: flex-start; gap: 10px; }
+  .opportunity-panel .opp-point-icon { font-size: 20px; flex-shrink: 0; }
+
+  /* Phase 3: ポートフォリオ提案 */
+  .portfolio-panel {
+    background: white;
+    border: 1.5px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 18px;
+    font-size: 13px;
+  }
+  .portfolio-panel h3 { font-size: 14px; font-weight: 800; color: var(--primary); margin-bottom: 14px; }
+  .portfolio-proposals { display: flex; gap: 12px; flex-wrap: wrap; }
+  .portfolio-proposal {
+    flex: 1; min-width: 220px;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .portfolio-proposal .proposal-label { font-size: 11px; font-weight: 700; color: white; background: var(--primary); border-radius: 4px; padding: 2px 7px; display: inline-block; margin-bottom: 6px; }
+  .portfolio-proposal .proposal-label.b { background: var(--accent); }
+  .portfolio-proposal .proposal-title { font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+  .portfolio-proposal .proposal-items { font-size: 12px; color: var(--gray-600); line-height: 1.8; }
+  .portfolio-proposal .proposal-total { font-weight: 700; color: var(--primary); font-size: 13px; margin-top: 8px; border-top: 1px solid var(--gray-200); padding-top: 6px; }
+
+  /* Phase 4: 加点ロードマップ */
+  .roadmap-panel {
+    background: #fffbeb;
+    border: 1.5px solid #fcd34d;
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    color: #78350f;
+  }
+  .roadmap-panel h3 { font-size: 14px; font-weight: 800; margin-bottom: 12px; }
+  .roadmap-steps { display: flex; gap: 8px; flex-wrap: wrap; }
+  .roadmap-step {
+    flex: 1; min-width: 160px;
+    background: white;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .roadmap-step .step-period { font-size: 11px; font-weight: 700; color: #d97706; margin-bottom: 4px; }
+  .roadmap-step .step-title { font-weight: 700; font-size: 12px; margin-bottom: 4px; }
+  .roadmap-step .step-detail { font-size: 11px; color: #92400e; line-height: 1.6; }
+  .roadmap-step.done .step-period { color: #059669; }
+
+  /* 最低賃金警告 */
+  .minjob-panel {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #7f1d1d;
+  }
+
   /* Conflict */
   .conflict-panel {
     background: var(--warning-light);
@@ -1804,14 +1901,30 @@ function renderResults(scored, combos, conflicts, meta) {
   el.style.display = 'block';
 
   const totalMax = scored.reduce((s, x) => s + x.max_amount, 0);
+  const budget = meta.q16 || 0;  // 投資予算（万円）
+  const noAddPoints = meta.q20.length === 0 || (meta.q20.length === 1 && meta.q20.includes('なし'));
+  const urgentTiming = meta.q17 === '1〜2ヶ月以内' || meta.q17 === '半年以内';
 
-  // 準備状況サマリー
-  const readinessItems = [];
-  if (meta.q18 !== '取得済み') readinessItems.push('⚠️ gBizIDプライムが未取得（約2週間かかります）');
-  if (!meta.wageUp && !meta.isDeficit) readinessItems.push('⚠️ 賃上げ予定なしのため一部補助金の要件に注意');
-  if (meta.q20.length === 0 || meta.q20.includes('なし')) readinessItems.push('💡 加点項目（パートナーシップ構築宣言等）がない→今から取得で採択率UP');
+  let html = '';
 
-  let html = `
+  // ══════════════════════════════════════════════════════
+  // PHASE 1: gBizID クリティカルアラート（最優先・最上部）
+  // ══════════════════════════════════════════════════════
+  if (meta.q18 !== '取得済み') {
+    html += `
+    <div class="gbiz-alert">
+      <div class="alert-title">🚨 【最優先対応】gBizIDプライムアカウントが未取得です</div>
+      <div class="alert-body">
+        「デジタル化・AI導入補助金」「省力化投資補助金」「ものづくり補助金」など<strong>主要補助金の申請にはすべてgBizIDプライムが必須</strong>です。
+        取得には<strong>印鑑証明書の郵送等で約2週間</strong>かかります。
+        ${urgentTiming ? '<strong style="color:#ef4444">「半年以内」の投資実施を希望される場合、今すぐ手続きを開始しないと補助金申請のスケジュールに間に合いません。</strong>' : '補助金の交付決定前に機器の発注・購入をした場合は補助対象外になるため、今すぐ手続きを開始してください。'}
+      </div>
+      <a href="https://gbiz-id.go.jp/top/index.html" target="_blank" rel="noopener" class="gbiz-btn">▶ 今すぐ gBizIDを申請する（無料）</a>
+    </div>`;
+  }
+
+  // ── 結果ヘッダー ──
+  html += `
     <div class="results-header">
       <h2>🎯 診断結果</h2>
       <p class="count">${scored.length}件の助成金・補助金が該当しました</p>
@@ -1820,12 +1933,86 @@ function renderResults(scored, combos, conflicts, meta) {
     </div>
   `;
 
-  // 準備状況アラート
-  if (readinessItems.length > 0) {
-    html += `<div class="conflict-panel"><strong>📋 申請前に確認すべき事項</strong>${readinessItems.map(i => `<div>${i}</div>`).join('')}</div>`;
+  // ══════════════════════════════════════════════════════
+  // PHASE 2: 赤字×賃上げ → 特例枠 機会転換メッセージ
+  // ══════════════════════════════════════════════════════
+  if (meta.isDeficit) {
+    const wageMsg = meta.wageUp
+      ? `貴社は<strong>赤字 × 賃上げ意欲あり</strong>という条件で、複数の補助金において<strong>補助率が2/3→3/4に引き上がる特例枠</strong>の対象となる可能性があります。`
+      : `直近決算が赤字の企業向けに、一部補助金では<strong>補助率の引き上げや再生支援枠</strong>が設けられています。賃上げ計画を合わせると更に有利になります。`;
+    html += `
+    <div class="opportunity-panel">
+      <div class="opp-title">🎯 【チャンス】赤字決算は補助率アップの特例対象になる場合があります</div>
+      <p>${wageMsg}</p>
+      <div class="opp-point">
+        <div class="opp-point-icon">💡</div>
+        <div>「赤字だから審査に通らない」は誤解です。補助金は<strong>これから事業を立て直す企業を後押しする制度</strong>です。
+        赤字決算は「省力化・デジタル化で生産性を上げ、その成果で賃上げを実現する」という経営ストーリーを語る絶好の材料になります。</div>
+      </div>
+      ${meta.wageUp && budget >= 1000 ? `
+      <div class="minjob-panel">
+        ⚠️ <strong>最低賃金の急騰に備えてください：</strong>2026年度の地域別最低賃金は全国的に1,000円超への引き上げが予測されています。
+        現在の賃金水準と比較し、今後数ヶ月以内に法的な賃上げ対応が必要になる可能性があります。
+        「賃上げ」を補助金要件に組み込むことで、<strong>不可避のコスト増を補助金獲得の条件として逆用</strong>できます。
+      </div>` : ''}
+    </div>`;
   }
 
-  // スタッキング
+  // ══════════════════════════════════════════════════════
+  // PHASE 3: 投資ポートフォリオ提案（予算×課題に応じた複数補助金の組み合わせ）
+  // ══════════════════════════════════════════════════════
+  const hasRobot = scored.some(s => s.id === 'shooryoka');
+  const hasIT = scored.some(s => s.id === 'it-donyu');
+  const hasMono = scored.some(s => s.id === 'monozukuri-hojyokin');
+  const hasJigyo = scored.some(s => s.id === 'jigyo-shinsyutsu');
+
+  if ((hasRobot || hasMono) && (hasIT || hasJigyo) && scored.length >= 3) {
+    const budgetWarn = (budget > 0 && budget < 500) ? `<p style="font-size:12px;color:#9a3412;margin-top:6px">※ご入力の予算（${budget}万円）では、補助金の上限額に対して申請規模が小さい可能性があります。実際に申請できる枠や補助率は要件確認が必要です。</p>` : '';
+
+    const proA_item = hasRobot ? scored.find(s => s.id === 'shooryoka') : hasMono ? scored.find(s => s.id === 'monozukuri-hojyokin') : null;
+    const proB_item = hasIT ? scored.find(s => s.id === 'it-donyu') : null;
+    const proB2_item = hasJigyo ? scored.find(s => s.id === 'jigyo-shinsyutsu') : null;
+
+    html += `
+    <div class="portfolio-panel">
+      <h3>🗂️ 投資ポートフォリオ提案 — 複数補助金の組み合わせ戦略</h3>
+      <div class="portfolio-proposals">
+        ${proA_item ? `
+        <div class="portfolio-proposal">
+          <span class="proposal-label">提案 A</span>
+          <div class="proposal-title">物理的省力化の極大化</div>
+          <div class="proposal-items">
+            ${hasRobot ? '✅ 省力化投資補助金（カタログ型）<br>→ 協働ロボット・搬送機など<br>→ 上限 最大1,500万円' : ''}
+            ${hasMono ? '✅ ものづくり補助金<br>→ 自動化設備・検査装置など<br>→ 補助率1/2〜（最大4,000万円）' : ''}
+          </div>
+          <div class="proposal-total">💴 補助額目安: ${hasRobot ? fmt(proA_item.max_amount) : hasMono ? fmt(proA_item.max_amount) : '—'}</div>
+        </div>` : ''}
+        ${(proB_item || proB2_item) ? `
+        <div class="portfolio-proposal">
+          <span class="proposal-label b">提案 B</span>
+          <div class="proposal-title">IT・DX × 新分野進出</div>
+          <div class="proposal-items">
+            ${hasIT ? '✅ デジタル化・AI導入補助金<br>→ AIソフト・受発注システム<br>→ 通常枠（補助率1/2）＋インボイス枠（最大4/5）' : ''}
+            ${hasJigyo ? '<br>✅ 新事業進出補助金<br>→ 新市場・新分野への展開<br>→ 最大7,000万円（補助率2/3）' : ''}
+          </div>
+          <div class="proposal-total">💴 補助額目安: ${hasIT ? fmt(proB_item.max_amount) : ''}${hasJigyo ? (hasIT ? '〜' : '') + fmt(proB2_item.max_amount) : ''}</div>
+        </div>` : ''}
+        <div class="portfolio-proposal">
+          <span class="proposal-label" style="background:#7c3aed">提案 A+B</span>
+          <div class="proposal-title">最大化コンボ（同時申請）</div>
+          <div class="proposal-items">
+            ✅ 省力化（ハード）とDX（ソフト）は<strong>同時申請が可能</strong>です<br>
+            → 設備投資とITツール導入を並行して申請し、補助金の効果を最大化できます<br>
+            → ただし両方の申請作業が発生するため、認定支援機関・ITベンダーとの早期連携が必須です
+          </div>
+          <div class="proposal-total">💴 合計補助額: ${fmt((proA_item?.max_amount || 0) + (proB_item?.max_amount || 0))}</div>
+        </div>
+      </div>
+      ${budgetWarn}
+    </div>`;
+  }
+
+  // ── スタッキング ──
   if (combos.length > 0) {
     html += `<div class="stack-panel"><h3>⚡ おすすめ組み合わせ（スタッキング）</h3>`;
     combos.forEach(c => {
@@ -1843,17 +2030,17 @@ function renderResults(scored, combos, conflicts, meta) {
     html += `</div>`;
   }
 
-  // 衝突
+  // ── 衝突 ──
   if (conflicts.length > 0) {
     html += `<div class="conflict-panel"><strong>⛔ 同時申請できない組み合わせ</strong>${conflicts.map(c => `<div>「${c.a.name}」と「${c.b.name}」は同一案件での併用不可</div>`).join('')}</div>`;
   }
 
-  // 一覧
+  // ── 一覧 ──
   html += `<div class="result-section"><div class="section-title">📋 該当する助成金・補助金</div>`;
   scored.forEach((s, i) => { html += renderCard(s, i); });
   html += `</div>`;
 
-  // 比較表
+  // ── 比較表 ──
   if (scored.length >= 2) {
     html += `<div class="result-section"><div class="section-title">📊 比較表</div><div class="compare-wrap"><table>
       <thead><tr><th>名称</th><th>最大受給額</th><th>難易度</th><th>準備期間</th><th>申請タイミング</th></tr></thead>
@@ -1867,6 +2054,39 @@ function renderResults(scored, combos, conflicts, meta) {
         </tr>`).join('')}
       </tbody>
     </table></div></div>`;
+  }
+
+  // ══════════════════════════════════════════════════════
+  // PHASE 4: 加点ロードマップ（認定ゼロの企業向け）
+  // ══════════════════════════════════════════════════════
+  if (noAddPoints) {
+    html += `
+    <div class="roadmap-panel">
+      <h3>🗓️ 採択率を上げる「加点獲得ロードマップ」</h3>
+      <p style="margin-bottom:12px;font-size:12px">現在、審査で有利になる加点認定が取得されていません。以下のステップで補助金の採択率を大きく高められます。</p>
+      <div class="roadmap-steps">
+        <div class="roadmap-step">
+          <div class="step-period">⚡ 今すぐ〜1週間</div>
+          <div class="step-title">gBizID取得 ＋ みらデジ経営チェック</div>
+          <div class="step-detail">・gBizIDプライム申請（オンライン＋郵送）<br>・みらデジ経営チェックはオンライン10分で完了。デジタル化補助金の加点対象</div>
+        </div>
+        <div class="roadmap-step">
+          <div class="step-period">📅 1〜2ヶ月以内</div>
+          <div class="step-title">事業継続力強化計画（BCP）の策定</div>
+          <div class="step-detail">・中小企業庁への申請で認定取得<br>・複数の補助金で加点対象。ひな形を使えば比較的短期間で作成可能</div>
+        </div>
+        <div class="roadmap-step">
+          <div class="step-period">🏆 3〜6ヶ月以内</div>
+          <div class="step-title">経営革新計画の承認申請</div>
+          <div class="step-detail">・都道府県への申請で強力な加点に<br>・補助金審査で最大加点。日本政策金融公庫の低利融資対象にもなります<br>・地域の商工会議所・認定支援機関に相談を</div>
+        </div>
+        <div class="roadmap-step">
+          <div class="step-period">📢 並行して</div>
+          <div class="step-title">パートナーシップ構築宣言</div>
+          <div class="step-detail">・オンラインで宣言するだけ（無料・即日）<br>・ものづくり補助金・事業再構築補助金で加点<br>・取引先との関係強化のアピールにもなります</div>
+        </div>
+      </div>
+    </div>`;
   }
 
   html += `<div class="reset-area"><button class="btn-reset" onclick="location.reload()">🔄 最初からやり直す</button></div>`;

@@ -218,6 +218,77 @@
   .roadmap-step .step-detail { font-size: 11px; color: #92400e; line-height: 1.6; }
   .roadmap-step.done .step-period { color: #059669; }
 
+  /* カテゴリバッジ */
+  .category-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-bottom: 5px;
+    letter-spacing: 0.02em;
+  }
+  .category-badge.cat-subsidy {
+    background: #dbeafe; color: #1e40af;
+  }
+  .category-badge.cat-it {
+    background: #ede9fe; color: #5b21b6;
+  }
+  .category-badge.cat-employ {
+    background: #fee2e2; color: #991b1b;
+  }
+  .category-badge.cat-hr {
+    background: #dcfce7; color: #166534;
+  }
+  .category-badge.cat-wage {
+    background: #fef3c7; color: #92400e;
+  }
+  .category-badge.cat-other {
+    background: #f3f4f6; color: #374151;
+  }
+
+  /* 結果サマリーリスト（上部） */
+  .result-summary-list {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .result-summary-list .rsl-header {
+    background: var(--gray-900);
+    color: white;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .rsl-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--gray-100);
+    cursor: pointer;
+  }
+  .rsl-item:last-child { border-bottom: none; }
+  .rsl-item:hover { background: var(--gray-50); }
+  .rsl-rank {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--gray-200);
+    color: var(--gray-700);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .rsl-rank.top3 { background: #fde68a; color: #92400e; }
+  .rsl-body { flex: 1; min-width: 0; }
+  .rsl-name { font-size: 13px; font-weight: 700; color: var(--gray-900); }
+  .rsl-meta { font-size: 11px; color: var(--gray-600); margin-top: 2px; }
+  .rsl-amt { font-size: 13px; font-weight: 700; color: var(--primary); white-space: nowrap; }
+
   /* 最低賃金警告 */
   .minjob-panel {
     background: #fef2f2;
@@ -2503,6 +2574,47 @@ function runDiagnosis() {
   renderResults(scored, combos, conflicts, { q13, q18, q20, isSmall, isSME, wageUp, isDeficit, q16, q17 });
 }
 
+// ─── カテゴリ分類マップ ───────────────────────────────────
+const SUBSIDY_CATEGORY_MAP = {
+  // 設備投資補助金
+  'monozukuri-hojyokin':   { label: '設備投資補助金', cls: 'cat-subsidy', icon: '🏭' },
+  'monozukuri-shooryoka':  { label: '設備投資補助金（省力化）', cls: 'cat-subsidy', icon: '🤖' },
+  'shooryoka':             { label: '省力化補助金', cls: 'cat-subsidy', icon: '🤖' },
+  'jigyo-shinsyutsu':      { label: '新分野進出補助金', cls: 'cat-subsidy', icon: '🚀' },
+  'shoene':                { label: '省エネ補助金', cls: 'cat-subsidy', icon: '🌿' },
+  'seichokasoku':          { label: '成長加速補助金', cls: 'cat-subsidy', icon: '📈' },
+  'jizokuka-hojyokin':     { label: '販路開拓補助金', cls: 'cat-subsidy', icon: '🛒' },
+  'jigyo-shokei':          { label: '事業承継補助金', cls: 'cat-other', icon: '🤝' },
+  // IT・デジタル化補助金
+  'it-donyu':              { label: 'IT・デジタル化補助金', cls: 'cat-it', icon: '💻' },
+  'it-security':           { label: 'セキュリティ補助金', cls: 'cat-it', icon: '🔒' },
+  // 雇用調整・安定
+  'koyo-chosei':           { label: '雇用調整助成金', cls: 'cat-employ', icon: '🏢' },
+  'sangyo-koyo-antei-shukko': { label: '雇用安定助成金', cls: 'cat-employ', icon: '🔄' },
+  'sangyo-koyo-skillup':   { label: '雇用安定助成金', cls: 'cat-employ', icon: '📚' },
+  // 人材育成
+  'jinzai-ikusei-shien':   { label: '人材育成助成金', cls: 'cat-hr', icon: '🎓' },
+  'jinzai-reskilling':     { label: '人材育成助成金', cls: 'cat-hr', icon: '🎓' },
+  'jinzai-hito-investment':{ label: '人材育成助成金', cls: 'cat-hr', icon: '🎓' },
+  'jinzai-kensetsu-gino':  { label: '人材育成助成金（建設）', cls: 'cat-hr', icon: '⛏️' },
+  'jinzai-kensetsu-nintei':{ label: '人材育成助成金（建設）', cls: 'cat-hr', icon: '⛏️' },
+  // キャリアアップ・両立支援
+  'career-up-seishainuka': { label: 'キャリアアップ助成金', cls: 'cat-hr', icon: '⬆️' },
+  'career-up-chingin-kaitei':{ label: 'キャリアアップ助成金', cls: 'cat-hr', icon: '⬆️' },
+  'ryoritsu-kaigo-boushi': { label: '両立支援助成金', cls: 'cat-wage', icon: '👨‍👩‍👧' },
+  'kosodate-ninshin-mamonaku':{ label: '両立支援助成金', cls: 'cat-wage', icon: '🤰' },
+  'ryoritsu-sanka':        { label: '両立支援助成金', cls: 'cat-wage', icon: '👨‍👩‍👧' },
+  // 賃上げ・労働環境
+  'gyomu-kaizen':          { label: '賃上げ設備助成金', cls: 'cat-wage', icon: '💴' },
+  'hatarakikata-jikangai': { label: '働き方改革助成金', cls: 'cat-wage', icon: '⏰' },
+  'tokutei-shinkibo':      { label: '社会保険適用助成金', cls: 'cat-other', icon: '🏥' },
+  'shogaisha-shisetsu-setchino':{ label: '障害者雇用助成金', cls: 'cat-other', icon: '♿' },
+};
+
+function getCategory(id) {
+  return SUBSIDY_CATEGORY_MAP[id] || { label: '助成金・補助金', cls: 'cat-other', icon: '📄' };
+}
+
 function renderResults(scored, combos, conflicts, meta) {
   document.getElementById('form-area').style.display = 'none';
   const el = document.getElementById('results');
@@ -2516,7 +2628,44 @@ function renderResults(scored, combos, conflicts, meta) {
   let html = '';
 
   // ══════════════════════════════════════════════════════
-  // PHASE 1: gBizID クリティカルアラート（最優先・最上部）
+  // ① 結果ヘッダー
+  // ══════════════════════════════════════════════════════
+  html += `
+    <div class="results-header">
+      <h2>🎯 診断結果</h2>
+      <p class="count">${scored.length}件の助成金・補助金が該当しました</p>
+      <div class="total-badge">最大 ${fmt(totalMax)} 受給可能</div>
+      <p class="caveat">※件数をすべて重複申請した場合の概算。実際の受給には要件確認が必要です</p>
+    </div>
+  `;
+
+  // ══════════════════════════════════════════════════════
+  // ② 該当する助成金・補助金 — サマリーリスト（最上部に一覧表示）
+  // ══════════════════════════════════════════════════════
+  if (scored.length > 0) {
+    html += `
+    <div class="result-summary-list">
+      <div class="rsl-header">📋 該当した助成金・補助金（${scored.length}件）― クリックで詳細へ</div>
+      ${scored.map((s, i) => {
+        const cat = getCategory(s.id);
+        return `
+        <div class="rsl-item" onclick="document.getElementById('d_${s.id}')?.closest('.subsidy-card')?.scrollIntoView({behavior:'smooth'}); document.getElementById('d_${s.id}') && (document.getElementById('d_${s.id}').style.display !== 'none' || (document.getElementById('d_${s.id}').style.display = 'block'))">
+          <div class="rsl-rank ${i < 3 ? 'top3' : ''}">${i + 1}</div>
+          <div class="rsl-body">
+            <div class="rsl-name">${cat.icon} ${s.name}</div>
+            <div class="rsl-meta">
+              <span class="category-badge ${cat.cls}">${cat.label}</span>
+              &nbsp;難易度: ${'★'.repeat(s.difficulty)}${'☆'.repeat(3-s.difficulty)}&ensp;準備 約${s.lead_time_months}ヶ月${s.wage_required ? '&ensp;賃上げ条件あり' : ''}
+            </div>
+          </div>
+          <div class="rsl-amt">${fmt(s.max_amount)}</div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }
+
+  // ══════════════════════════════════════════════════════
+  // ③ gBizID クリティカルアラート
   // ══════════════════════════════════════════════════════
   if (meta.q18 !== '取得済み') {
     html += `
@@ -2530,16 +2679,6 @@ function renderResults(scored, combos, conflicts, meta) {
       <a href="https://gbiz-id.go.jp/top/index.html" target="_blank" rel="noopener" class="gbiz-btn">▶ 今すぐ gBizIDを申請する（無料）</a>
     </div>`;
   }
-
-  // ── 結果ヘッダー ──
-  html += `
-    <div class="results-header">
-      <h2>🎯 診断結果</h2>
-      <p class="count">${scored.length}件の助成金・補助金が該当しました</p>
-      <div class="total-badge">最大 ${fmt(totalMax)} 受給可能</div>
-      <p class="caveat">※件数をすべて重複申請した場合の概算。実際の受給には要件確認が必要です</p>
-    </div>
-  `;
 
   // ══════════════════════════════════════════════════════
   // 「次の一手」セクション（上位補助金に対する具体的アクション）
@@ -2713,8 +2852,8 @@ function renderResults(scored, combos, conflicts, meta) {
     html += `<div class="conflict-panel"><strong>⛔ 同時申請できない組み合わせ</strong>${conflicts.map(c => `<div>「${c.a.name}」と「${c.b.name}」は同一案件での併用不可</div>`).join('')}</div>`;
   }
 
-  // ── 一覧 ──
-  html += `<div class="result-section"><div class="section-title">📋 該当する助成金・補助金</div>`;
+  // ── 各補助金の詳細カード ──
+  html += `<div class="result-section"><div class="section-title">📄 各補助金・助成金の詳細</div>`;
   scored.forEach((s, i) => { html += renderCard(s, i); });
   html += `</div>`;
 
@@ -2773,11 +2912,13 @@ function renderResults(scored, combos, conflicts, meta) {
 }
 
 function renderCard(s, i) {
+  const cat = getCategory(s.id);
   return `
     <div class="subsidy-card">
       <div class="subsidy-header" onclick="toggle('d_${s.id}')">
         <div class="rank ${i < 3 ? 'gold' : ''}">${i + 1}</div>
         <div class="subsidy-info">
+          <div style="margin-bottom:4px"><span class="category-badge ${cat.cls}">${cat.icon} ${cat.label}</span></div>
           <div class="subsidy-name">${s.name}</div>
           <div class="subsidy-tags">
             <span class="tag green">${['','易(★☆☆)','中(★★☆)','難(★★★)'][s.difficulty]}</span>

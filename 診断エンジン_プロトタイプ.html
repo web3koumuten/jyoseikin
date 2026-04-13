@@ -725,9 +725,9 @@
     position: relative;
     overflow: hidden;
     background:
-      radial-gradient(ellipse 60% 50% at 20% 50%, rgba(0,102,255,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 60% at 80% 15%, rgba(99,102,241,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 40% at 55% 90%, rgba(6,182,212,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 20% 50%, rgba(0,102,255,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 80% 15%, rgba(99,102,241,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 55% 90%, rgba(6,182,212,0.06) 0%, transparent 60%),
       #fafbfe;
     border-bottom: 1px solid var(--gray-200);
   }
@@ -741,83 +741,154 @@
     pointer-events: none;
     z-index: 0;
   }
+  /* グラデーションボーダー（下部） */
+  #intro-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #0066ff 20%, #6366f1 50%, #06b6d4 80%, transparent 100%);
+    opacity: 0.4;
+  }
   .hero-layout {
     max-width: 1080px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: 32px;
+    grid-template-columns: 1fr 420px;
+    gap: 40px;
     align-items: center;
-    min-height: 580px;
+    min-height: 600px;
     position: relative;
     z-index: 1;
   }
   .hero-content {
     padding: 88px 0;
   }
+  /* エントランスアニメーション */
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * {
+    opacity: 0;
+    animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-content > *:nth-child(2) { animation-delay: 0.22s; }
+  .hero-content > *:nth-child(3) { animation-delay: 0.34s; }
+  .hero-content > *:nth-child(4) { animation-delay: 0.46s; }
+  .hero-content > *:nth-child(5) { animation-delay: 0.56s; }
+  .hero-graphic {
+    opacity: 0;
+    animation: heroFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+  }
   .hero-overline {
-    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
     font-weight: 800;
-    letter-spacing: 0.16em;
-    color: var(--gray-400);
-    margin-bottom: 22px;
+    letter-spacing: 0.18em;
+    color: var(--primary);
+    margin-bottom: 24px;
     text-transform: uppercase;
   }
+  .hero-overline::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 2px;
+    background: linear-gradient(90deg, #0066ff, #6366f1);
+    border-radius: 1px;
+  }
   .hero-h1 {
-    font-size: 50px;
+    font-size: 48px;
     font-weight: 900;
-    line-height: 1.16;
-    letter-spacing: -0.045em;
+    line-height: 1.18;
+    letter-spacing: -0.04em;
     color: #080e1c;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
   }
   .hero-accent {
-    background: linear-gradient(135deg, #0066ff 0%, #6366f1 60%, #06b6d4 100%);
+    background: linear-gradient(135deg, #0066ff 0%, #6366f1 55%, #06b6d4 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   .hero-sub {
-    font-size: 16px;
-    line-height: 1.85;
-    color: var(--gray-600);
+    font-size: 15.5px;
+    line-height: 1.9;
+    color: var(--gray-500);
     margin-bottom: 36px;
-    max-width: 460px;
+    max-width: 440px;
   }
   .btn-hero {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: var(--primary);
+    background: linear-gradient(135deg, #0066ff 0%, #0055dd 100%);
     color: white;
     border: none;
-    border-radius: 10px;
-    padding: 18px 44px;
+    border-radius: 12px;
+    padding: 18px 48px;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
     font-family: inherit;
-    box-shadow: 0 4px 20px rgba(0,102,255,0.3);
-    transition: background 0.15s, transform 0.12s, box-shadow 0.15s;
+    box-shadow:
+      0 4px 16px rgba(0,102,255,0.3),
+      0 1px 3px rgba(0,0,0,0.08),
+      inset 0 1px 0 rgba(255,255,255,0.15);
+    transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
     letter-spacing: -0.01em;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
   }
+  .btn-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.12) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .btn-hero:hover::before { opacity: 1; }
   .btn-hero:hover {
-    background: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 10px 32px rgba(0,102,255,0.4);
+    box-shadow:
+      0 8px 28px rgba(0,102,255,0.4),
+      0 2px 6px rgba(0,0,0,0.1),
+      inset 0 1px 0 rgba(255,255,255,0.2);
   }
-  .btn-hero:active { transform: translateY(0); }
+  .btn-hero:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(0,102,255,0.3); }
   .btn-hero-arrow {
     font-size: 18px;
     line-height: 1;
-    opacity: 0.75;
-    transition: transform 0.15s;
+    opacity: 0.8;
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .btn-hero:hover .btn-hero-arrow { transform: translateX(3px); }
+  .btn-hero:hover .btn-hero-arrow { transform: translateX(4px); }
   .hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 16px;
     font-size: 13px;
     color: var(--gray-400);
+  }
+  .hero-trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .hero-trust-icon {
+    width: 14px; height: 14px;
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.6;
   }
 
   /* SVGグラフィック */
@@ -829,15 +900,23 @@
   .hero-graphic svg {
     width: 100%;
     height: auto;
-    max-width: 400px;
+    max-width: 420px;
+    filter: drop-shadow(0 8px 32px rgba(0,102,255,0.06));
   }
   @keyframes heroArcSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   @keyframes heroPulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
-  @keyframes heroFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes heroFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes heroShimmer {
+    0% { opacity: 0.06; }
+    50% { opacity: 0.12; }
+    100% { opacity: 0.06; }
+  }
   .hero-svg-arc-spin { transform-origin: 220px 210px; animation: heroArcSpin 30s linear infinite; }
   .hero-svg-float1 { animation: heroFloat 5s ease-in-out infinite; }
   .hero-svg-float2 { animation: heroFloat 7s ease-in-out infinite 1s; }
+  .hero-svg-float3 { animation: heroFloat 6s ease-in-out infinite 0.5s; }
   .hero-svg-pulse { animation: heroPulse 3s ease-in-out infinite; }
+  .hero-svg-shimmer { animation: heroShimmer 4s ease-in-out infinite; }
 
   /* 旧要素は非表示 */
   .hero-panel { display: none !important; }
@@ -847,18 +926,19 @@
   .hero-visual { display: none !important; }
 
   @media (max-width: 860px) {
-    .hero-layout { grid-template-columns: 1fr; min-height: auto; }
-    .hero-content { padding: 64px 0 32px; }
-    .hero-h1 { font-size: 38px; }
+    .hero-layout { grid-template-columns: 1fr; min-height: auto; gap: 24px; }
+    .hero-content { padding: 64px 0 24px; }
+    .hero-h1 { font-size: 36px; }
     .hero-graphic { max-width: 340px; margin: 0 auto; padding-bottom: 48px; }
   }
   @media (max-width: 560px) {
     #intro-hero { margin: 0 -16px 32px; padding: 0 16px; }
     .hero-content { padding: 48px 0 24px; }
-    .hero-h1 { font-size: 30px; letter-spacing: -0.03em; }
+    .hero-h1 { font-size: 28px; letter-spacing: -0.03em; }
     .btn-hero { width: 100%; justify-content: center; }
     .hero-sub { font-size: 14px; }
     .hero-graphic { max-width: 260px; padding-bottom: 32px; }
+    .hero-trust { flex-wrap: wrap; gap: 10px; }
   }
 
   /* ── PROGRESS BAR ───────────────────────── */
@@ -1079,75 +1159,123 @@
       <h1 class="hero-h1">御社に使える補助金、<br><span class="hero-accent">5分でわかります。</span></h1>
       <p class="hero-sub">業種・従業員数・経営状況を入力するだけで、最大45制度の中からあなたの会社に合った補助金・助成金を自動で絞り込みます。</p>
       <button class="btn-hero" onclick="startDiagnosis()">無料で診断する <span class="btn-hero-arrow">→</span></button>
-      <p class="hero-trust">45制度対応 &nbsp;·&nbsp; 約5分 &nbsp;·&nbsp; 完全無料・登録不要</p>
+      <div class="hero-trust">
+        <span class="hero-trust-item"><svg class="hero-trust-icon" viewBox="0 0 16 16"><path d="M13.3 4L6.5 10.8 2.7 7"/></svg>45制度対応</span>
+        <span class="hero-trust-item"><svg class="hero-trust-icon" viewBox="0 0 16 16"><path d="M13.3 4L6.5 10.8 2.7 7"/></svg>約5分</span>
+        <span class="hero-trust-item"><svg class="hero-trust-icon" viewBox="0 0 16 16"><path d="M13.3 4L6.5 10.8 2.7 7"/></svg>完全無料・登録不要</span>
+      </div>
     </div>
     <div class="hero-graphic">
-      <svg viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <pattern id="heroGrid" width="22" height="22" patternUnits="userSpaceOnUse">
-            <circle cx="11" cy="11" r="1" fill="#0066ff" opacity="0.12"/>
+          <pattern id="heroGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="10" cy="10" r="0.8" fill="#0066ff" opacity="0.10"/>
           </pattern>
           <radialGradient id="heroGrad1" cx="40%" cy="40%"><stop offset="0%" stop-color="#0066ff"/><stop offset="100%" stop-color="#6366f1"/></radialGradient>
           <radialGradient id="heroGrad2" cx="60%" cy="30%"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#0066ff"/></radialGradient>
-          <filter id="heroCardShadow" x="-10%" y="-10%" width="130%" height="140%">
-            <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#0066ff" flood-opacity="0.08"/>
+          <linearGradient id="heroBarGrad" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#0066ff" stop-opacity="0.15"/><stop offset="100%" stop-color="#0066ff" stop-opacity="0.5"/></linearGradient>
+          <linearGradient id="heroSparkGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#0066ff"/></linearGradient>
+          <filter id="heroCardShadow" x="-15%" y="-10%" width="140%" height="150%">
+            <feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#0066ff" flood-opacity="0.10"/>
+          </filter>
+          <filter id="heroGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
-        <rect width="440" height="440" fill="url(#heroGrid)" rx="0"/>
-        <!-- グラデーション円 -->
-        <circle cx="220" cy="210" r="190" fill="url(#heroGrad1)" opacity="0.07"/>
+        <rect width="460" height="460" fill="url(#heroGrid)" rx="0"/>
+        <!-- 背景グロー -->
+        <circle cx="230" cy="220" r="200" fill="url(#heroGrad1)" opacity="0.06" class="hero-svg-shimmer"/>
+        <circle cx="230" cy="220" r="120" fill="url(#heroGrad2)" opacity="0.04"/>
         <!-- 同心円 -->
-        <circle cx="220" cy="210" r="170" stroke="#0066ff" stroke-width="1.5" opacity="0.12"/>
-        <circle cx="220" cy="210" r="130" stroke="#0066ff" stroke-width="1" opacity="0.08"/>
+        <circle cx="230" cy="220" r="180" stroke="#0066ff" stroke-width="1.5" opacity="0.10"/>
+        <circle cx="230" cy="220" r="140" stroke="#0066ff" stroke-width="1" opacity="0.07"/>
+        <circle cx="230" cy="220" r="60" stroke="#6366f1" stroke-width="0.8" opacity="0.06" stroke-dasharray="3 6"/>
         <!-- 回転アーク -->
         <g class="hero-svg-arc-spin">
-          <path d="M 220 40 A 170 170 0 0 1 390 210" stroke="#0066ff" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
-          <circle cx="220" cy="40" r="6" fill="#0066ff" opacity="0.9"/>
-          <path d="M 130 365 A 170 170 0 0 1 50 210" stroke="#6366f1" stroke-width="3.5" stroke-linecap="round" opacity="0.35"/>
+          <path d="M 230 40 A 180 180 0 0 1 410 220" stroke="#0066ff" stroke-width="4.5" stroke-linecap="round" opacity="0.65"/>
+          <circle cx="230" cy="40" r="5.5" fill="#0066ff" opacity="0.9" filter="url(#heroGlow)"/>
+          <path d="M 135 385 A 180 180 0 0 1 50 220" stroke="#6366f1" stroke-width="3" stroke-linecap="round" opacity="0.30"/>
+          <circle cx="50" cy="220" r="4" fill="#6366f1" opacity="0.7"/>
         </g>
-        <!-- バーチャート -->
-        <g class="hero-svg-float2">
-          <rect x="140" y="310" width="20" height="56" rx="5" fill="#0066ff" opacity="0.1"/>
-          <rect x="168" y="275" width="20" height="91" rx="5" fill="#0066ff" opacity="0.2"/>
-          <rect x="196" y="240" width="20" height="126" rx="5" fill="#0066ff" opacity="0.4"/>
-          <rect x="224" y="265" width="20" height="101" rx="5" fill="#0066ff" opacity="0.25"/>
-          <rect x="252" y="295" width="20" height="71" rx="5" fill="#0066ff" opacity="0.15"/>
-          <rect x="280" y="252" width="20" height="114" rx="5" fill="#0066ff" opacity="0.3"/>
-        </g>
-        <!-- カード1（大） -->
+
+        <!-- ======== カード1（メイン — 大） ======== -->
         <g class="hero-svg-float1">
-          <rect x="270" y="48" width="155" height="96" rx="16" fill="white" filter="url(#heroCardShadow)"/>
-          <rect x="270" y="48" width="155" height="96" rx="16" fill="white" stroke="#e4e7f0" stroke-width="1"/>
-          <rect x="290" y="66" width="56" height="8" rx="4" fill="#0066ff" opacity="0.4"/>
-          <rect x="290" y="82" width="88" height="5" rx="2.5" fill="#e4e7f0"/>
-          <rect x="290" y="93" width="66" height="5" rx="2.5" fill="#e4e7f0" opacity="0.6"/>
-          <text x="290" y="126" font-size="18" font-weight="900" fill="#0066ff" font-family="system-ui" letter-spacing="-0.03em">1,250万円</text>
+          <rect x="275" y="42" width="168" height="108" rx="16" fill="white" filter="url(#heroCardShadow)"/>
+          <rect x="275" y="42" width="168" height="108" rx="16" fill="white" stroke="#e8ebf2" stroke-width="0.8"/>
+          <!-- ラベル -->
+          <rect x="293" y="58" width="52" height="7" rx="3.5" fill="#0066ff" opacity="0.35"/>
+          <rect x="293" y="72" width="80" height="4.5" rx="2" fill="#eceef3"/>
+          <!-- 金額 -->
+          <text x="293" y="100" font-size="20" font-weight="900" fill="#0066ff" font-family="system-ui" letter-spacing="-0.04em">1,250万円</text>
+          <!-- ミニスパークライン -->
+          <polyline points="293,120 305,116 317,118 329,112 341,114 353,108 365,104 377,107 389,100 401,96 413,92" stroke="url(#heroSparkGrad)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+          <!-- 上昇矢印 -->
+          <polygon points="418,88 424,95 421,95 421,102 415,102 415,95 412,95" fill="#10b981" opacity="0.7"/>
+          <text x="427" y="100" font-size="9" font-weight="700" fill="#10b981" font-family="system-ui" opacity="0.8">+12%</text>
         </g>
-        <!-- カード2（小） -->
+
+        <!-- ======== カード2（小 — 左下） ======== -->
         <g class="hero-svg-float2">
-          <rect x="20" y="235" width="118" height="72" rx="14" fill="white" stroke="#e4e7f0" stroke-width="1"/>
-          <rect x="38" y="253" width="40" height="7" rx="3.5" fill="#6366f1" opacity="0.35"/>
-          <rect x="38" y="266" width="68" height="4" rx="2" fill="#e4e7f0"/>
-          <rect x="38" y="276" width="48" height="4" rx="2" fill="#e4e7f0" opacity="0.5"/>
-          <text x="38" y="300" font-size="13" font-weight="800" fill="#6366f1" font-family="system-ui">450万円</text>
+          <rect x="14" y="240" width="128" height="82" rx="14" fill="white" stroke="#e8ebf2" stroke-width="0.8"/>
+          <rect x="32" y="256" width="38" height="6.5" rx="3" fill="#6366f1" opacity="0.3"/>
+          <rect x="32" y="268" width="64" height="4" rx="2" fill="#eceef3"/>
+          <text x="32" y="292" font-size="15" font-weight="800" fill="#6366f1" font-family="system-ui" letter-spacing="-0.03em">450万円</text>
+          <!-- ミニバー -->
+          <rect x="32" y="302" width="18" height="6" rx="2" fill="#6366f1" opacity="0.4"/>
+          <rect x="54" y="302" width="30" height="6" rx="2" fill="#6366f1" opacity="0.2"/>
+          <rect x="88" y="302" width="38" height="6" rx="2" fill="#eceef3"/>
         </g>
-        <!-- バッジ -->
+
+        <!-- ======== カード3（新規 — ドーナツチャート） ======== -->
+        <g class="hero-svg-float3">
+          <rect x="322" y="304" width="120" height="110" rx="14" fill="white" filter="url(#heroCardShadow)"/>
+          <rect x="322" y="304" width="120" height="110" rx="14" fill="white" stroke="#e8ebf2" stroke-width="0.8"/>
+          <!-- ドーナツ -->
+          <circle cx="382" cy="352" r="24" stroke="#eceef3" stroke-width="5" fill="none"/>
+          <circle cx="382" cy="352" r="24" stroke="#0066ff" stroke-width="5" fill="none" stroke-dasharray="105 151" stroke-dashoffset="-38" stroke-linecap="round"/>
+          <circle cx="382" cy="352" r="24" stroke="#6366f1" stroke-width="5" fill="none" stroke-dasharray="35 151" stroke-dashoffset="-143" stroke-linecap="round" opacity="0.7"/>
+          <text x="382" y="356" font-size="11" font-weight="800" fill="#080e1c" font-family="system-ui" text-anchor="middle">70%</text>
+          <!-- ラベル -->
+          <text x="382" y="394" font-size="9" font-weight="700" fill="#94a3b8" font-family="system-ui" text-anchor="middle" letter-spacing="0.04em">適合率</text>
+        </g>
+
+        <!-- ======== バーチャート（中央下部） ======== -->
+        <g class="hero-svg-float2">
+          <rect x="148" y="315" width="18" height="50" rx="5" fill="url(#heroBarGrad)" opacity="0.5"/>
+          <rect x="174" y="285" width="18" height="80" rx="5" fill="url(#heroBarGrad)" opacity="0.7"/>
+          <rect x="200" y="250" width="18" height="115" rx="5" fill="url(#heroBarGrad)" opacity="0.9"/>
+          <rect x="226" y="275" width="18" height="90" rx="5" fill="url(#heroBarGrad)" opacity="0.7"/>
+          <rect x="252" y="300" width="18" height="65" rx="5" fill="url(#heroBarGrad)" opacity="0.5"/>
+          <rect x="278" y="262" width="18" height="103" rx="5" fill="url(#heroBarGrad)" opacity="0.8"/>
+        </g>
+
+        <!-- ======== バッジ（45制度） ======== -->
         <g class="hero-svg-float1">
-          <rect x="48" y="96" width="90" height="36" rx="18" fill="#0066ff"/>
-          <text x="93" y="120" font-size="12" font-weight="700" fill="white" text-anchor="middle" font-family="system-ui">45制度</text>
+          <rect x="38" y="92" width="96" height="38" rx="19" fill="#0066ff" filter="url(#heroGlow)"/>
+          <text x="86" y="116" font-size="13" font-weight="700" fill="white" text-anchor="middle" font-family="system-ui" letter-spacing="0.01em">45制度</text>
         </g>
-        <!-- グロー -->
-        <circle cx="220" cy="210" r="80" fill="url(#heroGrad2)" opacity="0.04"/>
+
+        <!-- ======== ミニステータスバッジ（成功率） ======== -->
+        <g class="hero-svg-float3">
+          <rect x="12" y="148" width="84" height="30" rx="15" fill="white" stroke="#e8ebf2" stroke-width="0.8"/>
+          <circle cx="30" cy="163" r="5" fill="#10b981" opacity="0.8"/>
+          <text x="42" y="167" font-size="9.5" font-weight="700" fill="#64748b" font-family="system-ui">採択実績</text>
+        </g>
+
         <!-- ドット装飾 -->
-        <circle cx="396" cy="300" r="7" fill="#0066ff" class="hero-svg-pulse"/>
-        <circle cx="44" cy="170" r="5" fill="#6366f1" opacity="0.5" class="hero-svg-pulse"/>
-        <circle cx="360" cy="380" r="4" fill="#06b6d4" opacity="0.5"/>
-        <circle cx="100" cy="46" r="4" fill="#0066ff" opacity="0.3"/>
-        <circle cx="420" cy="155" r="6" fill="#0066ff" opacity="0.2"/>
+        <circle cx="416" cy="310" r="7" fill="#0066ff" class="hero-svg-pulse" opacity="0.6"/>
+        <circle cx="44" cy="380" r="5" fill="#6366f1" class="hero-svg-pulse" opacity="0.4"/>
+        <circle cx="370" cy="400" r="4" fill="#06b6d4" opacity="0.4"/>
+        <circle cx="96" cy="44" r="3.5" fill="#0066ff" opacity="0.25"/>
+        <circle cx="440" cy="160" r="5" fill="#0066ff" opacity="0.18"/>
+        <circle cx="200" cy="30" r="3" fill="#6366f1" opacity="0.2"/>
+        <circle cx="440" cy="380" r="3" fill="#06b6d4" opacity="0.15"/>
         <!-- ダッシュ線 -->
-        <line x1="138" y1="114" x2="210" y2="180" stroke="#0066ff" stroke-width="1" opacity="0.15" stroke-dasharray="4 4"/>
-        <line x1="350" y1="144" x2="300" y2="210" stroke="#0066ff" stroke-width="1" opacity="0.15" stroke-dasharray="4 4"/>
-        <line x1="85" y1="307" x2="148" y2="312" stroke="#6366f1" stroke-width="1" opacity="0.12" stroke-dasharray="3 3"/>
+        <line x1="134" y1="111" x2="200" y2="180" stroke="#0066ff" stroke-width="1" opacity="0.12" stroke-dasharray="4 5"/>
+        <line x1="360" y1="150" x2="310" y2="215" stroke="#0066ff" stroke-width="1" opacity="0.12" stroke-dasharray="4 5"/>
+        <line x1="85" y1="322" x2="148" y2="318" stroke="#6366f1" stroke-width="1" opacity="0.10" stroke-dasharray="3 4"/>
+        <line x1="296" y1="300" x2="330" y2="320" stroke="#0066ff" stroke-width="1" opacity="0.10" stroke-dasharray="3 4"/>
       </svg>
     </div>
   </div>

@@ -663,143 +663,103 @@
 
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
-    background: white;
-    border: 1px solid var(--gray-200);
-    border-top: 3px solid var(--primary);
-    border-radius: var(--radius);
-    padding: 56px 64px 52px;
+    background: #f5f7ff;
+    border-radius: 16px;
+    padding: 64px 72px 0;
     color: var(--gray-900);
-    margin-bottom: 24px;
-    box-shadow: var(--shadow-sm);
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 40px;
-    align-items: center;
+    margin-bottom: 28px;
+    overflow: hidden;
   }
-  .hero-left { }
-  .hero-right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    border-left: 1px solid var(--gray-200);
-    padding-left: 40px;
-    min-width: 200px;
-  }
-  .hero-stat {
-    text-align: center;
-    padding: 16px 24px;
-  }
-  .hero-stat-num {
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--primary);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .hero-stat-label {
-    font-size: 12px;
-    color: var(--gray-600);
-    font-weight: 500;
-  }
-  .hero-stat-divider {
-    width: 1px;
-    height: 24px;
-    background: var(--gray-200);
+  .hero-inner {
+    max-width: 640px;
   }
   .hero-eyebrow {
+    display: inline-block;
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     color: var(--primary);
-    margin-bottom: 14px;
+    background: rgba(26,86,219,0.08);
+    border-radius: 4px;
+    padding: 4px 10px;
+    margin-bottom: 20px;
     text-transform: uppercase;
   }
   .hero-h1 {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 800;
-    line-height: 1.4;
+    line-height: 1.45;
     color: var(--gray-900);
-    margin-bottom: 14px;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
   }
-  .hero-accent {
-    color: var(--primary);
-  }
+  .hero-accent { color: var(--primary); }
   .hero-sub {
-    font-size: 14px;
-    line-height: 1.8;
+    font-size: 15px;
+    line-height: 1.85;
     color: var(--gray-600);
-    max-width: 500px;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
   }
-  .hero-points {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 28px;
-  }
-  .hp {
-    background: var(--gray-50);
-    border: 1px solid var(--gray-200);
-    border-radius: 6px;
-    padding: 5px 12px;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--gray-700);
+  .hero-cta-row {
     display: flex;
     align-items: center;
-    gap: 6px;
-  }
-  .hp::before {
-    content: '';
-    display: inline-block;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--primary);
-    flex-shrink: 0;
+    gap: 20px;
+    margin-bottom: 48px;
   }
   .btn-hero {
     background: var(--primary);
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 14px 40px;
+    padding: 14px 36px;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     font-family: inherit;
-    box-shadow: 0 4px 12px rgba(26,86,219,0.25);
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(26,86,219,0.28);
     transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
-    display: block;
-    width: 100%;
-    text-align: center;
+    flex-shrink: 0;
   }
-  .btn-hero:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(26,86,219,0.3); }
+  .btn-hero:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(26,86,219,0.35); }
   .btn-hero:active { transform: translateY(0); }
   .hero-caution {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--gray-400);
-    margin-top: 10px;
-    text-align: center;
   }
-  @media (max-width: 720px) {
-    #intro-hero {
-      grid-template-columns: 1fr;
-      padding: 32px 24px 28px;
-      gap: 24px;
-    }
-    .hero-right {
-      border-left: none;
-      border-top: 1px solid var(--gray-200);
-      padding-left: 0;
-      padding-top: 24px;
-      flex-direction: row;
-      justify-content: space-around;
-      min-width: unset;
-    }
-    .hero-stat-divider { display: none; }
+  .hero-stats {
+    display: flex;
+    border-top: 1px solid rgba(26,86,219,0.1);
+    margin: 0 -72px;
+  }
+  .hero-stat {
+    flex: 1;
+    padding: 20px 0;
+    text-align: center;
+    border-right: 1px solid rgba(26,86,219,0.1);
+  }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat-num {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+  }
+  .hero-stat-label {
+    font-size: 11px;
+    color: var(--gray-600);
+    margin-top: 2px;
+    font-weight: 500;
+  }
+  /* hp は非表示（stats帯に統合） */
+  .hero-points { display: none; }
+  @media (max-width: 680px) {
+    #intro-hero { padding: 36px 24px 0; }
+    .hero-inner { max-width: 100%; }
     .hero-h1 { font-size: 22px; }
+    .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .hero-stats { margin: 0 -24px; }
+    .hero-stat-num { font-size: 18px; }
   }
 
   /* ── PROGRESS BAR ───────────────────────── */
@@ -1006,33 +966,32 @@
 
 <!-- INTRO HERO (shown before form starts) -->
 <div id="intro-hero">
-  <div class="hero-left">
+  <div class="hero-inner">
     <div class="hero-eyebrow">中小企業・個人事業主向け 無料診断</div>
     <h1 class="hero-h1">使える補助金・助成金を<br><span class="hero-accent">まず確認してみましょう</span></h1>
     <p class="hero-sub">質問に答えるだけで、会社の状況に合った補助金・助成金を自動で絞り込みます。難しい手続きは後から。まず「何が使えるか」を把握するところから始めましょう。</p>
-    <div class="hero-points">
-      <div class="hp"><span>約5分で完了</span></div>
-      <div class="hp"><span>2026年4月時点の情報</span></div>
-      <div class="hp"><span>無料・登録不要</span></div>
+    <div class="hero-cta-row">
+      <button class="btn-hero" onclick="startDiagnosis()">診断を始める</button>
+      <span class="hero-caution">約5分 ・ 無料 ・ 登録不要</span>
     </div>
   </div>
-  <div class="hero-right">
+  <div class="hero-stats">
     <div class="hero-stat">
       <div class="hero-stat-num">45</div>
       <div class="hero-stat-label">対応制度数</div>
     </div>
-    <div class="hero-stat-divider"></div>
     <div class="hero-stat">
-      <div class="hero-stat-num">5<span style="font-size:16px;font-weight:600">分</span></div>
-      <div class="hero-stat-label">平均所要時間</div>
+      <div class="hero-stat-num">2026年4月</div>
+      <div class="hero-stat-label">最新情報に対応</div>
     </div>
-    <div class="hero-stat-divider"></div>
     <div class="hero-stat">
       <div class="hero-stat-num">無料</div>
-      <div class="hero-stat-label">登録不要</div>
+      <div class="hero-stat-label">登録・個人情報不要</div>
     </div>
-    <button class="btn-hero" onclick="startDiagnosis()">診断を始める</button>
-    <p class="hero-caution">入力情報は診断にのみ使用します</p>
+    <div class="hero-stat">
+      <div class="hero-stat-num">約5分</div>
+      <div class="hero-stat-label">所要時間</div>
+    </div>
   </div>
 </div>
 

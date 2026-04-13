@@ -879,6 +879,14 @@
     line-height: 1.6;
     margin-bottom: 10px;
   }
+
+  /* ── ローディングスピナー ── */
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  .step-spinner {
+    animation: spin 0.8s linear infinite;
+  }
 </style>
 </head>
 <body>
@@ -2824,8 +2832,10 @@ function runDiagnosis() {
     });
   });
 
-  // 表示
-  renderResults(scored, combos, conflicts, { q13, q18, q20, isSmall, isSME, wageUp, isDeficit, q16, q17 });
+  // ローディング演出を挟んでから結果表示
+  showLoading(scored.length, () => {
+    renderResults(scored, combos, conflicts, { q13, q18, q20, isSmall, isSME, wageUp, isDeficit, q16, q17 });
+  });
 }
 
 // ─── カテゴリ分類マップ ───────────────────────────────────
@@ -2867,6 +2877,88 @@ const SUBSIDY_CATEGORY_MAP = {
 
 function getCategory(id) {
   return SUBSIDY_CATEGORY_MAP[id] || { label: '助成金・補助金', cls: 'cat-other', icon: '📄' };
+}
+
+// ─────────────────────────────────────────────
+// ローディング演出
+// ─────────────────────────────────────────────
+const LOADING_STEPS = [
+  { text: '会社情報を読み込み中', duration: 500 },
+  { text: '業種・規模の要件を照合中', duration: 700 },
+  { text: '経営状況と賃上げ条件を確認中', duration: 600 },
+  { text: '2026年度の最新制度と突合中', duration: 800 },
+  { text: '申請タイミングを確認中', duration: 500 },
+];
+
+function showLoading(matchCount, callback) {
+  document.getElementById('form-area').style.display = 'none';
+  const el = document.getElementById('results');
+  el.style.display = 'block';
+
+  el.innerHTML = `
+    <div id="loading-screen" style="
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 48px 32px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    ">
+      <div style="font-size: 13px; color: var(--gray-600); margin-bottom: 28px; font-weight: 600; letter-spacing: 0.04em;">
+        45件の制度データを照合しています
+      </div>
+      <div id="loading-steps" style="display: flex; flex-direction: column; gap: 10px; max-width: 320px; margin: 0 auto 28px; text-align: left;"></div>
+      <div style="height: 4px; background: var(--gray-100); border-radius: 99px; max-width: 320px; margin: 0 auto 24px; overflow: hidden;">
+        <div id="loading-bar" style="height: 100%; width: 0%; background: var(--primary); border-radius: 99px; transition: width 0.4s ease;"></div>
+      </div>
+      <div id="loading-count" style="font-size: 13px; color: var(--gray-400);"></div>
+    </div>
+  `;
+
+  window.scrollTo(0, 0);
+
+  let stepIndex = 0;
+  let elapsed = 0;
+  const total = LOADING_STEPS.reduce((s, x) => s + x.duration, 0);
+  const stepsEl = document.getElementById('loading-steps');
+  const barEl = document.getElementById('loading-bar');
+  const countEl = document.getElementById('loading-count');
+
+  function runStep() {
+    if (stepIndex >= LOADING_STEPS.length) {
+      countEl.textContent = `${matchCount}件が該当しました`;
+      barEl.style.width = '100%';
+      setTimeout(callback, 400);
+      return;
+    }
+    const step = LOADING_STEPS[stepIndex];
+
+    // ステップ行を追加
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:10px;font-size:13px;color:var(--gray-700);opacity:0;transition:opacity 0.2s';
+    row.innerHTML = `
+      <span style="width:18px;height:18px;border-radius:50%;border:2px solid var(--primary);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0" class="step-spinner"></span>
+      <span>${step.text}</span>
+    `;
+    stepsEl.appendChild(row);
+    requestAnimationFrame(() => { row.style.opacity = '1'; });
+
+    // プログレスバー更新
+    elapsed += step.duration;
+    barEl.style.width = (elapsed / total * 100) + '%';
+
+    setTimeout(() => {
+      // スピナー → チェックマークに切り替え
+      row.innerHTML = `
+        <span style="width:18px;height:18px;border-radius:50%;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;color:white;font-size:10px;font-weight:700">✓</span>
+        <span style="color:var(--gray-400)">${step.text}</span>
+      `;
+      stepIndex++;
+      runStep();
+    }, step.duration);
+  }
+
+  runStep();
 }
 
 function renderResults(scored, combos, conflicts, meta) {

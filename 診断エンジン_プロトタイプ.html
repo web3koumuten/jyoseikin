@@ -7,45 +7,120 @@
 <style>
   :root {
     --primary: #1a56db;
-    --primary-light: #e8f0fe;
+    --primary-dark: #1341b0;
+    --primary-light: #eff4ff;
     --accent: #0e9f6e;
-    --accent-light: #e6f7f2;
-    --warning: #ff5a1f;
-    --warning-light: #fff3ee;
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
-    --gray-900: #111827;
-    --radius: 10px;
+    --accent-light: #ecfdf5;
+    --warning: #f59e0b;
+    --warning-light: #fffbeb;
+    --gray-50: #f8f9fc;
+    --gray-100: #f1f3f8;
+    --gray-200: #e4e7f0;
+    --gray-400: #9aa3b8;
+    --gray-600: #5c6480;
+    --gray-700: #3d4461;
+    --gray-900: #1a1f36;
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow: 0 4px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif; background: var(--gray-50); color: var(--gray-900); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-900);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
 
-  .container { max-width: 860px; margin: 0 auto; padding: 32px 16px; }
+  .container { max-width: 800px; margin: 0 auto; padding: 40px 20px 60px; }
 
-  h1 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-  .subtitle { font-size: 13px; color: var(--gray-600); margin-bottom: 28px; }
+  /* ── セクション（フォーム） ── */
+  .section {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .section-header {
+    padding: 18px 24px 16px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .section-header h2 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-900);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-header h2::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 18px;
+    background: var(--primary);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .section-header p {
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-top: 4px;
+    padding-left: 14px;
+  }
+  .section-body { padding: 24px; }
 
-  /* Section */
-  .section { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); margin-bottom: 24px; overflow: hidden; }
-  .section-header { background: var(--primary); color: white; padding: 14px 20px; }
-  .section-header h2 { font-size: 14px; font-weight: 700; }
-  .section-header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
-  .section-body { padding: 20px; }
-
-  /* Field */
-  .field { margin-bottom: 20px; }
+  /* ── フィールド ── */
+  .field { margin-bottom: 24px; }
   .field:last-child { margin-bottom: 0; }
-  .field-label { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--gray-700); }
-  .field-label .q { color: var(--primary); margin-right: 6px; }
-  .field-note { font-size: 11px; color: var(--gray-600); margin-bottom: 8px; line-height: 1.5; }
+  .field-label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--gray-700);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .field-label .q {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--primary);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 6px;
+    flex-shrink: 0;
+    letter-spacing: -0.03em;
+  }
+  .field-note {
+    font-size: 12px;
+    color: var(--gray-600);
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
 
-  /* Radio / Checkbox */
-  .choices { display: flex; flex-direction: column; gap: 8px; }
-  .choice-row { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
-  .choice-row input { margin-top: 2px; accent-color: var(--primary); width: 16px; height: 16px; flex-shrink: 0; }
+  /* ── 選択肢 ── */
+  .choices { display: flex; flex-direction: column; gap: 6px; }
+  .choice-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px 14px;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .choice-row:hover { border-color: var(--primary); background: var(--primary-light); }
+  .choice-row input { accent-color: var(--primary); width: 16px; height: 16px; flex-shrink: 0; cursor: pointer; }
   .choice-row span { font-size: 13px; line-height: 1.5; }
   .choice-row span .badge {
     display: inline-block;
@@ -54,66 +129,72 @@
     color: #065f46;
     border-radius: 4px;
     padding: 1px 6px;
-    margin-left: 4px;
-    vertical-align: middle;
+    margin-left: 6px;
+    font-weight: 600;
   }
 
-  /* Text input */
+  /* ── テキスト入力 ── */
   input[type="text"], input[type="number"], textarea {
     width: 100%;
     border: 1px solid var(--gray-200);
-    border-radius: 6px;
-    padding: 9px 12px;
-    font-size: 13px;
+    border-radius: 8px;
+    padding: 11px 14px;
+    font-size: 14px;
     font-family: inherit;
     color: var(--gray-900);
+    background: white;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
   input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
     outline: none;
     border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(26,86,219,0.1);
   }
   textarea { resize: vertical; min-height: 80px; }
+  .inline-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
-  .inline-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  /* Submit */
-  .submit-area { text-align: center; margin: 28px 0; }
+  /* ── 送信ボタン ── */
+  .submit-area { text-align: center; margin: 32px 0; }
   .btn-submit {
     background: var(--primary);
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 14px 48px;
+    border-radius: 10px;
+    padding: 16px 56px;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     font-family: inherit;
+    box-shadow: 0 4px 12px rgba(26,86,219,0.3);
+    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
   }
-  .btn-submit:hover { background: #1447c0; }
+  .btn-submit:hover { background: var(--primary-dark); box-shadow: 0 6px 16px rgba(26,86,219,0.35); }
+  .btn-submit:active { transform: translateY(1px); }
 
-  /* Results */
+  /* ── 結果ヘッダー ── */
   #results { display: none; }
   .results-header {
-    background: linear-gradient(135deg, var(--primary) 0%, #0e47c0 100%);
+    background: var(--gray-900);
     color: white;
     border-radius: var(--radius);
-    padding: 28px;
-    margin-bottom: 20px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
     text-align: center;
   }
-  .results-header h2 { font-size: 20px; margin-bottom: 6px; }
-  .results-header .count { font-size: 13px; opacity: 0.9; }
+  .results-header h2 { font-size: 16px; font-weight: 600; opacity: 0.8; margin-bottom: 6px; letter-spacing: 0.04em; }
+  .results-header .count { font-size: 24px; font-weight: 800; }
   .total-badge {
     display: inline-block;
-    background: rgba(255,255,255,0.2);
-    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
     border-radius: 99px;
-    padding: 6px 20px;
-    font-size: 22px;
+    padding: 6px 22px;
+    font-size: 20px;
     font-weight: 700;
-    margin: 10px 0 4px;
+    margin: 12px 0 4px;
+    letter-spacing: 0.01em;
   }
-  .caveat { font-size: 11px; opacity: 0.7; margin-top: 4px; }
+  .caveat { font-size: 11px; opacity: 0.5; margin-top: 6px; }
 
   /* Stack panel */
   .stack-panel {

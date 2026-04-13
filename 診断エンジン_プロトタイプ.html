@@ -218,6 +218,183 @@
   .roadmap-step .step-detail { font-size: 11px; color: #92400e; line-height: 1.6; }
   .roadmap-step.done .step-period { color: #059669; }
 
+  /* ── ヒーローカード（1位専用） ───────────── */
+  .hero-result-card {
+    background: white;
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .hero-result-label {
+    background: var(--primary);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 16px;
+    letter-spacing: 0.05em;
+  }
+  .hero-result-body {
+    padding: 20px;
+  }
+  .hero-result-name {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--gray-900);
+    margin: 6px 0 4px;
+    line-height: 1.3;
+  }
+  .hero-result-amount {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 8px 0 4px;
+  }
+  .hero-result-amount span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--gray-600);
+    margin-left: 4px;
+  }
+  .hero-result-reasons {
+    font-size: 12px;
+    color: var(--gray-600);
+    margin: 10px 0;
+    line-height: 1.7;
+  }
+  .hero-steps {
+    background: var(--gray-50);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-top: 14px;
+  }
+  .hero-steps-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gray-700);
+    margin-bottom: 10px;
+  }
+  .hero-step-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .hero-step-row:last-child { margin-bottom: 0; }
+  .hero-step-num {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .hero-step-num.done { background: #059669; }
+  .hero-step-text { font-size: 12px; color: var(--gray-700); line-height: 1.6; }
+  .hero-step-link { color: var(--primary); font-size: 11px; margin-left: 4px; }
+  .hero-detail-toggle {
+    font-size: 12px;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 10px 20px;
+    border-top: 1px solid var(--gray-100);
+    display: block;
+    text-align: center;
+  }
+  .hero-detail-toggle:hover { background: var(--gray-50); }
+
+  /* ── サブカード（2・3位） ───────────── */
+  .sub-result-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .sub-result-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+  }
+  .sub-result-header:hover { background: var(--gray-50); }
+  .sub-rank {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--gray-200);
+    color: var(--gray-700);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .sub-info { flex: 1; min-width: 0; }
+  .sub-name { font-size: 14px; font-weight: 700; color: var(--gray-900); }
+  .sub-meta { font-size: 11px; color: var(--gray-600); margin-top: 2px; }
+  .sub-amt { font-size: 14px; font-weight: 700; color: var(--primary); white-space: nowrap; }
+  .sub-detail { display: none; padding: 0 16px 16px; border-top: 1px solid var(--gray-100); }
+
+  /* ── 折りたたみ（4位以降） ───────────── */
+  .others-toggle {
+    text-align: center;
+    padding: 12px;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--gray-600);
+  }
+  .others-toggle:hover { background: var(--gray-50); }
+  .others-section { display: none; }
+
+  /* ── コンパクト通知バー（gBizID） ───────────── */
+  .gbiz-inline {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    color: #7c2d12;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .gbiz-inline a {
+    color: var(--primary);
+    font-weight: 700;
+    white-space: nowrap;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  /* ── コンパクトパネル ───────────── */
+  .compact-panel {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .compact-panel-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+  }
+  .compact-panel-toggle:hover { background: var(--gray-50); }
+  .compact-panel-body { display: none; padding: 0 16px 16px; }
+
   /* カテゴリバッジ */
   .category-badge {
     display: inline-flex;
@@ -2623,285 +2800,247 @@ function renderResults(scored, combos, conflicts, meta) {
 
   let html = '';
 
+  const hasGbiz = meta.q18 === '取得済み';
+  const hasSecAction = (meta.q20 || []).includes('SECURITY ACTION');
+
+  // 補助金ごとの申請ステップ定義
+  const NEXT_STEPS_MAP = {
+    'monozukuri-hojyokin': [
+      { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '申請システムへのログインに必須。無料・郵送手続きで約2週間。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: 'gBizID公式サイト' },
+      { done: false, title: '認定支援機関に連絡する', detail: '事業計画書の作成に専門家の伴走が必須。早めに確保してください。', link: 'https://www.chusho.meti.go.jp/keiei/kakushin/nintei/', linkText: '認定支援機関を探す' },
+      { done: false, title: '事業計画書の骨子を作る', detail: '「何に投資して・どれだけ生産性が上がるか」を数字で示します。' },
+      { done: (meta.q20||[]).includes('経営革新計画'), title: '経営革新計画またはBCPを取得する', detail: '審査で加点になります。商工会議所に相談するのが近道です。', badge: '採択率UP' },
+    ],
+    'monozukuri-shooryoka': [
+      { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '無料・郵送手続きで約2週間。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: 'gBizID公式サイト' },
+      { done: false, title: '導入したい設備の概要をまとめる', detail: '「どの作業を・どの設備で省力化するか」を整理して、メーカーに相見積もりを依頼してください。' },
+      { done: false, title: '認定支援機関に事業計画書の相談をする', detail: 'オーダーメード枠は計画書の審査が重要。早期に支援機関を確保するのが鍵です。', link: 'https://www.chusho.meti.go.jp/keiei/kakushin/nintei/', linkText: '認定支援機関を探す' },
+      { done: (meta.q20||[]).includes('パートナーシップ構築宣言'), title: 'パートナーシップ構築宣言をする', detail: 'オンラインで宣言するだけ（無料・即日）。審査で加点になります。', link: 'https://www.biz-partnership.jp/', linkText: '宣言サイト', badge: '採択率UP' },
+    ],
+    'shooryoka': [
+      { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '申請に必須。無料・約2週間。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: 'gBizID公式サイト' },
+      { done: false, title: 'カタログ掲載製品を確認する', detail: 'カタログ登録済みの製品の中からしか選べません。公式サイトで自社のニーズに合う製品があるか確認してください。', link: 'https://shoryokuka.smrj.go.jp/', linkText: 'カタログを見る' },
+      { done: false, title: '販売店またはSIerに見積もりを依頼する', detail: '導入には専門業者の設計が必要です。複数社に相見積もりを取ってください。' },
+    ],
+    'gyomu-kaizen': [
+      { done: false, title: '事業場内最低賃金を確認する', detail: '現在の最低時給と地域別最低賃金を比較し、30円以上の引き上げ幅を決めましょう。' },
+      { done: false, title: '導入する設備の見積もりを取る', detail: '加工機械・搬送設備・POSレジなど、業務改善につながる設備なら対象になります。' },
+      { done: false, title: '都道府県労働局に申請書類を確認する', detail: '申請窓口は都道府県労働局（雇用環境・均等部）です。事前に問い合わせておくと確実です。' },
+    ],
+    'it-donyu': [
+      { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '申請に必須。無料・約2週間。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: 'gBizID公式サイト' },
+      { done: hasSecAction, title: 'SECURITY ACTIONを宣言する', detail: '申請の前提条件。IPAのサイトでオンライン完結、5分で完了します。', link: 'https://security-action.jp/', linkText: 'SECURITY ACTION公式' },
+      { done: false, title: 'IT導入支援事業者（ベンダー）に相談する', detail: 'この補助金は必ず認定ベンダー経由で申請します。入れたいシステムのベンダーに補助金対応か確認してください。' },
+    ],
+    'jizokuka-hojyokin': [
+      { done: false, title: '地域の商工会議所・商工会に相談する', detail: 'この補助金は商工会議所・商工会の支援が必要です。まず地域の窓口に連絡しましょう。' },
+      { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '電子申請に必要。無料で取得できます。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: 'gBizID公式サイト' },
+      { done: false, title: '経営計画書・補助事業計画書を作成する', detail: '「なぜこの事業に取り組むか」「売上目標はいくらか」を書面にまとめます。商工会議所が添削してくれます。' },
+    ],
+  };
+
+  const defaultSteps = [
+    { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '多くの補助金申請に必須です。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: 'gBizID公式サイト' },
+    { done: false, title: '地域の商工会議所・認定支援機関に相談する', detail: '申請書類や要件の確認は専門家に相談するのが最短ルートです。' },
+    { done: false, title: '公募要領を確認する', detail: '締切・対象経費・申請書式を公式サイトで確認してください。' },
+  ];
+
   // ══════════════════════════════════════════════════════
-  // ① 結果ヘッダー
+  // ① 結果ヘッダー（コンパクト）
   // ══════════════════════════════════════════════════════
   html += `
     <div class="results-header">
-      <h2>🎯 診断結果</h2>
+      <h2>診断結果</h2>
       <p class="count">${scored.length}件の助成金・補助金が該当しました</p>
       <div class="total-badge">最大 ${fmt(totalMax)} 受給可能</div>
-      <p class="caveat">※件数をすべて重複申請した場合の概算。実際の受給には要件確認が必要です</p>
+      <p class="caveat">※全件を並行申請した場合の概算。実際には個別の要件確認が必要です</p>
     </div>
   `;
 
   // ══════════════════════════════════════════════════════
-  // ② 該当する助成金・補助金 — サマリーリスト（最上部に一覧表示）
+  // ② gBizID — コンパクト通知バー
   // ══════════════════════════════════════════════════════
-  if (scored.length > 0) {
+  if (!hasGbiz) {
     html += `
-    <div class="result-summary-list">
-      <div class="rsl-header">📋 該当した助成金・補助金（${scored.length}件）― クリックで詳細へ</div>
-      ${scored.map((s, i) => {
-        const cat = getCategory(s.id);
-        return `
-        <div class="rsl-item" onclick="document.getElementById('d_${s.id}')?.closest('.subsidy-card')?.scrollIntoView({behavior:'smooth'}); document.getElementById('d_${s.id}') && (document.getElementById('d_${s.id}').style.display !== 'none' || (document.getElementById('d_${s.id}').style.display = 'block'))">
-          <div class="rsl-rank ${i < 3 ? 'top3' : ''}">${i + 1}</div>
-          <div class="rsl-body">
-            <div class="rsl-name">${cat.icon} ${s.name}</div>
-            <div class="rsl-meta">
-              <span class="category-badge ${cat.cls}">${cat.label}</span>
-              &nbsp;難易度: ${'★'.repeat(s.difficulty)}${'☆'.repeat(3-s.difficulty)}&ensp;準備 約${s.lead_time_months}ヶ月${s.wage_required ? '&ensp;賃上げ条件あり' : ''}
-            </div>
-          </div>
-          <div class="rsl-amt">${fmt(s.max_amount)}</div>
-        </div>`;
-      }).join('')}
+    <div class="gbiz-inline">
+      <span>gBizIDプライムが未取得です。上の補助金の多くは取得必須（無料・約2週間）。${urgentTiming ? '<strong>急ぐ場合は今日中に手続きを。</strong>' : ''}</span>
+      <a href="https://gbiz-id.go.jp/top/index.html" target="_blank" rel="noopener">申請する →</a>
     </div>`;
   }
 
-  // ══════════════════════════════════════════════════════
-  // ③ gBizID クリティカルアラート
-  // ══════════════════════════════════════════════════════
-  if (meta.q18 !== '取得済み') {
-    html += `
-    <div class="gbiz-alert">
-      <div class="alert-title">まず「gBizIDプライム」を取得してください</div>
-      <div class="alert-body">
-        上の補助金の多くは、gBizIDがないと申請できません。取得は無料ですが<strong>郵送手続きで約2週間</strong>かかります。
-        ${urgentTiming ? '<strong style="color:#ef4444">今すぐ手続きを始めないと、スケジュールに間に合わない可能性があります。</strong>' : '補助金の交付決定が出る前に機器を発注・購入すると対象外になるので、先に取得しておきましょう。'}
-      </div>
-      <a href="https://gbiz-id.go.jp/top/index.html" target="_blank" rel="noopener" class="gbiz-btn">gBizIDを申請する（無料）</a>
-    </div>`;
+  if (scored.length === 0) {
+    html += `<div style="text-align:center;padding:40px;color:var(--gray-600)">条件に合う補助金・助成金が見つかりませんでした。<br>業種・法人形態・従業員数をご確認ください。</div>`;
+    html += `<div class="reset-area"><button class="btn-reset" onclick="location.reload()">最初からやり直す</button></div>`;
+    el.innerHTML = html;
+    window.scrollTo(0, 0);
+    return;
   }
 
   // ══════════════════════════════════════════════════════
-  // 「次の一手」セクション（上位補助金に対する具体的アクション）
+  // ③ 1位：ヒーローカード（ステップ込み）
   // ══════════════════════════════════════════════════════
-  if (scored.length > 0) {
-    const top = scored[0];
-    const hasGbiz = meta.q18 === '取得済み';
-    const hasSecAction = (meta.q20 || []).includes('SECURITY ACTION');
+  const top = scored[0];
+  const topCat = getCategory(top.id);
+  const topSteps = NEXT_STEPS_MAP[top.id] || defaultSteps;
+  const topReasons = [...(top.reasons || []), ...(top.bonusReasons || [])].slice(0, 3);
 
-    // 補助金ごとの申請ステップ定義
-    const NEXT_STEPS_MAP = {
-      'monozukuri-hojyokin': [
-        { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '申請システムへのログインに必須。無料で取得でき、郵送手続きで約2週間かかります。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: '→ gBizID公式サイト' },
-        { done: false, title: '認定支援機関（中小企業診断士・商工会議所等）に連絡する', detail: '事業計画書の作成・確認に専門家の伴走が必須。早めに相談先を確保してください。', link: 'https://www.chusho.meti.go.jp/keiei/kakushin/nintei/', linkText: '→ 認定支援機関を探す' },
-        { done: false, title: '事業計画書の骨子を作る', detail: '「何に投資して・どれだけ生産性が上がるか・いくら売上が増えるか」を数字で示します。現状の課題と投資効果を整理しましょう。' },
-        { done: (meta.q20||[]).includes('経営革新計画'), title: '経営革新計画または事業継続力強化計画（BCP）を取得する', detail: '審査で加点に。商工会議所や中小企業庁に相談すると手続きがスムーズです。', badge: '採択率UP' },
-      ],
-      'monozukuri-shooryoka': [
-        { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '補助金申請の必須ツール。無料・郵送手続きで約2週間。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: '→ gBizID公式サイト' },
-        { done: false, title: '導入したい設備の概要をまとめる', detail: '「どんな作業を・どの設備で・どれだけ省力化できるか」を具体的に整理。機械メーカーや商社に相見積もりを依頼してください。' },
-        { done: false, title: '認定支援機関に事業計画書の相談をする', detail: 'オーダーメード枠は事業計画書の審査が重要。認定支援機関の早期確保が採択の鍵です。', link: 'https://www.chusho.meti.go.jp/keiei/kakushin/nintei/', linkText: '→ 認定支援機関を探す' },
-        { done: (meta.q20||[]).includes('パートナーシップ構築宣言'), title: 'パートナーシップ構築宣言をする（無料・即日）', detail: 'オンラインで宣言するだけ。ものづくり補助金の審査で加点になります。', link: 'https://www.biz-partnership.jp/', linkText: '→ 宣言サイト', badge: '採択率UP', badgeColor: 'green' },
-      ],
-      'shooryoka': [
-        { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '申請に必須。無料・約2週間かかります。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: '→ gBizID公式サイト' },
-        { done: false, title: 'カタログ掲載製品を確認する', detail: 'この補助金はカタログ登録製品のみが対象です。まず公式サイトでカタログを確認し、自社の課題に合う製品があるか調べましょう。', link: 'https://shoryokuka.smrj.go.jp/', linkText: '→ カタログを見る' },
-        { done: false, title: 'SIer（システムインテグレーター）または販売店に見積もりを依頼する', detail: 'カタログ製品の中でも導入には専門業者の設計が必要です。複数社に相見積もりを取ってください。' },
-      ],
-      'gyomu-kaizen': [
-        { done: false, title: '事業場内最低賃金を確認する', detail: '現在の一番低い時給が「地域別最低賃金」を下回っていないか確認。賃上げ額（30円以上）と設備投資の内容を決めましょう。' },
-        { done: false, title: '導入予定設備の見積もりを取る', detail: 'POSレジ・加工機械・搬送設備など、業務改善に資する設備なら対象。設備費の4/5（最大600万円）が補助されます。' },
-        { done: false, title: '都道府県労働局に申請書類を確認する', detail: '業務改善助成金の申請窓口は都道府県労働局（雇用環境・均等部）です。事前に電話確認が確実です。' },
-      ],
-      'it-donyu': [
-        { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '申請に必須。無料・約2週間。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: '→ gBizID公式サイト' },
-        { done: hasSecAction, title: 'SECURITY ACTIONを宣言する（無料・5分）', detail: 'IT導入補助金の申請に必要な情報セキュリティ自己宣言。IPAのサイトでオンライン完結です。', link: 'https://security-action.jp/', linkText: '→ SECURITY ACTION公式' },
-        { done: false, title: 'IT導入支援事業者（ベンダー）に相談する', detail: 'IT導入補助金は必ずIT導入支援事業者（登録ベンダー）経由で申請します。導入したいシステムのベンダーに補助金対応か確認してください。' },
-      ],
-      'jizokuka-hojyokin': [
-        { done: false, title: '商工会議所・商工会に相談する', detail: '小規模事業者持続化補助金は商工会議所・商工会の支援が必要です。まず地域の窓口に連絡しましょう。' },
-        { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '電子申請に必要。無料で取得できます。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: '→ gBizID公式サイト' },
-        { done: false, title: '経営計画書・補助事業計画書を作成する', detail: '「なぜこの事業に取り組むか」「売上目標はいくらか」を書面にまとめます。商工会議所の担当者が添削してくれます。' },
-      ],
-    };
-
-    const steps = NEXT_STEPS_MAP[top.id] || [
-      { done: hasGbiz, title: 'gBizIDプライムを取得する（必要な場合）', detail: '多くの補助金申請に必須のアカウントです。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: '→ gBizID公式サイト' },
-      { done: false, title: '地域の商工会議所・認定支援機関に相談する', detail: '申請書類や要件の確認は専門家に相談するのが最短ルートです。' },
-      { done: false, title: '公募要領を確認する', detail: '補助金の締切・対象経費・申請書式を公式サイトで確認してください。' },
-    ];
-
-    html += `
-    <div class="next-action-panel">
-      <h3>「${top.name}」を申請するまでにやること</h3>
-      <div class="next-steps">
-        ${steps.map((step, i) => `
-          <div class="next-step">
-            <div class="next-step-num ${step.done ? 'done' : ''}">${step.done ? '✓' : i+1}</div>
-            <div class="next-step-body">
-              <div class="next-step-title">
-                ${step.done ? '<span style="text-decoration:line-through;color:#6b7280">' : ''}${step.title}${step.done ? '</span> <span style="color:#059669;font-size:11px">✅ 完了</span>' : ''}
-                ${step.badge ? `<span class="next-step-badge ${step.badgeColor||''}">${step.badge}</span>` : ''}
-              </div>
-              <div class="next-step-detail">${step.detail}${step.link ? ` <a href="${step.link}" target="_blank" rel="noopener" class="next-step-link">${step.linkText}</a>` : ''}</div>
+  html += `
+  <div class="hero-result-card">
+    <div class="hero-result-label">最もマッチした補助金・助成金</div>
+    <div class="hero-result-body">
+      <span class="category-badge ${topCat.cls}">${topCat.icon} ${topCat.label}</span>
+      <div class="hero-result-name">${top.name}</div>
+      <div class="hero-result-amount">${fmt(top.max_amount)}<span>まで受給可能</span></div>
+      ${topReasons.length > 0 ? `<div class="hero-result-reasons">${topReasons.map(r => `• ${r}`).join('<br>')}</div>` : ''}
+      <div class="hero-steps">
+        <div class="hero-steps-title">申請までにやること</div>
+        ${topSteps.map((step, i) => `
+          <div class="hero-step-row">
+            <div class="hero-step-num ${step.done ? 'done' : ''}">${step.done ? '✓' : i+1}</div>
+            <div class="hero-step-text">
+              ${step.done ? `<span style="text-decoration:line-through;color:#9ca3af">${step.title}</span> <span style="color:#059669;font-size:11px">完了</span>` : `<strong>${step.title}</strong>`}
+              ${step.badge ? `<span style="font-size:10px;background:#dcfce7;color:#166534;border-radius:3px;padding:1px 5px;margin-left:4px">${step.badge}</span>` : ''}
+              <br><span style="color:#6b7280">${step.detail}</span>
+              ${step.link ? `<a href="${step.link}" target="_blank" rel="noopener" class="hero-step-link">${step.linkText} ↗</a>` : ''}
             </div>
           </div>
         `).join('')}
       </div>
+    </div>
+    <div class="hero-detail-toggle" onclick="toggleHeroDetail('hero-detail-${top.id}', this)">詳細情報を見る ▼</div>
+    <div id="hero-detail-${top.id}" style="display:none;padding:0 20px 20px">
+      ${top.description ? `<p style="font-size:13px;line-height:1.7;color:var(--gray-700);margin-bottom:12px">${top.description}</p>` : ''}
+      <div style="font-size:13px;font-weight:600;margin-bottom:4px">受給額の内訳</div>
+      <div style="font-size:13px;color:var(--gray-600)">${top.amount_note}</div>
+      ${top.compatible_with?.length > 0 ? `
+      <div style="margin-top:12px;font-size:12px;font-weight:600;margin-bottom:4px">同時に申請できる</div>
+      <div>${top.compatible_with.map(id => { const o = SUBSIDIES.find(x => x.id === id); return o ? `<span class="ctag">${o.name}</span>` : ''; }).join('')}</div>` : ''}
+    </div>
+  </div>`;
+
+  // ══════════════════════════════════════════════════════
+  // ④ 2・3位：サブカード
+  // ══════════════════════════════════════════════════════
+  const subCards = scored.slice(1, 3);
+  subCards.forEach((s, idx) => {
+    const cat = getCategory(s.id);
+    const rank = idx + 2;
+    const reasons = [...(s.reasons||[]), ...(s.bonusReasons||[])].slice(0, 2);
+    html += `
+    <div class="sub-result-card">
+      <div class="sub-result-header" onclick="toggleSub('sub-${s.id}', this)">
+        <div class="sub-rank">${rank}</div>
+        <div class="sub-info">
+          <div style="margin-bottom:3px"><span class="category-badge ${cat.cls}" style="font-size:10px;padding:1px 6px">${cat.icon} ${cat.label}</span></div>
+          <div class="sub-name">${s.name}</div>
+          <div class="sub-meta">難易度 ${'★'.repeat(s.difficulty)}${'☆'.repeat(3-s.difficulty)} &ensp; 準備 約${s.lead_time_months}ヶ月${s.wage_required ? ' &ensp; 賃上げ条件あり' : ''}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="sub-amt">${fmt(s.max_amount)}</div>
+          <div style="font-size:10px;color:var(--gray-600)">▼ 詳細</div>
+        </div>
+      </div>
+      <div class="sub-detail" id="sub-${s.id}">
+        ${reasons.length > 0 ? `<div style="font-size:12px;color:var(--gray-600);margin-bottom:10px;line-height:1.7">${reasons.map(r=>`• ${r}`).join('<br>')}</div>` : ''}
+        ${s.description ? `<p style="font-size:12px;line-height:1.7;color:var(--gray-700);margin-bottom:10px">${s.description}</p>` : ''}
+        <div style="font-size:12px"><strong>受給額：</strong>${s.amount_note}</div>
+        ${s.compatible_with?.length > 0 ? `<div style="margin-top:8px;font-size:12px"><strong>同時申請可能：</strong>${s.compatible_with.map(id=>{const o=SUBSIDIES.find(x=>x.id===id);return o?`<span class="ctag">${o.name}</span>`:''}).join('')}</div>` : ''}
+      </div>
+    </div>`;
+  });
+
+  // ══════════════════════════════════════════════════════
+  // ⑤ 4位以降：折りたたみ
+  // ══════════════════════════════════════════════════════
+  const rest = scored.slice(3);
+  if (rest.length > 0) {
+    html += `
+    <div class="others-toggle" onclick="toggleOthers(this)">他にも ${rest.length}件 該当しています — クリックで表示</div>
+    <div class="others-section" id="others-section">
+      ${rest.map((s, i) => renderCard(s, i + 3)).join('')}
     </div>`;
   }
 
   // ══════════════════════════════════════════════════════
-  // PHASE 2: 赤字×賃上げ → 特例枠 機会転換メッセージ
+  // ⑥ 赤字特例メモ（コンパクト）
   // ══════════════════════════════════════════════════════
   if (meta.isDeficit) {
     const wageMsg = meta.wageUp
-      ? `赤字 × 賃上げ意欲ありという条件で、複数の補助金で<strong>補助率が引き上がる特例枠</strong>の対象になる可能性があります。`
-      : `赤字企業向けに、<strong>補助率が上がる枠や再生支援枠</strong>を設けている補助金があります。賃上げ計画をセットにするとさらに有利になります。`;
+      ? '赤字×賃上げ意欲ありの条件で、複数の補助金で補助率が上がる特例枠の対象になる可能性があります。'
+      : '赤字企業向けに補助率が上がる枠を設けている補助金があります。賃上げ計画をセットにするとさらに有利です。';
     html += `
-    <div class="opportunity-panel">
-      <div class="opp-title">赤字でも、むしろ有利になる補助金があります</div>
-      <p>${wageMsg}</p>
-      <div class="opp-point">
-        <div class="opp-point-icon">💡</div>
-        <div>「赤字だから審査に通らない」は誤解です。補助金は<strong>立て直しを後押しする制度</strong>でもあります。
-        「省力化・デジタル化で生産性を上げ、その成果で賃上げを実現する」というストーリーは、審査でも説得力を持ちます。</div>
+    <div class="compact-panel">
+      <div class="compact-panel-toggle" onclick="toggleCompact('deficit-panel', this)">赤字でも使える特例について <span>▼</span></div>
+      <div class="compact-panel-body" id="deficit-panel">
+        <p style="font-size:13px;line-height:1.7;color:var(--gray-700)">${wageMsg}<br>「赤字だから審査に通らない」は誤解で、補助金は立て直しを後押しする制度でもあります。省力化や生産性向上のストーリーと合わせると説得力が増します。</p>
       </div>
-      ${meta.wageUp && budget >= 1000 ? `
-      <div class="minjob-panel">
-        ⚠️ <strong>最低賃金の急騰に備えてください：</strong>2026年度の地域別最低賃金は全国的に1,000円超への引き上げが予測されています。
-        現在の賃金水準と比較し、今後数ヶ月以内に法的な賃上げ対応が必要になる可能性があります。
-        「賃上げ」を補助金要件に組み込むことで、<strong>不可避のコスト増を補助金獲得の条件として逆用</strong>できます。
-      </div>` : ''}
     </div>`;
   }
 
   // ══════════════════════════════════════════════════════
-  // PHASE 3: 投資ポートフォリオ提案（予算×課題に応じた複数補助金の組み合わせ）
+  // ⑦ 組み合わせ提案（コンパクト）
   // ══════════════════════════════════════════════════════
-  const hasRobot = scored.some(s => s.id === 'shooryoka');
-  const hasIT = scored.some(s => s.id === 'it-donyu');
-  const hasMono = scored.some(s => s.id === 'monozukuri-hojyokin');
-  const hasJigyo = scored.some(s => s.id === 'jigyo-shinsyutsu');
-
-  if ((hasRobot || hasMono) && (hasIT || hasJigyo) && scored.length >= 3) {
-    const budgetWarn = (budget > 0 && budget < 500) ? `<p style="font-size:12px;color:#9a3412;margin-top:6px">※ご入力の予算（${budget}万円）では、補助金の上限額に対して申請規模が小さい可能性があります。実際に申請できる枠や補助率は要件確認が必要です。</p>` : '';
-
-    const proA_item = hasRobot ? scored.find(s => s.id === 'shooryoka') : hasMono ? scored.find(s => s.id === 'monozukuri-hojyokin') : null;
-    const proB_item = hasIT ? scored.find(s => s.id === 'it-donyu') : null;
-    const proB2_item = hasJigyo ? scored.find(s => s.id === 'jigyo-shinsyutsu') : null;
-
-    html += `
-    <div class="portfolio-panel">
-      <h3>複数の補助金を組み合わせる場合の考え方</h3>
-      <div class="portfolio-proposals">
-        ${proA_item ? `
-        <div class="portfolio-proposal">
-          <span class="proposal-label">提案 A</span>
-          <div class="proposal-title">物理的省力化の極大化</div>
-          <div class="proposal-items">
-            ${hasRobot ? '✅ 省力化投資補助金（カタログ型）<br>→ 協働ロボット・搬送機など<br>→ 上限 最大1,500万円' : ''}
-            ${hasMono ? '✅ ものづくり補助金<br>→ 自動化設備・検査装置など<br>→ 補助率1/2〜（最大4,000万円）' : ''}
-          </div>
-          <div class="proposal-total">💴 補助額目安: ${hasRobot ? fmt(proA_item.max_amount) : hasMono ? fmt(proA_item.max_amount) : '—'}</div>
-        </div>` : ''}
-        ${(proB_item || proB2_item) ? `
-        <div class="portfolio-proposal">
-          <span class="proposal-label b">提案 B</span>
-          <div class="proposal-title">IT・DX × 新分野進出</div>
-          <div class="proposal-items">
-            ${hasIT ? '✅ デジタル化・AI導入補助金<br>→ AIソフト・受発注システム<br>→ 通常枠（補助率1/2）＋インボイス枠（最大4/5）' : ''}
-            ${hasJigyo ? '<br>✅ 新事業進出補助金<br>→ 新市場・新分野への展開<br>→ 最大7,000万円（補助率2/3）' : ''}
-          </div>
-          <div class="proposal-total">💴 補助額目安: ${hasIT ? fmt(proB_item.max_amount) : ''}${hasJigyo ? (hasIT ? '〜' : '') + fmt(proB2_item.max_amount) : ''}</div>
-        </div>` : ''}
-        <div class="portfolio-proposal">
-          <span class="proposal-label" style="background:#7c3aed">提案 A+B</span>
-          <div class="proposal-title">最大化コンボ（同時申請）</div>
-          <div class="proposal-items">
-            ✅ 省力化（ハード）とDX（ソフト）は<strong>同時申請が可能</strong>です<br>
-            → 設備投資とITツール導入を並行して申請し、補助金の効果を最大化できます<br>
-            → ただし両方の申請作業が発生するため、認定支援機関・ITベンダーとの早期連携が必須です
-          </div>
-          <div class="proposal-total">💴 合計補助額: ${fmt((proA_item?.max_amount || 0) + (proB_item?.max_amount || 0))}</div>
-        </div>
-      </div>
-      ${budgetWarn}
-    </div>`;
-  }
-
-  // ── スタッキング ──
   if (combos.length > 0) {
-    html += `<div class="stack-panel"><h3>同時に申請できる組み合わせ</h3>`;
-    combos.forEach(c => {
-      html += `
-        <div class="stack-combo">
-          <div style="font-size:13px;font-weight:700;color:#065f46;margin-bottom:8px">${c.label}</div>
-          <div class="stack-flow">
-            ${c.items.map((item, i) => `${i > 0 ? '<span class="stack-arrow">+</span>' : ''}<div class="stack-item">${item.name}</div>`).join('')}
-          </div>
-          <div class="stack-total">合計最大: ${fmt(c.total)}</div>
-          <div class="stack-note">${c.note}</div>
-        </div>
-      `;
-    });
-    html += `</div>`;
-  }
-
-  // ── 衝突 ──
-  if (conflicts.length > 0) {
-    html += `<div class="conflict-panel"><strong>⛔ 同時申請できない組み合わせ</strong>${conflicts.map(c => `<div>「${c.a.name}」と「${c.b.name}」は同一案件での併用不可</div>`).join('')}</div>`;
-  }
-
-  // ── 各補助金の詳細カード ──
-  html += `<div class="result-section"><div class="section-title">各補助金・助成金の詳細</div>`;
-  scored.forEach((s, i) => { html += renderCard(s, i); });
-  html += `</div>`;
-
-  // ── 比較表 ──
-  if (scored.length >= 2) {
-    html += `<div class="result-section"><div class="section-title">比較表</div><div class="compare-wrap"><table>
-      <thead><tr><th>名称</th><th>最大受給額</th><th>難易度</th><th>準備期間</th><th>申請タイミング</th></tr></thead>
-      <tbody>
-        ${scored.map(s => `<tr>
-          <td style="font-weight:600;font-size:12px">${s.name}</td>
-          <td style="font-weight:700;color:var(--primary)">${fmt(s.max_amount)}</td>
-          <td class="${['','d1c','d2c','d3c'][s.difficulty]}">${['','易','中','難'][s.difficulty]}</td>
-          <td>約${s.lead_time_months}ヶ月</td>
-          <td style="font-size:11px">${timingLbl(s.timing)}</td>
-        </tr>`).join('')}
-      </tbody>
-    </table></div></div>`;
+    html += `
+    <div class="compact-panel">
+      <div class="compact-panel-toggle" onclick="toggleCompact('combo-panel', this)">同時申請できる組み合わせ（${combos.length}件） <span>▼</span></div>
+      <div class="compact-panel-body" id="combo-panel">
+        ${combos.map(c => `
+          <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--gray-100)">
+            <div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:6px">${c.label}</div>
+            <div class="stack-flow">${c.items.map((item,i)=>`${i>0?'<span class="stack-arrow">+</span>':''}<div class="stack-item">${item.name}</div>`).join('')}</div>
+            <div style="font-size:12px;color:var(--primary);font-weight:600;margin-top:6px">合計最大 ${fmt(c.total)}</div>
+            <div style="font-size:12px;color:var(--gray-600);margin-top:2px">${c.note}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
   }
 
   // ══════════════════════════════════════════════════════
-  // PHASE 4: 加点ロードマップ（認定ゼロの企業向け）
+  // ⑧ 比較表（コンパクト）
+  // ══════════════════════════════════════════════════════
+  if (scored.length >= 2) {
+    html += `
+    <div class="compact-panel">
+      <div class="compact-panel-toggle" onclick="toggleCompact('compare-panel', this)">全件を比較する <span>▼</span></div>
+      <div class="compact-panel-body" id="compare-panel">
+        <div class="compare-wrap"><table>
+          <thead><tr><th>名称</th><th>最大受給額</th><th>難易度</th><th>準備期間</th><th>申請タイミング</th></tr></thead>
+          <tbody>${scored.map(s=>`<tr>
+            <td style="font-weight:600;font-size:12px">${s.name}</td>
+            <td style="font-weight:700;color:var(--primary)">${fmt(s.max_amount)}</td>
+            <td class="${['','d1c','d2c','d3c'][s.difficulty]}">${['','易','中','難'][s.difficulty]}</td>
+            <td>約${s.lead_time_months}ヶ月</td>
+            <td style="font-size:11px">${timingLbl(s.timing)}</td>
+          </tr>`).join('')}</tbody>
+        </table></div>
+      </div>
+    </div>`;
+  }
+
+  // ══════════════════════════════════════════════════════
+  // ⑨ 加点ロードマップ（コンパクト・折りたたみ）
   // ══════════════════════════════════════════════════════
   if (noAddPoints) {
     html += `
-    <div class="roadmap-panel">
-      <h3>採択率を上げるために、並行してやっておくこと</h3>
-      <p style="margin-bottom:12px;font-size:12px">審査で有利になる加点項目がまだ取得されていません。補助金の申請準備と並行して進めると採択率が上がります。</p>
-      <div class="roadmap-steps">
-        <div class="roadmap-step">
-          <div class="step-period">⚡ 今すぐ〜1週間</div>
-          <div class="step-title">gBizID取得 ＋ みらデジ経営チェック</div>
-          <div class="step-detail">・gBizIDプライム申請（オンライン＋郵送）<br>・みらデジ経営チェックはオンライン10分で完了。デジタル化補助金の加点対象</div>
-        </div>
-        <div class="roadmap-step">
-          <div class="step-period">📅 1〜2ヶ月以内</div>
-          <div class="step-title">事業継続力強化計画（BCP）の策定</div>
-          <div class="step-detail">・中小企業庁への申請で認定取得<br>・複数の補助金で加点対象。ひな形を使えば比較的短期間で作成可能</div>
-        </div>
-        <div class="roadmap-step">
-          <div class="step-period">🏆 3〜6ヶ月以内</div>
-          <div class="step-title">経営革新計画の承認申請</div>
-          <div class="step-detail">・都道府県への申請で強力な加点に<br>・補助金審査で最大加点。日本政策金融公庫の低利融資対象にもなります<br>・地域の商工会議所・認定支援機関に相談を</div>
-        </div>
-        <div class="roadmap-step">
-          <div class="step-period">📢 並行して</div>
-          <div class="step-title">パートナーシップ構築宣言</div>
-          <div class="step-detail">・オンラインで宣言するだけ（無料・即日）<br>・ものづくり補助金・事業再構築補助金で加点<br>・取引先との関係強化のアピールにもなります</div>
+    <div class="compact-panel">
+      <div class="compact-panel-toggle" onclick="toggleCompact('roadmap-panel', this)">採択率を上げるためにやっておくこと <span>▼</span></div>
+      <div class="compact-panel-body" id="roadmap-panel">
+        <div class="roadmap-steps">
+          <div class="roadmap-step"><div class="step-period">今すぐ〜1週間</div><div class="step-title">gBizID取得 + みらデジ経営チェック</div><div class="step-detail">gBizIDプライム申請（オンライン＋郵送）。みらデジ経営チェックは10分で完了、デジタル化補助金の加点対象</div></div>
+          <div class="roadmap-step"><div class="step-period">1〜2ヶ月以内</div><div class="step-title">事業継続力強化計画（BCP）の策定</div><div class="step-detail">中小企業庁への申請で認定取得。複数の補助金で加点対象。ひな形を使えば短期間で作成可能</div></div>
+          <div class="roadmap-step"><div class="step-period">3〜6ヶ月以内</div><div class="step-title">経営革新計画の承認申請</div><div class="step-detail">都道府県への申請で審査の加点に。商工会議所・認定支援機関に相談すると手続きがスムーズです</div></div>
+          <div class="roadmap-step"><div class="step-period">並行して</div><div class="step-title">パートナーシップ構築宣言</div><div class="step-detail">オンラインで宣言するだけ（無料・即日）。ものづくり補助金などで加点対象</div></div>
         </div>
       </div>
     </div>`;
   }
 
-  html += `<div class="reset-area"><button class="btn-reset" onclick="location.reload()">🔄 最初からやり直す</button></div>`;
+  if (conflicts.length > 0) {
+    html += `<div class="conflict-panel" style="font-size:12px"><strong>同時申請できない組み合わせ</strong>${conflicts.map(c=>`<div style="margin-top:4px">「${c.a.name}」と「${c.b.name}」は同一案件での併用不可</div>`).join('')}</div>`;
+  }
+
+  html += `<div class="reset-area"><button class="btn-reset" onclick="location.reload()">最初からやり直す</button></div>`;
   el.innerHTML = html;
   window.scrollTo(0, 0);
 }
@@ -3123,6 +3262,42 @@ function updateProgressBar() {
 document.addEventListener('scroll', updateProgressBar, { passive: true });
 
 function toggle(id) { document.getElementById(id)?.classList.toggle('open'); }
+
+function toggleHeroDetail(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const isOpen = el.style.display !== 'none';
+  el.style.display = isOpen ? 'none' : 'block';
+  btn.textContent = isOpen ? '詳細情報を見る ▼' : '詳細情報を閉じる ▲';
+}
+
+function toggleSub(id, header) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const isOpen = el.style.display === 'block';
+  el.style.display = isOpen ? 'none' : 'block';
+  const arrow = header.querySelector('[style*="font-size:10px"]');
+  if (arrow) arrow.textContent = isOpen ? '▼ 詳細' : '▲ 閉じる';
+}
+
+function toggleOthers(btn) {
+  const el = document.getElementById('others-section');
+  if (!el) return;
+  const isOpen = el.style.display === 'block';
+  el.style.display = isOpen ? 'none' : 'block';
+  btn.textContent = isOpen
+    ? btn.textContent.replace('▲ 閉じる', '').trim() + ' — クリックで表示'
+    : '閉じる ▲';
+}
+
+function toggleCompact(id, toggle) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const isOpen = el.style.display === 'block';
+  el.style.display = isOpen ? 'none' : 'block';
+  const arrow = toggle.querySelector('span');
+  if (arrow) arrow.textContent = isOpen ? '▼' : '▲';
+}
 
 function fmt(n) {
   if (!n) return '要確認';

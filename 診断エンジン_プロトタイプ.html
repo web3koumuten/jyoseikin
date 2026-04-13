@@ -27,7 +27,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-    background: var(--gray-50);
+    background: white;
     color: var(--gray-900);
     font-size: 14px;
     line-height: 1.6;
@@ -890,6 +890,8 @@
     width: auto;
     text-align: center;
     min-width: 40px;
+    background: var(--primary-light);
+    color: var(--primary);
   }
 
   /* ── ローディングスピナー ── */
@@ -1097,39 +1099,39 @@
         <div class="choices q14-choices">
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="shooryoka" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#ede9fe;color:#5b21b6">省力化</span><span class="q14-text"><strong>人手が足りない。ロボットや自動機を入れたい</strong><br><small>協働ロボット・配膳ロボット・自動搬送機・自動精算機など</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag">省力化</span><span class="q14-text"><strong>人手が足りない。ロボットや自動機を入れたい</strong><br><small>協働ロボット・配膳ロボット・自動搬送機・自動精算機など</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="it-donyu" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#dbeafe;color:#1e40af">IT</span><span class="q14-text"><strong>ITツールやAIを使って仕事を効率化したい</strong><br><small>会計・受発注・在庫管理・AI検品・勤怠管理システムなど</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag">IT</span><span class="q14-text"><strong>ITツールやAIを使って仕事を効率化したい</strong><br><small>会計・受発注・在庫管理・AI検品・勤怠管理システムなど</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="monozukuri" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#e0f2fe;color:#075985">設備</span><span class="q14-text"><strong>新しい製品・サービスを開発したい。専用設備を入れたい</strong><br><small>特注の加工機・検査装置・新製品開発のための設備など</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag">設備</span><span class="q14-text"><strong>新しい製品・サービスを開発したい。専用設備を入れたい</strong><br><small>特注の加工機・検査装置・新製品開発のための設備など</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="jigyo-shinsyutsu" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#fce7f3;color:#9d174d">新展開</span><span class="q14-text"><strong>新しい市場・分野に進出したい。店舗や工場を改装したい</strong><br><small>事業転換・新分野参入・店舗新築・工場増設など</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag">新展開</span><span class="q14-text"><strong>新しい市場・分野に進出したい。店舗や工場を改装したい</strong><br><small>事業転換・新分野参入・店舗新築・工場増設など</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="jizokuka" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#fef3c7;color:#92400e">販路</span><span class="q14-text"><strong>お客さんを増やしたい。チラシ・ホームページを作りたい</strong><br><small>販路開拓・展示会出展・ECサイト・パンフレット作成など</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag">販路</span><span class="q14-text"><strong>お客さんを増やしたい。チラシ・ホームページを作りたい</strong><br><small>販路開拓・展示会出展・ECサイト・パンフレット作成など</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="shoene" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#d1fae5;color:#065f46">省エネ</span><span class="q14-text"><strong>電気代・燃料費を下げたい。古い設備を省エネ機器に変えたい</strong><br><small>高効率空調・LED・省エネ型コンプレッサーなど</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag">省エネ</span><span class="q14-text"><strong>電気代・燃料費を下げたい。古い設備を省エネ機器に変えたい</strong><br><small>高効率空調・LED・省エネ型コンプレッサーなど</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="jinzai" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#fee2e2;color:#991b1b">人材</span><span class="q14-text"><strong>従業員に研修・スキルアップをさせたい</strong><br><small>DX研修・資格取得・リスキリング・OJT支援など</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag">人材</span><span class="q14-text"><strong>従業員に研修・スキルアップをさせたい</strong><br><small>DX研修・資格取得・リスキリング・OJT支援など</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="seichokasoku" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#f3f4f6;color:#374151">拡張</span><span class="q14-text"><strong>工場・拠点を大規模に新増設したい（数億円規模）</strong><br><small>売上100億円超を目指す大型設備投資</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag">拡張</span><span class="q14-text"><strong>工場・拠点を大規模に新増設したい（数億円規模）</strong><br><small>売上100億円超を目指す大型設備投資</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="jigyo-shokei" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#f0fdf4;color:#166534">承継</span><span class="q14-text"><strong>事業を引き継ぎたい・後継者に承継したい</strong><br><small>事業承継・M&A・廃業支援など</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag">承継</span><span class="q14-text"><strong>事業を引き継ぎたい・後継者に承継したい</strong><br><small>事業承継・M&A・廃業支援など</small></span></span>
           </label>
         </div>
       </div>

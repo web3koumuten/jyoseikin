@@ -663,7 +663,7 @@
 
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
-    background: linear-gradient(135deg, #0f2b6b 0%, #1a56db 60%, #0e9f6e 100%);
+    background: linear-gradient(160deg, #0f2358 0%, #1a41a8 100%);
     border-radius: 16px;
     padding: 48px 32px 40px;
     color: white;
@@ -673,10 +673,9 @@
   .hero-eyebrow {
     font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.08em;
-    opacity: 0.8;
+    letter-spacing: 0.06em;
+    opacity: 0.7;
     margin-bottom: 16px;
-    text-transform: uppercase;
   }
   .hero-h1 {
     font-size: 26px;
@@ -684,17 +683,13 @@
     line-height: 1.4;
     margin-bottom: 16px;
   }
-  @media (max-width: 600px) { .hero-h1 { font-size: 20px; } }
   .hero-accent {
-    background: linear-gradient(90deg, #fbbf24, #34d399);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #93c5fd;
   }
   .hero-sub {
     font-size: 14px;
     line-height: 1.8;
-    opacity: 0.9;
+    opacity: 0.85;
     max-width: 560px;
     margin: 0 auto 24px;
   }
@@ -706,30 +701,31 @@
     margin-bottom: 28px;
   }
   .hp {
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 99px;
-    padding: 6px 16px;
-    font-size: 13px;
-    font-weight: 600;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
     display: flex;
     align-items: center;
     gap: 6px;
+    opacity: 0.9;
   }
   .btn-hero {
-    background: #fbbf24;
-    color: #1a1a1a;
+    background: white;
+    color: #0f2358;
     border: none;
-    border-radius: 99px;
-    padding: 16px 48px;
-    font-size: 17px;
-    font-weight: 800;
+    border-radius: 8px;
+    padding: 15px 48px;
+    font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
     font-family: inherit;
-    box-shadow: 0 4px 20px rgba(251,191,36,0.5);
-    transition: transform 0.1s, box-shadow 0.1s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    transition: transform 0.1s, box-shadow 0.15s, background 0.15s;
   }
-  .btn-hero:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(251,191,36,0.6); }
+  .btn-hero:hover { background: #f0f6ff; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
   .btn-hero:active { transform: translateY(0); }
   .hero-caution {
     font-size: 11px;
@@ -880,12 +876,57 @@
     margin-bottom: 10px;
   }
 
+  /* ── Q14タグラベル（絵文字の代替） ── */
+  .q14-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 4px;
+    padding: 3px 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: auto;
+    text-align: center;
+    min-width: 40px;
+  }
+
   /* ── ローディングスピナー ── */
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
   .step-spinner {
     animation: spin 0.8s linear infinite;
+  }
+
+  /* ── スマホ対応 ── */
+  @media (max-width: 640px) {
+    .container { padding: 16px 14px 48px; }
+    .inline-fields { grid-template-columns: 1fr; gap: 0; }
+    .section-body { padding: 16px; }
+    .section-header { padding: 14px 16px 12px; }
+    #intro-hero { padding: 36px 20px 32px; border-radius: 12px; }
+    .hero-h1 { font-size: 20px; }
+    .hero-points { gap: 6px; }
+    .hp { font-size: 12px; padding: 5px 12px; }
+    .btn-hero { padding: 14px 32px; font-size: 15px; }
+    .results-header { padding: 20px 20px; }
+    .results-header .count { font-size: 18px; }
+    .total-badge { font-size: 16px; padding: 5px 16px; }
+    .hero-result-body { padding: 16px; }
+    .hero-result-name { font-size: 15px; }
+    .hero-result-amount { font-size: 22px; }
+    .roadmap-steps { flex-direction: column; }
+    .portfolio-proposals { flex-direction: column; }
+    .sub-result-header { padding: 12px 14px; gap: 8px; }
+    .detail-grid { grid-template-columns: 1fr; }
+    table { font-size: 11px; }
+    th, td { padding: 7px 8px; }
+    .progress-bar-steps { gap: 0; }
+    .ps-label { font-size: 10px; }
+    .ps-line { min-width: 12px; }
+    .q14-icon.q14-tag { min-width: 36px; font-size: 10px; }
   }
 </style>
 </head>
@@ -898,10 +939,10 @@
   <h1 class="hero-h1">使える補助金・助成金を<br><span class="hero-accent">まず確認してみましょう</span></h1>
   <p class="hero-sub">質問に答えるだけで、会社の状況に合った補助金・助成金を自動で絞り込みます。難しい手続きは後から。まず「何が使えるか」を把握するところから始めましょう。</p>
   <div class="hero-points">
-    <div class="hp">⏱️ <span>約5分で完了</span></div>
-    <div class="hp">💯 <span>2026年4月時点の情報</span></div>
-    <div class="hp">🔒 <span>無料・登録不要</span></div>
-    <div class="hp">📋 <span>45種類の制度を自動判定</span></div>
+    <div class="hp"><span>約5分で完了</span></div>
+    <div class="hp"><span>2026年4月時点の情報</span></div>
+    <div class="hp"><span>無料・登録不要</span></div>
+    <div class="hp"><span>45種類の制度を自動判定</span></div>
   </div>
   <button class="btn-hero" onclick="startDiagnosis()">診断を始める</button>
   <p class="hero-caution">※ 入力した情報は診断にのみ使用します</p>
@@ -1056,39 +1097,39 @@
         <div class="choices q14-choices">
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="shooryoka" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon">🤖</span><span class="q14-text"><strong>人手が足りない。ロボットや自動機を入れたい</strong><br><small>協働ロボット・配膳ロボット・自動搬送機・自動精算機など</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#ede9fe;color:#5b21b6">省力化</span><span class="q14-text"><strong>人手が足りない。ロボットや自動機を入れたい</strong><br><small>協働ロボット・配膳ロボット・自動搬送機・自動精算機など</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="it-donyu" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon">💻</span><span class="q14-text"><strong>ITツールやAIを使って仕事を効率化したい</strong><br><small>会計・受発注・在庫管理・AI検品・勤怠管理システムなど</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#dbeafe;color:#1e40af">IT</span><span class="q14-text"><strong>ITツールやAIを使って仕事を効率化したい</strong><br><small>会計・受発注・在庫管理・AI検品・勤怠管理システムなど</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="monozukuri" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon">⚙️</span><span class="q14-text"><strong>新しい製品・サービスを開発したい。専用設備を入れたい</strong><br><small>特注の加工機・検査装置・新製品開発のための設備など</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#e0f2fe;color:#075985">設備</span><span class="q14-text"><strong>新しい製品・サービスを開発したい。専用設備を入れたい</strong><br><small>特注の加工機・検査装置・新製品開発のための設備など</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="jigyo-shinsyutsu" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon">🚀</span><span class="q14-text"><strong>新しい市場・分野に進出したい。店舗や工場を改装したい</strong><br><small>事業転換・新分野参入・店舗新築・工場増設など</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#fce7f3;color:#9d174d">新展開</span><span class="q14-text"><strong>新しい市場・分野に進出したい。店舗や工場を改装したい</strong><br><small>事業転換・新分野参入・店舗新築・工場増設など</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="jizokuka" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon">📣</span><span class="q14-text"><strong>お客さんを増やしたい。チラシ・ホームページを作りたい</strong><br><small>販路開拓・展示会出展・ECサイト・パンフレット作成など</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#fef3c7;color:#92400e">販路</span><span class="q14-text"><strong>お客さんを増やしたい。チラシ・ホームページを作りたい</strong><br><small>販路開拓・展示会出展・ECサイト・パンフレット作成など</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="shoene" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon">🌿</span><span class="q14-text"><strong>電気代・燃料費を下げたい。古い設備を省エネ機器に変えたい</strong><br><small>高効率空調・LED・省エネ型コンプレッサーなど</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#d1fae5;color:#065f46">省エネ</span><span class="q14-text"><strong>電気代・燃料費を下げたい。古い設備を省エネ機器に変えたい</strong><br><small>高効率空調・LED・省エネ型コンプレッサーなど</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="jinzai" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon">🎓</span><span class="q14-text"><strong>従業員に研修・スキルアップをさせたい</strong><br><small>DX研修・資格取得・リスキリング・OJT支援など</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#fee2e2;color:#991b1b">人材</span><span class="q14-text"><strong>従業員に研修・スキルアップをさせたい</strong><br><small>DX研修・資格取得・リスキリング・OJT支援など</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="seichokasoku" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon">🏭</span><span class="q14-text"><strong>工場・拠点を大規模に新増設したい（数億円規模）</strong><br><small>売上100億円超を目指す大型設備投資</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#f3f4f6;color:#374151">拡張</span><span class="q14-text"><strong>工場・拠点を大規模に新増設したい（数億円規模）</strong><br><small>売上100億円超を目指す大型設備投資</small></span></span>
           </label>
           <label class="choice-row q14-card">
             <input type="checkbox" name="q14" value="jigyo-shokei" onchange="updateQ15Tags()">
-            <span class="q14-content"><span class="q14-icon">🔄</span><span class="q14-text"><strong>事業を引き継ぎたい・後継者に承継したい</strong><br><small>事業承継・M&A・廃業支援など</small></span></span>
+            <span class="q14-content"><span class="q14-icon q14-tag" style="background:#f0fdf4;color:#166534">承継</span><span class="q14-text"><strong>事業を引き継ぎたい・後継者に承継したい</strong><br><small>事業承継・M&A・廃業支援など</small></span></span>
           </label>
         </div>
       </div>
@@ -1097,7 +1138,7 @@
         <div class="field-label"><span class="q">Q15</span>もう少し詳しく教えてください（自由記述）</div>
         <p class="field-note">上で選んだ内容について、具体的な設備名・悩み・やりたいことを書いてください（任意）</p>
         <div id="q15-tags" class="tag-suggestions" style="display:none">
-          <div class="tag-suggest-label">💡 よく使われるキーワード（タップで追加）：</div>
+          <div class="tag-suggest-label">よく使われるキーワード：</div>
           <div id="q15-tag-btns" class="tag-suggest-btns"></div>
         </div>
         <textarea id="q15" placeholder="例：木材の品質検査を自動化したい、協働ロボットで搬送作業を省力化したい、受注管理をクラウドに移したい など"></textarea>
@@ -1167,7 +1208,7 @@
   </div>
 
   <div class="submit-area">
-    <button class="btn-submit" onclick="runDiagnosis()">🔍 診断する</button>
+    <button class="btn-submit" onclick="runDiagnosis()">診断する</button>
   </div>
 </div>
 
@@ -2479,7 +2520,7 @@ const STACKING_PATTERNS = [
   // ── 製造業 赤字立て直し最強コンボ ──
   {
     ids: ["monozukuri-shooryoka", "gyomu-kaizen", "jinzai-ikusei-shien"],
-    label: "🏭 製造業 赤字立て直し 最強コンボ（省力化×賃上げ×人材）",
+    label: "製造業 赤字立て直しコンボ（省力化×賃上げ×人材）",
     note: "設備自動化（最大1億円補助）＋賃上げ設備費（最大600万円）＋従業員研修（訓練費45%助成）。別々の設備・費用に使えば合計2,000万円超の補助が現実的"
   },
   // ── 省力化Wルート ──
@@ -2709,7 +2750,7 @@ function runDiagnosis() {
     const minInvest = MIN_INVEST_MAP[s.id];
     if (minInvest && q16 > 0 && q16 < minInvest) {
       score -= 3;
-      reasons.push(`⚠️ 投資予定額（${q16}万円）がこの補助金の目安（${minInvest}万円以上）を下回っています`);
+      reasons.push(`【注意】投資予定額（${q16}万円）がこの補助金の目安（${minInvest}万円以上）を下回っています`);
     }
 
     // ── 難易度×タイミングのペナルティ（「今すぐ」なのに審査3段階）
@@ -2778,19 +2819,19 @@ function runDiagnosis() {
     // ⑥ タイミング警告
     let timingWarning = null;
     if (q17 === '1〜2ヶ月以内' && s.lead_time_months > 3) {
-      timingWarning = `⚠️ この助成金は準備期間が約${s.lead_time_months}ヶ月必要です。すぐに着手しないと間に合いません`;
+      timingWarning = `【注意】この助成金は準備期間が約${s.lead_time_months}ヶ月必要です。すぐに着手しないと間に合いません`;
     }
     if (['trial-ippan','trial-shogaisha','trial-shogaisha-tanjikan'].includes(s.id)) {
-      timingWarning = '⚠️ 採用前の申請が必須です。採用が決まってからでは遅い';
+      timingWarning = '【注意】採用前の申請が必須です。採用が決まってからでは遅い';
     }
     if (['jizokuka-hojyokin','monozukuri-hojyokin','it-donyu','jigyo-shinsyutsu','shooryoka'].includes(s.id)) {
-      if (!timingWarning) timingWarning = '⚠️ 補助金は設備投資・発注前に申請が必要。交付決定前の契約は補助対象外になります';
+      if (!timingWarning) timingWarning = '【注意】補助金は設備投資・発注前に申請が必要。交付決定前の契約は補助対象外になります';
     }
 
     // ⑦ インボイス特例
     let invoiceNote = null;
     if (q11 !== '登録済み' && ['it-donyu', 'jizokuka-hojyokin'].includes(s.id)) {
-      invoiceNote = '📌 インボイス未登録事業者向けの特例枠が利用できる可能性あり';
+      invoiceNote = 'インボイス未登録事業者向けの特例枠が利用できる可能性あり';
     }
 
     return { ...s, score, reasons, bonusReasons, timingWarning, invoiceNote };
@@ -2803,7 +2844,7 @@ function runDiagnosis() {
     if (matches.length > 0) {
       s.score += matches.length * 0.5;
       const matchNames = matches.map(id => rawScored.find(x => x.id === id)?.name || id);
-      s.bonusReasons.push(`🤝 「${matchNames.join('・')}」と同時申請可能→費用対効果が高い`);
+      s.bonusReasons.push(`「${matchNames.join('・')}」と同時申請可能→費用対効果が高い`);
     }
   });
 
@@ -2841,42 +2882,42 @@ function runDiagnosis() {
 // ─── カテゴリ分類マップ ───────────────────────────────────
 const SUBSIDY_CATEGORY_MAP = {
   // 設備投資補助金
-  'monozukuri-hojyokin':   { label: '設備投資補助金', cls: 'cat-subsidy', icon: '🏭' },
-  'monozukuri-shooryoka':  { label: '設備投資補助金（省力化）', cls: 'cat-subsidy', icon: '🤖' },
-  'shooryoka':             { label: '省力化補助金', cls: 'cat-subsidy', icon: '🤖' },
-  'jigyo-shinsyutsu':      { label: '新分野進出補助金', cls: 'cat-subsidy', icon: '🚀' },
-  'shoene':                { label: '省エネ補助金', cls: 'cat-subsidy', icon: '🌿' },
-  'seichokasoku':          { label: '成長加速補助金', cls: 'cat-subsidy', icon: '📈' },
-  'jizokuka-hojyokin':     { label: '販路開拓補助金', cls: 'cat-subsidy', icon: '🛒' },
-  'jigyo-shokei':          { label: '事業承継補助金', cls: 'cat-other', icon: '🤝' },
+  'monozukuri-hojyokin':   { label: '設備投資補助金', cls: 'cat-subsidy' },
+  'monozukuri-shooryoka':  { label: '設備投資補助金（省力化）', cls: 'cat-subsidy' },
+  'shooryoka':             { label: '省力化補助金', cls: 'cat-subsidy' },
+  'jigyo-shinsyutsu':      { label: '新分野進出補助金', cls: 'cat-subsidy' },
+  'shoene':                { label: '省エネ補助金', cls: 'cat-subsidy' },
+  'seichokasoku':          { label: '成長加速補助金', cls: 'cat-subsidy' },
+  'jizokuka-hojyokin':     { label: '販路開拓補助金', cls: 'cat-subsidy' },
+  'jigyo-shokei':          { label: '事業承継補助金', cls: 'cat-other' },
   // IT・デジタル化補助金
-  'it-donyu':              { label: 'IT・デジタル化補助金', cls: 'cat-it', icon: '💻' },
-  'it-security':           { label: 'セキュリティ補助金', cls: 'cat-it', icon: '🔒' },
+  'it-donyu':              { label: 'IT・デジタル化補助金', cls: 'cat-it' },
+  'it-security':           { label: 'セキュリティ補助金', cls: 'cat-it' },
   // 雇用調整・安定
-  'koyo-chosei':           { label: '雇用調整助成金', cls: 'cat-employ', icon: '🏢' },
-  'sangyo-koyo-antei-shukko': { label: '雇用安定助成金', cls: 'cat-employ', icon: '🔄' },
-  'sangyo-koyo-skillup':   { label: '雇用安定助成金', cls: 'cat-employ', icon: '📚' },
+  'koyo-chosei':           { label: '雇用調整助成金', cls: 'cat-employ' },
+  'sangyo-koyo-antei-shukko': { label: '雇用安定助成金', cls: 'cat-employ' },
+  'sangyo-koyo-skillup':   { label: '雇用安定助成金', cls: 'cat-employ' },
   // 人材育成
-  'jinzai-ikusei-shien':   { label: '人材育成助成金', cls: 'cat-hr', icon: '🎓' },
-  'jinzai-reskilling':     { label: '人材育成助成金', cls: 'cat-hr', icon: '🎓' },
-  'jinzai-hito-investment':{ label: '人材育成助成金', cls: 'cat-hr', icon: '🎓' },
-  'jinzai-kensetsu-gino':  { label: '人材育成助成金（建設）', cls: 'cat-hr', icon: '⛏️' },
-  'jinzai-kensetsu-nintei':{ label: '人材育成助成金（建設）', cls: 'cat-hr', icon: '⛏️' },
+  'jinzai-ikusei-shien':   { label: '人材育成助成金', cls: 'cat-hr' },
+  'jinzai-reskilling':     { label: '人材育成助成金', cls: 'cat-hr' },
+  'jinzai-hito-investment':{ label: '人材育成助成金', cls: 'cat-hr' },
+  'jinzai-kensetsu-gino':  { label: '人材育成助成金（建設）', cls: 'cat-hr' },
+  'jinzai-kensetsu-nintei':{ label: '人材育成助成金（建設）', cls: 'cat-hr' },
   // キャリアアップ・両立支援
-  'career-up-seishainuka': { label: 'キャリアアップ助成金', cls: 'cat-hr', icon: '⬆️' },
-  'career-up-chingin-kaitei':{ label: 'キャリアアップ助成金', cls: 'cat-hr', icon: '⬆️' },
-  'ryoritsu-kaigo-boushi': { label: '両立支援助成金', cls: 'cat-wage', icon: '👨‍👩‍👧' },
-  'kosodate-ninshin-mamonaku':{ label: '両立支援助成金', cls: 'cat-wage', icon: '🤰' },
-  'ryoritsu-sanka':        { label: '両立支援助成金', cls: 'cat-wage', icon: '👨‍👩‍👧' },
+  'career-up-seishainuka': { label: 'キャリアアップ助成金', cls: 'cat-hr' },
+  'career-up-chingin-kaitei':{ label: 'キャリアアップ助成金', cls: 'cat-hr' },
+  'ryoritsu-kaigo-boushi': { label: '両立支援助成金', cls: 'cat-wage' },
+  'kosodate-ninshin-mamonaku':{ label: '両立支援助成金', cls: 'cat-wage' },
+  'ryoritsu-sanka':        { label: '両立支援助成金', cls: 'cat-wage' },
   // 賃上げ・労働環境
-  'gyomu-kaizen':          { label: '賃上げ設備助成金', cls: 'cat-wage', icon: '💴' },
-  'hatarakikata-jikangai': { label: '働き方改革助成金', cls: 'cat-wage', icon: '⏰' },
-  'tokutei-shinkibo':      { label: '社会保険適用助成金', cls: 'cat-other', icon: '🏥' },
-  'shogaisha-shisetsu-setchino':{ label: '障害者雇用助成金', cls: 'cat-other', icon: '♿' },
+  'gyomu-kaizen':          { label: '賃上げ設備助成金', cls: 'cat-wage' },
+  'hatarakikata-jikangai': { label: '働き方改革助成金', cls: 'cat-wage' },
+  'tokutei-shinkibo':      { label: '社会保険適用助成金', cls: 'cat-other' },
+  'shogaisha-shisetsu-setchino':{ label: '障害者雇用助成金', cls: 'cat-other' },
 };
 
 function getCategory(id) {
-  return SUBSIDY_CATEGORY_MAP[id] || { label: '助成金・補助金', cls: 'cat-other', icon: '📄' };
+  return SUBSIDY_CATEGORY_MAP[id] || { label: '助成金・補助金', cls: 'cat-other' };
 }
 
 // ─────────────────────────────────────────────
@@ -3061,7 +3102,7 @@ function renderResults(scored, combos, conflicts, meta) {
   <div class="hero-result-card">
     <div class="hero-result-label">最もマッチした補助金・助成金</div>
     <div class="hero-result-body">
-      <span class="category-badge ${topCat.cls}">${topCat.icon} ${topCat.label}</span>
+      <span class="category-badge ${topCat.cls}">${topCat.label}</span>
       <div class="hero-result-name">${top.name}</div>
       <div class="hero-result-amount">${fmt(top.max_amount)}<span>まで受給可能</span></div>
       ${topReasons.length > 0 ? `<div class="hero-result-reasons">${topReasons.map(r => `• ${r}`).join('<br>')}</div>` : ''}
@@ -3104,7 +3145,7 @@ function renderResults(scored, combos, conflicts, meta) {
       <div class="sub-result-header" onclick="toggleSub('sub-${s.id}', this)">
         <div class="sub-rank">${rank}</div>
         <div class="sub-info">
-          <div style="margin-bottom:3px"><span class="category-badge ${cat.cls}" style="font-size:10px;padding:1px 6px">${cat.icon} ${cat.label}</span></div>
+          <div style="margin-bottom:3px"><span class="category-badge ${cat.cls}" style="font-size:10px;padding:1px 6px">${cat.label}</span></div>
           <div class="sub-name">${s.name}</div>
           <div class="sub-meta">難易度 ${'★'.repeat(s.difficulty)}${'☆'.repeat(3-s.difficulty)} &ensp; 準備 約${s.lead_time_months}ヶ月${s.wage_required ? ' &ensp; 賃上げ条件あり' : ''}</div>
         </div>
@@ -3225,7 +3266,7 @@ function renderCard(s, i) {
       <div class="subsidy-header" onclick="toggle('d_${s.id}')">
         <div class="rank ${i < 3 ? 'gold' : ''}">${i + 1}</div>
         <div class="subsidy-info">
-          <div style="margin-bottom:4px"><span class="category-badge ${cat.cls}">${cat.icon} ${cat.label}</span></div>
+          <div style="margin-bottom:4px"><span class="category-badge ${cat.cls}">${cat.label}</span></div>
           <div class="subsidy-name">${s.name}</div>
           <div class="subsidy-tags">
             <span class="tag green">${['','易(★☆☆)','中(★★☆)','難(★★★)'][s.difficulty]}</span>
@@ -3241,7 +3282,7 @@ function renderCard(s, i) {
       </div>
       <div class="subsidy-detail" id="d_${s.id}">
         ${s.description ? `<div style="margin-top:14px;font-size:13px;line-height:1.7;color:var(--gray-700);background:var(--gray-50);border-radius:7px;padding:12px 14px;border-left:3px solid var(--primary)">${s.description}</div>` : ''}
-        <div style="margin-top:14px;font-size:13px;font-weight:600;margin-bottom:4px">💴 助成額の内訳</div>
+        <div style="margin-top:14px;font-size:13px;font-weight:600;margin-bottom:4px">助成額の内訳</div>
         <div style="font-size:13px;color:var(--gray-700)">${s.amount_note}</div>
 
         ${s.timingWarning ? `<div style="margin-top:10px;font-size:12px;color:#9a3412;background:#fff7ed;padding:8px 12px;border-radius:6px">${s.timingWarning}</div>` : ''}
@@ -3294,7 +3335,7 @@ function onQ10Change(val) {
     fb.style.display = 'block';
     fb.className = 'inline-feedback';
     fb.innerHTML = `
-      <strong>📌 赤字でも補助金は申請できます。むしろチャンスです。</strong><br>
+      <strong>赤字でも補助金は申請できます。むしろチャンスです。</strong><br>
       ものづくり補助金・省力化補助金などでは、「赤字決算」「業況悪化」の企業向けに<u>補助率が上がる特例枠（例：通常1/2→2/3）</u>が設けられています。
       「苦しいから申請できない」ではなく、「苦しいから優先的に支援される」制度です。
     `;
@@ -3344,14 +3385,14 @@ function onQ12Change(val) {
   if (inputWage < localMin) {
     fb.className = 'inline-feedback warn';
     fb.innerHTML = `
-      ⚠️ 入力した時給 <strong>${inputWage.toLocaleString()}円</strong> は、${baseLabel}を下回っています。<br>
+      【注意】入力した時給 <strong>${inputWage.toLocaleString()}円</strong> は、${baseLabel}を下回っています。<br>
       最低賃金法違反の可能性があります。補助金の賃上げ要件（地域最低賃金＋30円以上）を確認のうえ、早めに見直してください。<br>
-      <small>💡 業務改善助成金を活用すれば、賃上げに必要な設備投資費用の最大90%が補助されます</small>
+      <small>業務改善助成金を活用すれば、賃上げに必要な設備投資費用の最大90%が補助されます</small>
     `;
   } else if (inputWage < localMin + 30) {
     fb.className = 'inline-feedback warn';
     fb.innerHTML = `
-      💡 時給 <strong>${inputWage.toLocaleString()}円</strong> は${baseLabel}はクリアしていますが、多くの補助金で求められる「地域最低賃金＋30円以上」にギリギリの水準です。<br>
+      時給 <strong>${inputWage.toLocaleString()}円</strong> は${baseLabel}はクリアしていますが、多くの補助金で求められる「地域最低賃金＋30円以上」にギリギリの水準です。<br>
       業務改善助成金などを活用すれば、<u>賃上げ費用の最大90%を補助</u>してもらいながら時給を上げることができます。
     `;
   } else if (inputWage < localMin + 80) {
@@ -3363,7 +3404,7 @@ function onQ12Change(val) {
   } else {
     fb.className = 'inline-feedback';
     fb.innerHTML = `
-      🌟 時給 <strong>${inputWage.toLocaleString()}円</strong> — ${baseLabel}を大きく上回っています。賃上げへの積極姿勢が伝わります。<br>
+      時給 <strong>${inputWage.toLocaleString()}円</strong> — ${baseLabel}を大きく上回っています。賃上げへの積極姿勢が伝わります。<br>
       ものづくり補助金・省力化補助金では「高い賃上げ率」が審査加点になります。この水準の継続・さらなる引き上げで採択率が上がります。
     `;
   }

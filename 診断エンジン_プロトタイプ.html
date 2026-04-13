@@ -718,69 +718,124 @@
 
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
-    padding: 108px 0 96px;
+    padding: 80px 0 0;
     margin-bottom: 56px;
-    text-align: center;
-    background: radial-gradient(ellipse 90% 60% at 50% -5%, rgba(0,102,255,0.05) 0%, transparent 70%), #fff;
-    border-bottom: 1px solid var(--gray-100);
+    background: white;
+    border-bottom: 1px solid var(--gray-200);
     position: relative;
+    overflow: hidden;
+  }
+  #intro-hero::after {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -120px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0,102,255,0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-top {
+    padding-bottom: 64px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-overline {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    margin-bottom: 20px;
+    text-transform: uppercase;
   }
   .hero-h1 {
-    font-size: 64px;
+    font-size: 60px;
     font-weight: 900;
-    line-height: 1.15;
+    line-height: 1.14;
     letter-spacing: -0.05em;
     color: #080e1c;
-    margin: 0 auto 22px;
-    max-width: 780px;
+    margin-bottom: 22px;
+    max-width: 680px;
   }
-  .hero-accent {
-    color: var(--primary);
-    position: relative;
-    display: inline-block;
-  }
+  .hero-accent { color: var(--primary); }
   .hero-sub {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.85;
     color: var(--gray-600);
-    margin: 0 auto 44px;
-    max-width: 480px;
-    font-weight: 400;
-  }
-  .hero-cta-wrap {
-    margin-bottom: 22px;
+    margin-bottom: 36px;
+    max-width: 500px;
   }
   .btn-hero {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     background: var(--primary);
     color: white;
     border: none;
-    border-radius: 12px;
-    padding: 20px 60px;
-    font-size: 17px;
+    border-radius: 8px;
+    padding: 17px 40px;
+    font-size: 16px;
     font-weight: 700;
     cursor: pointer;
     font-family: inherit;
-    box-shadow: 0 4px 20px rgba(0,102,255,0.28), 0 1px 4px rgba(0,102,255,0.2);
+    box-shadow: 0 4px 16px rgba(0,102,255,0.28);
     transition: background 0.15s, transform 0.12s, box-shadow 0.15s;
     letter-spacing: -0.01em;
+    margin-bottom: 16px;
   }
   .btn-hero:hover {
     background: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 10px 32px rgba(0,102,255,0.38), 0 2px 8px rgba(0,102,255,0.2);
+    box-shadow: 0 8px 24px rgba(0,102,255,0.38);
   }
   .btn-hero:active { transform: translateY(0); }
+  .btn-hero-arrow {
+    font-size: 18px;
+    line-height: 1;
+    margin-top: -1px;
+    opacity: 0.8;
+  }
   .hero-trust {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
     font-size: 13px;
     color: var(--gray-400);
-    flex-wrap: wrap;
+    letter-spacing: 0.01em;
   }
-  .hero-trust-dot { opacity: 0.4; }
+
+  /* フィーチャーストリップ */
+  .hero-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--gray-200);
+    position: relative;
+    z-index: 1;
+  }
+  .hero-feat {
+    padding: 28px 32px;
+    border-right: 1px solid var(--gray-200);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .hero-feat:last-child { border-right: none; }
+  .hero-feat-num {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: 0.06em;
+    opacity: 0.7;
+  }
+  .hero-feat-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #080e1c;
+    line-height: 1.4;
+  }
+  .hero-feat-desc {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.75;
+    flex: 1;
+  }
 
   /* 旧要素は非表示 */
   .hero-panel { display: none !important; }
@@ -790,15 +845,17 @@
   .hero-right { display: none !important; }
 
   @media (max-width: 780px) {
-    #intro-hero { padding: 72px 0 60px; }
-    .hero-h1 { font-size: 42px; }
-    .hero-sub { font-size: 15px; }
+    #intro-hero { padding: 60px 0 0; }
+    .hero-h1 { font-size: 40px; }
+    .hero-features { grid-template-columns: 1fr; }
+    .hero-feat { border-right: none; border-bottom: 1px solid var(--gray-200); padding: 22px 0; }
+    .hero-feat:last-child { border-bottom: none; }
   }
   @media (max-width: 560px) {
-    #intro-hero { padding: 56px 0 48px; margin-bottom: 32px; }
-    .hero-h1 { font-size: 34px; letter-spacing: -0.03em; }
-    .btn-hero { padding: 18px 40px; font-size: 16px; width: 100%; }
-    .hero-sub { max-width: 100%; }
+    #intro-hero { padding: 48px 0 0; margin-bottom: 32px; }
+    .hero-h1 { font-size: 32px; letter-spacing: -0.03em; }
+    .btn-hero { width: 100%; justify-content: center; font-size: 15px; }
+    .hero-sub { font-size: 14px; }
   }
 
   /* ── PROGRESS BAR ───────────────────────── */
@@ -1013,17 +1070,29 @@
 
 <!-- INTRO HERO (shown before form starts) -->
 <div id="intro-hero">
-  <h1 class="hero-h1">御社に使える補助金、<br><span class="hero-accent">5分でわかります。</span></h1>
-  <p class="hero-sub">業種・従業員数・経営状況を入力するだけで、最大45制度の中から<br>あなたの会社に合った補助金・助成金を自動で絞り込みます。</p>
-  <div class="hero-cta-wrap">
-    <button class="btn-hero" onclick="startDiagnosis()">無料で診断する</button>
+  <div class="hero-top">
+    <p class="hero-overline">Subsidy Finder — 補助金・助成金 自己診断</p>
+    <h1 class="hero-h1">御社に使える補助金、<br><span class="hero-accent">5分でわかります。</span></h1>
+    <p class="hero-sub">業種・従業員数・経営状況を入力するだけで、最大45制度の中からあなたの会社に合った補助金・助成金を自動で絞り込みます。</p>
+    <button class="btn-hero" onclick="startDiagnosis()">無料で診断する <span class="btn-hero-arrow">→</span></button>
+    <p class="hero-trust">45制度対応 &nbsp;·&nbsp; 約5分 &nbsp;·&nbsp; 完全無料・登録不要</p>
   </div>
-  <div class="hero-trust">
-    <span>45制度対応</span>
-    <span class="hero-trust-dot">·</span>
-    <span>約5分で完了</span>
-    <span class="hero-trust-dot">·</span>
-    <span>完全無料・登録不要</span>
+  <div class="hero-features">
+    <div class="hero-feat">
+      <div class="hero-feat-num">01</div>
+      <div class="hero-feat-title">45制度を自動照合</div>
+      <div class="hero-feat-desc">2026年4月時点の最新データベースと照合。業種・規模・経営状況から使える制度を絞り込みます。</div>
+    </div>
+    <div class="hero-feat">
+      <div class="hero-feat-num">02</div>
+      <div class="hero-feat-title">申請要件を同時チェック</div>
+      <div class="hero-feat-desc">賃上げ実績・赤字状況・gBizID取得状況など、複数の加点要件を一度に確認します。</div>
+    </div>
+    <div class="hero-feat">
+      <div class="hero-feat-num">03</div>
+      <div class="hero-feat-title">組み合わせ申請まで提案</div>
+      <div class="hero-feat-desc">複数の補助金を同時に申請できる「スタッキング」の可能性と順序もお伝えします。</div>
+    </div>
   </div>
 </div>
 

@@ -801,31 +801,48 @@
   /* 統計ストリップ */
   .hero-stats-strip {
     display: flex;
-    gap: 0;
-    border-top: 1px solid var(--gray-200);
+    gap: 10px;
     padding-top: 28px;
-    max-width: 480px;
+    border-top: 1px solid var(--gray-200);
   }
   .hero-stat-item {
-    flex: 1;
-    padding-right: 32px;
-    margin-right: 32px;
-    border-right: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 14px 20px;
   }
-  .hero-stat-item:last-child {
-    border-right: none;
-    margin-right: 0;
-    padding-right: 0;
+  .hero-stat-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--primary-light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
   }
+  .hero-stat-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--primary);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .hero-stat-text {}
   .hero-stat-num {
-    font-size: 36px;
+    font-size: 22px;
     font-weight: 900;
-    color: var(--primary);
+    color: var(--gray-900);
     line-height: 1;
-    letter-spacing: -0.04em;
-    margin-bottom: 6px;
+    letter-spacing: -0.03em;
+    margin-bottom: 2px;
   }
-  .hero-stat-unit { font-size: 18px; font-weight: 700; }
+  .hero-stat-unit { font-size: 14px; font-weight: 700; color: var(--gray-900); }
   .hero-stat-label {
     font-size: 11px;
     color: var(--gray-400);
@@ -1072,16 +1089,31 @@
     </div>
     <div class="hero-stats-strip">
       <div class="hero-stat-item">
-        <div class="hero-stat-num">45<span class="hero-stat-unit">件</span></div>
-        <div class="hero-stat-label">対応制度数</div>
+        <div class="hero-stat-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12h6M9 16h4"/></svg>
+        </div>
+        <div class="hero-stat-text">
+          <div class="hero-stat-num">45<span class="hero-stat-unit">件</span></div>
+          <div class="hero-stat-label">対応制度数</div>
+        </div>
       </div>
       <div class="hero-stat-item">
-        <div class="hero-stat-num">5<span class="hero-stat-unit">分</span></div>
-        <div class="hero-stat-label">所要時間</div>
+        <div class="hero-stat-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="hero-stat-text">
+          <div class="hero-stat-num">5<span class="hero-stat-unit">分</span></div>
+          <div class="hero-stat-label">所要時間</div>
+        </div>
       </div>
       <div class="hero-stat-item">
-        <div class="hero-stat-num" style="font-size:26px;letter-spacing:-0.02em">無料</div>
-        <div class="hero-stat-label">登録不要</div>
+        <div class="hero-stat-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="hero-stat-text">
+          <div class="hero-stat-num" style="font-size:20px">無料</div>
+          <div class="hero-stat-label">登録不要</div>
+        </div>
       </div>
     </div>
   </div>

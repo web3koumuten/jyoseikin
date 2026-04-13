@@ -628,17 +628,17 @@
 
 <!-- INTRO HERO (shown before form starts) -->
 <div id="intro-hero">
-  <div class="hero-eyebrow">中小企業・個人事業主向け 無料診断サービス</div>
-  <h1 class="hero-h1">人手不足、コスト高、賃上げの波…<br><span class="hero-accent">その課題、補助金で解決できます</span></h1>
-  <p class="hero-sub">約5分の質問に答えるだけで、貴社が申請できる補助金・助成金を最大<strong>数千万円分</strong>ご提案。難しい手続きは後でOKです。まず「もらえるお金があるか」を確認しましょう。</p>
+  <div class="hero-eyebrow">中小企業・個人事業主向け 無料診断</div>
+  <h1 class="hero-h1">使える補助金・助成金を<br><span class="hero-accent">まず確認してみましょう</span></h1>
+  <p class="hero-sub">質問に答えるだけで、会社の状況に合った補助金・助成金を自動で絞り込みます。難しい手続きは後から。まず「何が使えるか」を把握するところから始めましょう。</p>
   <div class="hero-points">
-    <div class="hp">⏱️ <span>5分で診断完了</span></div>
-    <div class="hp">💯 <span>2026年4月最新情報</span></div>
-    <div class="hp">🔒 <span>完全無料・登録不要</span></div>
-    <div class="hp">📋 <span>41種類の補助金を自動判定</span></div>
+    <div class="hp">⏱️ <span>約5分で完了</span></div>
+    <div class="hp">💯 <span>2026年4月時点の情報</span></div>
+    <div class="hp">🔒 <span>無料・登録不要</span></div>
+    <div class="hp">📋 <span>45種類の制度を自動判定</span></div>
   </div>
-  <button class="btn-hero" onclick="startDiagnosis()">▶ 無料診断を始める</button>
-  <p class="hero-caution">※ ご入力いただいた情報は診断にのみ使用します</p>
+  <button class="btn-hero" onclick="startDiagnosis()">診断を始める</button>
+  <p class="hero-caution">※ 入力した情報は診断にのみ使用します</p>
 </div>
 
 <!-- HEARING FORM -->
@@ -660,30 +660,30 @@
   <!-- Part 1 -->
   <div class="section" data-section="1">
     <div class="section-header">
-      <h2>STEP 1 ── まず、貴社のことを教えてください</h2>
-      <p>法人の種類・業種・従業員数で、申請できる補助金の「枠」が決まります</p>
+      <h2>STEP 1 — 会社のことを教えてください</h2>
+      <p>法人の種類・業種・従業員数によって、使える補助金の枠が変わります</p>
     </div>
     <div class="section-body">
 
       <div class="inline-fields">
         <div class="field">
-          <div class="field-label"><span class="q">Q1</span>貴社名</div>
+          <div class="field-label"><span class="q">Q1</span>会社名</div>
           <input type="text" id="q1" placeholder="例：株式会社○○">
         </div>
         <div class="field">
-          <div class="field-label"><span class="q">Q2</span>ご担当者名</div>
+          <div class="field-label"><span class="q">Q2</span>担当者名</div>
           <input type="text" id="q2" placeholder="例：山田 太郎">
         </div>
       </div>
 
       <div class="inline-fields">
         <div class="field">
-          <div class="field-label"><span class="q">Q3</span>連絡先（電話／メール）</div>
+          <div class="field-label"><span class="q">Q3</span>連絡先（電話またはメール）</div>
           <input type="text" id="q3" placeholder="例：03-XXXX-XXXX">
         </div>
         <div class="field">
-          <div class="field-label"><span class="q">Q4</span>所在地（都道府県・市区町村）</div>
-          <input type="text" id="q4" placeholder="例：東京都渋谷区">
+          <div class="field-label"><span class="q">Q4</span>所在地</div>
+          <input type="text" id="q4" placeholder="例：岩手県盛岡市">
         </div>
       </div>
 
@@ -699,8 +699,7 @@
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q6</span>法人形態</div>
-        <p class="field-note">※補助金によって対象となる法人が厳密に規定されています</p>
+        <div class="field-label"><span class="q">Q6</span>法人の形態</div>
         <div class="choices">
           <label class="choice-row"><input type="radio" name="q6" value="法人（株式・合同・有限）"><span>株式会社・合同会社・有限会社</span></label>
           <label class="choice-row"><input type="radio" name="q6" value="個人事業主"><span>個人事業主</span></label>
@@ -718,13 +717,13 @@
           <label class="choice-row"><input type="radio" name="q7" value="小売業"><span>小売業</span></label>
           <label class="choice-row"><input type="radio" name="q7" value="医療・介護・福祉"><span>医療・介護・福祉</span></label>
           <label class="choice-row"><input type="radio" name="q7" value="サービス業（宿泊・娯楽以外）"><span>サービス業（宿泊・娯楽以外）</span></label>
-          <label class="choice-row"><input type="radio" name="q7" value="サービス業（宿泊・娯楽）"><span>サービス業（宿泊・娯楽）</span></label>
+          <label class="choice-row"><input type="radio" name="q7" value="サービス業（宿泊・娯楽）"><span>飲食・宿泊・娯楽・レジャー</span></label>
           <label class="choice-row"><input type="radio" name="q7" value="その他"><span>その他</span></label>
         </div>
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q8</span>従業員数（役員・個人事業主本人を除く、常時使用する従業員数）</div>
+        <div class="field-label"><span class="q">Q8</span>従業員数（役員・事業主本人を除く）</div>
         <input type="number" id="q8" placeholder="例：12（名）" min="0">
       </div>
 
@@ -734,46 +733,44 @@
   <!-- Part 2 -->
   <div class="section" data-section="2">
     <div class="section-header">
-      <h2>STEP 2 ── 今の経営状況を正直に教えてください</h2>
-      <p>「赤字だから不利」は誤解です。状況によっては補助率が上がる特例もあります</p>
+      <h2>STEP 2 — 今の経営状況を教えてください</h2>
+      <p>赤字でも申請できます。状況によっては補助率が上がる場合があります</p>
     </div>
     <div class="section-body">
 
       <div class="field">
         <div class="field-label"><span class="q">Q10</span>直近の決算はどうでしたか？</div>
-        <p class="field-note help-note">💡 赤字でも大丈夫です。国の補助金は「これから立て直す企業」を後押しする制度。補助率が上がる特例枠もあります</p>
         <div class="choices">
-          <label class="choice-row"><input type="radio" name="q10" value="黒字" onchange="onQ10Change(this.value)"><span>✅ 黒字（利益が出ている）</span></label>
-          <label class="choice-row"><input type="radio" name="q10" value="赤字" onchange="onQ10Change(this.value)"><span>📉 赤字（コスト高・売上減などで苦しい） <span class="badge" style="background:#dcfce7;color:#166534">補助率UP特例あり</span></span></label>
+          <label class="choice-row"><input type="radio" name="q10" value="黒字" onchange="onQ10Change(this.value)"><span>黒字</span></label>
+          <label class="choice-row"><input type="radio" name="q10" value="赤字" onchange="onQ10Change(this.value)"><span>赤字 <span class="badge" style="background:#dcfce7;color:#166534">補助率が上がる特例あり</span></span></label>
         </div>
         <div id="q10-feedback" class="inline-feedback" style="display:none"></div>
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q11</span>消費税のインボイス（適格請求書）発行事業者に登録していますか？</div>
-        <p class="field-note help-note">💡 「インボイス」＝取引先に発行する請求書の新しい形式。2023年10月から始まった制度です</p>
+        <div class="field-label"><span class="q">Q11</span>インボイス（適格請求書）の発行事業者に登録していますか？</div>
         <div class="choices">
-          <label class="choice-row"><input type="radio" name="q11" value="登録済み"><span>登録している（登録番号をもらった）</span></label>
-          <label class="choice-row"><input type="radio" name="q11" value="未登録（免税事業者）"><span>登録していない（年商1,000万円以下の免税事業者） <span class="badge">ITツール導入に特例枠あり</span></span></label>
-          <label class="choice-row"><input type="radio" name="q11" value="転換検討中"><span>まだ登録していないが、今後する予定</span></label>
+          <label class="choice-row"><input type="radio" name="q11" value="登録済み"><span>登録している</span></label>
+          <label class="choice-row"><input type="radio" name="q11" value="未登録（免税事業者）"><span>登録していない（免税事業者） <span class="badge">IT補助金の特例枠あり</span></span></label>
+          <label class="choice-row"><input type="radio" name="q11" value="転換検討中"><span>まだだが、今後する予定</span></label>
         </div>
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q12</span>社内で一番低い時給はいくらですか？（パート・アルバイト含む）</div>
-        <p class="field-note help-note">💡 「事業場内最低賃金」のことです。おおよその金額で大丈夫です</p>
+        <div class="field-label"><span class="q">Q12</span>社内でいちばん低い時給はいくらですか？</div>
+        <p class="field-note">パート・アルバイトを含む、おおよその金額で大丈夫です</p>
         <input type="number" id="q12" placeholder="例：1050（円）" min="0" oninput="onQ12Change(this.value)">
         <div id="q12-feedback" class="inline-feedback" style="display:none;margin-top:8px"></div>
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q13</span>今後、従業員の給料を上げることはできそうですか？</div>
-        <p class="field-note help-note">💡 賃上げは多くの補助金の条件です。ただし医療・介護・福祉系は「公定価格」の関係で免除される場合があります</p>
+        <div class="field-label"><span class="q">Q13</span>今後、給料を上げていく余地はありますか？</div>
+        <p class="field-note">賃上げは多くの補助金の申請条件になっています（医療・介護・福祉系は免除枠あり）</p>
         <div class="choices">
-          <label class="choice-row"><input type="radio" name="q13" value="ベースアップ可能"><span>💪 はい、全体的に給料を上げていけます（年率1.5〜6%程度）</span></label>
-          <label class="choice-row"><input type="radio" name="q13" value="最低賃金引き上げ可能"><span>📈 最低限、一番低い時給は引き上げできます（地域最低賃金＋30〜50円以上）</span></label>
-          <label class="choice-row"><input type="radio" name="q13" value="公定価格のため困難"><span>🏥 医療・介護・福祉なので、価格が決まっていて難しい <span class="badge">免除枠あり</span></span></label>
-          <label class="choice-row"><input type="radio" name="q13" value="賃上げ困難"><span>😔 今は難しい・補助金がとれてから考えたい</span></label>
+          <label class="choice-row"><input type="radio" name="q13" value="ベースアップ可能"><span>はい、全体的に引き上げていける</span></label>
+          <label class="choice-row"><input type="radio" name="q13" value="最低賃金引き上げ可能"><span>いちばん低い時給だけなら上げられる</span></label>
+          <label class="choice-row"><input type="radio" name="q13" value="公定価格のため困難"><span>医療・介護・福祉系のため価格が決まっていて難しい <span class="badge">免除枠あり</span></span></label>
+          <label class="choice-row"><input type="radio" name="q13" value="賃上げ困難"><span>今は難しい。補助金が取れてから考えたい</span></label>
         </div>
       </div>
 
@@ -783,8 +780,8 @@
   <!-- Part 3 -->
   <div class="section" data-section="3">
     <div class="section-header">
-      <h2>STEP 3 ── どんな課題を解決したいですか？</h2>
-      <p>当てはまるものを全部選んでください。複数選んでOKです</p>
+      <h2>STEP 3 — 今、何をしたいですか？</h2>
+      <p>当てはまるものを選んでください（複数OK）</p>
     </div>
     <div class="section-body">
 
@@ -863,41 +860,40 @@
   <!-- Part 4 -->
   <div class="section" data-section="4">
     <div class="section-header">
-      <h2>STEP 4 ── 申請の準備状況を教えてください</h2>
-      <p>これだけで採択率が大きく変わります。今すぐできることも一緒にご提案します</p>
+      <h2>STEP 4 — 申請の準備状況を教えてください</h2>
+      <p>ここで採択率が変わります。まだ準備できていなくても、結果画面で案内します</p>
     </div>
     <div class="section-body">
 
       <div class="field">
-        <div class="field-label"><span class="q">Q18</span>「gBizIDプライム」アカウントは取得していますか？</div>
-        <p class="field-note help-note">💡 gBizIDは、国の補助金申請に必要な「会社の認証カード」のようなものです。無料で取得でき、申請からおよそ2週間かかります。まだの方は今日から手続きすることをおすすめします</p>
+        <div class="field-label"><span class="q">Q18</span>「gBizIDプライム」は取得していますか？</div>
+        <p class="field-note">国の主要補助金の申請に必要なアカウントです（無料・取得まで約2週間）</p>
         <div class="choices">
-          <label class="choice-row"><input type="radio" name="q18" value="取得済み"><span>取得済み <span class="badge">申請可能</span></span></label>
-          <label class="choice-row"><input type="radio" name="q18" value="未取得"><span>未取得</span></label>
+          <label class="choice-row"><input type="radio" name="q18" value="取得済み"><span>取得済み</span></label>
+          <label class="choice-row"><input type="radio" name="q18" value="未取得"><span>まだない</span></label>
           <label class="choice-row"><input type="radio" name="q18" value="申請中"><span>申請中</span></label>
         </div>
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q19</span>過去に補助金・助成金を受給したことはありますか？</div>
-        <p class="field-note help-note">💡 受給歴がある場合、次の申請では「賃上げ目標を少し高く設定する」条件が付く場合があります。診断時の参考にしますので、おおよそで構いません</p>
+        <div class="field-label"><span class="q">Q19</span>過去に補助金・助成金を受けたことはありますか？</div>
         <div class="choices">
           <label class="choice-row"><input type="radio" name="q19" value="なし"><span>ない</span></label>
           <label class="choice-row"><input type="radio" name="q19" value="あり"><span>ある</span></label>
         </div>
-        <div style="margin-top:8px"><input type="text" id="q19_detail" placeholder="補助金名と受給年度（例：ものづくり補助金 2023年）"></div>
+        <div style="margin-top:8px"><input type="text" id="q19_detail" placeholder="補助金名と年度（例：ものづくり補助金 2023年）"></div>
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q20</span>取得済みの「加点アイテム」はありますか？（複数選択可）</div>
-        <p class="field-note help-note">💡 これらは補助金の審査で有利になる「加点項目」です。まだ取得していなくても大丈夫。診断後に「今すぐ取れるもの」をご案内します</p>
+        <div class="field-label"><span class="q">Q20</span>すでに取得している加点項目はありますか？（複数選択可）</div>
+        <p class="field-note">審査で有利になる項目です。なくても大丈夫です</p>
         <div class="choices">
           <label class="choice-row"><input type="checkbox" name="q20" value="経営革新計画"><span>経営革新計画の承認</span></label>
           <label class="choice-row"><input type="checkbox" name="q20" value="パートナーシップ構築宣言"><span>パートナーシップ構築宣言</span></label>
-          <label class="choice-row"><input type="checkbox" name="q20" value="SECURITY ACTION"><span>SECURITY ACTION（情報セキュリティ自己宣言）</span></label>
+          <label class="choice-row"><input type="checkbox" name="q20" value="SECURITY ACTION"><span>SECURITY ACTION（セキュリティ自己宣言）</span></label>
           <label class="choice-row"><input type="checkbox" name="q20" value="事業継続力強化計画"><span>事業継続力強化計画（BCP）</span></label>
           <label class="choice-row"><input type="checkbox" name="q20" value="みらデジ経営チェック"><span>みらデジ経営チェック</span></label>
-          <label class="choice-row"><input type="checkbox" name="q20" value="なし"><span>特にない（これから取得を検討したい）</span></label>
+          <label class="choice-row"><input type="checkbox" name="q20" value="なし"><span>特にない</span></label>
         </div>
       </div>
 
@@ -2670,13 +2666,12 @@ function renderResults(scored, combos, conflicts, meta) {
   if (meta.q18 !== '取得済み') {
     html += `
     <div class="gbiz-alert">
-      <div class="alert-title">🚨 【最優先対応】gBizIDプライムアカウントが未取得です</div>
+      <div class="alert-title">まず「gBizIDプライム」を取得してください</div>
       <div class="alert-body">
-        「デジタル化・AI導入補助金」「省力化投資補助金」「ものづくり補助金」など<strong>主要補助金の申請にはすべてgBizIDプライムが必須</strong>です。
-        取得には<strong>印鑑証明書の郵送等で約2週間</strong>かかります。
-        ${urgentTiming ? '<strong style="color:#ef4444">「半年以内」の投資実施を希望される場合、今すぐ手続きを開始しないと補助金申請のスケジュールに間に合いません。</strong>' : '補助金の交付決定前に機器の発注・購入をした場合は補助対象外になるため、今すぐ手続きを開始してください。'}
+        上の補助金の多くは、gBizIDがないと申請できません。取得は無料ですが<strong>郵送手続きで約2週間</strong>かかります。
+        ${urgentTiming ? '<strong style="color:#ef4444">今すぐ手続きを始めないと、スケジュールに間に合わない可能性があります。</strong>' : '補助金の交付決定が出る前に機器を発注・購入すると対象外になるので、先に取得しておきましょう。'}
       </div>
-      <a href="https://gbiz-id.go.jp/top/index.html" target="_blank" rel="noopener" class="gbiz-btn">▶ 今すぐ gBizIDを申請する（無料）</a>
+      <a href="https://gbiz-id.go.jp/top/index.html" target="_blank" rel="noopener" class="gbiz-btn">gBizIDを申請する（無料）</a>
     </div>`;
   }
 
@@ -2732,7 +2727,7 @@ function renderResults(scored, combos, conflicts, meta) {
 
     html += `
     <div class="next-action-panel">
-      <h3>⚡ 今すぐやること ── 「${top.name}」申請への道筋</h3>
+      <h3>「${top.name}」を申請するまでにやること</h3>
       <div class="next-steps">
         ${steps.map((step, i) => `
           <div class="next-step">
@@ -2755,16 +2750,16 @@ function renderResults(scored, combos, conflicts, meta) {
   // ══════════════════════════════════════════════════════
   if (meta.isDeficit) {
     const wageMsg = meta.wageUp
-      ? `貴社は<strong>赤字 × 賃上げ意欲あり</strong>という条件で、複数の補助金において<strong>補助率が2/3→3/4に引き上がる特例枠</strong>の対象となる可能性があります。`
-      : `直近決算が赤字の企業向けに、一部補助金では<strong>補助率の引き上げや再生支援枠</strong>が設けられています。賃上げ計画を合わせると更に有利になります。`;
+      ? `赤字 × 賃上げ意欲ありという条件で、複数の補助金で<strong>補助率が引き上がる特例枠</strong>の対象になる可能性があります。`
+      : `赤字企業向けに、<strong>補助率が上がる枠や再生支援枠</strong>を設けている補助金があります。賃上げ計画をセットにするとさらに有利になります。`;
     html += `
     <div class="opportunity-panel">
-      <div class="opp-title">🎯 【チャンス】赤字決算は補助率アップの特例対象になる場合があります</div>
+      <div class="opp-title">赤字でも、むしろ有利になる補助金があります</div>
       <p>${wageMsg}</p>
       <div class="opp-point">
         <div class="opp-point-icon">💡</div>
-        <div>「赤字だから審査に通らない」は誤解です。補助金は<strong>これから事業を立て直す企業を後押しする制度</strong>です。
-        赤字決算は「省力化・デジタル化で生産性を上げ、その成果で賃上げを実現する」という経営ストーリーを語る絶好の材料になります。</div>
+        <div>「赤字だから審査に通らない」は誤解です。補助金は<strong>立て直しを後押しする制度</strong>でもあります。
+        「省力化・デジタル化で生産性を上げ、その成果で賃上げを実現する」というストーリーは、審査でも説得力を持ちます。</div>
       </div>
       ${meta.wageUp && budget >= 1000 ? `
       <div class="minjob-panel">
@@ -2792,7 +2787,7 @@ function renderResults(scored, combos, conflicts, meta) {
 
     html += `
     <div class="portfolio-panel">
-      <h3>🗂️ 投資ポートフォリオ提案 — 複数補助金の組み合わせ戦略</h3>
+      <h3>複数の補助金を組み合わせる場合の考え方</h3>
       <div class="portfolio-proposals">
         ${proA_item ? `
         <div class="portfolio-proposal">
@@ -2831,7 +2826,7 @@ function renderResults(scored, combos, conflicts, meta) {
 
   // ── スタッキング ──
   if (combos.length > 0) {
-    html += `<div class="stack-panel"><h3>⚡ おすすめ組み合わせ（スタッキング）</h3>`;
+    html += `<div class="stack-panel"><h3>同時に申請できる組み合わせ</h3>`;
     combos.forEach(c => {
       html += `
         <div class="stack-combo">
@@ -2853,13 +2848,13 @@ function renderResults(scored, combos, conflicts, meta) {
   }
 
   // ── 各補助金の詳細カード ──
-  html += `<div class="result-section"><div class="section-title">📄 各補助金・助成金の詳細</div>`;
+  html += `<div class="result-section"><div class="section-title">各補助金・助成金の詳細</div>`;
   scored.forEach((s, i) => { html += renderCard(s, i); });
   html += `</div>`;
 
   // ── 比較表 ──
   if (scored.length >= 2) {
-    html += `<div class="result-section"><div class="section-title">📊 比較表</div><div class="compare-wrap"><table>
+    html += `<div class="result-section"><div class="section-title">比較表</div><div class="compare-wrap"><table>
       <thead><tr><th>名称</th><th>最大受給額</th><th>難易度</th><th>準備期間</th><th>申請タイミング</th></tr></thead>
       <tbody>
         ${scored.map(s => `<tr>
@@ -2879,8 +2874,8 @@ function renderResults(scored, combos, conflicts, meta) {
   if (noAddPoints) {
     html += `
     <div class="roadmap-panel">
-      <h3>🗓️ 採択率を上げる「加点獲得ロードマップ」</h3>
-      <p style="margin-bottom:12px;font-size:12px">現在、審査で有利になる加点認定が取得されていません。以下のステップで補助金の採択率を大きく高められます。</p>
+      <h3>採択率を上げるために、並行してやっておくこと</h3>
+      <p style="margin-bottom:12px;font-size:12px">審査で有利になる加点項目がまだ取得されていません。補助金の申請準備と並行して進めると採択率が上がります。</p>
       <div class="roadmap-steps">
         <div class="roadmap-step">
           <div class="step-period">⚡ 今すぐ〜1週間</div>
@@ -2941,7 +2936,7 @@ function renderCard(s, i) {
         ${s.invoiceNote ? `<div style="margin-top:6px;font-size:12px;color:#1e40af;background:#dbeafe;padding:8px 12px;border-radius:6px">${s.invoiceNote}</div>` : ''}
 
         <div class="match-box">
-          <strong>✅ マッチした理由</strong>
+          <strong>この会社が対象になる理由</strong>
           ${s.reasons.map(r => `<span class="mtag">${r}</span>`).join('')}
           ${s.bonusReasons.map(r => `<span class="mtag" style="background:#fef3c7;color:#92400e">${r}</span>`).join('')}
         </div>

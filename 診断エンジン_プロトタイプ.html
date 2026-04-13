@@ -34,7 +34,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  .container { max-width: 800px; margin: 0 auto; padding: 40px 20px 60px; }
+  .container { max-width: 1040px; margin: 0 auto; padding: 48px 32px 80px; }
 
   /* ── セクション（フォーム） ── */
   .section {
@@ -663,74 +663,143 @@
 
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
-    background: linear-gradient(160deg, #0f2358 0%, #1a41a8 100%);
-    border-radius: 16px;
-    padding: 48px 32px 40px;
-    color: white;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-top: 3px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 56px 64px 52px;
+    color: var(--gray-900);
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+  }
+  .hero-left { }
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-left: 1px solid var(--gray-200);
+    padding-left: 40px;
+    min-width: 200px;
+  }
+  .hero-stat {
     text-align: center;
-    margin-bottom: 32px;
+    padding: 16px 24px;
+  }
+  .hero-stat-num {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-stat-label {
+    font-size: 12px;
+    color: var(--gray-600);
+    font-weight: 500;
+  }
+  .hero-stat-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--gray-200);
   }
   .hero-eyebrow {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.06em;
-    opacity: 0.7;
-    margin-bottom: 16px;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    margin-bottom: 14px;
+    text-transform: uppercase;
   }
   .hero-h1 {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 800;
     line-height: 1.4;
-    margin-bottom: 16px;
+    color: var(--gray-900);
+    margin-bottom: 14px;
   }
   .hero-accent {
-    color: #93c5fd;
+    color: var(--primary);
   }
   .hero-sub {
     font-size: 14px;
     line-height: 1.8;
-    opacity: 0.85;
-    max-width: 560px;
-    margin: 0 auto 24px;
+    color: var(--gray-600);
+    max-width: 500px;
+    margin-bottom: 28px;
   }
   .hero-points {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 28px;
   }
   .hp {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
     border-radius: 6px;
-    padding: 6px 14px;
+    padding: 5px 12px;
     font-size: 12px;
     font-weight: 500;
+    color: var(--gray-700);
     display: flex;
     align-items: center;
     gap: 6px;
-    opacity: 0.9;
+  }
+  .hp::before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--primary);
+    flex-shrink: 0;
   }
   .btn-hero {
-    background: white;
-    color: #0f2358;
+    background: var(--primary);
+    color: white;
     border: none;
     border-radius: 8px;
-    padding: 15px 48px;
-    font-size: 16px;
+    padding: 14px 40px;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     font-family: inherit;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-    transition: transform 0.1s, box-shadow 0.15s, background 0.15s;
+    box-shadow: 0 4px 12px rgba(26,86,219,0.25);
+    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    display: block;
+    width: 100%;
+    text-align: center;
   }
-  .btn-hero:hover { background: #f0f6ff; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+  .btn-hero:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(26,86,219,0.3); }
   .btn-hero:active { transform: translateY(0); }
   .hero-caution {
     font-size: 11px;
-    opacity: 0.6;
-    margin-top: 14px;
+    color: var(--gray-400);
+    margin-top: 10px;
+    text-align: center;
+  }
+  @media (max-width: 720px) {
+    #intro-hero {
+      grid-template-columns: 1fr;
+      padding: 32px 24px 28px;
+      gap: 24px;
+    }
+    .hero-right {
+      border-left: none;
+      border-top: 1px solid var(--gray-200);
+      padding-left: 0;
+      padding-top: 24px;
+      flex-direction: row;
+      justify-content: space-around;
+      min-width: unset;
+    }
+    .hero-stat-divider { display: none; }
+    .hero-h1 { font-size: 22px; }
   }
 
   /* ── PROGRESS BAR ───────────────────────── */
@@ -904,7 +973,7 @@
 
   /* ── スマホ対応 ── */
   @media (max-width: 640px) {
-    .container { padding: 16px 14px 48px; }
+    .container { padding: 16px 16px 48px; }
     .inline-fields { grid-template-columns: 1fr; gap: 0; }
     .section-body { padding: 16px; }
     .section-header { padding: 14px 16px 12px; }
@@ -937,17 +1006,34 @@
 
 <!-- INTRO HERO (shown before form starts) -->
 <div id="intro-hero">
-  <div class="hero-eyebrow">中小企業・個人事業主向け 無料診断</div>
-  <h1 class="hero-h1">使える補助金・助成金を<br><span class="hero-accent">まず確認してみましょう</span></h1>
-  <p class="hero-sub">質問に答えるだけで、会社の状況に合った補助金・助成金を自動で絞り込みます。難しい手続きは後から。まず「何が使えるか」を把握するところから始めましょう。</p>
-  <div class="hero-points">
-    <div class="hp"><span>約5分で完了</span></div>
-    <div class="hp"><span>2026年4月時点の情報</span></div>
-    <div class="hp"><span>無料・登録不要</span></div>
-    <div class="hp"><span>45種類の制度を自動判定</span></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">中小企業・個人事業主向け 無料診断</div>
+    <h1 class="hero-h1">使える補助金・助成金を<br><span class="hero-accent">まず確認してみましょう</span></h1>
+    <p class="hero-sub">質問に答えるだけで、会社の状況に合った補助金・助成金を自動で絞り込みます。難しい手続きは後から。まず「何が使えるか」を把握するところから始めましょう。</p>
+    <div class="hero-points">
+      <div class="hp"><span>約5分で完了</span></div>
+      <div class="hp"><span>2026年4月時点の情報</span></div>
+      <div class="hp"><span>無料・登録不要</span></div>
+    </div>
   </div>
-  <button class="btn-hero" onclick="startDiagnosis()">診断を始める</button>
-  <p class="hero-caution">※ 入力した情報は診断にのみ使用します</p>
+  <div class="hero-right">
+    <div class="hero-stat">
+      <div class="hero-stat-num">45</div>
+      <div class="hero-stat-label">対応制度数</div>
+    </div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">5<span style="font-size:16px;font-weight:600">分</span></div>
+      <div class="hero-stat-label">平均所要時間</div>
+    </div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">無料</div>
+      <div class="hero-stat-label">登録不要</div>
+    </div>
+    <button class="btn-hero" onclick="startDiagnosis()">診断を始める</button>
+    <p class="hero-caution">入力情報は診断にのみ使用します</p>
+  </div>
 </div>
 
 <!-- HEARING FORM -->

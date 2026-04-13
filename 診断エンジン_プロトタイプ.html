@@ -718,13 +718,39 @@
 
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
-    padding: 88px 0 80px;
-    border-bottom: 2px solid var(--gray-100);
-    margin-bottom: 48px;
+    margin: 0 -32px 48px;
+    padding: 80px 32px 72px;
+    background: linear-gradient(160deg, #080d1a 0%, #0f1628 55%, #080e1c 100%);
     position: relative;
+    overflow: hidden;
   }
-  .hero-inner {
-    max-width: 720px;
+  #intro-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(0,102,255,0.1) 1px, transparent 0);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+  #intro-hero::after {
+    content: '';
+    position: absolute;
+    top: -160px;
+    right: 10%;
+    width: 560px;
+    height: 560px;
+    background: radial-gradient(circle, rgba(0,102,255,0.14) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 64px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
   }
   .hero-eyebrow {
     display: inline-flex;
@@ -733,46 +759,45 @@
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: var(--primary);
-    background: var(--primary-light);
+    color: #7ab8ff;
+    background: rgba(0,102,255,0.15);
+    border: 1px solid rgba(0,102,255,0.3);
     border-radius: 99px;
     padding: 6px 16px;
     margin-bottom: 28px;
   }
   .hero-eyebrow::before {
     content: '';
-    width: 6px;
-    height: 6px;
-    background: var(--primary);
+    width: 6px; height: 6px;
+    background: #7ab8ff;
     border-radius: 50%;
     display: block;
     flex-shrink: 0;
   }
   .hero-h1 {
-    font-size: 54px;
+    font-size: 52px;
     font-weight: 900;
     line-height: 1.18;
-    color: var(--gray-900);
-    margin-bottom: 22px;
+    color: white;
+    margin-bottom: 20px;
     letter-spacing: -0.04em;
   }
-  .hero-accent { color: var(--primary); }
+  .hero-accent { color: #5aa8ff; }
   .hero-sub {
-    font-size: 16px;
-    line-height: 1.85;
-    color: var(--gray-600);
+    font-size: 15px;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.55);
     margin-bottom: 36px;
-    font-weight: 400;
-    max-width: 580px;
+    max-width: 500px;
   }
   .hero-cta-row {
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-bottom: 56px;
+    margin-bottom: 24px;
   }
   .btn-hero {
-    background: var(--primary);
+    background: #0066ff;
     color: white;
     border: none;
     border-radius: 10px;
@@ -782,89 +807,113 @@
     cursor: pointer;
     font-family: inherit;
     white-space: nowrap;
-    box-shadow: 0 4px 20px rgba(0,102,255,0.32);
+    box-shadow: 0 4px 24px rgba(0,102,255,0.5);
     transition: background 0.15s, transform 0.12s, box-shadow 0.15s;
-    flex-shrink: 0;
     letter-spacing: -0.01em;
   }
   .btn-hero:hover {
-    background: var(--primary-dark);
+    background: #1a7aff;
     transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(0,102,255,0.4);
+    box-shadow: 0 8px 32px rgba(0,102,255,0.65);
   }
   .btn-hero:active { transform: translateY(0); }
-  .hero-caution {
-    font-size: 13px;
-    color: var(--gray-400);
-    line-height: 1.7;
-  }
-  /* 統計ストリップ */
-  .hero-stats-strip {
+  .hero-trust {
     display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    flex-wrap: wrap;
+  }
+  .hero-trust-dot { opacity: 0.4; }
+
+  /* 右側プレビューカード */
+  .hero-preview {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 20px;
+    backdrop-filter: blur(12px);
+  }
+  .hero-preview-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .hero-preview-item {
+    display: flex;
+    align-items: center;
     gap: 10px;
-    padding-top: 28px;
-    border-top: 1px solid var(--gray-200);
+    padding: 11px 13px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    margin-bottom: 7px;
   }
-  .hero-stat-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--gray-50);
-    border: 1px solid var(--gray-200);
-    border-radius: 12px;
-    padding: 14px 20px;
+  .hero-preview-item.rank1 {
+    background: rgba(0,102,255,0.18);
+    border-color: rgba(0,102,255,0.35);
   }
-  .hero-stat-icon {
-    width: 36px;
-    height: 36px;
-    background: var(--primary-light);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  .preview-rank {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.35);
+    white-space: nowrap;
+    min-width: 22px;
   }
-  .hero-stat-icon svg {
-    width: 18px;
-    height: 18px;
-    stroke: var(--primary);
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .hero-stat-text {}
-  .hero-stat-num {
-    font-size: 22px;
-    font-weight: 900;
-    color: var(--gray-900);
-    line-height: 1;
-    letter-spacing: -0.03em;
+  .rank1 .preview-rank { color: #7ab8ff; }
+  .preview-info { flex: 1; min-width: 0; }
+  .preview-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
     margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .hero-stat-unit { font-size: 14px; font-weight: 700; color: var(--gray-900); }
-  .hero-stat-label {
+  .preview-cat {
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+  }
+  .preview-amt {
     font-size: 11px;
-    color: var(--gray-400);
-    font-weight: 500;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    text-align: right;
+    white-space: nowrap;
+    line-height: 1.4;
   }
-  /* 旧パネルは非表示 */
+  .rank1 .preview-amt { color: #7ab8ff; }
+  .hero-preview-more {
+    font-size: 11px;
+    color: rgba(255,255,255,0.28);
+    text-align: center;
+    padding-top: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  /* 旧要素は非表示 */
   .hero-panel { display: none !important; }
+  .hero-stats-strip { display: none !important; }
   .hero-points { display: none; }
-  @media (max-width: 780px) {
-    #intro-hero { padding: 56px 0 48px; margin-bottom: 32px; }
-    .hero-h1 { font-size: 36px; }
-    .hero-stats-strip { gap: 0; }
-    .hero-stat-item { padding-right: 16px; margin-right: 16px; }
-    .hero-stat-num { font-size: 28px; }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-right { display: none; }
+    .hero-h1 { font-size: 38px; }
+    #intro-hero { padding: 64px 24px 56px; }
   }
   @media (max-width: 560px) {
-    .hero-h1 { font-size: 28px; }
+    #intro-hero { margin: 0 -16px 32px; padding: 52px 20px 44px; }
+    .hero-h1 { font-size: 30px; }
     .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 12px; }
     .btn-hero { width: 100%; text-align: center; }
-    .hero-stats-strip { flex-wrap: wrap; gap: 16px; border-top: none; padding-top: 0; }
-    .hero-stat-item { border-right: none; margin-right: 0; padding-right: 0; min-width: 80px; }
-    .hero-cta-row { margin-bottom: 32px; }
   }
 
   /* ── PROGRESS BAR ───────────────────────── */
@@ -1079,41 +1128,50 @@
 
 <!-- INTRO HERO (shown before form starts) -->
 <div id="intro-hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow">中小企業・個人事業主向け 無料診断ツール</div>
-    <h1 class="hero-h1">御社に使える補助金、<br><span class="hero-accent">5分でわかります。</span></h1>
-    <p class="hero-sub">業種・従業員数・経営状況を入力するだけで、最大45制度の中からあなたの会社に合った補助金・助成金を自動で絞り込みます。</p>
-    <div class="hero-cta-row">
-      <button class="btn-hero" onclick="startDiagnosis()">無料で診断する</button>
-      <span class="hero-caution">約5分<br>登録不要・完全無料</span>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-eyebrow">中小企業・個人事業主向け 無料診断ツール</div>
+      <h1 class="hero-h1">御社に使える補助金、<br><span class="hero-accent">5分でわかります。</span></h1>
+      <p class="hero-sub">業種・従業員数・経営状況を入力するだけで、最大45制度の中からあなたの会社に合った補助金・助成金を自動で絞り込みます。</p>
+      <div class="hero-cta-row">
+        <button class="btn-hero" onclick="startDiagnosis()">無料で診断する</button>
+      </div>
+      <div class="hero-trust">
+        <span>45制度対応</span>
+        <span class="hero-trust-dot">·</span>
+        <span>約5分で完了</span>
+        <span class="hero-trust-dot">·</span>
+        <span>完全無料・登録不要</span>
+      </div>
     </div>
-    <div class="hero-stats-strip">
-      <div class="hero-stat-item">
-        <div class="hero-stat-icon">
-          <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12h6M9 16h4"/></svg>
+    <div class="hero-right">
+      <div class="hero-preview">
+        <div class="hero-preview-label">診断結果イメージ</div>
+        <div class="hero-preview-item rank1">
+          <div class="preview-rank">1位</div>
+          <div class="preview-info">
+            <div class="preview-name">ものづくり補助金</div>
+            <div class="preview-cat">設備投資補助金</div>
+          </div>
+          <div class="preview-amt">最大<br>1,250万円</div>
         </div>
-        <div class="hero-stat-text">
-          <div class="hero-stat-num">45<span class="hero-stat-unit">件</span></div>
-          <div class="hero-stat-label">対応制度数</div>
+        <div class="hero-preview-item">
+          <div class="preview-rank">2位</div>
+          <div class="preview-info">
+            <div class="preview-name">IT導入補助金</div>
+            <div class="preview-cat">IT・デジタル化補助金</div>
+          </div>
+          <div class="preview-amt">最大<br>450万円</div>
         </div>
-      </div>
-      <div class="hero-stat-item">
-        <div class="hero-stat-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div class="hero-preview-item">
+          <div class="preview-rank">3位</div>
+          <div class="preview-info">
+            <div class="preview-name">省力化投資補助金</div>
+            <div class="preview-cat">設備投資補助金</div>
+          </div>
+          <div class="preview-amt">最大<br>1,500万円</div>
         </div>
-        <div class="hero-stat-text">
-          <div class="hero-stat-num">5<span class="hero-stat-unit">分</span></div>
-          <div class="hero-stat-label">所要時間</div>
-        </div>
-      </div>
-      <div class="hero-stat-item">
-        <div class="hero-stat-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div class="hero-stat-text">
-          <div class="hero-stat-num" style="font-size:20px">無料</div>
-          <div class="hero-stat-label">登録不要</div>
-        </div>
+        <div class="hero-preview-more">＋ 他12件がマッチしています</div>
       </div>
     </div>
   </div>

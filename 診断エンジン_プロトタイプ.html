@@ -768,6 +768,20 @@
     line-height: 1.75;
     color: #0a0a0a;
   }
+  .result-row-note {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #444;
+    border-left: 2px solid #d0d0d0;
+    background: #fafafa;
+    padding: 8px 12px;
+    margin-top: 8px;
+  }
+  .result-row-note.warn {
+    border-left-color: #f59e0b;
+    background: #fffbeb;
+    color: #78350f;
+  }
   .result-row-reasons {
     display: flex;
     flex-direction: column;
@@ -3829,105 +3843,7 @@ function renderResults(scored, combos, conflicts, meta) {
   const diffLabelMap = {1: 'やさしい', 2: '標準', 3: 'やや高い'};
   const amountMan = (y) => Math.floor((y || 0) / 10000).toLocaleString('ja-JP');
 
-  // ── Hero（大きく扱う1件目） ──────────────────────
-  const renderHero = (s, rank) => {
-    const cat = getCategory(s.id);
-    const steps = NEXT_STEPS_MAP[s.id] || defaultSteps;
-    const reasons = [...(s.reasons || []), ...(s.bonusReasons || [])];
-    const topReason = reasons[0];
-    const detailId = `detail-hero-${s.id}`;
-    const diff = s.difficulty || 2;
-    const dots = [1,2,3].map(i => `<span class="result-hero-dot${i <= diff ? ' on' : ''}"></span>`).join('');
-    const leadTime = s.lead_time_months ? `${s.lead_time_months}ヶ月` : '—';
-    const primaryLink = steps.find(st => st.link && !st.done)?.link || '#';
-
-    return `
-    <div class="result-hero">
-      <div class="result-hero-eyebrow">
-        <span class="result-hero-eyebrow-cat">${cat.label}</span>
-        <span class="result-hero-eyebrow-bar"></span>
-        <span class="result-hero-eyebrow-tag-note">条件に該当</span>
-      </div>
-      <h2 class="result-hero-title">${s.name}</h2>
-      <div class="result-hero-amount-block">
-        <span class="result-hero-amount">${amountMan(s.max_amount)}</span>
-        <span class="result-hero-amount-unit">万円</span>
-        <span class="result-hero-amount-label">最大受給額</span>
-      </div>
-      ${topReason ? `
-      <div class="result-hero-reason">
-        <span class="result-hero-reason-label">→ 該当した理由</span>
-        ${topReason}
-      </div>` : ''}
-      <div class="result-hero-meta">
-        <div class="result-hero-meta-item">
-          <span class="result-hero-meta-label">難易度</span>
-          <span class="result-hero-meta-value"><span class="result-hero-dots">${dots}</span> ${diffLabelMap[diff]}</span>
-        </div>
-        <div class="result-hero-meta-item">
-          <span class="result-hero-meta-label">準備期間</span>
-          <span class="result-hero-meta-value">約 ${leadTime}</span>
-        </div>
-        <div class="result-hero-meta-item">
-          <span class="result-hero-meta-label">申請タイミング</span>
-          <span class="result-hero-meta-value">${timingMap[s.timing] || '要確認'}</span>
-        </div>
-        ${s.wage_required ? `
-        <div class="result-hero-meta-item">
-          <span class="result-hero-meta-label">必要条件</span>
-          <span class="result-hero-meta-value">賃上げ計画</span>
-        </div>` : ''}
-      </div>
-      <div class="result-hero-ctas">
-        <button class="result-hero-cta-detail" onclick="toggleHeroDetail('${detailId}', this)">詳細を見る</button>
-        ${primaryLink !== '#' ? `<a href="${primaryLink}" target="_blank" rel="noopener" class="result-hero-cta-primary">最初のステップへ進む →</a>` : ''}
-      </div>
-      <div class="result-hero-detail" id="${detailId}">
-        ${reasons.length > 0 ? `
-          <div class="result-hero-detail-section">
-            <div class="result-hero-detail-label">合致した理由</div>
-            <div class="result-hero-reasons-list">
-              ${reasons.map(r => `<div class="result-hero-reason-row">${r}</div>`).join('')}
-            </div>
-          </div>
-        ` : ''}
-        <div class="result-hero-detail-section">
-          <div class="result-hero-detail-label">申請までのステップ</div>
-          <div class="result-hero-steps">
-            ${steps.map((step, i) => `
-              <div class="result-hero-step ${step.done ? 'done' : ''}">
-                <div class="result-hero-step-num">${String(i+1).padStart(2, '0')}</div>
-                <div class="result-hero-step-body">
-                  <div class="result-hero-step-title">${step.title}${step.done ? ' — 完了' : ''}${step.badge ? ` <span style="font-size:10px;background:#eff6ff;color:#1e40af;border-radius:2px;padding:2px 6px;margin-left:6px;font-weight:600;letter-spacing:0.04em">${step.badge}</span>` : ''}</div>
-                  <div class="result-hero-step-detail">${step.detail}</div>
-                  ${step.link ? `<a href="${step.link}" target="_blank" rel="noopener" class="result-hero-step-link">${step.linkText} →</a>` : ''}
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-        ${s.description ? `
-          <div class="result-hero-detail-section">
-            <div class="result-hero-detail-label">制度の概要</div>
-            <div class="result-hero-desc">${s.description}</div>
-          </div>
-        ` : ''}
-        <div class="result-hero-detail-section">
-          <div class="result-hero-detail-label">受給額の内訳</div>
-          <div class="result-hero-desc">${s.amount_note}</div>
-        </div>
-        ${s.timingWarning ? `<div class="result-hero-note warn">${s.timingWarning}</div>` : ''}
-        ${s.invoiceNote ? `<div class="result-hero-note">${s.invoiceNote}</div>` : ''}
-        ${s.compatible_with?.length > 0 ? `
-          <div class="result-hero-detail-section">
-            <div class="result-hero-detail-label">同時申請できる制度</div>
-            <div>${s.compatible_with.map(id => { const o = SUBSIDIES.find(x => x.id === id); return o ? `<span class="ctag">${o.name}</span>` : ''; }).join('')}</div>
-          </div>` : ''}
-      </div>
-    </div>`;
-  };
-
-  // ── Row（該当する他の候補） ──────────────────────
+  // ── Row（全件を同じ形で表示） ──────────────────────
   const renderRow = (s) => {
     const cat = getCategory(s.id);
     const steps = NEXT_STEPS_MAP[s.id] || defaultSteps;
@@ -3986,8 +3902,8 @@ function renderResults(scored, combos, conflicts, meta) {
           <div class="result-row-detail-label">受給額の内訳</div>
           <div class="result-row-detail-text">${s.amount_note}</div>
         </div>
-        ${s.timingWarning ? `<div class="result-hero-note warn" style="margin-top:4px">${s.timingWarning}</div>` : ''}
-        ${s.invoiceNote ? `<div class="result-hero-note" style="margin-top:4px">${s.invoiceNote}</div>` : ''}
+        ${s.timingWarning ? `<div class="result-row-note warn">${s.timingWarning}</div>` : ''}
+        ${s.invoiceNote ? `<div class="result-row-note">${s.invoiceNote}</div>` : ''}
         ${s.compatible_with?.length > 0 ? `
           <div class="result-row-detail-section">
             <div class="result-row-detail-label">同時申請できる制度</div>
@@ -3997,17 +3913,14 @@ function renderResults(scored, combos, conflicts, meta) {
     </div>`;
   };
 
-  // 1件目：Hero
-  html += renderHero(scored[0]);
-
-  // 2件目以降：Row（2件まで常時、それ以降は折りたたみ）
-  const rowsVisible = scored.slice(1, 3);
+  // 全件を同じRow形式で統一表示（3件まで常時、それ以降は折りたたみ）
+  const rowsVisible = scored.slice(0, 3);
   const rowsRest = scored.slice(3);
-  if (rowsVisible.length > 0 || rowsRest.length > 0) {
+  if (rowsVisible.length > 0) {
     html += `
     <div class="result-rows">
       <div class="result-rows-header">
-        <span>その他 該当する補助金・助成金</span>
+        <span>該当する補助金・助成金</span>
         <span style="text-align:right">最大受給額</span>
         <span class="hide-mobile" style="text-align:center">難易度</span>
         <span></span>
@@ -4323,32 +4236,6 @@ function updateProgressBar() {
 document.addEventListener('scroll', updateProgressBar, { passive: true });
 
 function toggle(id) { document.getElementById(id)?.classList.toggle('open'); }
-
-function toggleHeroDetail(id, btn) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const isOpen = el.style.display !== 'none';
-  el.style.display = isOpen ? 'none' : 'block';
-  btn.textContent = isOpen ? '詳細情報を見る ▼' : '詳細情報を閉じる ▲';
-}
-
-function toggleResultCard(id, btn) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const isOpen = el.style.display === 'block';
-  el.style.display = isOpen ? 'none' : 'block';
-  btn.classList.toggle('is-open', !isOpen);
-  const labelEl = btn.querySelector('span:first-child');
-  if (labelEl) labelEl.textContent = isOpen ? '詳細を見る' : '詳細を閉じる';
-}
-
-function toggleHeroDetail(id, btn) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const isOpen = el.style.display === 'block';
-  el.style.display = isOpen ? 'none' : 'block';
-  btn.textContent = isOpen ? '詳細を見る' : '詳細を閉じる';
-}
 
 function toggleRow(subsidyId, rowEl, event) {
   if (event && event.target.closest('a')) return; // リンクは通す

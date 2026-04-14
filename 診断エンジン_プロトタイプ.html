@@ -1103,145 +1103,119 @@
     color: #fff;
   }
 
-  /* ─── ワークフロータイムライン ───────────────────────────── */
+  /* ─── ワークフロータイムライン（ピル型） ─────────────────── */
   .wf-wrap {
     margin-bottom: 20px;
-    padding: 16px 18px 20px;
-    background: #f5f7ff;
+    padding: 14px 16px 16px;
+    background: #fff;
     border-radius: 10px;
-    border: 1px solid #dde5ff;
+    border: 1px solid #e5e7eb;
   }
   .wf-header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 10px;
   }
   .wf-title {
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 700;
-    color: #6b7280;
-    letter-spacing: 0.05em;
+    color: #9ca3af;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
   }
   .wf-type-badge {
-    font-size: 10px;
+    font-size: 10.5px;
     font-weight: 600;
-    color: #3b5bdb;
-    background: #e8edff;
-    border-radius: 4px;
-    padding: 2px 7px;
+    color: #374151;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    padding: 2px 8px;
   }
   .wf-alert-note {
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 11.5px;
+    font-weight: 500;
     color: #92400e;
-    background: #fef3c7;
-    border: 1px solid #fcd34d;
-    border-radius: 6px;
-    padding: 7px 10px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    background: #fffbeb;
+    border-left: 3px solid #f59e0b;
+    border-radius: 0 6px 6px 0;
     line-height: 1.5;
   }
-  .wf-steps {
+  .wf-pills {
     display: flex;
-    align-items: flex-start;
-  }
-  .wf-step {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    position: relative;
-    min-width: 0;
+    gap: 4px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-  .wf-step::after {
-    content: '';
-    position: absolute;
-    top: 13px;
-    left: 50%;
-    width: 100%;
-    height: 2px;
-    background: #c7d2fe;
-    z-index: 0;
+  .wf-pills::-webkit-scrollbar { display: none; }
+  .wf-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 11px;
+    border-radius: 8px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: border-color 0.15s;
   }
-  .wf-step:last-child::after { display: none; }
-  .wf-step.is-warn::after { background: linear-gradient(90deg, #c7d2fe 0%, #fcd34d 100%); }
-  .wf-dot {
-    width: 28px;
-    height: 28px;
+  .wf-pill-num {
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    background: white;
-    border: 2px solid #a5b4fc;
+    background: #e5e7eb;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    color: #4c63d2;
-    position: relative;
-    z-index: 1;
+    color: #6b7280;
     flex-shrink: 0;
-    box-shadow: 0 0 0 3px #f0f4ff;
   }
-  .wf-step.is-warn .wf-dot {
-    border-color: #f59e0b;
-    background: #fffbeb;
-    color: #b45309;
-    box-shadow: 0 0 0 3px #fef3c7;
-  }
-  .wf-step.is-final .wf-dot {
-    border-color: #10b981;
-    background: #ecfdf5;
-    color: #065f46;
-    box-shadow: 0 0 0 3px #d1fae5;
-  }
-  .wf-label {
-    font-size: 9.5px;
+  .wf-pill-label {
+    font-size: 12px;
     font-weight: 600;
     color: #374151;
-    text-align: center;
-    margin-top: 6px;
-    line-height: 1.4;
-    white-space: pre-line;
-    max-width: 56px;
+    line-height: 1;
   }
-  .wf-step.is-warn .wf-label { color: #78350f; }
-  .wf-step.is-final .wf-label { color: #065f46; }
-  .wf-warn-tag {
-    font-size: 8px;
+  .wf-pill.is-warn {
+    background: #fffbeb;
+    border-color: #fcd34d;
+  }
+  .wf-pill.is-warn .wf-pill-num {
+    background: #f59e0b;
+    color: #fff;
+  }
+  .wf-pill.is-warn .wf-pill-label { color: #92400e; }
+  .wf-pill-warn-tag {
+    font-size: 9.5px;
     font-weight: 700;
-    color: #d97706;
+    color: #b45309;
     background: #fef3c7;
-    border: 1px solid #fcd34d;
     border-radius: 3px;
-    padding: 1px 4px;
-    margin-top: 3px;
-    text-align: center;
-    white-space: pre-line;
-    max-width: 56px;
-    line-height: 1.3;
+    padding: 1px 5px;
   }
-  @media (max-width: 560px) {
-    .wf-steps { flex-direction: column; }
-    .wf-step {
-      flex-direction: row;
-      align-items: flex-start;
-      gap: 10px;
-      flex: none;
-      width: 100%;
-      padding-bottom: 4px;
-    }
-    .wf-step::after {
-      top: 28px;
-      left: 13px;
-      width: 2px;
-      height: calc(100% - 14px);
-    }
-    .wf-dot { flex-shrink: 0; }
-    .wf-label { max-width: none; text-align: left; font-size: 11px; white-space: normal; }
-    .wf-warn-tag { max-width: none; text-align: left; white-space: normal; }
+  .wf-pill.is-final {
+    background: #f0fdf4;
+    border-color: #86efac;
+  }
+  .wf-pill.is-final .wf-pill-num {
+    background: #22c55e;
+    color: #fff;
+  }
+  .wf-pill.is-final .wf-pill-label { color: #15803d; }
+  .wf-arrow {
+    color: #d1d5db;
+    font-size: 14px;
+    flex-shrink: 0;
+    user-select: none;
   }
 
   /* 注意事項 */
@@ -4033,57 +4007,57 @@ function getCategory(id) {
 const WORKFLOW_TYPES = {
   hojyokin: {
     label: '補助金・公募型',
-    note: '⚠️ 交付決定前に事業を開始すると補助金が受け取れません。採択後も必ず「交付決定」を待ってから着手してください。',
+    note: '⚠️ 交付決定前に事業を開始すると補助金が受け取れません。採択後も必ず「交付決定通知」が届いてから着手してください。',
     steps: [
-      { label: '公募・\n要件確認' },
-      { label: '事業計画書\n作成・申請' },
-      { label: '採択審査\n（1〜3ヶ月）' },
-      { label: '交付決定', warn: true, warnText: 'ここまで\n着手NG' },
-      { label: '事業実施・\n実績報告' },
-      { label: '補助金\n入金', final: true },
+      { label: '公募・要件確認' },
+      { label: '計画書作成・申請' },
+      { label: '採択審査' },
+      { label: '交付決定', warn: true, warnText: '着手NG' },
+      { label: '事業実施・実績報告' },
+      { label: '補助金入金', final: true },
     ]
   },
   joseikin_kunren: {
     label: '人材開発支援助成金型',
     note: '⚠️ 訓練開始の2週間前までに都道府県労働局へ「訓練計画届出書」を提出することが支給の前提条件です。',
     steps: [
-      { label: '要件確認\n対象者選定' },
-      { label: '訓練計画\n届出', warn: true, warnText: '実施2週間\n前までに必須' },
-      { label: '訓練実施\n記録保存' },
-      { label: '支給申請\n（終了後2ヶ月内）' },
-      { label: '審査・\n入金', final: true },
+      { label: '要件確認・対象者選定' },
+      { label: '訓練計画届出', warn: true, warnText: '実施2週間前に必須' },
+      { label: '訓練実施・記録' },
+      { label: '支給申請' },
+      { label: '審査・入金', final: true },
     ]
   },
   career_up: {
     label: 'キャリアアップ助成金型',
     note: '⚠️ 正社員転換・賃金改定等を実施する前に「キャリアアップ計画書」をハローワークに提出することが必須です。',
     steps: [
-      { label: 'キャリアアップ\n計画届出', warn: true, warnText: '転換前に\n必須' },
-      { label: '正社員転換\n等の実施' },
-      { label: '6ヶ月間\n継続雇用' },
-      { label: '支給申請\n（6ヶ月後から2ヶ月内）' },
-      { label: '審査・\n入金', final: true },
+      { label: 'キャリアアップ計画届出', warn: true, warnText: '転換前に必須' },
+      { label: '正社員転換等の実施' },
+      { label: '6ヶ月継続雇用' },
+      { label: '支給申請' },
+      { label: '審査・入金', final: true },
     ]
   },
   trial_hire: {
     label: 'トライアル雇用型',
-    note: '⚠️ ハローワーク等の紹介状が必須。採用（雇用）を決定する前にハローワークへ「計画書」を提出することが必要です。',
+    note: '⚠️ ハローワーク等の紹介状が必須。採用を決定する前にハローワークへ「計画書」を提出することが必要です。',
     steps: [
-      { label: 'ハロワへ\n求人登録' },
-      { label: '採用前に\n計画届出', warn: true, warnText: '雇用決定前\nに必須' },
-      { label: 'トライアル\n雇用（最大3ヶ月）' },
-      { label: '支給申請\n（雇用翌月末まで）' },
-      { label: '審査・\n入金', final: true },
+      { label: 'ハロワへ求人登録' },
+      { label: '採用前に計画届出', warn: true, warnText: '雇用決定前に必須' },
+      { label: 'トライアル雇用（最大3ヶ月）' },
+      { label: '支給申請' },
+      { label: '審査・入金', final: true },
     ]
   },
   ryoritsu: {
     label: '両立支援等助成金型',
-    note: '⚠️ 従業員が育休・介護休業等の制度を利用する前に、就業規則への明記と労働基準監督署への届出が必要です。',
+    note: '⚠️ 育休・介護休業等の制度を従業員が利用する前に、就業規則への明記と労働基準監督署への届出が必要です。',
     steps: [
-      { label: '就業規則\n整備・届出', warn: true, warnText: '従業員利用\n前に必須' },
-      { label: '従業員が\n制度を利用' },
-      { label: '支給申請\n（利用完了後）' },
-      { label: '審査\n（均等室）' },
+      { label: '就業規則整備・届出', warn: true, warnText: '従業員利用前に必須' },
+      { label: '従業員が制度を利用' },
+      { label: '支給申請' },
+      { label: '審査（均等室）' },
       { label: '入金', final: true },
     ]
   },
@@ -4091,43 +4065,43 @@ const WORKFLOW_TYPES = {
     label: '業務改善助成金型',
     note: '⚠️ 設備・機器の発注・購入前に都道府県労働局へ交付申請することが必須です。先に買ってしまうと対象外になります。',
     steps: [
-      { label: '最低賃金\n確認・計画' },
-      { label: '交付申請\n（発注前）', warn: true, warnText: '設備発注前\nに必須' },
-      { label: '設備導入・\n最低賃金引上げ' },
-      { label: '実績報告\n書類提出' },
+      { label: '最低賃金確認・計画' },
+      { label: '交付申請（発注前）', warn: true, warnText: '設備発注前に必須' },
+      { label: '設備導入・最低賃金引上げ' },
+      { label: '実績報告' },
       { label: '入金', final: true },
     ]
   },
   koyo_antei: {
     label: '雇用調整助成金型',
-    note: '⚠️ 休業・教育訓練を実施する前に「休業等実施計画届」を労働局へ提出することが必要です。',
+    note: '⚠️ 休業・教育訓練を実施する前に「休業等実施計画届」を都道府県労働局へ提出することが必要です。',
     steps: [
-      { label: '売上減少\n要件確認' },
-      { label: '計画届出\n（休業前）', warn: true, warnText: '休業実施前\nに必須' },
-      { label: '休業・訓練\n実施・記録' },
-      { label: '支給申請\n（対象期終了後2ヶ月内）' },
-      { label: '審査・\n入金', final: true },
+      { label: '売上減少要件確認' },
+      { label: '計画届出（休業前）', warn: true, warnText: '休業実施前に必須' },
+      { label: '休業・訓練実施・記録' },
+      { label: '支給申請' },
+      { label: '審査・入金', final: true },
     ]
   },
   sangyo_koyo: {
     label: '産業雇用安定助成金型（在籍出向）',
     note: '⚠️ 在籍型出向の開始前に「出向計画書」を産業雇用安定センター等に提出する必要があります。',
     steps: [
-      { label: '出向先確保\n三者合意' },
-      { label: '出向計画\n届出（開始前）', warn: true, warnText: '出向開始前\nに必須' },
-      { label: '在籍型\n出向の実施' },
-      { label: '支給申請\n（出向期間中・終了後）' },
-      { label: '審査・\n入金', final: true },
+      { label: '出向先確保・三者合意' },
+      { label: '出向計画届出（開始前）', warn: true, warnText: '出向開始前に必須' },
+      { label: '在籍型出向の実施' },
+      { label: '支給申請' },
+      { label: '審査・入金', final: true },
     ]
   },
   hatarakikata: {
     label: '働き方改革推進支援助成金型',
     note: '⚠️ 取り組みを開始する前に都道府県労働局への「交付申請」が必要です。先行して実施した費用は補助対象外になります。',
     steps: [
-      { label: '現状確認\n目標設定' },
-      { label: '交付申請\n（着手前）', warn: true, warnText: '取り組み前\nに必須' },
-      { label: '取り組み\n実施' },
-      { label: '実績報告\n書類提出' },
+      { label: '現状確認・目標設定' },
+      { label: '交付申請（着手前）', warn: true, warnText: '取り組み前に必須' },
+      { label: '取り組み実施' },
+      { label: '実績報告' },
       { label: '入金', final: true },
     ]
   },
@@ -4135,32 +4109,32 @@ const WORKFLOW_TYPES = {
     label: '特定求職者雇用開発助成金型',
     note: '⚠️ ハローワーク等の紹介状が必須。雇い入れ後2週間以内に「受給資格確認申請」をハローワークへ提出することが必要です。',
     steps: [
-      { label: 'ハロワへ\n求人登録' },
-      { label: '紹介状で\n採用', warn: true, warnText: '紹介状\n必須' },
-      { label: '受給確認\n申請（2週間内）' },
-      { label: '継続雇用\n（6ヶ月〜）' },
-      { label: '申請・\n入金', final: true },
+      { label: 'ハロワへ求人登録' },
+      { label: '紹介状で採用', warn: true, warnText: '紹介状が必須' },
+      { label: '受給確認申請（2週間内）' },
+      { label: '継続雇用（6ヶ月〜）' },
+      { label: '申請・入金', final: true },
     ]
   },
   koyo_kanri: {
     label: '雇用管理制度助成コース型',
     note: '⚠️ 制度整備の前に「雇用管理改善計画」の認定を受けることが必要です。離職率改善目標の達成で最大230万円が追加支給されます。',
     steps: [
-      { label: '計画策定\n認定申請', warn: true, warnText: '整備前に\n必須' },
-      { label: '制度整備\n運用開始' },
-      { label: '整備助成\n申請（57万円）' },
-      { label: '1年間\n離職率改善' },
-      { label: '達成助成\n入金', final: true },
+      { label: '計画策定・認定申請', warn: true, warnText: '整備前に必須' },
+      { label: '制度整備・運用開始' },
+      { label: '整備助成申請（57万円）' },
+      { label: '1年間 離職率改善' },
+      { label: '達成助成・入金', final: true },
     ]
   },
   joseikin_setsubi: {
     label: '設備設置型助成金',
     note: '⚠️ 設備の発注・工事の着工前に都道府県労働局への申請が必要です。先に工事を始めると補助対象外になります。',
     steps: [
-      { label: '設置計画\n要件確認' },
-      { label: '事前申請\n（着工前）', warn: true, warnText: '発注・着工前\nに必須' },
-      { label: '設備設置\n工事実施' },
-      { label: '実績報告\n書類提出' },
+      { label: '設置計画・要件確認' },
+      { label: '事前申請（着工前）', warn: true, warnText: '発注・着工前に必須' },
+      { label: '設備設置・工事実施' },
+      { label: '実績報告' },
       { label: '入金', final: true },
     ]
   },
@@ -4356,15 +4330,20 @@ function renderResults(scored, combos, conflicts, meta) {
     { done: false, title: '公募要領を確認する', detail: '締切・対象経費・申請書式を公式サイトで確認してください。' },
   ];
 
-  // 申請フロータイムライン レンダラー
+  // 申請フロータイムライン レンダラー（ピル型）
   const renderWorkflow = (wf) => {
     if (!wf) return '';
-    const stepsHtml = wf.steps.map((step, i) => `
-      <div class="wf-step${step.warn ? ' is-warn' : step.final ? ' is-final' : ''}">
-        <div class="wf-dot">${i + 1}</div>
-        <div class="wf-label">${step.label}</div>
-        ${step.warn && step.warnText ? `<div class="wf-warn-tag">${step.warnText}</div>` : ''}
-      </div>`).join('');
+    const pillsHtml = wf.steps.map((step, i) => {
+      const cls = step.warn ? ' is-warn' : step.final ? ' is-final' : '';
+      const pill = `
+        <div class="wf-pill${cls}">
+          <span class="wf-pill-num">${i + 1}</span>
+          <span class="wf-pill-label">${step.label}</span>
+          ${step.warn && step.warnText ? `<span class="wf-pill-warn-tag">${step.warnText}</span>` : ''}
+        </div>`;
+      const arrow = i < wf.steps.length - 1 ? `<span class="wf-arrow">›</span>` : '';
+      return pill + arrow;
+    }).join('');
     return `
       <div class="wf-wrap">
         <div class="wf-header">
@@ -4372,7 +4351,7 @@ function renderResults(scored, combos, conflicts, meta) {
           <span class="wf-type-badge">${wf.label}</span>
         </div>
         ${wf.note ? `<div class="wf-alert-note">${wf.note}</div>` : ''}
-        <div class="wf-steps">${stepsHtml}</div>
+        <div class="wf-pills">${pillsHtml}</div>
       </div>`;
   };
 

@@ -356,290 +356,495 @@
   .roadmap-step .step-detail { font-size: 11px; color: #92400e; line-height: 1.6; }
   .roadmap-step.done .step-period { color: #059669; }
 
-  /* ── 統一結果カード（読みやすさ優先） ───────────── */
-  .result-card {
-    background: white;
-    border: 1px solid #e4e8f0;
-    border-radius: 12px;
-    margin-bottom: 12px;
-    overflow: hidden;
-    transition: border-color 0.18s, box-shadow 0.18s;
-  }
-  .result-card:hover {
-    border-color: #c7d1e3;
-    box-shadow: 0 4px 14px rgba(15,23,42,0.04);
-  }
-  .result-card.is-top {
-    border: 1px solid #b8c8e8;
-    box-shadow: 0 4px 18px rgba(0,102,255,0.06);
-  }
-  /* 本体 */
-  .result-card-body {
-    padding: 18px 22px 16px;
+  /* ══════════════════════════════════════════════════════
+     ランク1：Hero（特集記事級の扱い）
+     ══════════════════════════════════════════════════════ */
+  .result-hero {
+    padding: 44px 2px 36px;
+    border-top: 1px solid #0a0a0a;
     position: relative;
   }
-  /* 1位のアクセントバー（左） */
-  .result-card.is-top .result-card-body::before {
-    content: '';
-    position: absolute;
-    top: 18px; bottom: 16px; left: 0;
-    width: 3px;
-    background: var(--primary);
-    border-radius: 0 2px 2px 0;
-  }
-  /* スラッグ行「01 · 販路開拓補助金」 */
-  .result-card-slug {
+  .result-hero-eyebrow {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-    font-size: 12px;
-    color: #64748b;
+    gap: 14px;
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 28px;
+    letter-spacing: 0.06em;
   }
-  .result-card-num {
-    font-family: 'Times New Roman', Georgia, serif;
-    font-size: 15px;
-    font-weight: 500;
-    color: #94a3b8;
+  .result-hero-num {
+    font-weight: 800;
+    color: #0a0a0a;
+    font-size: 12px;
     font-feature-settings: "tnum" 1, "lnum" 1;
     letter-spacing: 0.02em;
-    line-height: 1;
-    min-width: 22px;
   }
-  .result-card.is-top .result-card-num { color: var(--primary); }
-  .result-card-slug-sep {
-    color: #cbd5e1;
+  .result-hero-eyebrow-bar {
+    flex: 1;
+    height: 1px;
+    background: #e5e5e5;
+    max-width: 40px;
   }
-  .result-card-slug-cat {
-    font-size: 11.5px;
-    color: #64748b;
+  .result-hero-eyebrow-cat {
     font-weight: 500;
-    background: #f1f5f9;
-    padding: 3px 8px;
-    border-radius: 4px;
+    color: #444;
   }
-  /* ヘッダー2カラム（タイトル / 金額） */
-  .result-card-head {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 20px;
+  .result-hero-eyebrow-tag {
+    margin-left: auto;
+    font-size: 10.5px;
+    color: white;
+    background: #0a0a0a;
+    padding: 4px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+  .result-hero-title {
+    font-size: 34px;
+    font-weight: 800;
+    color: #0a0a0a;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    margin-bottom: 32px;
+    max-width: 620px;
+  }
+  .result-hero-amount-block {
+    display: flex;
     align-items: baseline;
-    margin-bottom: 12px;
+    gap: 8px;
+    margin-bottom: 32px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #e5e5e5;
   }
-  .result-card-title {
-    font-size: 18px;
+  .result-hero-amount {
+    font-size: 76px;
+    font-weight: 800;
+    color: #0066ff;
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+  }
+  .result-hero-amount-unit {
+    font-size: 22px;
     font-weight: 700;
-    color: #0f172a;
-    line-height: 1.45;
+    color: #0a0a0a;
     letter-spacing: -0.01em;
   }
-  .result-card-amount-wrap {
-    flex-shrink: 0;
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-    white-space: nowrap;
-  }
-  .result-card-amount-prefix {
-    font-size: 11px;
-    color: #94a3b8;
-    font-weight: 500;
-  }
-  .result-card-amount {
-    font-size: 26px;
-    font-weight: 800;
-    color: #0f172a;
-    line-height: 1;
-    letter-spacing: -0.025em;
-    font-feature-settings: "tnum" 1, "lnum" 1;
-  }
-  .result-card.is-top .result-card-amount { color: var(--primary); }
-  .result-card-amount-unit {
-    font-size: 12.5px;
+  .result-hero-amount-label {
+    margin-left: auto;
+    font-size: 10.5px;
+    color: #999;
+    letter-spacing: 0.12em;
     font-weight: 600;
-    color: #64748b;
+    align-self: flex-end;
+    padding-bottom: 4px;
   }
-  /* メタ情報：中黒区切り */
-  .result-card-meta {
-    font-size: 12px;
-    color: #475569;
+  /* Pull-quote風の一番の理由 */
+  .result-hero-reason {
+    font-size: 16px;
     line-height: 1.7;
-    padding-top: 12px;
-    border-top: 1px solid #f1f5f9;
+    color: #0a0a0a;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    padding: 0 0 0 18px;
+    border-left: 2px solid #0066ff;
+    margin-bottom: 28px;
+    max-width: 600px;
   }
-  .result-card-meta-label {
-    color: #94a3b8;
-    font-size: 11px;
-    margin-right: 4px;
-  }
-  .result-card-meta-value {
-    color: #334155;
-    font-weight: 600;
-  }
-  .result-card-meta-sep {
-    display: inline-block;
-    margin: 0 10px;
-    color: #cbd5e1;
-  }
-  .result-card-dots {
-    display: inline-flex;
-    gap: 3px;
-    margin: 0 4px;
-    vertical-align: middle;
-  }
-  .result-card-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: #e2e8f0;
-  }
-  .result-card-dot.on { background: var(--primary); }
-  /* トグルバー */
-  .result-card-toggle {
-    font-size: 12.5px;
-    color: #475569;
-    cursor: pointer;
-    padding: 12px 22px;
-    border-top: 1px solid #eef2f7;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 600;
-    transition: background 0.15s, color 0.15s;
-    user-select: none;
-    background: #fafbfd;
-  }
-  .result-card-toggle:hover { background: #f1f5f9; color: var(--primary); }
-  .result-card-toggle-arrow {
-    font-size: 10px;
-    opacity: 0.6;
-    transition: transform 0.2s;
-  }
-  .result-card-toggle.is-open .result-card-toggle-arrow { transform: rotate(180deg); }
-  /* 詳細セクション */
-  .result-card-detail {
-    display: none;
-    padding: 20px 22px 22px;
-    background: #fafbfd;
-    border-top: 1px solid #eef2f7;
-  }
-  .result-card-section-label {
-    font-size: 11.5px;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    border-left: 3px solid var(--primary);
-    line-height: 1.2;
+  .result-hero-reason-label {
     display: block;
-  }
-  .result-card-reasons {
-    font-size: 13px;
-    color: #334155;
-    margin: 0 0 20px;
-    line-height: 1.85;
-    padding-left: 2px;
-  }
-  .result-card-reasons-item {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 4px;
-  }
-  .result-card-reasons-item::before {
-    content: '✓';
-    color: var(--primary);
+    font-size: 10.5px;
+    color: #0066ff;
+    letter-spacing: 0.12em;
     font-weight: 700;
-    flex-shrink: 0;
-    font-size: 12px;
-    margin-top: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-family: monospace, 'Noto Sans JP';
   }
-  /* ステップ：カード化して見やすく */
-  .result-card-steps {
-    margin: 0 0 20px;
+  /* メタ情報 */
+  .result-hero-meta {
+    display: flex;
+    gap: 36px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .result-hero-meta-item {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
   }
-  .result-card-step-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 14px 16px;
-    background: white;
-    border: 1px solid #e8ecf3;
-    border-radius: 8px;
+  .result-hero-meta-label {
+    font-size: 10.5px;
+    color: #999;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    text-transform: uppercase;
   }
-  .result-card-step-num {
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    background: var(--primary);
-    color: white;
-    font-size: 11px;
+  .result-hero-meta-value {
+    font-size: 14px;
+    color: #0a0a0a;
     font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  /* 難易度ドット（大きめ） */
+  .result-hero-dots {
+    display: inline-flex;
+    gap: 4px;
+  }
+  .result-hero-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #e5e5e5;
+  }
+  .result-hero-dot.on { background: #0066ff; }
+  /* CTA行 */
+  .result-hero-ctas {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .result-hero-cta-detail {
+    font-size: 13px;
+    color: #0a0a0a;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 14px 24px;
+    border: 1px solid #0a0a0a;
+    background: transparent;
+    transition: background 0.15s, color 0.15s;
+    user-select: none;
+    letter-spacing: -0.005em;
+  }
+  .result-hero-cta-detail:hover { background: #0a0a0a; color: white; }
+  .result-hero-cta-primary {
+    font-size: 13px;
+    color: white;
+    font-weight: 600;
+    padding: 14px 24px;
+    background: #0066ff;
+    border: 1px solid #0066ff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: background 0.15s;
+    letter-spacing: -0.005em;
+  }
+  .result-hero-cta-primary:hover { background: #0052cc; }
+
+  /* Hero詳細（折りたたみ内） */
+  .result-hero-detail {
+    display: none;
+    margin-top: 28px;
+    padding: 28px 0 8px;
+    border-top: 1px solid #e5e5e5;
+  }
+  .result-hero-detail-section {
+    margin-bottom: 32px;
+  }
+  .result-hero-detail-section:last-child { margin-bottom: 8px; }
+  .result-hero-detail-label {
+    font-size: 10.5px;
+    color: #999;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .result-hero-reasons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .result-hero-reason-row {
+    display: flex;
+    gap: 14px;
+    font-size: 14px;
+    color: #0a0a0a;
+    line-height: 1.7;
+  }
+  .result-hero-reason-row::before {
+    content: '→';
+    color: #0066ff;
+    font-weight: 700;
     flex-shrink: 0;
+  }
+  .result-hero-steps {
+    display: flex;
+    flex-direction: column;
+  }
+  .result-hero-step {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 18px;
+    padding: 20px 0;
+    border-top: 1px solid #e5e5e5;
+  }
+  .result-hero-step:last-child {
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .result-hero-step-num {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0a0a0a;
     font-feature-settings: "tnum" 1, "lnum" 1;
     line-height: 1;
   }
-  .result-card-step-num.done {
-    background: #dcfce7;
-    color: #059669;
+  .result-hero-step.done .result-hero-step-num {
+    color: #10b981;
   }
-  .result-card-step-text {
-    font-size: 13px;
-    color: #1e293b;
+  .result-hero-step-body {
+    font-size: 14px;
     line-height: 1.7;
-    flex: 1;
-    min-width: 0;
+    color: #0a0a0a;
   }
-  .result-card-step-text strong {
+  .result-hero-step-title {
     font-weight: 700;
-    color: #0f172a;
+    margin-bottom: 4px;
   }
-  .result-card-step-link {
-    display: inline-block;
-    color: var(--primary);
-    font-size: 11.5px;
-    font-weight: 600;
-    margin-top: 6px;
-    text-decoration: none;
-    padding: 4px 8px;
-    background: #eff6ff;
-    border-radius: 4px;
-    transition: background 0.15s;
+  .result-hero-step.done .result-hero-step-title {
+    text-decoration: line-through;
+    color: #999;
+    font-weight: 500;
   }
-  .result-card-step-link:hover { background: #dbeafe; }
-  .result-card-detail-section {
-    margin-top: 18px;
-  }
-  .result-card-detail-text {
+  .result-hero-step-detail {
     font-size: 13px;
+    color: #666;
+  }
+  .result-hero-step-link {
+    display: inline-block;
+    margin-top: 8px;
+    color: #0066ff;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid #0066ff;
+    padding-bottom: 1px;
+  }
+  .result-hero-step-link:hover { color: #0052cc; border-color: #0052cc; }
+  .result-hero-desc {
+    font-size: 14px;
     line-height: 1.85;
-    color: #334155;
+    color: #0a0a0a;
+    max-width: 640px;
+  }
+  .result-hero-note {
+    margin-top: 12px;
+    padding: 14px 18px;
+    font-size: 13px;
+    line-height: 1.7;
+    background: #fafafa;
+    border-left: 3px solid #0066ff;
+  }
+  .result-hero-note.warn { border-left-color: #f59e0b; background: #fffbeb; color: #78350f; }
+
+  /* ══════════════════════════════════════════════════════
+     ランク2+：Compact Row（テーブル風の一覧）
+     ══════════════════════════════════════════════════════ */
+  .result-rows {
+    margin-top: 36px;
+    border-top: 1px solid #0a0a0a;
+  }
+  .result-rows-header {
+    display: grid;
+    grid-template-columns: 40px 1fr 160px 80px 30px;
+    gap: 20px;
+    padding: 14px 2px;
+    font-size: 10.5px;
+    color: #999;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e5e5e5;
+    align-items: center;
+  }
+  .result-row {
+    display: grid;
+    grid-template-columns: 40px 1fr 160px 80px 30px;
+    gap: 20px;
+    padding: 22px 2px;
+    border-bottom: 1px solid #e5e5e5;
+    cursor: pointer;
+    transition: background 0.15s;
+    align-items: center;
+  }
+  .result-row:hover { background: #fafafa; }
+  .result-row-num {
+    font-size: 13px;
+    font-weight: 800;
+    color: #0a0a0a;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    letter-spacing: 0.02em;
+  }
+  .result-row-main { min-width: 0; }
+  .result-row-cat {
+    font-size: 10.5px;
+    color: #666;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .result-row-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0a0a0a;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .result-row-meta {
+    font-size: 11.5px;
+    color: #666;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .result-row-meta-sep { color: #d4d4d4; }
+  .result-row-amount {
+    text-align: right;
+    font-size: 22px;
+    font-weight: 800;
+    color: #0a0a0a;
+    letter-spacing: -0.03em;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    line-height: 1;
+  }
+  .result-row-amount-unit {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    margin-left: 2px;
+  }
+  .result-row-diff {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+  }
+  .result-row-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #e5e5e5;
+  }
+  .result-row-dot.on { background: #0066ff; }
+  .result-row-arrow {
+    font-size: 14px;
+    color: #999;
+    text-align: center;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .result-row:hover .result-row-arrow { color: #0066ff; transform: translateX(2px); }
+  .result-row.is-open .result-row-arrow { transform: rotate(90deg); color: #0066ff; }
+  /* Row詳細 */
+  .result-row-detail {
+    display: none;
+    grid-column: 1 / -1;
+    padding: 8px 0 28px 60px;
+    font-size: 13px;
+  }
+  .result-row-detail-section { margin-bottom: 20px; }
+  .result-row-detail-label {
+    font-size: 10.5px;
+    color: #999;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .result-row-detail-text {
+    font-size: 13px;
+    line-height: 1.75;
+    color: #0a0a0a;
+  }
+  .result-row-reasons {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .result-row-reason {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #0a0a0a;
+    display: flex;
+    gap: 10px;
+  }
+  .result-row-reason::before {
+    content: '→';
+    color: #0066ff;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .result-row-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .result-row-step {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 12px;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  .result-row-step-num {
+    font-size: 13px;
+    font-weight: 800;
+    color: #0a0a0a;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+  }
+  .result-row-step.done .result-row-step-num { color: #10b981; }
+  .result-row-step strong { font-weight: 700; color: #0a0a0a; }
+  .result-row-step-detail { color: #666; font-size: 12.5px; margin-top: 2px; }
+  .result-row-step-link {
+    display: inline-block;
+    margin-top: 4px;
+    color: #0066ff;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid #0066ff;
   }
 
-  @media (max-width: 560px) {
-    .result-card-body { padding: 16px 16px 14px; }
-    .result-card-head { grid-template-columns: 1fr; gap: 8px; margin-bottom: 10px; }
-    .result-card-amount-wrap { justify-content: flex-start; }
-    .result-card-title { font-size: 16px; }
-    .result-card-amount { font-size: 24px; }
-    .result-card-toggle, .result-card-detail { padding-left: 16px; padding-right: 16px; }
-    .result-card-meta-sep { margin: 0 8px; }
+  @media (max-width: 720px) {
+    .result-hero { padding: 32px 0 28px; }
+    .result-hero-title { font-size: 26px; margin-bottom: 24px; }
+    .result-hero-amount { font-size: 56px; }
+    .result-hero-amount-unit { font-size: 18px; }
+    .result-hero-amount-label { margin-left: 0; padding-bottom: 0; margin-top: 8px; }
+    .result-hero-amount-block { flex-wrap: wrap; gap: 4px; }
+    .result-hero-meta { gap: 24px; }
+    .result-hero-ctas { flex-direction: column; align-items: stretch; gap: 8px; }
+    .result-hero-cta-detail, .result-hero-cta-primary {
+      text-align: center; justify-content: center; width: 100%;
+    }
+    .result-rows-header { grid-template-columns: 30px 1fr 90px 24px; gap: 12px; }
+    .result-rows-header .hide-mobile { display: none; }
+    .result-row { grid-template-columns: 30px 1fr 90px 24px; gap: 12px; padding: 18px 2px; }
+    .result-row .hide-mobile { display: none; }
+    .result-row-title { font-size: 14px; white-space: normal; }
+    .result-row-amount { font-size: 18px; }
+    .result-row-amount-unit { font-size: 11px; }
+    .result-row-detail { padding-left: 42px; }
   }
 
-  /* ── 4位以降折りたたみ ───────────── */
+  /* ── 4位以降折りたたみ（新） ───────────── */
   .others-toggle {
     text-align: center;
-    padding: 12px;
-    background: white;
-    border: 1px solid var(--gray-200);
-    border-radius: 10px;
-    margin-bottom: 16px;
+    padding: 20px 12px;
     cursor: pointer;
-    font-size: 13px;
-    color: var(--gray-600);
+    font-size: 12.5px;
+    color: #666;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: color 0.15s, background 0.15s;
+    border-top: 1px solid #e5e5e5;
   }
-  .others-toggle:hover { background: var(--gray-50); }
+  .others-toggle:hover { color: #0066ff; background: #fafafa; }
   .others-section { display: none; }
 
   /* 旧クラス後方互換（display:noneで無効化） */
@@ -3603,123 +3808,216 @@ function renderResults(scored, combos, conflicts, meta) {
   }
 
   // ══════════════════════════════════════════════════════
-  // ③ 統一カードレンダラー
+  // ③ レンダラー（Hero + Row の2段構成）
   // ══════════════════════════════════════════════════════
-  const renderUnifiedCard = (s, rank) => {
+  // 共通ユーティリティ
+  const timingMap = {
+    'before_investment': '投資前に申請',
+    'before_training': '研修前に申請',
+    'before_hire': '採用前に申請',
+    'before_action': '着手前に申請',
+    'after_action': '実施後に申請',
+    'anytime': '通年受付'
+  };
+  const diffLabelMap = {1: 'やさしい', 2: '標準', 3: 'やや高い'};
+  const amountMan = (y) => Math.floor((y || 0) / 10000).toLocaleString('ja-JP');
+
+  // ── Hero（1位専用） ──────────────────────
+  const renderHero = (s, rank) => {
     const cat = getCategory(s.id);
-    const isTop = rank === 1;
     const steps = NEXT_STEPS_MAP[s.id] || defaultSteps;
-    const reasons = [...(s.reasons || []), ...(s.bonusReasons || [])].slice(0, 3);
-    const detailId = `detail-${s.id}`;
-
-    // 番号「01」「02」
-    const numStr = String(rank).padStart(2, '0');
-
-    // 金額整形
-    const amountNum = Math.floor((s.max_amount || 0) / 10000);
-    const amountDisplay = amountNum.toLocaleString('ja-JP');
-
-    // 難易度ドット
+    const reasons = [...(s.reasons || []), ...(s.bonusReasons || [])];
+    const topReason = reasons[0];
+    const detailId = `detail-hero-${s.id}`;
     const diff = s.difficulty || 2;
-    const dotsHtml = [1,2,3].map(i => `<span class="result-card-dot${i <= diff ? ' on' : ''}"></span>`).join('');
-    const diffLabel = diff === 1 ? 'やさしい' : diff === 2 ? '標準' : 'やや高い';
-
-    // タイミング表示
-    const timingMap = {
-      'before_investment': '投資前に申請',
-      'before_training': '研修前に申請',
-      'before_hire': '採用前に申請',
-      'before_action': '着手前に申請',
-      'after_action': '実施後に申請',
-      'anytime': '通年受付'
-    };
-    const timingLabel = timingMap[s.timing] || '申請前確認';
-
-    const leadTime = s.lead_time_months ? `約${s.lead_time_months}ヶ月` : '—';
-
-    // メタ一行を構築
-    const metaParts = [
-      `<span class="result-card-meta-label">難易度</span><span class="result-card-dots">${dotsHtml}</span><span class="result-card-meta-value">${diffLabel}</span>`,
-      `<span class="result-card-meta-label">準備</span><span class="result-card-meta-value">${leadTime}</span>`,
-      `<span class="result-card-meta-value">${timingLabel}</span>`
-    ];
-    if (s.wage_required) metaParts.push(`<span class="result-card-meta-value">賃上げ必須</span>`);
+    const dots = [1,2,3].map(i => `<span class="result-hero-dot${i <= diff ? ' on' : ''}"></span>`).join('');
+    const leadTime = s.lead_time_months ? `${s.lead_time_months}ヶ月` : '—';
+    const numStr = String(rank).padStart(2, '0');
+    const primaryLink = steps.find(st => st.link && !st.done)?.link || '#';
 
     return `
-    <div class="result-card ${isTop ? 'is-top' : ''}">
-      <div class="result-card-body">
-        <div class="result-card-slug">
-          <span class="result-card-num">${numStr}</span>
-          <span class="result-card-slug-sep">·</span>
-          <span class="result-card-slug-cat">${cat.label}</span>
-        </div>
-        <div class="result-card-head">
-          <div class="result-card-title">${s.name}</div>
-          <div class="result-card-amount-wrap">
-            <span class="result-card-amount-prefix">最大</span>
-            <span class="result-card-amount">${amountDisplay}</span><span class="result-card-amount-unit">万円</span>
-          </div>
-        </div>
-        <div class="result-card-meta">${metaParts.join('<span class="result-card-meta-sep">·</span>')}</div>
+    <div class="result-hero">
+      <div class="result-hero-eyebrow">
+        <span class="result-hero-num">NO. ${numStr}</span>
+        <span class="result-hero-eyebrow-bar"></span>
+        <span class="result-hero-eyebrow-cat">${cat.label}</span>
+        <span class="result-hero-eyebrow-tag">BEST MATCH</span>
       </div>
-      <div class="result-card-toggle" onclick="toggleResultCard('${detailId}', this)">
-        <span>詳細を見る</span>
-        <span class="result-card-toggle-arrow">▼</span>
+      <h2 class="result-hero-title">${s.name}</h2>
+      <div class="result-hero-amount-block">
+        <span class="result-hero-amount">${amountMan(s.max_amount)}</span>
+        <span class="result-hero-amount-unit">万円</span>
+        <span class="result-hero-amount-label">最大受給額</span>
       </div>
-      <div class="result-card-detail" id="${detailId}">
+      ${topReason ? `
+      <div class="result-hero-reason">
+        <span class="result-hero-reason-label">→ あなたに合う最大の理由</span>
+        ${topReason}
+      </div>` : ''}
+      <div class="result-hero-meta">
+        <div class="result-hero-meta-item">
+          <span class="result-hero-meta-label">難易度</span>
+          <span class="result-hero-meta-value"><span class="result-hero-dots">${dots}</span> ${diffLabelMap[diff]}</span>
+        </div>
+        <div class="result-hero-meta-item">
+          <span class="result-hero-meta-label">準備期間</span>
+          <span class="result-hero-meta-value">約 ${leadTime}</span>
+        </div>
+        <div class="result-hero-meta-item">
+          <span class="result-hero-meta-label">申請タイミング</span>
+          <span class="result-hero-meta-value">${timingMap[s.timing] || '要確認'}</span>
+        </div>
+        ${s.wage_required ? `
+        <div class="result-hero-meta-item">
+          <span class="result-hero-meta-label">必要条件</span>
+          <span class="result-hero-meta-value">賃上げ計画</span>
+        </div>` : ''}
+      </div>
+      <div class="result-hero-ctas">
+        <button class="result-hero-cta-detail" onclick="toggleHeroDetail('${detailId}', this)">詳細を見る</button>
+        ${primaryLink !== '#' ? `<a href="${primaryLink}" target="_blank" rel="noopener" class="result-hero-cta-primary">最初のステップへ進む →</a>` : ''}
+      </div>
+      <div class="result-hero-detail" id="${detailId}">
         ${reasons.length > 0 ? `
-          <div class="result-card-section-label">あなたに合う理由</div>
-          <div class="result-card-reasons">
-            ${reasons.map(r => `<div class="result-card-reasons-item"><span>${r}</span></div>`).join('')}
+          <div class="result-hero-detail-section">
+            <div class="result-hero-detail-label">合致した理由</div>
+            <div class="result-hero-reasons-list">
+              ${reasons.map(r => `<div class="result-hero-reason-row">${r}</div>`).join('')}
+            </div>
           </div>
         ` : ''}
-        <div class="result-card-section-label">申請までのステップ</div>
-        <div class="result-card-steps">
-          ${steps.map((step, i) => `
-            <div class="result-card-step-row">
-              <div class="result-card-step-num ${step.done ? 'done' : ''}">${step.done ? '✓' : i+1}</div>
-              <div class="result-card-step-text">
-                ${step.done ? `<span style="text-decoration:line-through;color:#9ca3af">${step.title}</span> <span style="color:#059669;font-size:11px;margin-left:4px">完了</span>` : `<strong>${step.title}</strong>`}
-                ${step.badge ? `<span style="font-size:10px;background:#eff6ff;color:#1e40af;border-radius:3px;padding:2px 6px;margin-left:6px;font-weight:600">${step.badge}</span>` : ''}
-                <div style="color:#64748b;margin-top:4px;font-size:12.5px">${step.detail}</div>
-                ${step.link ? `<a href="${step.link}" target="_blank" rel="noopener" class="result-card-step-link">${step.linkText} ↗</a>` : ''}
+        <div class="result-hero-detail-section">
+          <div class="result-hero-detail-label">申請までのステップ</div>
+          <div class="result-hero-steps">
+            ${steps.map((step, i) => `
+              <div class="result-hero-step ${step.done ? 'done' : ''}">
+                <div class="result-hero-step-num">${String(i+1).padStart(2, '0')}</div>
+                <div class="result-hero-step-body">
+                  <div class="result-hero-step-title">${step.title}${step.done ? ' — 完了' : ''}${step.badge ? ` <span style="font-size:10px;background:#eff6ff;color:#1e40af;border-radius:2px;padding:2px 6px;margin-left:6px;font-weight:600;letter-spacing:0.04em">${step.badge}</span>` : ''}</div>
+                  <div class="result-hero-step-detail">${step.detail}</div>
+                  ${step.link ? `<a href="${step.link}" target="_blank" rel="noopener" class="result-hero-step-link">${step.linkText} →</a>` : ''}
+                </div>
               </div>
-            </div>
-          `).join('')}
+            `).join('')}
+          </div>
         </div>
         ${s.description ? `
-          <div class="result-card-detail-section">
-            <div class="result-card-section-label">制度の概要</div>
-            <div class="result-card-detail-text">${s.description}</div>
+          <div class="result-hero-detail-section">
+            <div class="result-hero-detail-label">制度の概要</div>
+            <div class="result-hero-desc">${s.description}</div>
           </div>
         ` : ''}
-        <div class="result-card-detail-section">
-          <div class="result-card-section-label">受給額の内訳</div>
-          <div class="result-card-detail-text">${s.amount_note}</div>
+        <div class="result-hero-detail-section">
+          <div class="result-hero-detail-label">受給額の内訳</div>
+          <div class="result-hero-desc">${s.amount_note}</div>
         </div>
-        ${s.timingWarning ? `<div style="margin-top:14px;font-size:12px;color:#9a3412;background:#fff7ed;padding:12px 14px;border-radius:8px;border-left:3px solid #fb923c;line-height:1.7">${s.timingWarning}</div>` : ''}
-        ${s.invoiceNote ? `<div style="margin-top:8px;font-size:12px;color:#1e40af;background:#eff6ff;padding:12px 14px;border-radius:8px;border-left:3px solid var(--primary);line-height:1.7">${s.invoiceNote}</div>` : ''}
+        ${s.timingWarning ? `<div class="result-hero-note warn">${s.timingWarning}</div>` : ''}
+        ${s.invoiceNote ? `<div class="result-hero-note">${s.invoiceNote}</div>` : ''}
         ${s.compatible_with?.length > 0 ? `
-          <div class="result-card-detail-section">
-            <div class="result-card-section-label">同時申請できる制度</div>
-            <div style="margin-top:4px">${s.compatible_with.map(id => { const o = SUBSIDIES.find(x => x.id === id); return o ? `<span class="ctag">${o.name}</span>` : ''; }).join('')}</div>
+          <div class="result-hero-detail-section">
+            <div class="result-hero-detail-label">同時申請できる制度</div>
+            <div>${s.compatible_with.map(id => { const o = SUBSIDIES.find(x => x.id === id); return o ? `<span class="ctag">${o.name}</span>` : ''; }).join('')}</div>
           </div>` : ''}
       </div>
     </div>`;
   };
 
-  // 1-3位は常時表示
-  const visible = scored.slice(0, 3);
-  visible.forEach((s, i) => { html += renderUnifiedCard(s, i + 1); });
+  // ── Row（2位以降） ──────────────────────
+  const renderRow = (s, rank) => {
+    const cat = getCategory(s.id);
+    const steps = NEXT_STEPS_MAP[s.id] || defaultSteps;
+    const reasons = [...(s.reasons || []), ...(s.bonusReasons || [])].slice(0, 3);
+    const detailId = `detail-row-${s.id}`;
+    const diff = s.difficulty || 2;
+    const dots = [1,2,3].map(i => `<span class="result-row-dot${i <= diff ? ' on' : ''}"></span>`).join('');
+    const leadTime = s.lead_time_months ? `${s.lead_time_months}ヶ月` : '—';
+    const numStr = String(rank).padStart(2, '0');
 
-  // 4位以降は折りたたみ
-  const rest = scored.slice(3);
-  if (rest.length > 0) {
-    html += `
-    <div class="others-toggle" onclick="toggleOthers(this)">他にも ${rest.length}件 該当しています — クリックで表示</div>
-    <div class="others-section" id="others-section">
-      ${rest.map((s, i) => renderUnifiedCard(s, i + 4)).join('')}
+    return `
+    <div class="result-row" id="row-${s.id}" onclick="toggleRow('${s.id}', this, event)">
+      <div class="result-row-num">${numStr}</div>
+      <div class="result-row-main">
+        <div class="result-row-cat">${cat.label}</div>
+        <div class="result-row-title">${s.name}</div>
+        <div class="result-row-meta">
+          <span>準備 ${leadTime}</span>
+          <span class="result-row-meta-sep">·</span>
+          <span>${timingMap[s.timing] || '要確認'}</span>
+          ${s.wage_required ? `<span class="result-row-meta-sep">·</span><span>賃上げ必須</span>` : ''}
+        </div>
+      </div>
+      <div class="result-row-amount">
+        ${amountMan(s.max_amount)}<span class="result-row-amount-unit">万円</span>
+      </div>
+      <div class="result-row-diff hide-mobile">${dots}</div>
+      <div class="result-row-arrow">›</div>
+      <div class="result-row-detail" id="${detailId}">
+        ${reasons.length > 0 ? `
+          <div class="result-row-detail-section">
+            <div class="result-row-detail-label">合致した理由</div>
+            <div class="result-row-reasons">${reasons.map(r => `<div class="result-row-reason">${r}</div>`).join('')}</div>
+          </div>
+        ` : ''}
+        <div class="result-row-detail-section">
+          <div class="result-row-detail-label">申請までのステップ</div>
+          <div class="result-row-steps">
+            ${steps.map((step, i) => `
+              <div class="result-row-step ${step.done ? 'done' : ''}">
+                <div class="result-row-step-num">${String(i+1).padStart(2, '0')}</div>
+                <div>
+                  <strong>${step.title}</strong>${step.done ? ' — 完了' : ''}
+                  <div class="result-row-step-detail">${step.detail}</div>
+                  ${step.link ? `<a href="${step.link}" target="_blank" rel="noopener" class="result-row-step-link" onclick="event.stopPropagation()">${step.linkText} →</a>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        ${s.description ? `
+          <div class="result-row-detail-section">
+            <div class="result-row-detail-label">制度の概要</div>
+            <div class="result-row-detail-text">${s.description}</div>
+          </div>
+        ` : ''}
+        <div class="result-row-detail-section">
+          <div class="result-row-detail-label">受給額の内訳</div>
+          <div class="result-row-detail-text">${s.amount_note}</div>
+        </div>
+        ${s.timingWarning ? `<div class="result-hero-note warn" style="margin-top:4px">${s.timingWarning}</div>` : ''}
+        ${s.invoiceNote ? `<div class="result-hero-note" style="margin-top:4px">${s.invoiceNote}</div>` : ''}
+        ${s.compatible_with?.length > 0 ? `
+          <div class="result-row-detail-section">
+            <div class="result-row-detail-label">同時申請できる制度</div>
+            <div>${s.compatible_with.map(id => { const o = SUBSIDIES.find(x => x.id === id); return o ? `<span class="ctag">${o.name}</span>` : ''; }).join('')}</div>
+          </div>` : ''}
+      </div>
     </div>`;
+  };
+
+  // 1位：Hero
+  html += renderHero(scored[0], 1);
+
+  // 2位以降：Row（3位まで常時、4位以降は折りたたみ）
+  const rowsVisible = scored.slice(1, 3);
+  const rowsRest = scored.slice(3);
+  if (rowsVisible.length > 0 || rowsRest.length > 0) {
+    html += `
+    <div class="result-rows">
+      <div class="result-rows-header">
+        <span>#</span>
+        <span>補助金・助成金</span>
+        <span style="text-align:right">最大受給額</span>
+        <span class="hide-mobile" style="text-align:center">難易度</span>
+        <span></span>
+      </div>`;
+    rowsVisible.forEach((s, i) => { html += renderRow(s, i + 2); });
+    if (rowsRest.length > 0) {
+      html += `<div class="others-section" id="others-section" style="display:none">`;
+      rowsRest.forEach((s, i) => { html += renderRow(s, i + 4); });
+      html += `</div>
+      <div class="others-toggle" onclick="toggleOthers(this)">他 ${rowsRest.length}件を表示 ↓</div>`;
+    }
+    html += `</div>`;
   }
 
   // ══════════════════════════════════════════════════════
@@ -4042,6 +4340,23 @@ function toggleResultCard(id, btn) {
   if (labelEl) labelEl.textContent = isOpen ? '詳細を見る' : '詳細を閉じる';
 }
 
+function toggleHeroDetail(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const isOpen = el.style.display === 'block';
+  el.style.display = isOpen ? 'none' : 'block';
+  btn.textContent = isOpen ? '詳細を見る' : '詳細を閉じる';
+}
+
+function toggleRow(subsidyId, rowEl, event) {
+  if (event && event.target.closest('a')) return; // リンクは通す
+  const detail = rowEl.querySelector('.result-row-detail');
+  if (!detail) return;
+  const isOpen = detail.style.display === 'block';
+  detail.style.display = isOpen ? 'none' : 'block';
+  rowEl.classList.toggle('is-open', !isOpen);
+}
+
 function toggleSub(id, header) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -4056,9 +4371,8 @@ function toggleOthers(btn) {
   if (!el) return;
   const isOpen = el.style.display === 'block';
   el.style.display = isOpen ? 'none' : 'block';
-  btn.textContent = isOpen
-    ? btn.textContent.replace('▲ 閉じる', '').trim() + ' — クリックで表示'
-    : '閉じる ▲';
+  if (!btn.dataset.origText) btn.dataset.origText = btn.textContent;
+  btn.textContent = isOpen ? btn.dataset.origText : '閉じる ↑';
 }
 
 function toggleCompact(id, toggle) {

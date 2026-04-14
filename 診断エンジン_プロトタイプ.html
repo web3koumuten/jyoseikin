@@ -747,35 +747,52 @@
   }
   .result-row:hover .result-row-arrow { color: #0066ff; transform: translateX(2px); }
   .result-row.is-open .result-row-arrow { transform: rotate(90deg); color: #0066ff; }
-  /* Row詳細 */
+  /* Row詳細 — 読みやすさ重視の2カラム構造 */
   .result-row-detail {
     display: none;
     grid-column: 1 / -1;
-    padding: 8px 0 28px 2px;
-    font-size: 13px;
+    margin-top: 14px;
+    padding: 24px 0 8px;
+    border-top: 1px solid #ececec;
   }
-  .result-row-detail-section { margin-bottom: 20px; }
+  .result-row.is-open { background: #fcfcfc; }
+  .result-row.is-open:hover { background: #fcfcfc; }
+  .result-row.is-open .result-row-detail { display: block; }
+  .result-row-detail-inner {
+    max-width: 780px;
+  }
+  .result-row-detail-section {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 32px;
+    padding: 18px 0;
+    border-bottom: 1px solid #ececec;
+  }
+  .result-row-detail-section:last-child { border-bottom: none; padding-bottom: 4px; }
+  .result-row-detail-section:first-child { padding-top: 4px; }
   .result-row-detail-label {
-    font-size: 10.5px;
-    color: #999;
-    letter-spacing: 0.14em;
+    font-size: 12px;
+    color: #0a0a0a;
     font-weight: 700;
-    margin-bottom: 10px;
-    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    padding-top: 2px;
   }
   .result-row-detail-text {
-    font-size: 13px;
-    line-height: 1.75;
-    color: #0a0a0a;
+    font-size: 13.5px;
+    line-height: 1.85;
+    color: #333;
+    max-width: 560px;
   }
   .result-row-note {
-    font-size: 12px;
-    line-height: 1.6;
+    font-size: 12.5px;
+    line-height: 1.7;
     color: #444;
     border-left: 2px solid #d0d0d0;
-    background: #fafafa;
-    padding: 8px 12px;
-    margin-top: 8px;
+    background: #fff;
+    padding: 10px 14px;
+    margin-top: 10px;
+    max-width: 560px;
   }
   .result-row-note.warn {
     border-left-color: #f59e0b;
@@ -785,51 +802,70 @@
   .result-row-reasons {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 10px;
+    max-width: 560px;
   }
   .result-row-reason {
-    font-size: 13px;
+    font-size: 13.5px;
     line-height: 1.7;
     color: #0a0a0a;
     display: flex;
-    gap: 10px;
+    gap: 12px;
   }
   .result-row-reason::before {
-    content: '→';
-    color: #0066ff;
-    font-weight: 700;
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #0066ff;
     flex-shrink: 0;
+    margin-top: 9px;
   }
   .result-row-steps {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 16px;
+    max-width: 560px;
   }
   .result-row-step {
     display: grid;
-    grid-template-columns: 24px 1fr;
-    gap: 12px;
-    font-size: 13px;
+    grid-template-columns: 22px 1fr;
+    gap: 14px;
+    font-size: 13.5px;
     line-height: 1.65;
   }
   .result-row-step-num {
-    font-size: 13px;
-    font-weight: 800;
-    color: #0a0a0a;
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
     font-feature-settings: "tnum" 1, "lnum" 1;
+    letter-spacing: 0.04em;
+    padding-top: 3px;
   }
   .result-row-step.done .result-row-step-num { color: #10b981; }
-  .result-row-step strong { font-weight: 700; color: #0a0a0a; }
-  .result-row-step-detail { color: #666; font-size: 12.5px; margin-top: 2px; }
+  .result-row-step strong {
+    font-weight: 700;
+    color: #0a0a0a;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .result-row-step-detail {
+    color: #555;
+    font-size: 13px;
+    line-height: 1.75;
+  }
   .result-row-step-link {
     display: inline-block;
-    margin-top: 4px;
+    margin-top: 8px;
     color: #0066ff;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 12.5px;
+    font-weight: 600;
     text-decoration: none;
     border-bottom: 1px solid #0066ff;
+    padding-bottom: 1px;
   }
+  .result-row-step-link:hover { opacity: 0.7; }
 
   @media (max-width: 720px) {
     .result-hero { padding: 32px 0 28px; }
@@ -850,7 +886,13 @@
     .result-row-title { font-size: 14px; white-space: normal; }
     .result-row-amount { font-size: 18px; }
     .result-row-amount-unit { font-size: 11px; }
-    .result-row-detail { padding-left: 42px; }
+    .result-row-detail { padding: 20px 0 4px; }
+    .result-row-detail-section {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 14px 0;
+    }
+    .result-row-detail-label { font-size: 11px; color: #666; }
   }
 
   /* ── 4位以降折りたたみ（新） ───────────── */
@@ -3871,44 +3913,53 @@ function renderResults(scored, combos, conflicts, meta) {
       <div class="result-row-diff hide-mobile">${dots}</div>
       <div class="result-row-arrow">›</div>
       <div class="result-row-detail" id="${detailId}">
-        ${reasons.length > 0 ? `
+        <div class="result-row-detail-inner">
+          ${reasons.length > 0 ? `
+            <div class="result-row-detail-section">
+              <div class="result-row-detail-label">合致した理由</div>
+              <div class="result-row-reasons">${reasons.map(r => `<div class="result-row-reason">${r}</div>`).join('')}</div>
+            </div>
+          ` : ''}
+          ${s.description ? `
+            <div class="result-row-detail-section">
+              <div class="result-row-detail-label">制度の概要</div>
+              <div class="result-row-detail-text">${s.description}</div>
+            </div>
+          ` : ''}
           <div class="result-row-detail-section">
-            <div class="result-row-detail-label">合致した理由</div>
-            <div class="result-row-reasons">${reasons.map(r => `<div class="result-row-reason">${r}</div>`).join('')}</div>
+            <div class="result-row-detail-label">受給額の内訳</div>
+            <div class="result-row-detail-text">${s.amount_note}</div>
           </div>
-        ` : ''}
-        <div class="result-row-detail-section">
-          <div class="result-row-detail-label">申請までのステップ</div>
-          <div class="result-row-steps">
-            ${steps.map((step, i) => `
-              <div class="result-row-step ${step.done ? 'done' : ''}">
-                <div class="result-row-step-num">${String(i+1).padStart(2, '0')}</div>
-                <div>
-                  <strong>${step.title}</strong>${step.done ? ' — 完了' : ''}
-                  <div class="result-row-step-detail">${step.detail}</div>
-                  ${step.link ? `<a href="${step.link}" target="_blank" rel="noopener" class="result-row-step-link" onclick="event.stopPropagation()">${step.linkText} →</a>` : ''}
+          <div class="result-row-detail-section">
+            <div class="result-row-detail-label">申請までのステップ</div>
+            <div class="result-row-steps">
+              ${steps.map((step, i) => `
+                <div class="result-row-step ${step.done ? 'done' : ''}">
+                  <div class="result-row-step-num">${String(i+1).padStart(2, '0')}</div>
+                  <div>
+                    <strong>${step.title}${step.done ? ' — 完了' : ''}</strong>
+                    <div class="result-row-step-detail">${step.detail}</div>
+                    ${step.link ? `<a href="${step.link}" target="_blank" rel="noopener" class="result-row-step-link" onclick="event.stopPropagation()">${step.linkText} →</a>` : ''}
+                  </div>
                 </div>
+              `).join('')}
+            </div>
+          </div>
+          ${(s.timingWarning || s.invoiceNote) ? `
+            <div class="result-row-detail-section">
+              <div class="result-row-detail-label">注意事項</div>
+              <div>
+                ${s.timingWarning ? `<div class="result-row-note warn">${s.timingWarning}</div>` : ''}
+                ${s.invoiceNote ? `<div class="result-row-note">${s.invoiceNote}</div>` : ''}
               </div>
-            `).join('')}
-          </div>
+            </div>
+          ` : ''}
+          ${s.compatible_with?.length > 0 ? `
+            <div class="result-row-detail-section">
+              <div class="result-row-detail-label">同時申請できる制度</div>
+              <div>${s.compatible_with.map(id => { const o = SUBSIDIES.find(x => x.id === id); return o ? `<span class="ctag">${o.name}</span>` : ''; }).join('')}</div>
+            </div>` : ''}
         </div>
-        ${s.description ? `
-          <div class="result-row-detail-section">
-            <div class="result-row-detail-label">制度の概要</div>
-            <div class="result-row-detail-text">${s.description}</div>
-          </div>
-        ` : ''}
-        <div class="result-row-detail-section">
-          <div class="result-row-detail-label">受給額の内訳</div>
-          <div class="result-row-detail-text">${s.amount_note}</div>
-        </div>
-        ${s.timingWarning ? `<div class="result-row-note warn">${s.timingWarning}</div>` : ''}
-        ${s.invoiceNote ? `<div class="result-row-note">${s.invoiceNote}</div>` : ''}
-        ${s.compatible_with?.length > 0 ? `
-          <div class="result-row-detail-section">
-            <div class="result-row-detail-label">同時申請できる制度</div>
-            <div>${s.compatible_with.map(id => { const o = SUBSIDIES.find(x => x.id === id); return o ? `<span class="ctag">${o.name}</span>` : ''; }).join('')}</div>
-          </div>` : ''}
       </div>
     </div>`;
   };

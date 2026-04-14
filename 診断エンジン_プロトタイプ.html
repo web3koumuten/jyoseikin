@@ -1103,10 +1103,10 @@
     color: #fff;
   }
 
-  /* ─── ワークフロータイムライン（ピル型） ─────────────────── */
+  /* ─── ワークフロータイムライン（縦ステッパー型） ───────────── */
   .wf-wrap {
     margin-bottom: 20px;
-    padding: 14px 16px 16px;
+    padding: 18px 20px 8px;
     background: #fff;
     border-radius: 10px;
     border: 1px solid #e5e7eb;
@@ -1114,108 +1114,105 @@
   .wf-header {
     display: flex;
     align-items: center;
-    gap: 7px;
-    margin-bottom: 10px;
+    gap: 8px;
+    margin-bottom: 14px;
   }
   .wf-title {
     font-size: 10px;
     font-weight: 700;
     color: #9ca3af;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
   .wf-type-badge {
-    font-size: 10.5px;
+    font-size: 11px;
     font-weight: 600;
     color: #374151;
     background: #f3f4f6;
     border: 1px solid #e5e7eb;
     border-radius: 5px;
-    padding: 2px 8px;
+    padding: 2px 9px;
   }
   .wf-alert-note {
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 500;
     color: #92400e;
-    margin-bottom: 12px;
-    padding: 8px 12px;
+    margin-bottom: 16px;
+    padding: 9px 13px;
     background: #fffbeb;
     border-left: 3px solid #f59e0b;
     border-radius: 0 6px 6px 0;
-    line-height: 1.5;
+    line-height: 1.6;
   }
-  .wf-pills {
+  /* 縦ステップリスト */
+  .wf-steps-v {
     display: flex;
-    align-items: center;
-    gap: 4px;
-    overflow-x: auto;
-    padding-bottom: 2px;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    flex-direction: column;
   }
-  .wf-pills::-webkit-scrollbar { display: none; }
-  .wf-pill {
-    display: inline-flex;
+  .wf-step-v {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .wf-step-v-left {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 6px;
-    padding: 6px 11px;
-    border-radius: 8px;
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    white-space: nowrap;
     flex-shrink: 0;
-    transition: border-color 0.15s;
+    width: 40px;
   }
-  .wf-pill-num {
-    width: 18px;
-    height: 18px;
+  .wf-num {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: #e5e7eb;
+    border: 1.5px solid #d1d5db;
+    background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
+    font-size: 15px;
     font-weight: 700;
-    color: #6b7280;
+    color: #9ca3af;
     flex-shrink: 0;
   }
-  .wf-pill-label {
-    font-size: 12px;
-    font-weight: 600;
+  .wf-step-v.is-warn .wf-num {
+    border-color: #f59e0b;
+    color: #d97706;
+  }
+  .wf-step-v.is-final .wf-num {
+    border-color: #6b7280;
     color: #374151;
-    line-height: 1;
   }
-  .wf-pill.is-warn {
-    background: #fffbeb;
-    border-color: #fcd34d;
+  .wf-connector {
+    flex: 1;
+    width: 1.5px;
+    min-height: 24px;
+    background: #e5e7eb;
+    margin: 4px 0;
   }
-  .wf-pill.is-warn .wf-pill-num {
-    background: #f59e0b;
-    color: #fff;
+  .wf-step-v:last-child .wf-connector { display: none; }
+  .wf-step-v-body {
+    padding-top: 9px;
+    padding-bottom: 24px;
+    flex: 1;
   }
-  .wf-pill.is-warn .wf-pill-label { color: #92400e; }
-  .wf-pill-warn-tag {
-    font-size: 9.5px;
-    font-weight: 700;
-    color: #b45309;
-    background: #fef3c7;
-    border-radius: 3px;
-    padding: 1px 5px;
-  }
-  .wf-pill.is-final {
-    background: #f0fdf4;
-    border-color: #86efac;
-  }
-  .wf-pill.is-final .wf-pill-num {
-    background: #22c55e;
-    color: #fff;
-  }
-  .wf-pill.is-final .wf-pill-label { color: #15803d; }
-  .wf-arrow {
-    color: #d1d5db;
+  .wf-step-v-label {
     font-size: 14px;
-    flex-shrink: 0;
-    user-select: none;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.4;
+  }
+  .wf-step-v.is-warn .wf-step-v-label { color: #92400e; }
+  .wf-warn-inline {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #d97706;
+    background: #fef3c7;
+    border-radius: 4px;
+    padding: 2px 7px;
+    margin-left: 8px;
+    vertical-align: middle;
   }
 
   /* 注意事項 */
@@ -4330,19 +4327,22 @@ function renderResults(scored, combos, conflicts, meta) {
     { done: false, title: '公募要領を確認する', detail: '締切・対象経費・申請書式を公式サイトで確認してください。' },
   ];
 
-  // 申請フロータイムライン レンダラー（ピル型）
+  // 申請フロータイムライン レンダラー（縦ステッパー型）
   const renderWorkflow = (wf) => {
     if (!wf) return '';
-    const pillsHtml = wf.steps.map((step, i) => {
+    const stepsHtml = wf.steps.map((step, i) => {
       const cls = step.warn ? ' is-warn' : step.final ? ' is-final' : '';
-      const pill = `
-        <div class="wf-pill${cls}">
-          <span class="wf-pill-num">${i + 1}</span>
-          <span class="wf-pill-label">${step.label}</span>
-          ${step.warn && step.warnText ? `<span class="wf-pill-warn-tag">${step.warnText}</span>` : ''}
+      return `
+        <div class="wf-step-v${cls}">
+          <div class="wf-step-v-left">
+            <div class="wf-num">${i + 1}</div>
+            <div class="wf-connector"></div>
+          </div>
+          <div class="wf-step-v-body">
+            <span class="wf-step-v-label">${step.label}</span>
+            ${step.warn && step.warnText ? `<span class="wf-warn-inline">${step.warnText}</span>` : ''}
+          </div>
         </div>`;
-      const arrow = i < wf.steps.length - 1 ? `<span class="wf-arrow">›</span>` : '';
-      return pill + arrow;
     }).join('');
     return `
       <div class="wf-wrap">
@@ -4351,7 +4351,7 @@ function renderResults(scored, combos, conflicts, meta) {
           <span class="wf-type-badge">${wf.label}</span>
         </div>
         ${wf.note ? `<div class="wf-alert-note">${wf.note}</div>` : ''}
-        <div class="wf-pills">${pillsHtml}</div>
+        <div class="wf-steps-v">${stepsHtml}</div>
       </div>`;
   };
 

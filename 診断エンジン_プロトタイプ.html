@@ -400,6 +400,13 @@
     letter-spacing: 0.08em;
     font-weight: 600;
   }
+  .result-hero-eyebrow-tag-note {
+    margin-left: auto;
+    font-size: 11px;
+    color: #666;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
   .result-hero-title {
     font-size: 34px;
     font-weight: 800;
@@ -650,7 +657,7 @@
   }
   .result-rows-header {
     display: grid;
-    grid-template-columns: 40px 1fr 160px 80px 30px;
+    grid-template-columns: 1fr 160px 80px 30px;
     gap: 20px;
     padding: 14px 2px;
     font-size: 10.5px;
@@ -663,7 +670,7 @@
   }
   .result-row {
     display: grid;
-    grid-template-columns: 40px 1fr 160px 80px 30px;
+    grid-template-columns: 1fr 160px 80px 30px;
     gap: 20px;
     padding: 22px 2px;
     border-bottom: 1px solid #e5e5e5;
@@ -744,7 +751,7 @@
   .result-row-detail {
     display: none;
     grid-column: 1 / -1;
-    padding: 8px 0 28px 60px;
+    padding: 8px 0 28px 2px;
     font-size: 13px;
   }
   .result-row-detail-section { margin-bottom: 20px; }
@@ -822,9 +829,9 @@
     .result-hero-cta-detail, .result-hero-cta-primary {
       text-align: center; justify-content: center; width: 100%;
     }
-    .result-rows-header { grid-template-columns: 30px 1fr 90px 24px; gap: 12px; }
+    .result-rows-header { grid-template-columns: 1fr 90px 24px; gap: 12px; }
     .result-rows-header .hide-mobile { display: none; }
-    .result-row { grid-template-columns: 30px 1fr 90px 24px; gap: 12px; padding: 18px 2px; }
+    .result-row { grid-template-columns: 1fr 90px 24px; gap: 12px; padding: 18px 2px; }
     .result-row .hide-mobile { display: none; }
     .result-row-title { font-size: 14px; white-space: normal; }
     .result-row-amount { font-size: 18px; }
@@ -3822,7 +3829,7 @@ function renderResults(scored, combos, conflicts, meta) {
   const diffLabelMap = {1: 'やさしい', 2: '標準', 3: 'やや高い'};
   const amountMan = (y) => Math.floor((y || 0) / 10000).toLocaleString('ja-JP');
 
-  // ── Hero（1位専用） ──────────────────────
+  // ── Hero（大きく扱う1件目） ──────────────────────
   const renderHero = (s, rank) => {
     const cat = getCategory(s.id);
     const steps = NEXT_STEPS_MAP[s.id] || defaultSteps;
@@ -3832,16 +3839,14 @@ function renderResults(scored, combos, conflicts, meta) {
     const diff = s.difficulty || 2;
     const dots = [1,2,3].map(i => `<span class="result-hero-dot${i <= diff ? ' on' : ''}"></span>`).join('');
     const leadTime = s.lead_time_months ? `${s.lead_time_months}ヶ月` : '—';
-    const numStr = String(rank).padStart(2, '0');
     const primaryLink = steps.find(st => st.link && !st.done)?.link || '#';
 
     return `
     <div class="result-hero">
       <div class="result-hero-eyebrow">
-        <span class="result-hero-num">NO. ${numStr}</span>
-        <span class="result-hero-eyebrow-bar"></span>
         <span class="result-hero-eyebrow-cat">${cat.label}</span>
-        <span class="result-hero-eyebrow-tag">BEST MATCH</span>
+        <span class="result-hero-eyebrow-bar"></span>
+        <span class="result-hero-eyebrow-tag-note">条件に該当</span>
       </div>
       <h2 class="result-hero-title">${s.name}</h2>
       <div class="result-hero-amount-block">
@@ -3851,7 +3856,7 @@ function renderResults(scored, combos, conflicts, meta) {
       </div>
       ${topReason ? `
       <div class="result-hero-reason">
-        <span class="result-hero-reason-label">→ あなたに合う最大の理由</span>
+        <span class="result-hero-reason-label">→ 該当した理由</span>
         ${topReason}
       </div>` : ''}
       <div class="result-hero-meta">
@@ -3922,8 +3927,8 @@ function renderResults(scored, combos, conflicts, meta) {
     </div>`;
   };
 
-  // ── Row（2位以降） ──────────────────────
-  const renderRow = (s, rank) => {
+  // ── Row（該当する他の候補） ──────────────────────
+  const renderRow = (s) => {
     const cat = getCategory(s.id);
     const steps = NEXT_STEPS_MAP[s.id] || defaultSteps;
     const reasons = [...(s.reasons || []), ...(s.bonusReasons || [])].slice(0, 3);
@@ -3931,11 +3936,9 @@ function renderResults(scored, combos, conflicts, meta) {
     const diff = s.difficulty || 2;
     const dots = [1,2,3].map(i => `<span class="result-row-dot${i <= diff ? ' on' : ''}"></span>`).join('');
     const leadTime = s.lead_time_months ? `${s.lead_time_months}ヶ月` : '—';
-    const numStr = String(rank).padStart(2, '0');
 
     return `
     <div class="result-row" id="row-${s.id}" onclick="toggleRow('${s.id}', this, event)">
-      <div class="result-row-num">${numStr}</div>
       <div class="result-row-main">
         <div class="result-row-cat">${cat.label}</div>
         <div class="result-row-title">${s.name}</div>
@@ -3994,26 +3997,25 @@ function renderResults(scored, combos, conflicts, meta) {
     </div>`;
   };
 
-  // 1位：Hero
-  html += renderHero(scored[0], 1);
+  // 1件目：Hero
+  html += renderHero(scored[0]);
 
-  // 2位以降：Row（3位まで常時、4位以降は折りたたみ）
+  // 2件目以降：Row（2件まで常時、それ以降は折りたたみ）
   const rowsVisible = scored.slice(1, 3);
   const rowsRest = scored.slice(3);
   if (rowsVisible.length > 0 || rowsRest.length > 0) {
     html += `
     <div class="result-rows">
       <div class="result-rows-header">
-        <span>#</span>
-        <span>補助金・助成金</span>
+        <span>その他 該当する補助金・助成金</span>
         <span style="text-align:right">最大受給額</span>
         <span class="hide-mobile" style="text-align:center">難易度</span>
         <span></span>
       </div>`;
-    rowsVisible.forEach((s, i) => { html += renderRow(s, i + 2); });
+    rowsVisible.forEach(s => { html += renderRow(s); });
     if (rowsRest.length > 0) {
       html += `<div class="others-section" id="others-section" style="display:none">`;
-      rowsRest.forEach((s, i) => { html += renderRow(s, i + 4); });
+      rowsRest.forEach(s => { html += renderRow(s); });
       html += `</div>
       <div class="others-toggle" onclick="toggleOthers(this)">他 ${rowsRest.length}件を表示 ↓</div>`;
     }

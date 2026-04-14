@@ -747,117 +747,134 @@
   }
   .result-row:hover .result-row-arrow { color: #0066ff; transform: translateX(2px); }
   .result-row.is-open .result-row-arrow { transform: rotate(90deg); color: #0066ff; }
-  /* Row詳細 — 1カラム縦リズム、読み物のような密度 */
+  /* Row詳細 — エディトリアル・タイポグラフィ主導 */
   .result-row-detail {
     display: none;
     grid-column: 1 / -1;
-    margin: 14px -2px -22px;
+    margin: 18px -2px -22px;
     padding: 0;
-    background: #f7f8fa;
-    border-top: 1px solid #e5e5e5;
+    background: #fff;
+    border-top: 1px solid #0a0a0a;
   }
   .result-row.is-open { background: #fafafa; }
   .result-row.is-open:hover { background: #fafafa; }
   .result-row.is-open .result-row-detail { display: block; }
   .result-row-detail-inner {
-    max-width: 640px;
-    padding: 28px 32px 32px;
+    max-width: 680px;
+    padding: 40px 40px 44px;
   }
 
-  /* 受給額パネル — 詳細の先頭に配置する主役 */
+  /* 受給額ヒーロー — 枠なし、タイポグラフィで魅せる */
   .detail-amount-panel {
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 20px 22px;
-    margin-bottom: 24px;
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #0a0a0a;
+  }
+  .detail-amount-eyebrow {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #0a0a0a;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-feature-settings: "palt" 0;
+  }
+  .detail-amount-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: #0a0a0a;
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-bottom: 3px;
   }
   .detail-amount-row {
     display: flex;
     align-items: baseline;
     gap: 6px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
   .detail-amount-value {
-    font-size: 38px;
+    font-size: 64px;
     font-weight: 300;
     color: #0a0a0a;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
     font-feature-settings: "tnum" 1, "lnum" 1;
-    line-height: 1;
+    line-height: 0.95;
   }
   .detail-amount-unit {
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 22px;
+    font-weight: 400;
     color: #0a0a0a;
-  }
-  .detail-amount-caption {
-    font-size: 11px;
-    font-weight: 700;
-    color: #888;
-    letter-spacing: 0.12em;
-    margin-left: 8px;
+    letter-spacing: 0.02em;
+    margin-left: 4px;
   }
   .detail-amount-note {
     font-size: 13px;
-    line-height: 1.75;
-    color: #444;
-    border-top: 1px dashed #eaeaea;
-    padding-top: 12px;
-    margin-top: 4px;
+    line-height: 1.9;
+    color: #555;
+    max-width: 580px;
   }
 
-  /* セクション見出し — 小さく控えめ、本文に集中させる */
-  .detail-block { margin-bottom: 24px; }
+  /* セクション見出し — エディトリアル番号付き */
+  .detail-block { margin-bottom: 36px; }
   .detail-block:last-child { margin-bottom: 0; }
   .detail-block-head {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .detail-block-num {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #0066ff;
+    letter-spacing: 0.1em;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    flex-shrink: 0;
+  }
+  .detail-block-title {
+    font-size: 13.5px;
     font-weight: 700;
     color: #0a0a0a;
-    letter-spacing: 0.1em;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #dcdcdc;
-  }
-  .detail-block-head::before {
-    content: '';
-    width: 3px;
-    height: 11px;
-    background: #0066ff;
-    border-radius: 1px;
+    letter-spacing: 0.02em;
   }
 
   /* 本文 */
   .detail-body-text {
-    font-size: 13.5px;
-    line-height: 1.9;
+    font-size: 14px;
+    line-height: 1.95;
     color: #1a1a1a;
+    max-width: 580px;
   }
 
-  /* 理由 — インラインのチェックリスト */
+  /* 理由 — ミニマルなドットリスト */
   .detail-reasons {
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    gap: 12px;
   }
   .detail-reason {
     font-size: 13.5px;
-    line-height: 1.65;
+    line-height: 1.75;
     color: #1a1a1a;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 14px 1fr;
+    gap: 12px;
+    align-items: start;
+    max-width: 580px;
   }
   .detail-reason::before {
-    content: '✓';
-    color: #0066ff;
-    font-weight: 800;
-    flex-shrink: 0;
-    font-size: 13px;
-    line-height: 1.65;
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #0a0a0a;
+    margin-top: 10px;
+    margin-left: 4px;
   }
 
   /* ステップ — タイムライン */
@@ -868,45 +885,36 @@
   }
   .detail-step {
     position: relative;
-    padding: 0 0 22px 40px;
+    padding: 0 0 24px 36px;
   }
   .detail-step:last-child { padding-bottom: 0; }
   .detail-step::before {
     content: attr(data-num);
     position: absolute;
     left: 0;
-    top: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #fff;
-    border: 1.5px solid #c8c8c8;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
+    top: 2px;
+    font-size: 10.5px;
     font-weight: 700;
-    color: #555;
+    color: #0066ff;
     font-feature-settings: "tnum" 1, "lnum" 1;
-    z-index: 1;
-    box-sizing: border-box;
+    letter-spacing: 0.06em;
+    width: 24px;
+    text-align: left;
   }
   .detail-step::after {
     content: '';
     position: absolute;
-    left: 14px;
-    top: 28px;
-    bottom: 0;
-    width: 1.5px;
-    background: #dcdcdc;
+    left: 0;
+    top: 22px;
+    bottom: 4px;
+    width: 1px;
+    background: #e8e8e8;
   }
   .detail-step:last-child::after { display: none; }
   .detail-step.done::before {
-    background: #0066ff;
-    border-color: #0066ff;
-    color: #fff;
     content: '✓';
-    font-size: 13px;
+    color: #0066ff;
+    font-size: 12px;
   }
   .detail-step.done::after { background: #0066ff; }
   .detail-step-title {
@@ -914,34 +922,31 @@
     font-weight: 700;
     color: #0a0a0a;
     font-size: 14px;
-    line-height: 1.45;
-    padding-top: 5px;
-    margin-bottom: 5px;
+    line-height: 1.55;
+    margin-bottom: 6px;
   }
   .detail-step-desc {
-    color: #444;
+    color: #555;
     font-size: 13px;
-    line-height: 1.75;
+    line-height: 1.85;
+    max-width: 540px;
   }
   .detail-step-link {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     margin-top: 10px;
     color: #0066ff;
     font-size: 12.5px;
     font-weight: 600;
     text-decoration: none;
-    padding: 5px 10px;
-    border: 1px solid #c9dcff;
-    background: #f0f6ff;
-    border-radius: 4px;
+    border-bottom: 1px solid #0066ff;
+    padding-bottom: 2px;
     transition: all 0.15s;
   }
   .detail-step-link:hover {
-    background: #0066ff;
-    color: #fff;
-    border-color: #0066ff;
+    color: #003d99;
+    border-bottom-color: #003d99;
   }
 
   /* 注意事項 */
@@ -980,14 +985,13 @@
     .result-row-title { font-size: 14px; white-space: normal; }
     .result-row-amount { font-size: 18px; }
     .result-row-amount-unit { font-size: 11px; }
-    .result-row-detail-inner { padding: 22px 18px 24px; }
-    .detail-amount-panel { padding: 16px 16px; }
-    .detail-amount-value { font-size: 32px; }
-    .detail-amount-unit { font-size: 16px; }
-    .detail-step { padding-left: 36px; padding-bottom: 20px; }
-    .detail-step::before { width: 26px; height: 26px; }
-    .detail-step::after { left: 13px; top: 26px; }
-    .detail-step-title { font-size: 13.5px; padding-top: 4px; }
+    .result-row-detail-inner { padding: 28px 22px 32px; max-width: 100%; }
+    .detail-amount-panel { margin-bottom: 32px; padding-bottom: 22px; }
+    .detail-amount-value { font-size: 48px; }
+    .detail-amount-unit { font-size: 18px; }
+    .detail-block { margin-bottom: 28px; }
+    .detail-step { padding-left: 30px; padding-bottom: 20px; }
+    .detail-step-title { font-size: 13.5px; }
   }
 
   /* ── 4位以降折りたたみ（新） ───────────── */
@@ -4011,53 +4015,79 @@ function renderResults(scored, combos, conflicts, meta) {
         <div class="result-row-detail-inner">
 
           <div class="detail-amount-panel">
+            <div class="detail-amount-eyebrow">最大受給額</div>
             <div class="detail-amount-row">
               <span class="detail-amount-value">${amountMan(s.max_amount)}</span><span class="detail-amount-unit">万円</span>
-              <span class="detail-amount-caption">最大受給額</span>
             </div>
             <div class="detail-amount-note">${s.amount_note}</div>
           </div>
 
-          ${reasons.length > 0 ? `
-            <div class="detail-block">
-              <div class="detail-block-head">合致した理由</div>
-              <div class="detail-reasons">${reasons.map(r => `<div class="detail-reason">${r}</div>`).join('')}</div>
-            </div>
-          ` : ''}
-
-          ${s.description ? `
-            <div class="detail-block">
-              <div class="detail-block-head">制度の概要</div>
-              <div class="detail-body-text">${s.description}</div>
-            </div>
-          ` : ''}
-
-          <div class="detail-block">
-            <div class="detail-block-head">申請までのステップ</div>
-            <div class="detail-steps">
-              ${steps.map((step, i) => `
-                <div class="detail-step ${step.done ? 'done' : ''}" data-num="${String(i+1).padStart(2, '0')}">
-                  <span class="detail-step-title">${step.title}${step.done ? ' — 完了' : ''}</span>
-                  <div class="detail-step-desc">${step.detail}</div>
-                  ${step.link ? `<a href="${step.link}" target="_blank" rel="noopener" class="detail-step-link" onclick="event.stopPropagation()">${step.linkText} →</a>` : ''}
+          ${(() => {
+            const blocks = [];
+            if (reasons.length > 0) {
+              blocks.push(`
+                <div class="detail-block">
+                  <div class="detail-block-head">
+                    <span class="detail-block-num">__NUM__</span>
+                    <span class="detail-block-title">合致した理由</span>
+                  </div>
+                  <div class="detail-reasons">${reasons.map(r => `<div class="detail-reason">${r}</div>`).join('')}</div>
                 </div>
-              `).join('')}
-            </div>
-          </div>
-
-          ${(s.timingWarning || s.invoiceNote) ? `
-            <div class="detail-block">
-              <div class="detail-block-head">注意事項</div>
-              ${s.timingWarning ? `<div class="detail-note warn">${s.timingWarning}</div>` : ''}
-              ${s.invoiceNote ? `<div class="detail-note">${s.invoiceNote}</div>` : ''}
-            </div>
-          ` : ''}
-
-          ${s.compatible_with?.length > 0 ? `
-            <div class="detail-block">
-              <div class="detail-block-head">同時申請できる制度</div>
-              <div>${s.compatible_with.map(id => { const o = SUBSIDIES.find(x => x.id === id); return o ? `<span class="ctag">${o.name}</span>` : ''; }).join('')}</div>
-            </div>` : ''}
+              `);
+            }
+            if (s.description) {
+              blocks.push(`
+                <div class="detail-block">
+                  <div class="detail-block-head">
+                    <span class="detail-block-num">__NUM__</span>
+                    <span class="detail-block-title">制度の概要</span>
+                  </div>
+                  <div class="detail-body-text">${s.description}</div>
+                </div>
+              `);
+            }
+            blocks.push(`
+              <div class="detail-block">
+                <div class="detail-block-head">
+                  <span class="detail-block-num">__NUM__</span>
+                  <span class="detail-block-title">申請までのステップ</span>
+                </div>
+                <div class="detail-steps">
+                  ${steps.map((step, i) => `
+                    <div class="detail-step ${step.done ? 'done' : ''}" data-num="${String(i+1).padStart(2, '0')}">
+                      <span class="detail-step-title">${step.title}${step.done ? ' — 完了' : ''}</span>
+                      <div class="detail-step-desc">${step.detail}</div>
+                      ${step.link ? `<a href="${step.link}" target="_blank" rel="noopener" class="detail-step-link" onclick="event.stopPropagation()">${step.linkText} →</a>` : ''}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `);
+            if (s.timingWarning || s.invoiceNote) {
+              blocks.push(`
+                <div class="detail-block">
+                  <div class="detail-block-head">
+                    <span class="detail-block-num">__NUM__</span>
+                    <span class="detail-block-title">注意事項</span>
+                  </div>
+                  ${s.timingWarning ? `<div class="detail-note warn">${s.timingWarning}</div>` : ''}
+                  ${s.invoiceNote ? `<div class="detail-note">${s.invoiceNote}</div>` : ''}
+                </div>
+              `);
+            }
+            if (s.compatible_with?.length > 0) {
+              blocks.push(`
+                <div class="detail-block">
+                  <div class="detail-block-head">
+                    <span class="detail-block-num">__NUM__</span>
+                    <span class="detail-block-title">同時申請できる制度</span>
+                  </div>
+                  <div>${s.compatible_with.map(id => { const o = SUBSIDIES.find(x => x.id === id); return o ? `<span class="ctag">${o.name}</span>` : ''; }).join('')}</div>
+                </div>
+              `);
+            }
+            return blocks.map((html, i) => html.replace('__NUM__', String(i+1).padStart(2, '0'))).join('');
+          })()}
 
         </div>
       </div>

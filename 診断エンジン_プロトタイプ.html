@@ -14,8 +14,8 @@
     --primary-light: #eff6ff;
     --accent: #0e9f6e;
     --accent-light: #ecfdf5;
-    --warning: #f59e0b;
-    --warning-light: #fffbeb;
+    --warning: #3b82f6;
+    --warning-light: #eff6ff;
     --gray-50: #f8f9fc;
     --gray-100: #f1f3f8;
     --gray-200: #e4e7f0;
@@ -395,26 +395,26 @@
 
   /* Phase 4: 加点ロードマップ */
   .roadmap-panel {
-    background: #fffbeb;
-    border: 1.5px solid #fcd34d;
+    background: #eff6ff;
+    border: 1.5px solid #93c5fd;
     border-radius: var(--radius);
     padding: 16px 20px;
     margin-bottom: 18px;
     font-size: 13px;
-    color: #78350f;
+    color: #1e3a8a;
   }
   .roadmap-panel h3 { font-size: 14px; font-weight: 800; margin-bottom: 12px; }
   .roadmap-steps { display: flex; gap: 8px; flex-wrap: wrap; }
   .roadmap-step {
     flex: 1; min-width: 160px;
     background: white;
-    border: 1px solid #fde68a;
+    border: 1px solid #bfdbfe;
     border-radius: 8px;
     padding: 10px 12px;
   }
-  .roadmap-step .step-period { font-size: 11px; font-weight: 700; color: #d97706; margin-bottom: 4px; }
+  .roadmap-step .step-period { font-size: 11px; font-weight: 700; color: #2563eb; margin-bottom: 4px; }
   .roadmap-step .step-title { font-weight: 700; font-size: 12px; margin-bottom: 4px; }
-  .roadmap-step .step-detail { font-size: 11px; color: #92400e; line-height: 1.6; }
+  .roadmap-step .step-detail { font-size: 11px; color: #1e3a8a; line-height: 1.6; }
   .roadmap-step.done .step-period { color: #059669; }
 
   /* ══════════════════════════════════════════════════════
@@ -707,7 +707,7 @@
     background: #fafafa;
     border-left: 3px solid #0066ff;
   }
-  .result-hero-note.warn { border-left-color: #f59e0b; background: #fffbeb; color: #78350f; }
+  .result-hero-note.warn { border-left-color: #3b82f6; background: #eff6ff; color: #1e3a8a; }
 
   /* ══════════════════════════════════════════════════════
      結果カードリスト（ダッシュボード型）
@@ -828,8 +828,8 @@
     letter-spacing: 0.01em;
   }
   .result-row-chip.alert {
-    background: #fffaeb;
-    color: #b54708;
+    background: #eff6ff;
+    color: #1d4ed8;
   }
   .result-row-chip.accent {
     background: #ecf2ff;
@@ -1237,13 +1237,13 @@
   }
   .detail-note + .detail-note { margin-top: 8px; }
   .detail-note.warn {
-    background: #fffaeb;
-    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 0 0 1px #fedf89;
-    color: #93370d;
+    background: #eff6ff;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 0 0 1px #bfdbfe;
+    color: #1e3a8a;
   }
   .detail-note.warn::before {
     content: '⚠';
-    color: #dc6803;
+    color: #3b82f6;
   }
 
   @media (max-width: 720px) {
@@ -1323,11 +1323,11 @@
   .gbiz-inline {
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 0 0 1px #fedf89;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 0 0 1px #bfdbfe;
     padding: 14px 18px;
     margin: 16px 0 8px;
     font-size: 12.5px;
-    color: #93370d;
+    color: #1e3a8a;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -1336,11 +1336,11 @@
   .gbiz-inline::before {
     content: '⚠';
     font-size: 16px;
-    color: #dc6803;
+    color: #3b82f6;
     flex-shrink: 0;
   }
   .gbiz-inline-body { flex: 1; }
-  .gbiz-inline strong { color: #7a2e0e; }
+  .gbiz-inline strong { color: #1e3a8a; }
   .gbiz-inline a {
     display: inline-flex;
     align-items: center;
@@ -1356,7 +1356,7 @@
     flex-shrink: 0;
     transition: background 0.15s;
   }
-  .gbiz-inline a:hover { background: #dc6803; }
+  .gbiz-inline a:hover { background: #2563eb; }
 
   /* ── コンパクトパネル ───────────── */
   .compact-panel {
@@ -1404,7 +1404,7 @@
     background: #dcfce7; color: #166534;
   }
   .category-badge.cat-wage {
-    background: #fef3c7; color: #92400e;
+    background: #dbeafe; color: #1e3a8a;
   }
   .category-badge.cat-other {
     background: #f3f4f6; color: #374151;
@@ -1444,7 +1444,7 @@
     font-size: 12px; font-weight: 700;
     flex-shrink: 0;
   }
-  .rsl-rank.top3 { background: #fde68a; color: #92400e; }
+  .rsl-rank.top3 { background: #dbeafe; color: #1e3a8a; }
   .rsl-body { flex: 1; min-width: 0; }
   .rsl-name { font-size: 13px; font-weight: 700; color: var(--gray-900); }
   .rsl-meta { font-size: 11px; color: var(--gray-600); margin-top: 2px; }
@@ -1464,12 +1464,12 @@
   /* Conflict */
   .conflict-panel {
     background: var(--warning-light);
-    border: 1px solid #fcd9bd;
+    border: 1px solid #93c5fd;
     border-radius: var(--radius);
     padding: 14px 18px;
     margin-bottom: 16px;
     font-size: 13px;
-    color: #9a3412;
+    color: #1e3a8a;
   }
   .conflict-panel strong { display: block; margin-bottom: 6px; }
 
@@ -1477,14 +1477,14 @@
   .subsidy-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); margin-bottom: 10px; }
   .subsidy-header { display: flex; align-items: center; padding: 15px 18px; gap: 14px; cursor: pointer; }
   .rank { width: 30px; height: 30px; border-radius: 50%; background: var(--primary-light); color: var(--primary); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .rank.gold { background: #fef3c7; color: #92400e; }
+  .rank.gold { background: #dbeafe; color: #1e3a8a; }
   .subsidy-info { flex: 1; min-width: 0; }
   .subsidy-name { font-size: 14px; font-weight: 700; line-height: 1.3; }
   .subsidy-tags { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
   .tag { font-size: 11px; padding: 2px 7px; border-radius: 99px; background: var(--gray-100); color: var(--gray-600); }
   .tag.blue { background: var(--primary-light); color: #1e40af; }
   .tag.green { background: var(--accent-light); color: #065f46; }
-  .tag.orange { background: #fff7ed; color: #9a3412; }
+  .tag.orange { background: #eff6ff; color: #1e40af; }
   .subsidy-amt { text-align: right; flex-shrink: 0; }
   .subsidy-amt .amt { font-size: 17px; font-weight: 700; color: var(--primary); }
   .subsidy-amt .lbl { font-size: 11px; color: var(--gray-600); }
@@ -1506,7 +1506,7 @@
   td { padding: 9px 12px; border-bottom: 1px solid var(--gray-100); }
   tr:last-child td { border-bottom: none; }
   .d1c { color: #059669; font-weight: 700; }
-  .d2c { color: #d97706; font-weight: 700; }
+  .d2c { color: #2563eb; font-weight: 700; }
   .d3c { color: #dc2626; font-weight: 700; }
 
   .reset-area { text-align: center; margin-top: 24px; }
@@ -1554,8 +1554,8 @@
   .next-step-link:hover { text-decoration: underline; }
   .next-step-badge {
     display: inline-block;
-    background: #fef3c7;
-    color: #92400e;
+    background: #dbeafe;
+    color: #1e3a8a;
     border-radius: 4px;
     padding: 1px 7px;
     font-size: 11px;
@@ -1895,15 +1895,15 @@
 
   /* ── TAG SUGGESTIONS ────────────────────── */
   .tag-suggestions {
-    background: #fffbeb;
-    border: 1px solid #fde68a;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
     border-radius: 8px;
     padding: 10px 12px;
     margin-bottom: 8px;
   }
   .tag-suggest-label {
     font-size: 12px;
-    color: #78350f;
+    color: #1e3a8a;
     margin-bottom: 8px;
     font-weight: 600;
   }
@@ -1914,16 +1914,16 @@
   }
   .tag-btn {
     background: white;
-    border: 1px solid #fcd34d;
+    border: 1px solid #93c5fd;
     border-radius: 99px;
     padding: 4px 12px;
     font-size: 12px;
-    color: #92400e;
+    color: #1d4ed8;
     cursor: pointer;
     font-family: inherit;
     transition: background 0.1s;
   }
-  .tag-btn:hover { background: #fef3c7; }
+  .tag-btn:hover { background: #dbeafe; }
 
   /* ── INLINE FEEDBACK ────────────────────── */
   .inline-feedback {
@@ -1937,9 +1937,9 @@
     margin-top: 8px;
   }
   .inline-feedback.warn {
-    background: #fff7ed;
-    border-color: #fed7aa;
-    color: #7c2d12;
+    background: #eff6ff;
+    border-color: #bfdbfe;
+    color: #1e3a8a;
   }
   .help-note {
     background: #f0f9ff;
@@ -4685,13 +4685,13 @@ function renderCard(s, i) {
         <div style="margin-top:14px;font-size:13px;font-weight:600;margin-bottom:4px">助成額の内訳</div>
         <div style="font-size:13px;color:var(--gray-700)">${s.amount_note}</div>
 
-        ${s.timingWarning ? `<div style="margin-top:10px;font-size:12px;color:#9a3412;background:#fff7ed;padding:8px 12px;border-radius:6px">${s.timingWarning}</div>` : ''}
+        ${s.timingWarning ? `<div style="margin-top:10px;font-size:12px;color:#1e3a8a;background:#eff6ff;padding:8px 12px;border-radius:6px;border-left:3px solid #3b82f6">${s.timingWarning}</div>` : ''}
         ${s.invoiceNote ? `<div style="margin-top:6px;font-size:12px;color:#1e40af;background:#dbeafe;padding:8px 12px;border-radius:6px">${s.invoiceNote}</div>` : ''}
 
         <div class="match-box">
           <strong>この会社が対象になる理由</strong>
           ${s.reasons.map(r => `<span class="mtag">${r}</span>`).join('')}
-          ${s.bonusReasons.map(r => `<span class="mtag" style="background:#fef3c7;color:#92400e">${r}</span>`).join('')}
+          ${s.bonusReasons.map(r => `<span class="mtag" style="background:#dbeafe;color:#1e3a8a">${r}</span>`).join('')}
         </div>
 
         <div class="detail-grid">

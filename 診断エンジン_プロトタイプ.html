@@ -228,30 +228,91 @@
   .btn-submit:hover { background: var(--primary-dark); box-shadow: 0 6px 16px rgba(0,102,255,0.35); }
   .btn-submit:active { transform: translateY(1px); }
 
-  /* ── 結果ヘッダー ── */
+  /* ── 結果ヘッダー（ダッシュボード型） ── */
   #results { display: none; }
   .results-header {
-    background: var(--gray-900);
-    color: white;
-    border-radius: var(--radius);
-    padding: 28px 32px;
-    margin-bottom: 16px;
-    text-align: center;
+    margin-bottom: 20px;
   }
-  .results-header h2 { font-size: 16px; font-weight: 600; opacity: 0.8; margin-bottom: 6px; letter-spacing: 0.04em; }
-  .results-header .count { font-size: 24px; font-weight: 800; }
-  .total-badge {
-    display: inline-block;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 99px;
-    padding: 6px 22px;
-    font-size: 20px;
+  .results-header-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    color: #667085;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .results-header-title {
+    font-size: 26px;
     font-weight: 700;
-    margin: 12px 0 4px;
-    letter-spacing: 0.01em;
+    color: #101828;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-bottom: 4px;
   }
-  .caveat { font-size: 11px; opacity: 0.5; margin-top: 6px; }
+  .results-header-sub {
+    font-size: 13px;
+    color: #667085;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .results-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 0 0 1px rgba(16, 24, 40, 0.08);
+    overflow: hidden;
+  }
+  .results-summary-cell {
+    padding: 22px 24px;
+    position: relative;
+  }
+  .results-summary-cell + .results-summary-cell::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18px;
+    bottom: 18px;
+    width: 1px;
+    background: #eaecf0;
+  }
+  .results-summary-label {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #667085;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+  .results-summary-value {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    color: #101828;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+  }
+  .results-summary-num {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .results-summary-unit {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475467;
+  }
+  .results-summary-accent .results-summary-num { color: #0066ff; }
+  .results-summary-note {
+    font-size: 11.5px;
+    color: #667085;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  /* 旧バッジ互換 */
+  .total-badge { display: none; }
+  .caveat { font-size: 11px; color: #98a2b3; margin-top: 10px; }
 
   /* Stack panel */
   .stack-panel {
@@ -649,119 +710,226 @@
   .result-hero-note.warn { border-left-color: #f59e0b; background: #fffbeb; color: #78350f; }
 
   /* ══════════════════════════════════════════════════════
-     ランク2+：Compact Row（テーブル風の一覧）
+     結果カードリスト（ダッシュボード型）
      ══════════════════════════════════════════════════════ */
   .result-rows {
-    margin-top: 36px;
-    border-top: 1px solid #0a0a0a;
+    margin-top: 8px;
   }
-  .result-rows-header {
-    display: grid;
-    grid-template-columns: 1fr 160px 80px 30px;
-    gap: 20px;
-    padding: 14px 2px;
-    font-size: 10.5px;
-    color: #999;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    border-bottom: 1px solid #e5e5e5;
-    align-items: center;
+  .result-rows-section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0 2px;
+    margin-bottom: 12px;
   }
-  .result-row {
-    display: grid;
-    grid-template-columns: 1fr 160px 80px 30px;
-    gap: 20px;
-    padding: 22px 2px;
-    border-bottom: 1px solid #e5e5e5;
-    cursor: pointer;
-    transition: background 0.15s;
-    align-items: center;
-  }
-  .result-row:hover { background: #fafafa; }
-  .result-row-num {
+  .result-rows-section-title {
     font-size: 13px;
-    font-weight: 800;
-    color: #0a0a0a;
-    font-feature-settings: "tnum" 1, "lnum" 1;
-    letter-spacing: 0.02em;
+    font-weight: 700;
+    color: #101828;
+    letter-spacing: 0.01em;
+  }
+  .result-rows-section-meta {
+    font-size: 11.5px;
+    color: #667085;
+  }
+  /* 旧テーブル互換（非表示化） */
+  .result-rows-header { display: none; }
+
+  .result-row {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 0 0 1px rgba(16, 24, 40, 0.08);
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: box-shadow 0.15s, transform 0.15s;
+    overflow: hidden;
+  }
+  .result-row:hover {
+    box-shadow: 0 4px 12px rgba(16, 24, 40, 0.08), 0 0 0 1px rgba(16, 24, 40, 0.12);
+  }
+  .result-row.is-open {
+    box-shadow: 0 4px 16px rgba(0, 102, 255, 0.08), 0 0 0 1px rgba(0, 102, 255, 0.25);
+  }
+  .result-row-head {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 18px;
+    padding: 20px 22px;
+    align-items: center;
+  }
+  .result-row-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #ecf2ff;
+    color: #0066ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
   }
   .result-row-main { min-width: 0; }
+  .result-row-cat-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+  }
   .result-row-cat {
     font-size: 10.5px;
-    color: #666;
+    color: #475467;
     letter-spacing: 0.04em;
-    font-weight: 500;
-    margin-bottom: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
   }
+  .result-row-cat-dot {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: #d0d5dd;
+  }
+  .result-row-diff-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10.5px;
+    color: #475467;
+    font-weight: 600;
+  }
+  .result-row-diff-dots { display: inline-flex; gap: 3px; }
   .result-row-title {
     font-size: 16px;
     font-weight: 700;
-    color: #0a0a0a;
+    color: #101828;
     line-height: 1.4;
     letter-spacing: -0.01em;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .result-row-meta {
-    font-size: 11.5px;
-    color: #666;
+  .result-row-chips {
     display: flex;
-    gap: 14px;
-    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
   }
-  .result-row-meta-sep { color: #d4d4d4; }
+  .result-row-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: #f2f4f7;
+    color: #344054;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .result-row-chip.alert {
+    background: #fffaeb;
+    color: #b54708;
+  }
+  .result-row-chip.accent {
+    background: #ecf2ff;
+    color: #0052cc;
+  }
   .result-row-amount {
     text-align: right;
-    font-size: 22px;
-    font-weight: 800;
-    color: #0a0a0a;
+    flex-shrink: 0;
+    padding-left: 20px;
+    border-left: 1px solid #eaecf0;
+    min-width: 140px;
+  }
+  .result-row-amount-label {
+    font-size: 10.5px;
+    color: #667085;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .result-row-amount-val {
+    font-size: 24px;
+    font-weight: 700;
+    color: #101828;
     letter-spacing: -0.03em;
     font-feature-settings: "tnum" 1, "lnum" 1;
     line-height: 1;
-  }
-  .result-row-amount-unit {
-    font-size: 12px;
-    font-weight: 600;
-    color: #666;
-    margin-left: 2px;
-  }
-  .result-row-diff {
     display: flex;
-    justify-content: center;
+    align-items: baseline;
+    justify-content: flex-end;
     gap: 3px;
   }
+  .result-row-amount-unit {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475467;
+  }
+  /* Dots kept for backward compatibility */
+  .result-row-diff { display: none; }
   .result-row-dot {
-    width: 6px; height: 6px;
+    width: 5px; height: 5px;
     border-radius: 50%;
-    background: #e5e5e5;
+    background: #e4e7ec;
   }
   .result-row-dot.on { background: #0066ff; }
-  .result-row-arrow {
-    font-size: 14px;
-    color: #999;
-    text-align: center;
-    transition: transform 0.2s, color 0.2s;
+  /* 旧矢印 */
+  .result-row-arrow { display: none; }
+  /* CTAバー */
+  .result-row-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 22px;
+    background: #fcfcfd;
+    border-top: 1px solid #eaecf0;
+    font-size: 12.5px;
+    color: #475467;
+    font-weight: 600;
+    transition: background 0.15s, color 0.15s;
   }
-  .result-row:hover .result-row-arrow { color: #0066ff; transform: translateX(2px); }
-  .result-row.is-open .result-row-arrow { transform: rotate(90deg); color: #0066ff; }
+  .result-row:hover .result-row-cta {
+    background: #f8f9fc;
+    color: #0066ff;
+  }
+  .result-row-cta-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .result-row-cta-hint::before {
+    content: '';
+    width: 14px; height: 14px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M5 3L9 7L5 11' stroke='%23475467' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.2s;
+  }
+  .result-row:hover .result-row-cta-hint::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M5 3L9 7L5 11' stroke='%230066ff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    transform: translateX(2px);
+  }
+  .result-row.is-open .result-row-cta-hint::before {
+    transform: rotate(90deg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M5 3L9 7L5 11' stroke='%230066ff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  }
+  .result-row-cta-reasons {
+    font-size: 11.5px;
+    color: #98a2b3;
+    font-weight: 500;
+  }
   /* Row詳細 — プロフェッショナル・ビジネスドキュメント */
   .result-row-detail {
     display: none;
-    grid-column: 1 / -1;
-    margin: 16px -2px -22px;
     padding: 0;
-    background: #f4f5f7;
-    border-top: 1px solid #d8dce3;
+    background: #f8f9fc;
+    border-top: 1px solid #eaecf0;
   }
-  .result-row.is-open { background: #fcfcfd; }
-  .result-row.is-open:hover { background: #fcfcfd; }
   .result-row.is-open .result-row-detail { display: block; }
+  .result-row.is-open .result-row-cta { background: #f8f9fc; color: #0066ff; border-bottom: 1px solid #eaecf0; }
   .result-row-detail-inner {
-    max-width: 760px;
-    padding: 32px 36px 36px;
+    padding: 28px 28px 32px;
   }
 
   /* 受給額サマリーカード */
@@ -978,14 +1146,37 @@
     .result-hero-cta-detail, .result-hero-cta-primary {
       text-align: center; justify-content: center; width: 100%;
     }
-    .result-rows-header { grid-template-columns: 1fr 90px 24px; gap: 12px; }
-    .result-rows-header .hide-mobile { display: none; }
-    .result-row { grid-template-columns: 1fr 90px 24px; gap: 12px; padding: 18px 2px; }
-    .result-row .hide-mobile { display: none; }
-    .result-row-title { font-size: 14px; white-space: normal; }
-    .result-row-amount { font-size: 18px; }
-    .result-row-amount-unit { font-size: 11px; }
-    .result-row-detail-inner { padding: 22px 18px 24px; max-width: 100%; }
+    .results-summary { grid-template-columns: 1fr; }
+    .results-summary-cell { padding: 16px 20px; }
+    .results-summary-cell + .results-summary-cell::before {
+      left: 20px; right: 20px; top: 0;
+      bottom: auto; width: auto; height: 1px;
+    }
+    .results-header-title { font-size: 22px; }
+    .result-row-head {
+      grid-template-columns: 40px 1fr;
+      gap: 12px;
+      padding: 16px 18px;
+    }
+    .result-row-icon { width: 40px; height: 40px; font-size: 17px; }
+    .result-row-title { font-size: 15px; white-space: normal; margin-bottom: 8px; }
+    .result-row-amount {
+      grid-column: 1 / -1;
+      text-align: left;
+      padding: 12px 0 0;
+      margin-top: 10px;
+      border-left: none;
+      border-top: 1px solid #eaecf0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      min-width: 0;
+    }
+    .result-row-amount-label { margin-bottom: 0; }
+    .result-row-amount-val { font-size: 20px; }
+    .result-row-amount-unit { font-size: 12px; }
+    .result-row-cta { padding: 10px 18px; font-size: 12px; }
+    .result-row-detail-inner { padding: 22px 18px 24px; }
     .detail-amount-panel { padding: 20px 20px 18px; }
     .detail-amount-value { font-size: 36px; }
     .detail-amount-unit { font-size: 16px; }
@@ -1016,26 +1207,44 @@
   .sub-result-card,
   .subsidy-card { /* 旧カードは使われなくなる */ }
 
-  /* ── コンパクト通知バー（gBizID） ───────────── */
+  /* ── gBizID 通知（カード型） ───────────── */
   .gbiz-inline {
-    background: #fff7ed;
-    border: 1px solid #fed7aa;
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    font-size: 12px;
-    color: #7c2d12;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 0 0 1px #fedf89;
+    padding: 14px 18px;
+    margin: 16px 0 8px;
+    font-size: 12.5px;
+    color: #93370d;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    line-height: 1.5;
   }
+  .gbiz-inline::before {
+    content: '⚠';
+    font-size: 16px;
+    color: #dc6803;
+    flex-shrink: 0;
+  }
+  .gbiz-inline-body { flex: 1; }
+  .gbiz-inline strong { color: #7a2e0e; }
   .gbiz-inline a {
-    color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f79009;
+    color: #fff;
     font-weight: 700;
+    font-size: 12px;
+    padding: 7px 14px;
+    border-radius: 6px;
     white-space: nowrap;
     text-decoration: none;
     flex-shrink: 0;
+    transition: background 0.15s;
   }
+  .gbiz-inline a:hover { background: #dc6803; }
 
   /* ── コンパクトパネル ───────────── */
   .compact-panel {
@@ -3941,25 +4150,54 @@ function renderResults(scored, combos, conflicts, meta) {
   ];
 
   // ══════════════════════════════════════════════════════
-  // ① 結果ヘッダー（コンパクト）
+  // ① 結果ヘッダー（ダッシュボード型サマリー）
   // ══════════════════════════════════════════════════════
+  const amountManTotal = Math.floor((totalMax || 0) / 10000).toLocaleString('ja-JP');
+  const leadTimes = scored.map(s => s.lead_time_months).filter(x => typeof x === 'number' && x > 0);
+  const minLead = leadTimes.length > 0 ? Math.min(...leadTimes) : null;
   html += `
     <div class="results-header">
-      <h2>診断結果</h2>
-      <p class="count">${scored.length}件の助成金・補助金が該当しました</p>
-      <div class="total-badge">最大 ${fmt(totalMax)} 受給可能</div>
-      <p class="caveat">※全件を並行申請した場合の概算。実際には個別の要件確認が必要です</p>
+      <div class="results-header-eyebrow">診断結果</div>
+      <h2 class="results-header-title">${scored.length}件の制度が該当しました</h2>
+      <p class="results-header-sub">事業内容・従業員規模・今後の計画から、最適な補助金・助成金を抽出しています。</p>
+      <div class="results-summary">
+        <div class="results-summary-cell">
+          <div class="results-summary-label">該当件数</div>
+          <div class="results-summary-value">
+            <span class="results-summary-num">${scored.length}</span>
+            <span class="results-summary-unit">件</span>
+          </div>
+        </div>
+        <div class="results-summary-cell results-summary-accent">
+          <div class="results-summary-label">最大受給合計</div>
+          <div class="results-summary-value">
+            <span class="results-summary-num">${amountManTotal}</span>
+            <span class="results-summary-unit">万円</span>
+          </div>
+          <div class="results-summary-note">全件並行申請時の概算</div>
+        </div>
+        <div class="results-summary-cell">
+          <div class="results-summary-label">最短準備期間</div>
+          <div class="results-summary-value">
+            <span class="results-summary-num">${minLead !== null ? minLead : '—'}</span>
+            <span class="results-summary-unit">${minLead !== null ? 'ヶ月' : ''}</span>
+          </div>
+          ${minLead !== null ? `<div class="results-summary-note">最短で着手可能な制度の目安</div>` : ''}
+        </div>
+      </div>
     </div>
   `;
 
   // ══════════════════════════════════════════════════════
-  // ② gBizID — コンパクト通知バー
+  // ② gBizID — 通知カード
   // ══════════════════════════════════════════════════════
   if (!hasGbiz) {
     html += `
     <div class="gbiz-inline">
-      <span>gBizIDプライムが未取得です。上の補助金の多くは取得必須（無料・約2週間）。${urgentTiming ? '<strong>急ぐ場合は今日中に手続きを。</strong>' : ''}</span>
-      <a href="https://gbiz-id.go.jp/top/index.html" target="_blank" rel="noopener">申請する →</a>
+      <div class="gbiz-inline-body">
+        <strong>gBizIDプライムが未取得です。</strong> 多くの補助金で申請必須（無料・約2週間）。${urgentTiming ? '急ぐ場合は今日中に手続きを。' : ''}
+      </div>
+      <a href="https://gbiz-id.go.jp/top/index.html" target="_blank" rel="noopener">申請する</a>
     </div>`;
   }
 
@@ -3986,7 +4224,18 @@ function renderResults(scored, combos, conflicts, meta) {
   const diffLabelMap = {1: 'やさしい', 2: '標準', 3: 'やや高い'};
   const amountMan = (y) => Math.floor((y || 0) / 10000).toLocaleString('ja-JP');
 
-  // ── Row（全件を同じ形で表示） ──────────────────────
+  // ── カテゴリアイコン（ラベル短縮） ──────────────────
+  const catIconMap = {
+    'cat-subsidy': '設',
+    'cat-it':      'IT',
+    'cat-employ':  '雇',
+    'cat-hr':      '育',
+    'cat-wage':    '賃',
+    'cat-other':   '他',
+  };
+  const diffLabelText = {1: 'やさしい', 2: '標準', 3: 'やや高い'};
+
+  // ── Row（カード形式） ──────────────────
   const renderRow = (s) => {
     const cat = getCategory(s.id);
     const steps = NEXT_STEPS_MAP[s.id] || defaultSteps;
@@ -3995,24 +4244,42 @@ function renderResults(scored, combos, conflicts, meta) {
     const diff = s.difficulty || 2;
     const dots = [1,2,3].map(i => `<span class="result-row-dot${i <= diff ? ' on' : ''}"></span>`).join('');
     const leadTime = s.lead_time_months ? `${s.lead_time_months}ヶ月` : '—';
+    const icon = catIconMap[cat.cls] || '助';
+    const reasonCount = reasons.length;
+    const timingLabel = timingMap[s.timing] || '要確認';
+    const isUrgentTiming = s.timing && s.timing.startsWith('before_');
 
     return `
     <div class="result-row" id="row-${s.id}" onclick="toggleRow('${s.id}', this, event)">
-      <div class="result-row-main">
-        <div class="result-row-cat">${cat.label}</div>
-        <div class="result-row-title">${s.name}</div>
-        <div class="result-row-meta">
-          <span>準備 ${leadTime}</span>
-          <span class="result-row-meta-sep">·</span>
-          <span>${timingMap[s.timing] || '要確認'}</span>
-          ${s.wage_required ? `<span class="result-row-meta-sep">·</span><span>賃上げ必須</span>` : ''}
+      <div class="result-row-head">
+        <div class="result-row-icon">${icon}</div>
+        <div class="result-row-main">
+          <div class="result-row-cat-line">
+            <span class="result-row-cat">${cat.label}</span>
+            <span class="result-row-cat-dot"></span>
+            <span class="result-row-diff-inline">
+              難易度 <span class="result-row-diff-dots">${dots}</span>
+            </span>
+          </div>
+          <div class="result-row-title">${s.name}</div>
+          <div class="result-row-chips">
+            <span class="result-row-chip">準備 ${leadTime}</span>
+            <span class="result-row-chip${isUrgentTiming ? ' alert' : ''}">${timingLabel}</span>
+            ${s.wage_required ? `<span class="result-row-chip alert">賃上げ必須</span>` : ''}
+          </div>
+        </div>
+        <div class="result-row-amount">
+          <div class="result-row-amount-label">最大受給額</div>
+          <div class="result-row-amount-val">
+            <span>${amountMan(s.max_amount)}</span>
+            <span class="result-row-amount-unit">万円</span>
+          </div>
         </div>
       </div>
-      <div class="result-row-amount">
-        ${amountMan(s.max_amount)}<span class="result-row-amount-unit">万円</span>
+      <div class="result-row-cta">
+        <span class="result-row-cta-reasons">${reasonCount > 0 ? `${reasonCount}つの理由で該当` : '受給対象の可能性あり'}</span>
+        <span class="result-row-cta-hint">詳細・申請ステップを見る</span>
       </div>
-      <div class="result-row-diff hide-mobile">${dots}</div>
-      <div class="result-row-arrow">›</div>
       <div class="result-row-detail" id="${detailId}">
         <div class="result-row-detail-inner">
 
@@ -4078,17 +4345,15 @@ function renderResults(scored, combos, conflicts, meta) {
     </div>`;
   };
 
-  // 全件を同じRow形式で統一表示（3件まで常時、それ以降は折りたたみ）
+  // カードリストで統一表示（3件まで常時、それ以降は折りたたみ）
   const rowsVisible = scored.slice(0, 3);
   const rowsRest = scored.slice(3);
   if (rowsVisible.length > 0) {
     html += `
     <div class="result-rows">
-      <div class="result-rows-header">
-        <span>該当する補助金・助成金</span>
-        <span style="text-align:right">最大受給額</span>
-        <span class="hide-mobile" style="text-align:center">難易度</span>
-        <span></span>
+      <div class="result-rows-section-head">
+        <span class="result-rows-section-title">該当する制度</span>
+        <span class="result-rows-section-meta">${rowsVisible.length > 0 ? `スコア順（${scored.length}件）` : ''}</span>
       </div>`;
     rowsVisible.forEach(s => { html += renderRow(s); });
     if (rowsRest.length > 0) {
@@ -4404,11 +4669,7 @@ function toggle(id) { document.getElementById(id)?.classList.toggle('open'); }
 
 function toggleRow(subsidyId, rowEl, event) {
   if (event && event.target.closest('a')) return; // リンクは通す
-  const detail = rowEl.querySelector('.result-row-detail');
-  if (!detail) return;
-  const isOpen = detail.style.display === 'block';
-  detail.style.display = isOpen ? 'none' : 'block';
-  rowEl.classList.toggle('is-open', !isOpen);
+  rowEl.classList.toggle('is-open');
 }
 
 function toggleSub(id, header) {

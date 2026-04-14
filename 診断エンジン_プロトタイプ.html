@@ -356,75 +356,84 @@
   .roadmap-step .step-detail { font-size: 11px; color: #92400e; line-height: 1.6; }
   .roadmap-step.done .step-period { color: #059669; }
 
-  /* ── 統一結果カード（雑誌レイアウト） ───────────── */
-  /* カード全体：枠をほぼ消して、記事リストっぽく */
+  /* ── 統一結果カード（読みやすさ優先） ───────────── */
   .result-card {
     background: white;
-    border-top: 1px solid #e4e8f0;
-    padding: 28px 0 4px;
-    position: relative;
-    transition: background 0.18s;
+    border: 1px solid #e4e8f0;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color 0.18s, box-shadow 0.18s;
   }
-  .result-card:last-of-type { border-bottom: 1px solid #e4e8f0; }
-  .result-card:hover { background: #fafbfd; }
-  /* 1位のみ上線を太く＆色付き */
+  .result-card:hover {
+    border-color: #c7d1e3;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.04);
+  }
   .result-card.is-top {
-    border-top: 2px solid var(--primary);
+    border: 1px solid #b8c8e8;
+    box-shadow: 0 4px 18px rgba(0,102,255,0.06);
   }
-  /* スラッグ行「01 / 販路開拓補助金」 */
+  /* 本体 */
+  .result-card-body {
+    padding: 18px 22px 16px;
+    position: relative;
+  }
+  /* 1位のアクセントバー（左） */
+  .result-card.is-top .result-card-body::before {
+    content: '';
+    position: absolute;
+    top: 18px; bottom: 16px; left: 0;
+    width: 3px;
+    background: var(--primary);
+    border-radius: 0 2px 2px 0;
+  }
+  /* スラッグ行「01 · 販路開拓補助金」 */
   .result-card-slug {
     display: flex;
-    align-items: baseline;
-    gap: 14px;
-    padding: 0 4px;
-    margin-bottom: 16px;
-    font-family: 'Times New Roman', 'Noto Serif JP', Georgia, serif;
-    font-size: 13px;
-    color: #94a3b8;
-    letter-spacing: 0.02em;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: #64748b;
   }
   .result-card-num {
-    font-size: 22px;
-    font-weight: 400;
-    color: #cbd5e1;
-    font-feature-settings: "tnum" 1, "lnum" 1;
-    letter-spacing: -0.02em;
-    line-height: 1;
-  }
-  .result-card.is-top .result-card-num {
-    color: var(--primary);
+    font-family: 'Times New Roman', Georgia, serif;
+    font-size: 15px;
     font-weight: 500;
+    color: #94a3b8;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    min-width: 22px;
   }
-  .result-card-slug-slash {
-    color: #e2e8f0;
-    font-size: 16px;
-    font-weight: 300;
+  .result-card.is-top .result-card-num { color: var(--primary); }
+  .result-card-slug-sep {
+    color: #cbd5e1;
   }
   .result-card-slug-cat {
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 11px;
+    font-size: 11.5px;
     color: #64748b;
     font-weight: 500;
-    letter-spacing: 0.04em;
+    background: #f1f5f9;
+    padding: 3px 8px;
+    border-radius: 4px;
   }
   /* ヘッダー2カラム（タイトル / 金額） */
   .result-card-head {
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: 28px;
+    gap: 20px;
     align-items: baseline;
-    padding: 0 4px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
   .result-card-title {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 700;
-    color: #0a0f1e;
-    line-height: 1.4;
-    letter-spacing: -0.015em;
+    color: #0f172a;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
   }
   .result-card-amount-wrap {
-    text-align: right;
     flex-shrink: 0;
     display: flex;
     align-items: baseline;
@@ -435,30 +444,28 @@
     font-size: 11px;
     color: #94a3b8;
     font-weight: 500;
-    letter-spacing: 0.04em;
   }
   .result-card-amount {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 800;
-    color: #0a0f1e;
+    color: #0f172a;
     line-height: 1;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.025em;
     font-feature-settings: "tnum" 1, "lnum" 1;
   }
   .result-card.is-top .result-card-amount { color: var(--primary); }
   .result-card-amount-unit {
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 600;
     color: #64748b;
-    margin-left: 1px;
   }
-  /* メタ情報：中黒区切りの一行テキスト */
+  /* メタ情報：中黒区切り */
   .result-card-meta {
-    padding: 0 4px;
-    font-size: 12.5px;
-    color: #64748b;
+    font-size: 12px;
+    color: #475569;
     line-height: 1.7;
-    margin-bottom: 4px;
+    padding-top: 12px;
+    border-top: 1px solid #f1f5f9;
   }
   .result-card-meta-label {
     color: #94a3b8;
@@ -467,14 +474,13 @@
   }
   .result-card-meta-value {
     color: #334155;
-    font-weight: 500;
+    font-weight: 600;
   }
   .result-card-meta-sep {
     display: inline-block;
-    margin: 0 12px;
+    margin: 0 10px;
     color: #cbd5e1;
   }
-  /* 難易度ドット（インライン） */
   .result-card-dots {
     display: inline-flex;
     gap: 3px;
@@ -487,93 +493,137 @@
     background: #e2e8f0;
   }
   .result-card-dot.on { background: var(--primary); }
-  /* トグル：地味めのテキストリンク風 */
+  /* トグルバー */
   .result-card-toggle {
-    font-size: 12px;
-    color: #64748b;
+    font-size: 12.5px;
+    color: #475569;
     cursor: pointer;
-    padding: 14px 4px 4px;
-    margin-top: 14px;
-    border-top: 1px dashed #eceff5;
+    padding: 12px 22px;
+    border-top: 1px solid #eef2f7;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: 500;
-    transition: color 0.15s;
+    font-weight: 600;
+    transition: background 0.15s, color 0.15s;
     user-select: none;
+    background: #fafbfd;
   }
-  .result-card-toggle:hover { color: var(--primary); }
+  .result-card-toggle:hover { background: #f1f5f9; color: var(--primary); }
   .result-card-toggle-arrow {
     font-size: 10px;
     opacity: 0.6;
     transition: transform 0.2s;
   }
   .result-card-toggle.is-open .result-card-toggle-arrow { transform: rotate(180deg); }
+  /* 詳細セクション */
   .result-card-detail {
     display: none;
-    padding: 16px 4px 16px;
-    font-size: 13px;
+    padding: 20px 22px 22px;
+    background: #fafbfd;
+    border-top: 1px solid #eef2f7;
   }
   .result-card-section-label {
-    font-family: 'Times New Roman', 'Noto Serif JP', Georgia, serif;
-    font-size: 11px;
-    font-style: italic;
-    color: #94a3b8;
-    margin-bottom: 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border-left: 3px solid var(--primary);
+    line-height: 1.2;
     display: block;
-    letter-spacing: 0.02em;
   }
   .result-card-reasons {
     font-size: 13px;
-    color: #475569;
+    color: #334155;
     margin: 0 0 20px;
     line-height: 1.85;
+    padding-left: 2px;
   }
+  .result-card-reasons-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .result-card-reasons-item::before {
+    content: '✓';
+    color: var(--primary);
+    font-weight: 700;
+    flex-shrink: 0;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+  /* ステップ：カード化して見やすく */
   .result-card-steps {
-    margin-top: 4px;
-    margin-bottom: 20px;
+    margin: 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
   .result-card-step-row {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
-    padding: 10px 0;
-    border-bottom: 1px solid #f4f6fa;
+    gap: 12px;
+    padding: 14px 16px;
+    background: white;
+    border: 1px solid #e8ecf3;
+    border-radius: 8px;
   }
-  .result-card-step-row:last-child { border-bottom: none; }
-  .result-card-step-row:first-child { padding-top: 2px; }
   .result-card-step-num {
-    font-family: 'Times New Roman', 'Noto Serif JP', Georgia, serif;
-    font-size: 14px;
-    font-weight: 400;
-    color: #94a3b8;
-    width: 18px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
-    margin-top: 2px;
     font-feature-settings: "tnum" 1, "lnum" 1;
+    line-height: 1;
   }
-  .result-card-step-num.done { color: #059669; font-family: inherit; font-size: 13px; }
-  .result-card-step-text { font-size: 13px; color: #334155; line-height: 1.7; }
-  .result-card-step-link { color: var(--primary); font-size: 11px; margin-left: 4px; font-weight: 600; }
+  .result-card-step-num.done {
+    background: #dcfce7;
+    color: #059669;
+  }
+  .result-card-step-text {
+    font-size: 13px;
+    color: #1e293b;
+    line-height: 1.7;
+    flex: 1;
+    min-width: 0;
+  }
+  .result-card-step-text strong {
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .result-card-step-link {
+    display: inline-block;
+    color: var(--primary);
+    font-size: 11.5px;
+    font-weight: 600;
+    margin-top: 6px;
+    text-decoration: none;
+    padding: 4px 8px;
+    background: #eff6ff;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .result-card-step-link:hover { background: #dbeafe; }
   .result-card-detail-section {
     margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px dashed #eceff5;
   }
   .result-card-detail-text {
     font-size: 13px;
     line-height: 1.85;
-    color: #475569;
+    color: #334155;
   }
 
   @media (max-width: 560px) {
-    .result-card { padding-top: 22px; }
-    .result-card-head { grid-template-columns: 1fr; gap: 8px; margin-bottom: 12px; }
+    .result-card-body { padding: 16px 16px 14px; }
+    .result-card-head { grid-template-columns: 1fr; gap: 8px; margin-bottom: 10px; }
     .result-card-amount-wrap { justify-content: flex-start; }
-    .result-card-title { font-size: 18px; }
-    .result-card-amount { font-size: 26px; }
-    .result-card-slug { margin-bottom: 12px; }
-    .result-card-num { font-size: 19px; }
+    .result-card-title { font-size: 16px; }
+    .result-card-amount { font-size: 24px; }
+    .result-card-toggle, .result-card-detail { padding-left: 16px; padding-right: 16px; }
     .result-card-meta-sep { margin: 0 8px; }
   }
 
@@ -3597,37 +3647,41 @@ function renderResults(scored, combos, conflicts, meta) {
 
     return `
     <div class="result-card ${isTop ? 'is-top' : ''}">
-      <div class="result-card-slug">
-        <span class="result-card-num">${numStr}</span>
-        <span class="result-card-slug-slash">/</span>
-        <span class="result-card-slug-cat">${cat.label}</span>
-      </div>
-      <div class="result-card-head">
-        <div class="result-card-title">${s.name}</div>
-        <div class="result-card-amount-wrap">
-          <span class="result-card-amount-prefix">最大</span>
-          <span class="result-card-amount">${amountDisplay}</span><span class="result-card-amount-unit">万円</span>
+      <div class="result-card-body">
+        <div class="result-card-slug">
+          <span class="result-card-num">${numStr}</span>
+          <span class="result-card-slug-sep">·</span>
+          <span class="result-card-slug-cat">${cat.label}</span>
         </div>
+        <div class="result-card-head">
+          <div class="result-card-title">${s.name}</div>
+          <div class="result-card-amount-wrap">
+            <span class="result-card-amount-prefix">最大</span>
+            <span class="result-card-amount">${amountDisplay}</span><span class="result-card-amount-unit">万円</span>
+          </div>
+        </div>
+        <div class="result-card-meta">${metaParts.join('<span class="result-card-meta-sep">·</span>')}</div>
       </div>
-      <div class="result-card-meta">${metaParts.join('<span class="result-card-meta-sep">·</span>')}</div>
       <div class="result-card-toggle" onclick="toggleResultCard('${detailId}', this)">
-        <span>詳細情報を見る</span>
+        <span>詳細を見る</span>
         <span class="result-card-toggle-arrow">▼</span>
       </div>
       <div class="result-card-detail" id="${detailId}">
         ${reasons.length > 0 ? `
-          <div class="result-card-section-label">Why this match</div>
-          <div class="result-card-reasons">${reasons.map(r => `— ${r}`).join('<br>')}</div>
+          <div class="result-card-section-label">あなたに合う理由</div>
+          <div class="result-card-reasons">
+            ${reasons.map(r => `<div class="result-card-reasons-item"><span>${r}</span></div>`).join('')}
+          </div>
         ` : ''}
-        <div class="result-card-section-label">Next steps</div>
+        <div class="result-card-section-label">申請までのステップ</div>
         <div class="result-card-steps">
           ${steps.map((step, i) => `
             <div class="result-card-step-row">
-              <div class="result-card-step-num ${step.done ? 'done' : ''}">${step.done ? '✓' : String(i+1).padStart(2, '0')}</div>
+              <div class="result-card-step-num ${step.done ? 'done' : ''}">${step.done ? '✓' : i+1}</div>
               <div class="result-card-step-text">
-                ${step.done ? `<span style="text-decoration:line-through;color:#9ca3af">${step.title}</span> <span style="color:#059669;font-size:11px">完了</span>` : `<strong>${step.title}</strong>`}
-                ${step.badge ? `<span style="font-size:10px;background:#eff6ff;color:#1e40af;border-radius:3px;padding:1px 5px;margin-left:4px">${step.badge}</span>` : ''}
-                <br><span style="color:#6b7280">${step.detail}</span>
+                ${step.done ? `<span style="text-decoration:line-through;color:#9ca3af">${step.title}</span> <span style="color:#059669;font-size:11px;margin-left:4px">完了</span>` : `<strong>${step.title}</strong>`}
+                ${step.badge ? `<span style="font-size:10px;background:#eff6ff;color:#1e40af;border-radius:3px;padding:2px 6px;margin-left:6px;font-weight:600">${step.badge}</span>` : ''}
+                <div style="color:#64748b;margin-top:4px;font-size:12.5px">${step.detail}</div>
                 ${step.link ? `<a href="${step.link}" target="_blank" rel="noopener" class="result-card-step-link">${step.linkText} ↗</a>` : ''}
               </div>
             </div>
@@ -3635,20 +3689,20 @@ function renderResults(scored, combos, conflicts, meta) {
         </div>
         ${s.description ? `
           <div class="result-card-detail-section">
-            <div class="result-card-section-label">About this subsidy</div>
+            <div class="result-card-section-label">制度の概要</div>
             <div class="result-card-detail-text">${s.description}</div>
           </div>
         ` : ''}
         <div class="result-card-detail-section">
-          <div class="result-card-section-label">Breakdown</div>
+          <div class="result-card-section-label">受給額の内訳</div>
           <div class="result-card-detail-text">${s.amount_note}</div>
         </div>
-        ${s.timingWarning ? `<div style="margin-top:14px;font-size:12px;color:#9a3412;background:#fff7ed;padding:10px 12px;border-radius:6px;border-left:2px solid #fb923c">${s.timingWarning}</div>` : ''}
-        ${s.invoiceNote ? `<div style="margin-top:8px;font-size:12px;color:#1e40af;background:#eff6ff;padding:10px 12px;border-radius:6px;border-left:2px solid var(--primary)">${s.invoiceNote}</div>` : ''}
+        ${s.timingWarning ? `<div style="margin-top:14px;font-size:12px;color:#9a3412;background:#fff7ed;padding:12px 14px;border-radius:8px;border-left:3px solid #fb923c;line-height:1.7">${s.timingWarning}</div>` : ''}
+        ${s.invoiceNote ? `<div style="margin-top:8px;font-size:12px;color:#1e40af;background:#eff6ff;padding:12px 14px;border-radius:8px;border-left:3px solid var(--primary);line-height:1.7">${s.invoiceNote}</div>` : ''}
         ${s.compatible_with?.length > 0 ? `
           <div class="result-card-detail-section">
-            <div class="result-card-section-label">Stackable with</div>
-            <div>${s.compatible_with.map(id => { const o = SUBSIDIES.find(x => x.id === id); return o ? `<span class="ctag">${o.name}</span>` : ''; }).join('')}</div>
+            <div class="result-card-section-label">同時申請できる制度</div>
+            <div style="margin-top:4px">${s.compatible_with.map(id => { const o = SUBSIDIES.find(x => x.id === id); return o ? `<span class="ctag">${o.name}</span>` : ''; }).join('')}</div>
           </div>` : ''}
       </div>
     </div>`;
@@ -3985,7 +4039,7 @@ function toggleResultCard(id, btn) {
   el.style.display = isOpen ? 'none' : 'block';
   btn.classList.toggle('is-open', !isOpen);
   const labelEl = btn.querySelector('span:first-child');
-  if (labelEl) labelEl.textContent = isOpen ? '詳細情報を見る' : '詳細情報を閉じる';
+  if (labelEl) labelEl.textContent = isOpen ? '詳細を見る' : '詳細を閉じる';
 }
 
 function toggleSub(id, header) {

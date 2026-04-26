@@ -2001,7 +2001,7 @@
       <p class="hero-overline">Subsidy Finder</p>
       <h1 class="hero-h1"><span class="hero-h1-main">御社に使える補助金、</span><span class="hero-accent">5分でわかります。</span></h1>
       <p class="hero-sub">業種・従業員数・経営状況を入力するだけ。最大45制度の中から、あなたの会社に合った補助金・助成金を自動で絞り込みます。</p>
-      <button class="btn-hero" onclick="startDiagnosis()">無料で診断する <span class="btn-hero-arrow">→</span></button>
+      <button class="btn-hero" id="btn-start-diagnosis">無料で診断する <span class="btn-hero-arrow">→</span></button>
       <div class="hero-trust">
         <span class="hero-trust-item"><svg class="hero-trust-icon" viewBox="0 0 16 16"><path d="M13.3 4L6.5 10.8 2.7 7"/></svg>45制度対応</span>
         <span class="hero-trust-item"><svg class="hero-trust-icon" viewBox="0 0 16 16"><path d="M13.3 4L6.5 10.8 2.7 7"/></svg>約5分</span>
@@ -5620,6 +5620,17 @@ function updateProgressBar() {
 
 // スクロールイベントでプログレスバーを更新
 document.addEventListener('scroll', updateProgressBar, { passive: true });
+
+// 診断開始ボタン
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('btn-start-diagnosis');
+  if (btn) btn.addEventListener('click', startDiagnosis);
+});
+// フォールバック（DOMContentLoaded後でも動作するよう）
+if (document.readyState !== 'loading') {
+  const btn = document.getElementById('btn-start-diagnosis');
+  if (btn) btn.addEventListener('click', startDiagnosis);
+}
 
 function toggle(id) { document.getElementById(id)?.classList.toggle('open'); }
 

@@ -314,6 +314,32 @@
   .total-badge { display: none; }
   .caveat { font-size: 11px; color: #98a2b3; margin-top: 10px; }
 
+  /* ── 結果免責注意書き ── */
+  .results-disclaimer {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    background: #fffbeb;
+    border: 1.5px solid #fcd34d;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 18px;
+    font-size: 12.5px;
+    color: #78350f;
+    line-height: 1.7;
+  }
+  .results-disclaimer-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .results-disclaimer strong {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #92400e;
+  }
+
   /* Stack panel */
   .stack-panel {
     background: var(--accent-light);
@@ -734,6 +760,66 @@
   }
   /* 旧テーブル互換（非表示化） */
   .result-rows-header { display: none; }
+
+  /* ── 結果グループヘッダー ── */
+  .result-group {
+    margin-bottom: 28px;
+  }
+  .result-group-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .result-group-head.grp-subsidy  { background: #eff6ff; border-left: 4px solid #3b82f6; }
+  .result-group-head.grp-employ   { background: #f0fdf4; border-left: 4px solid #22c55e; }
+  .result-group-head.grp-shogaisha{ background: #fdf4ff; border-left: 4px solid #a855f7; }
+  .result-group-head.grp-hr       { background: #fff7ed; border-left: 4px solid #f97316; }
+  .result-group-head.grp-wage     { background: #fefce8; border-left: 4px solid #eab308; }
+  .result-group-icon { font-size: 17px; }
+  .result-group-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: #1a1f36;
+    letter-spacing: 0.01em;
+  }
+  .result-group-count {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    margin-left: auto;
+  }
+  /* ── シリーズブロック ── */
+  .result-series-block {
+    background: #f8f9fc;
+    border-radius: 10px;
+    padding: 6px 8px 2px;
+    margin-bottom: 10px;
+    border: 1px solid #e2e8f0;
+  }
+  .result-series-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: 0.04em;
+    padding: 4px 4px 8px 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .result-series-label::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 12px;
+    background: #94a3b8;
+    border-radius: 2px;
+  }
+  .result-series-block .result-row {
+    margin-bottom: 8px;
+  }
 
   .result-row {
     background: #fff;
@@ -1899,6 +1985,38 @@
     transition: background 0.1s;
   }
   .tag-btn:hover { background: #dbeafe; }
+  .tag-btn.has-sub { border-color: #3b82f6; font-weight: 600; }
+  .q15-sub-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    background: #eff6ff;
+    border: 1.5px solid #3b82f6;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin: 8px 0 4px;
+    width: 100%;
+  }
+  .q15-sub-title {
+    width: 100%;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1d4ed8;
+    margin-bottom: 4px;
+    letter-spacing: 0.03em;
+  }
+  .q15-sub-btn {
+    background: white;
+    border: 1px solid #93c5fd;
+    border-radius: 99px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: #1e40af;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.1s, border-color 0.1s;
+  }
+  .q15-sub-btn:hover { background: #dbeafe; border-color: #3b82f6; }
 
   /* ── INLINE FEEDBACK ────────────────────── */
   .inline-feedback {
@@ -2363,7 +2481,7 @@
         <div class="field-label"><span class="q">Q19</span>過去に補助金・助成金を受けたことはありますか？</div>
         <div class="choices">
           <label class="choice-row"><input type="radio" name="q19" value="なし"><span>ない</span></label>
-          <label class="choice-row"><input type="radio" name="q19" value="あり"><span>ある</span></label>
+          <label class="choice-row"><input type="radio" name="q19" value="あり"><span>ある <span style="font-size:11px;color:#64748b;font-weight:400;">（下の欄に受給した助成金名をご記入ください）</span></span></label>
         </div>
         <div style="margin-top:8px"><input type="text" id="q19_detail" placeholder="補助金名と年度（例：ものづくり補助金 2023年）"></div>
       </div>
@@ -2813,8 +2931,8 @@ const SUBSIDIES = [
     "id": "jinzai-reskilling",
     "name": "人材開発支援助成金 事業展開等リスキリング支援コース",
     "q14_key": "jinzai",
-    "max_amount": 1500000,
-    "amount_note": "訓練費の75%（中小企業）＋賃金助成",
+    "max_amount": 5000000,
+    "amount_note": "訓練費の75%（中小企業）＋賃金助成960円/時間。訓練規模・時間数に応じて変動し、年間上限1億円",
     "timing": "before_training",
     "lead_time_months": 3,
     "difficulty": 2,
@@ -3993,45 +4111,6 @@ const SUBSIDIES = [
     ]
   },
   {
-    "id": "koyo-chosei",
-    "name": "雇用調整助成金",
-    "q14_key": null,
-    "max_amount": 8870,
-    "amount_note": "休業手当の2/3（中小企業）、1人1日上限8,870円（コロナ特例の上限15,000円は終了済み。最低賃金引き上げに伴い年度ごとに改定）",
-    "timing": "after_leave",
-    "lead_time_months": 2,
-    "difficulty": 2,
-    "company_size": [
-      "中小企業",
-      "大企業"
-    ],
-    "legal_form_eligible": [
-      "法人",
-      "個人事業主"
-    ],
-    "industry_restriction": null,
-    "requires_employee_insurance": true,
-    "min_employees": 1,
-    "note_eligibility": "最近3ヶ月で売上・生産量が10%以上減少。コロナ禍の特例措置（上限1.5万円・助成率10/10等）は終了し通常制度に戻っている",
-    "description": "売上・生産量が最近3ヶ月で10%以上減少した際に、解雇せず休業・教育訓練・在籍出向で雇用を維持した事業主に休業手当の2/3（中小企業）を助成する制度。コロナ禍の特例措置は終了し、現在の上限は1人1日8,870円（通常時）。景気悪化・自然災害等の緊急時の雇用維持に機能しますが、売上減少の要件確認が重要です。",
-    "conditions": [
-      "最近3ヶ月で売上・生産量が10%以上減少",
-      "雇用保険適用事業所",
-      "解雇せず休業・訓練で対応"
-    ],
-    "compatible_with": [],
-    "incompatible_with": [],
-    "wage_required": false,
-    "bonus_points": {},
-    "q15_keywords": [
-      "売上減少",
-      "休業",
-      "解雇回避",
-      "雇用維持",
-      "不況"
-    ]
-  },
-  {
     "id": "it-security",
     "name": "デジタル化・AI導入補助金 セキュリティ対策推進枠",
     "q14_key": "it-donyu",
@@ -4174,6 +4253,30 @@ const SUBSIDIES = [
       "溶接",
       "CAD"
     ]
+  },
+  {
+    "id": "koyo-chosei",
+    "name": "雇用調整助成金",
+    "q14_key": null,
+    "max_amount": 5000000,
+    "daily_rate": 8870,
+    "amount_note": "1人1日上限8,870円×休業日数×人数（目安：従業員10名・100日休業で最大約887万円）。中小企業は休業手当の2/3を助成",
+    "timing": "after_leave",
+    "lead_time_months": 2,
+    "difficulty": 2,
+    "company_size": ["中小企業", "大企業"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": true,
+    "min_employees": 1,
+    "note_eligibility": "最近3ヶ月で売上・生産量が10%以上減少。コロナ禍の特例措置は終了し通常制度に戻っている",
+    "description": "売上・生産量が最近3ヶ月で10%以上減少した際に、解雇せず休業・教育訓練・在籍出向で雇用を維持した事業主に休業手当の2/3（中小企業）を助成する制度。上限は1人1日8,870円。景気悪化・自然災害等の緊急時の雇用維持に機能します。",
+    "conditions": ["最近3ヶ月で売上・生産量が10%以上減少", "雇用保険適用事業所", "解雇せず休業・訓練で対応"],
+    "compatible_with": [],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["売上減少", "休業", "解雇回避", "雇用維持", "不況"]
   }
 ];
 
@@ -4675,7 +4778,7 @@ function runDiagnosis() {
     }
   });
 
-  const scored = rawScored.sort((a, b) => b.score - a.score || b.max_amount - a.max_amount);
+  const scored = rawScored.sort((a, b) => (a.difficulty || 2) - (b.difficulty || 2) || b.score - a.score || b.max_amount - a.max_amount);
 
   // スタッキング検出
   const scoredIds = scored.map(s => s.id);
@@ -4744,6 +4847,126 @@ const SUBSIDY_CATEGORY_MAP = {
 
 function getCategory(id) {
   return SUBSIDY_CATEGORY_MAP[id] || { label: '助成金・補助金', cls: 'cat-other' };
+}
+
+// ─── 結果グループ定義 ─────────────────────────────────────
+const RESULT_GROUP_MAP = {
+  'monozukuri-hojyokin':   'subsidy',
+  'shooryoka':             'subsidy',
+  'jigyo-shinsyutsu':      'subsidy',
+  'shoene':                'subsidy',
+  'seichokasoku':          'subsidy',
+  'jizokuka-hojyokin':     'subsidy',
+  'it-donyu':              'subsidy',
+  'it-security':           'subsidy',
+  'trial-ippan':                 'employ',
+  'tokutei-shushokukonnansha':   'employ',
+  'career-up-seishainuka':       'employ',
+  'career-up-chingin-kaitei':    'employ',
+  'career-up-chingin-kyotsu':    'employ',
+  'career-up-shoyo-taishokukin': 'employ',
+  'career-up-tanjikan-enchyo':   'employ',
+  'koyo-chosei':                 'employ',
+  'sangyo-koyo-antei-shukko':    'employ',
+  'sangyo-koyo-skillup':         'employ',
+  'jinzai-kakuho-koyokanri':     'employ',
+  'career-up-shogaisha-seishainuka': 'shogaisha',
+  'trial-shogaisha':                 'shogaisha',
+  'trial-shogaisha-tanjikan':        'shogaisha',
+  'shogaisha-shisetsu-setchino':     'shogaisha',
+  'jinzai-ikusei-shien':    'hr',
+  'jinzai-hito-investment': 'hr',
+  'jinzai-reskilling':      'hr',
+  'jinzai-kyuka-fuyo':      'hr',
+  'jinzai-kensetsu-gino':   'hr',
+  'jinzai-kensetsu-nintei': 'hr',
+  'ryoritsu-papa-shien':    'wage',
+  'ryoritsu-ikukyu-shien':  'wage',
+  'ryoritsu-kaigo-boushi':  'wage',
+  'ryoritsu-funin-shien':   'wage',
+  'ryoritsu-ikukyu-kouhyo': 'wage',
+  'ryoritsu-gyomu-daigae':  'wage',
+  'ryoritsu-sanka':         'wage',
+  'kosodate-ninshin-mamonaku': 'wage',
+  'gyomu-kaizen':           'wage',
+  'hatarakikata-jikangai':  'wage',
+  'hatarakikata-interval':  'wage',
+  'tokutei-shinkibo':       'wage',
+};
+const RESULT_GROUPS = [
+  { key: 'subsidy',   icon: '🏭', label: '補助金・IT投資',    cls: 'grp-subsidy',   desc: '設備投資・デジタル化・省エネ' },
+  { key: 'employ',    icon: '👥', label: '一般雇用',           cls: 'grp-employ',    desc: '採用・雇用維持・正社員化' },
+  { key: 'shogaisha', icon: '♿', label: '障害者雇用',         cls: 'grp-shogaisha', desc: '障害者の採用・定着・施設整備' },
+  { key: 'hr',        icon: '📚', label: '人材育成',           cls: 'grp-hr',        desc: '研修・スキルアップ・資格取得' },
+  { key: 'wage',      icon: '💰', label: '賃上げ・働き方改革', cls: 'grp-wage',      desc: '賃金引上げ・両立支援・残業削減' },
+  { key: 'other',     icon: '📋', label: 'その他',             cls: 'grp-subsidy',   desc: '' },
+];
+function getResultGroup(id) {
+  return RESULT_GROUP_MAP[id] || 'other';
+}
+
+// ─── シリーズ（制度名）マッピング ─────────────────────────────
+const SUBSIDY_SERIES_MAP = {
+  'career-up-seishainuka':           'キャリアアップ助成金',
+  'career-up-chingin-kaitei':        'キャリアアップ助成金',
+  'career-up-chingin-kyotsu':        'キャリアアップ助成金',
+  'career-up-shoyo-taishokukin':     'キャリアアップ助成金',
+  'career-up-tanjikan-enchyo':       'キャリアアップ助成金',
+  'career-up-shogaisha-seishainuka': 'キャリアアップ助成金',
+  'trial-ippan':              'トライアル雇用助成金',
+  'trial-shogaisha':          'トライアル雇用助成金',
+  'trial-shogaisha-tanjikan': 'トライアル雇用助成金',
+  'jinzai-ikusei-shien':    '人材開発支援助成金',
+  'jinzai-hito-investment': '人材開発支援助成金',
+  'jinzai-reskilling':      '人材開発支援助成金',
+  'jinzai-kyuka-fuyo':      '人材開発支援助成金',
+  'jinzai-kensetsu-gino':   '人材開発支援助成金',
+  'jinzai-kensetsu-nintei': '人材開発支援助成金',
+  'sangyo-koyo-antei-shukko': '産業雇用安定助成金',
+  'sangyo-koyo-skillup':      '産業雇用安定助成金',
+  'ryoritsu-papa-shien':       '両立支援等助成金',
+  'ryoritsu-ikukyu-shien':     '両立支援等助成金',
+  'ryoritsu-kaigo-boushi':     '両立支援等助成金',
+  'ryoritsu-funin-shien':      '両立支援等助成金',
+  'ryoritsu-ikukyu-kouhyo':    '両立支援等助成金',
+  'ryoritsu-gyomu-daigae':     '両立支援等助成金',
+  'ryoritsu-sanka':            '両立支援等助成金',
+  'kosodate-ninshin-mamonaku': '両立支援等助成金',
+  'hatarakikata-jikangai': '働き方改革推進支援助成金',
+  'hatarakikata-interval': '働き方改革推進支援助成金',
+  'it-donyu':    'IT導入補助金',
+  'it-security': 'IT導入補助金',
+};
+
+function renderGroupItems(items) {
+  const seriesOrder = [];
+  const seriesItems = {};
+  const standalone = [];
+
+  items.forEach(s => {
+    const series = SUBSIDY_SERIES_MAP[s.id];
+    if (series) {
+      if (!seriesItems[series]) { seriesItems[series] = []; seriesOrder.push(series); }
+      seriesItems[series].push(s);
+    } else {
+      standalone.push(s);
+    }
+  });
+
+  let out = '';
+  seriesOrder.forEach(series => {
+    const si = seriesItems[series];
+    if (si.length >= 2) {
+      out += `<div class="result-series-block">
+        <div class="result-series-label">${series}（${si.length}コース）</div>`;
+      si.forEach(s => { out += renderRow(s); });
+      out += `</div>`;
+    } else {
+      si.forEach(s => { out += renderRow(s); });
+    }
+  });
+  standalone.forEach(s => { out += renderRow(s); });
+  return out;
 }
 
 // ─── 申請フロータイプ定義 ─────────────────────────────────────
@@ -5137,6 +5360,13 @@ function renderResults(scored, combos, conflicts, meta) {
           ${minLead !== null ? `<div class="results-summary-note">最短で着手可能な制度の目安</div>` : ''}
         </div>
       </div>
+      <div class="results-disclaimer">
+        <span class="results-disclaimer-icon">⚠️</span>
+        <div>
+          <strong>本診断結果はあくまで「可能性の目安」です</strong>
+          この診断は入力情報をもとに該当しやすい制度を抽出したものであり、受給・採択を保証するものではありません。各制度には詳細な要件・審査・予算枠があり、実際に通るかどうかは申請内容や審査状況によって異なります。正式な申請前には、必ず各制度の公式情報および専門家（社会保険労務士・中小企業診断士等）にご確認ください。
+        </div>
+      </div>
     </div>
   `;
 
@@ -5221,10 +5451,10 @@ function renderResults(scored, combos, conflicts, meta) {
             ${s.wage_required ? `<span class="result-row-chip alert">賃上げ必須</span>` : ''}
           </div>
           <div class="result-row-amount">
-            <div class="result-row-amount-label">最大受給額</div>
+            <div class="result-row-amount-label">${s.daily_rate ? '日額上限' : '最大受給額'}</div>
             <div class="result-row-amount-val">
-              <span>${amountMan(s.max_amount)}</span>
-              <span class="result-row-amount-unit">万円</span>
+              <span>${s.daily_rate ? s.daily_rate.toLocaleString('ja-JP') : amountMan(s.max_amount)}</span>
+              <span class="result-row-amount-unit">${s.daily_rate ? '円/日' : '万円'}</span>
             </div>
           </div>
         </div>
@@ -5238,9 +5468,9 @@ function renderResults(scored, combos, conflicts, meta) {
           ${renderWorkflow(wf)}
 
           <div class="detail-amount-panel">
-            <div class="detail-amount-label">最大受給額</div>
+            <div class="detail-amount-label">${s.daily_rate ? '日額上限' : '最大受給額'}</div>
             <div class="detail-amount-row">
-              <span class="detail-amount-value">${amountMan(s.max_amount)}</span><span class="detail-amount-unit">万円</span>
+              <span class="detail-amount-value">${s.daily_rate ? s.daily_rate.toLocaleString('ja-JP') : amountMan(s.max_amount)}</span><span class="detail-amount-unit">${s.daily_rate ? '円/日' : '万円'}</span>
             </div>
             <div class="detail-amount-note">${s.amount_note}</div>
           </div>
@@ -5300,22 +5530,25 @@ function renderResults(scored, combos, conflicts, meta) {
   };
 
   // カードリストで統一表示（3件まで常時、それ以降は折りたたみ）
-  const rowsVisible = scored.slice(0, 3);
-  const rowsRest = scored.slice(3);
-  if (rowsVisible.length > 0) {
-    html += `
-    <div class="result-rows">
-      <div class="result-rows-section-head">
-        <span class="result-rows-section-title">該当する制度</span>
-        <span class="result-rows-section-meta">${rowsVisible.length > 0 ? `スコア順（${scored.length}件）` : ''}</span>
-      </div>`;
-    rowsVisible.forEach(s => { html += renderRow(s); });
-    if (rowsRest.length > 0) {
-      html += `<div class="others-section" id="others-section" style="display:none">`;
-      rowsRest.forEach(s => { html += renderRow(s); });
-      html += `</div>
-      <div class="others-toggle" onclick="toggleOthers(this)">他 ${rowsRest.length}件を表示 ↓</div>`;
-    }
+  // グループ別表示
+  if (scored.length > 0) {
+    html += `<div class="result-rows">`;
+
+    RESULT_GROUPS.forEach(grp => {
+      const items = scored.filter(s => getResultGroup(s.id) === grp.key);
+      if (items.length === 0) return;
+      html += `
+      <div class="result-group">
+        <div class="result-group-head ${grp.cls}">
+          <span class="result-group-icon">${grp.icon}</span>
+          <span class="result-group-label">${grp.label}</span>
+          ${grp.desc ? `<span style="font-size:11px;color:#64748b;margin-left:4px;">— ${grp.desc}</span>` : ''}
+          <span class="result-group-count">${items.length}件</span>
+        </div>`;
+      html += renderGroupItems(items);
+      html += `</div>`;
+    });
+
     html += `</div>`;
   }
 
@@ -5491,19 +5724,19 @@ function onQ10Change(val) {
 // Q12: 最低賃金 → 都道府県別最低賃金と比較してアドバイス
 // 2025年10月〜2025年12月改定値（都道府県別）
 const PREF_MINWAGE = {
-  '北海道': 1010, '青森': 951, '岩手': 1031, '宮城': 1055, '秋田': 951,
-  '山形': 955, '福島': 955, '茨城': 1005, '栃木': 1004, '群馬': 985,
-  '埼玉': 1078, '千葉': 1069, '東京': 1163, '神奈川': 1162, '新潟': 985,
-  '富山': 998, '石川': 984, '福井': 984, '山梨': 988, '長野': 998,
-  '岐阜': 1001, '静岡': 1034, '愛知': 1077, '三重': 1023, '滋賀': 1017,
-  '京都': 1058, '大阪': 1114, '兵庫': 1052, '奈良': 986, '和歌山': 980,
-  '鳥取': 957, '島根': 962, '岡山': 982, '広島': 1020, '山口': 979,
-  '徳島': 980, '香川': 970, '愛媛': 956, '高知': 956, '福岡': 992,
-  '佐賀': 956, '長崎': 953, '熊本': 952, '大分': 954, '宮崎': 951,
-  '鹿児島': 953, '沖縄': 952
+  // 2025年度改定値（令和7年度、2025年10月〜2026年3月順次施行）
+  '北海道': 1069, '青森': 1029, '岩手': 1031, '宮城': 1055, '秋田': 1031,
+  '山形': 1028, '福島': 1028, '茨城': 1072, '栃木': 1070, '群馬': 1055,
+  '埼玉': 1141, '千葉': 1140, '東京': 1226, '神奈川': 1225, '新潟': 1056,
+  '富山': 1054, '石川': 1055, '福井': 1054, '山梨': 1055, '長野': 1070,
+  '岐阜': 1068, '静岡': 1130, '愛知': 1140, '三重': 1087, '滋賀': 1082,
+  '京都': 1122, '大阪': 1177, '兵庫': 1116, '奈良': 1052, '和歌山': 1046,
+  '鳥取': 1025, '島根': 1030, '岡山': 1050, '広島': 1086, '山口': 1045,
+  '徳島': 1046, '香川': 1038, '愛媛': 1024, '高知': 1023, '福岡': 1119,
+  '佐賀': 1024, '長崎': 1023, '熊本': 1023, '大分': 1025, '宮崎': 1023,
+  '鹿児島': 1023, '沖縄': 1023
 };
-// 注: 岩手は2025年12月1日改定（旧952円→1031円）
-const NATIONAL_AVG = 1055; // 2025年度加重平均
+const NATIONAL_AVG = 1121; // 2025年度全国加重平均（令和7年度改定）
 
 function getLocalMinWage() {
   const q4 = (document.getElementById('q4')?.value || '').trim();
@@ -5578,19 +5811,63 @@ function updateQ15Tags() {
   const allTags = new Set();
   checked.forEach(key => { (Q14_TAG_MAP[key] || []).forEach(t => allTags.add(t)); });
 
+  // キーワード → サブ選択肢マップ
+  const Q15_SUBTAGS = {
+    'リスキリング': ['AIリスキリング（生成AI・ChatGPT活用）', 'DX・デジタルスキル研修', '管理職・リーダーシップ研修', '語学・ビジネス系スキルアップ'],
+    'DX研修': ['AI・機械学習・データ分析研修', 'クラウド・SaaS活用研修', 'セキュリティ・情報管理研修', 'DX推進リーダー育成'],
+    'OJT': ['製造・技術職OJT', '営業・接客スキルOJT', '管理・事務系OJT', '新入社員・若手育成OJT'],
+    '資格取得': ['IT・デジタル系資格（基本情報・ITパスポート等）', '建設・施工管理系資格', '技術・製造系資格（溶接・機械等）', '介護・医療・福祉系資格'],
+    'eラーニング': ['AI・IT系オンライン講座', 'ビジネス・マネジメント系eラーニング', '語学・コミュニケーション学習', '業界特化型専門スキル講座'],
+    'マネジメント研修': ['経営・財務・会計研修', 'リーダーシップ・コーチング研修', '人事・労務管理研修', '組織マネジメント・1on1手法'],
+    '協働ロボット': ['搬送・物流ロボット（AGV・AMR）', '溶接・加工ロボット', '組立・検査・ピッキングロボット', '食品・農業向けロボット'],
+    '自動搬送機': ['AGV・無人搬送車の導入', 'フォークリフト自動化', 'ベルトコンベア・仕分け自動化', 'ピッキングシステム導入'],
+    '省エネコンプレッサー': ['インバータ制御コンプレッサー', '廃熱回収・エネルギー有効利用', 'エア漏れ診断・削減対策', '高効率コンプレッサーへの更新'],
+    'LED照明': ['工場・倉庫のLED化', '店舗・オフィスのLED化', '屋外・駐車場照明LED化', 'センサー・調光システム付きLED'],
+    'ホームページ': ['採用・求人サイトの制作・改善', 'ECサイト構築・ネット販売開始', 'コーポレートサイトリニューアル', 'LP・ランディングページ制作'],
+    'SNS広告': ['Instagram・Facebook広告運用', 'X（Twitter）広告運用', 'LINE広告・公式アカウント活用', 'YouTube・動画広告制作'],
+    'AI-OCR': ['請求書・領収書の自動読取', '契約書・帳票のデジタル化', '手書き文字・伝票の自動処理', '書類ワークフロー自動化'],
+    '在庫管理': ['在庫管理システム（WMS）導入', 'バーコード・QRコード管理', 'RFID・IoTによる在庫可視化', '自動倉庫・スマート倉庫導入'],
+    'CNC加工機': ['マシニングセンタ・フライス盤', 'CNC旋盤・複合加工機', 'レーザー切断機・ウォータージェット', '5軸加工機・高精度加工設備'],
+    '検品自動化': ['画像認識・AIカメラによる外観検査', '寸法・重量自動計測システム', '異物検知・X線検査装置', '全数検査ライン構築'],
+    '受発注システム': ['受発注管理システム（EDI）導入', 'クラウド型受発注プラットフォーム', '販売管理・基幹システム連携', 'ECモール・卸売管理システム'],
+    'クラウド会計': ['会計・経理システムのクラウド移行', '請求書・経費精算の電子化（インボイス対応）', '給与計算・勤怠管理クラウド化', 'バックオフィス全体のDX化'],
+    'RPA': ['請求・経理業務のRPA化', 'データ入力・転記作業の自動化', '受発注・在庫管理のRPA', 'レポート作成・集計業務の自動化'],
+    '新棟建設': ['工場・製造ラインの新棟建設', '物流・倉庫施設の新設', '店舗・事務所の新設・移転', '農業・加工施設の新設'],
+    '拠点拡張': ['新規事業所・営業所の開設', '海外拠点・輸出拠点の設立', '生産能力増強のための施設拡大', '福祉・介護施設の新設・増設'],
+  };
+
+  // サブパネルの表示
+  let activeSubPanel = null;
+  function showSubPanel(tag, btn) {
+    if (activeSubPanel) { activeSubPanel.remove(); activeSubPanel = null; }
+    const subs = Q15_SUBTAGS[tag];
+    if (!subs) {
+      const ta = document.getElementById('q15');
+      if (ta) { ta.value = ta.value ? ta.value.trimEnd() + '、' + tag : tag; ta.focus(); }
+      return;
+    }
+    const panel = document.createElement('div');
+    panel.className = 'q15-sub-panel';
+    panel.innerHTML = `<div class="q15-sub-title">${tag}の詳細を選んでください</div>` +
+      subs.map(s => `<button type="button" class="q15-sub-btn">${s}</button>`).join('');
+    panel.querySelectorAll('.q15-sub-btn').forEach(sb => {
+      sb.onclick = () => {
+        const ta = document.getElementById('q15');
+        if (ta) { ta.value = ta.value ? ta.value.trimEnd() + '、' + sb.textContent : sb.textContent; ta.focus(); }
+        panel.remove(); activeSubPanel = null;
+      };
+    });
+    btn.parentNode.insertBefore(panel, btn.nextSibling);
+    activeSubPanel = panel;
+  }
+
   btnArea.innerHTML = '';
   allTags.forEach(tag => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'tag-btn';
-    btn.textContent = tag;
-    btn.onclick = () => {
-      const ta = document.getElementById('q15');
-      if (ta) {
-        ta.value = ta.value ? ta.value.trimEnd() + '、' + tag : tag;
-        ta.focus();
-      }
-    };
+    btn.className = 'tag-btn' + (Q15_SUBTAGS[tag] ? ' has-sub' : '');
+    btn.textContent = tag + (Q15_SUBTAGS[tag] ? ' ▾' : '');
+    btn.onclick = () => showSubPanel(tag, btn);
     btnArea.appendChild(btn);
   });
 

@@ -4951,39 +4951,6 @@ const SUBSIDY_SERIES_MAP = {
 };
 
 // グループ内をシリーズでまとめてHTMLを生成
-function renderGroupItems(items) {
-  // シリーズごとに分類（挿入順を保持）
-  const seriesOrder = [];
-  const seriesItems = {};
-  const standalone = [];
-
-  items.forEach(s => {
-    const series = SUBSIDY_SERIES_MAP[s.id];
-    if (series) {
-      if (!seriesItems[series]) { seriesItems[series] = []; seriesOrder.push(series); }
-      seriesItems[series].push(s);
-    } else {
-      standalone.push(s);
-    }
-  });
-
-  let out = '';
-  // シリーズが2件以上ならブロック化、1件ならそのまま
-  seriesOrder.forEach(series => {
-    const si = seriesItems[series];
-    if (si.length >= 2) {
-      out += `<div class="result-series-block">
-        <div class="result-series-label">${series}（${si.length}コース）</div>`;
-      si.forEach(s => { out += renderRow(s); });
-      out += `</div>`;
-    } else {
-      si.forEach(s => { out += renderRow(s); });
-    }
-  });
-  standalone.forEach(s => { out += renderRow(s); });
-  return out;
-}
-
 // ─── 申請フロータイプ定義 ─────────────────────────────────────
 const WORKFLOW_TYPES = {
   hojyokin: {
@@ -5542,6 +5509,35 @@ function renderResults(scored, combos, conflicts, meta) {
         </div>
       </div>
     </div>`;
+  };
+
+  // シリーズグループレンダラー（renderRowのスコープ内で定義）
+  const renderGroupItems = (items) => {
+    const seriesOrder = [];
+    const seriesItems = {};
+    const standalone = [];
+    items.forEach(s => {
+      const series = SUBSIDY_SERIES_MAP[s.id];
+      if (series) {
+        if (!seriesItems[series]) { seriesItems[series] = []; seriesOrder.push(series); }
+        seriesItems[series].push(s);
+      } else {
+        standalone.push(s);
+      }
+    });
+    let out = '';
+    seriesOrder.forEach(series => {
+      const si = seriesItems[series];
+      if (si.length >= 2) {
+        out += `<div class="result-series-block"><div class="result-series-label">${series}（${si.length}コース）</div>`;
+        si.forEach(s => { out += renderRow(s); });
+        out += `</div>`;
+      } else {
+        si.forEach(s => { out += renderRow(s); });
+      }
+    });
+    standalone.forEach(s => { out += renderRow(s); });
+    return out;
   };
 
   // グループ別表示

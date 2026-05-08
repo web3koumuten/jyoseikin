@@ -4650,6 +4650,190 @@ const SUBSIDIES = [
     "wage_required": false,
     "bonus_points": {},
     "q15_keywords": ["起業", "創業", "開業", "ふるさと納税", "資金調達"]
+  },
+  {
+    "id": "iwate-miryoku-shokuba",
+    "name": "岩手県魅力ある職場づくり推進事業費補助金",
+    "area": "iwate",
+    "max_amount": 1250000,
+    "amount_note": "上限100万円（3区分以上の取組実施で125万円）。対象経費：専門家謝金・コンサル料・研修費・物品購入費（3万円以上）等。補助率要確認",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": true,
+    "min_employees": 1,
+    "note_eligibility": "岩手県内に事業所を有する中小企業等。「所定内労働時間の短縮」「子育てしやすい環境整備」「リスキリング支援」等2区分以上の取組が必須",
+    "description": "若者・女性に魅力ある職場づくりに取り組む県内中小企業を支援する県独自補助金。時短勤務導入・子育て支援・スキルアップ研修など2区分以上の取組に対して最大125万円を補助。専門家コンサル費用や研修費・設備費が対象。採用力強化・離職防止に直結する制度。",
+    "conditions": ["岩手県内事業所", "所定内労働時間短縮・子育て支援・リスキリング等から2区分以上実施"],
+    "compatible_with": ["jinzai-hito-investment", "iwate-chinageshien"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["テレワーク", "時短", "育児", "女性活躍", "リスキリング", "職場環境", "働き方改革", "人材定着"]
+  },
+  {
+    "id": "iwate-kaigo-kankyokaizen",
+    "name": "岩手県介護人材確保・職場環境改善等事業費補助金",
+    "area": "iwate",
+    "max_amount": 1000000,
+    "amount_note": "1事業所あたりの上限は規模・取組内容による（要問い合わせ）。介護助手募集費・研修費・業務改善費等が対象",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主", "社会福祉法人等", "NPO等"],
+    "industry_restriction": ["医療・介護・福祉"],
+    "requires_employee_insurance": true,
+    "min_employees": 1,
+    "note_eligibility": "岩手県内の介護保険サービス事業者（処遇改善加算算定中の事業所）。令和7年4月15日までに処遇改善加算取得届出をすれば未算定でも対象",
+    "description": "介護人材の確保・定着・職場環境改善に取り組む県内介護事業所を支援する県独自補助金。介護助手の募集経費・職場環境改善の研修費・業務見える化のためのシステム導入費等が対象。介護テクノロジー補助金と並行活用可能。",
+    "conditions": ["岩手県内介護保険サービス事業者", "処遇改善加算の取得"],
+    "compatible_with": ["iwate-kaigo-tech"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["介護", "ヘルパー", "人材不足", "職場環境", "研修", "訪問介護"]
+  },
+  {
+    "id": "iwate-shogaifukushi-kankyokaizen",
+    "name": "岩手県障がい福祉人材確保・職場環境改善等事業補助金",
+    "area": "iwate",
+    "max_amount": 1000000,
+    "amount_note": "1事業所あたり上限は取組内容による（要問い合わせ）。求人広告費・研修費・業務改善費等が対象",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主", "社会福祉法人等", "NPO等"],
+    "industry_restriction": ["医療・介護・福祉"],
+    "requires_employee_insurance": true,
+    "min_employees": 1,
+    "note_eligibility": "岩手県内の障がい福祉サービス事業所。介護福祉補助金と別枠で申請可能",
+    "description": "障がい福祉サービス事業所の人材確保・定着・職場環境改善を支援する県独自補助金。求人広告・研修・業務改善に要する費用を補助。介護系補助金との並行申請が可能な場合もある。",
+    "conditions": ["岩手県内障がい福祉サービス事業所"],
+    "compatible_with": ["iwate-kaigo-tech", "iwate-kaigo-kankyokaizen"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["障がい", "福祉", "グループホーム", "就労支援", "人材確保"]
+  },
+  {
+    "id": "iwate-gaikoku-kaigo",
+    "name": "岩手県外国人介護人材受入施設等環境整備事業費補助金",
+    "area": "iwate",
+    "max_amount": 1000000,
+    "amount_note": "受入環境整備に係る費用（日本語教材・生活支援物品・通訳費等）を補助。申請期限2026年2月27日",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主", "社会福祉法人等", "NPO等"],
+    "industry_restriction": ["医療・介護・福祉"],
+    "requires_employee_insurance": true,
+    "min_employees": 1,
+    "note_eligibility": "岩手県内で外国人介護人材を受け入れる（予定含む）介護事業所等",
+    "description": "外国人介護人材（EPA・技能実習・特定技能等）を受け入れる岩手県内の介護事業所に対し、受入環境整備（日本語学習支援・生活物品・通訳費・Wi-Fi環境整備等）にかかる費用を補助する県独自制度。",
+    "conditions": ["岩手県内で外国人介護人材を受け入れる（予定含む）介護事業所"],
+    "compatible_with": ["iwate-kaigo-tech", "iwate-kaigo-kankyokaizen"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["外国人", "EPA", "技能実習", "特定技能", "介護", "多国籍"]
+  },
+  {
+    "id": "iwate-kyoiku-ryoko",
+    "name": "いわて教育旅行催行支援緊急対策支援金",
+    "area": "iwate",
+    "max_amount": 3000000,
+    "amount_note": "物価高騰分の価格差を補填する支援金。金額は旅行規模・人数等による（要算定）。申請期間：令和7年9月30日〜令和8年9月30日の宿泊分",
+    "timing": "after_investment",
+    "lead_time_months": 1,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": ["宿泊・飲食・観光"],
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内の宿泊事業者または貸切バス事業者。文部科学省が定める教育課程の一環として実施される旅行（修学旅行等）の受入が対象",
+    "description": "物価高騰により価格転嫁が困難な教育旅行（修学旅行等）を受け入れる岩手県内の宿泊事業者・貸切バス事業者への支援金。コスト上昇分を補填する仕組みで、観光業の経営安定を支援。令和8年9月30日宿泊分まで対象。",
+    "conditions": ["岩手県内の宿泊施設または貸切バス事業者", "修学旅行等の教育旅行の受入"],
+    "compatible_with": [],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["宿泊", "ホテル", "旅館", "修学旅行", "バス", "観光"]
+  },
+  {
+    "id": "sanriku-shinshop",
+    "name": "さんりく基金助成事業（新商品・地域サービス開発）",
+    "area": "iwate",
+    "max_amount": 500000,
+    "amount_note": "助成限度額50万円。岩手県北・沿岸地域を拠点とする事業者が対象。申込期限5月25日（令和8年度）",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主", "NPO等"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県北・沿岸地域（久慈市・宮古市・釜石市・大船渡市・陸前高田市等）を拠点とする事業者・団体。農林水産物・観光資源等の地域特性を活かした新商品・サービス開発が対象",
+    "description": "公益財団法人さんりく基金が岩手県北・沿岸地域の復興・振興のために実施する助成制度。地域の農林水産物や観光資源を活かした新商品開発、体験プログラム開発、新たなサービス開発に最大50万円を助成。国の補助金では採択されにくい小規模な取組もカバーできる。",
+    "conditions": ["岩手県北・沿岸地域を拠点とする事業者・団体（対象地域限定）", "地域資源を活かした新商品・サービス開発事業であること"],
+    "compatible_with": [],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["新商品", "地域資源", "農産物", "水産物", "観光", "体験", "開発"]
+  },
+  {
+    "id": "morioka-takimaki",
+    "name": "盛岡市薪ストーブ設置費補助事業（店舗向け）",
+    "area": "morioka",
+    "max_amount": 500000,
+    "amount_note": "経費総額の1/3以内かつ上限50万円。二次燃焼機能付き薪ストーブの設置費が対象。事前申請（発注前）が必須",
+    "timing": "before_investment",
+    "lead_time_months": 1,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": ["宿泊・飲食・観光"],
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "盛岡市内に所在する飲食店・店舗等（物販業含む）で、盛岡市産の薪の利用に努めること。発注（購入）前に申請が必要",
+    "description": "盛岡市が木質バイオマス燃料の利用促進のために実施する、飲食店・店舗向けの薪ストーブ設置補助。設置費用の1/3（上限50万円）を補助。暖房コスト削減と脱炭素の両立に有効。発注前の事前申請が必須な点に注意。",
+    "conditions": ["盛岡市内の飲食店・店舗等", "二次燃焼機能付き薪ストーブの設置（発注前申請）", "盛岡市産の薪の利用に努めること"],
+    "compatible_with": ["morioka-ev-donyu"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["薪ストーブ", "暖房", "飲食店", "店舗", "木質", "バイオマス", "脱炭素"]
+  },
+  {
+    "id": "morioka-sanzai",
+    "name": "盛岡市市産材利用店舗等支援事業",
+    "area": "morioka",
+    "max_amount": 200000,
+    "amount_note": "利用した市産材の資材費の1/2以内、上限20万円。店舗・飲食店等の新築・増改築・修繕工事が対象",
+    "timing": "before_investment",
+    "lead_time_months": 1,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "盛岡市内の店舗・飲食店等の新築・増改築・修繕工事に盛岡市産材を使用する場合。工事完了後に市産材利用の表示が必要。先着順のため予算終了次第終了",
+    "description": "盛岡市内の店舗や飲食店が新築・改修時に盛岡市産の木材を使用した場合に、使用した市産材の資材費の1/2（上限20万円）を補助する制度。内装木質化や什器の木製化なども対象になる場合あり。先着順。",
+    "conditions": ["盛岡市内の店舗・飲食店等", "市産材を新たに使用する工事", "完了後に市産材利用の表示"],
+    "compatible_with": [],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["店舗", "改修", "内装", "木材", "飲食店", "リフォーム", "新築"]
   }
 ];
 
@@ -4994,6 +5178,17 @@ function runDiagnosis() {
     // 従業員あり
     if (employees >= 1) {
       addP('iwate-fukugyo-jinzai', 1, '岩手県内事業所→県外副業・兼業人材の活用補助金を検討');
+      addP('iwate-miryoku-shokuba', 2, '岩手県内＋従業員あり→職場環境整備補助金（上限125万円）を活用して採用力強化');
+    }
+    // 介護・福祉
+    if (industry === '医療・介護・福祉') {
+      addP('iwate-kaigo-kankyokaizen', 2, '岩手県内介護事業所→人材確保・職場環境改善補助金が活用可能');
+      addP('iwate-shogaifukushi-kankyokaizen', 1, '岩手県内福祉事業所→障がい福祉人材確保補助金も対象の可能性');
+      addP('iwate-gaikoku-kaigo', 1, '外国人介護人材の受入を検討なら→県の受入施設環境整備補助金を活用');
+    }
+    // 宿泊・観光
+    if (industry === '宿泊・飲食・観光') {
+      addP('iwate-kyoiku-ryoko', 2, '岩手県内宿泊・観光事業者→教育旅行催行支援金で修学旅行受入コスト補填');
     }
   }
   if (isMorioka) {
@@ -5010,6 +5205,13 @@ function runDiagnosis() {
     }
     if (q14.includes('startup')) {
       addP('morioka-furusato-kigyo', 2, '盛岡市内での新規起業→ふるさと起業家支援補助金の活用を検討');
+    }
+    if (industry === '宿泊・飲食・観光') {
+      addP('morioka-takimaki', 2, '盛岡市内飲食店→薪ストーブ設置補助金（上限50万円）で暖房コスト削減と集客力アップ');
+    }
+    // 建設・店舗改修予定
+    if (q16 >= 50) {
+      addP('morioka-sanzai', 1, '盛岡市内＋店舗改修予定→市産材利用補助金（上限20万円）で内装に木材活用');
     }
   }
 
@@ -5302,7 +5504,15 @@ const RESULT_GROUP_MAP = {
   'morioka-shijo-kaitaku': 'chiiki',
   'morioka-satellite':     'chiiki',
   'morioka-kigyo-richi':   'chiiki',
-  'morioka-furusato-kigyo':'chiiki',
+  'morioka-furusato-kigyo':  'chiiki',
+  'iwate-miryoku-shokuba':   'chiiki',
+  'iwate-kaigo-kankyokaizen':'chiiki',
+  'iwate-shogaifukushi-kankyokaizen': 'chiiki',
+  'iwate-gaikoku-kaigo':     'chiiki',
+  'iwate-kyoiku-ryoko':      'chiiki',
+  'sanriku-shinshop':        'chiiki',
+  'morioka-takimaki':        'chiiki',
+  'morioka-sanzai':          'chiiki',
   // 設備投資補助金
   'monozukuri-hojyokin':   'invest',
   'shooryoka':             'invest',

@@ -316,28 +316,13 @@
 
   /* ── 結果免責注意書き ── */
   .results-disclaimer {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    background: #fffbeb;
-    border: 1.5px solid #fcd34d;
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-top: 18px;
-    font-size: 12.5px;
-    color: #78350f;
-    line-height: 1.7;
-  }
-  .results-disclaimer-icon {
-    font-size: 16px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .results-disclaimer strong {
-    display: block;
-    font-weight: 700;
-    margin-bottom: 4px;
-    color: #92400e;
+    background: #f8f9fc;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 16px;
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.6;
   }
 
   /* Stack panel */
@@ -773,23 +758,33 @@
     border-radius: 10px;
     margin-bottom: 10px;
   }
-  .result-group-head.grp-subsidy  { background: #eff6ff; border-left: 4px solid #3b82f6; }
-  .result-group-head.grp-employ   { background: #f0fdf4; border-left: 4px solid #22c55e; }
-  .result-group-head.grp-shogaisha{ background: #fdf4ff; border-left: 4px solid #a855f7; }
-  .result-group-head.grp-hr       { background: #fff7ed; border-left: 4px solid #f97316; }
-  .result-group-head.grp-wage     { background: #fefce8; border-left: 4px solid #eab308; }
-  .result-group-icon { font-size: 17px; }
+  .result-group-head.grp-invest   { background: #eff6ff; border-left: 5px solid #2563eb; }
+  .result-group-head.grp-it       { background: #f0f9ff; border-left: 5px solid #0ea5e9; }
+  .result-group-head.grp-hanbai   { background: #f0fdf4; border-left: 5px solid #16a34a; }
+  .result-group-head.grp-employ   { background: #fefce8; border-left: 5px solid #ca8a04; }
+  .result-group-head.grp-shogaisha{ background: #fdf4ff; border-left: 5px solid #9333ea; }
+  .result-group-head.grp-hr       { background: #fff7ed; border-left: 5px solid #ea580c; }
+  .result-group-head.grp-wage     { background: #fff1f2; border-left: 5px solid #e11d48; }
+  .result-group-icon { font-size: 20px; flex-shrink: 0; }
   .result-group-label {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 800;
-    color: #1a1f36;
+    color: #0f172a;
     letter-spacing: 0.01em;
   }
-  .result-group-count {
+  .result-group-desc {
     font-size: 11px;
-    font-weight: 600;
+    color: #64748b;
+    margin-left: 2px;
+  }
+  .result-group-count {
+    font-size: 12px;
+    font-weight: 700;
     color: #64748b;
     margin-left: auto;
+    background: rgba(0,0,0,0.06);
+    padding: 2px 10px;
+    border-radius: 99px;
   }
   /* ── シリーズブロック ── */
   .result-series-block {
@@ -2480,10 +2475,13 @@
       <div class="field">
         <div class="field-label"><span class="q">Q19</span>過去に補助金・助成金を受けたことはありますか？</div>
         <div class="choices">
-          <label class="choice-row"><input type="radio" name="q19" value="なし"><span>ない</span></label>
-          <label class="choice-row"><input type="radio" name="q19" value="あり"><span>ある <span style="font-size:11px;color:#64748b;font-weight:400;">（下の欄に受給した助成金名をご記入ください）</span></span></label>
+          <label class="choice-row"><input type="radio" name="q19" value="なし" onchange="document.getElementById('q19_detail_wrap').style.display='none'"><span>ない</span></label>
+          <label class="choice-row"><input type="radio" name="q19" value="あり" onchange="document.getElementById('q19_detail_wrap').style.display='block'"><span>ある</span></label>
         </div>
-        <div style="margin-top:8px"><input type="text" id="q19_detail" placeholder="補助金名と年度（例：ものづくり補助金 2023年）"></div>
+        <div id="q19_detail_wrap" style="display:none;margin-top:10px">
+          <div style="font-size:12px;color:#64748b;margin-bottom:6px">受給した補助金・助成金の名前と年度を入力してください</div>
+          <input type="text" id="q19_detail" placeholder="例：ものづくり補助金 2023年度、IT導入補助金 2022年度" style="width:100%">
+        </div>
       </div>
 
       <div class="field">
@@ -4851,15 +4849,17 @@ function getCategory(id) {
 
 // ─── 結果グループ定義 ─────────────────────────────────────
 const RESULT_GROUP_MAP = {
-  // 補助金・IT投資
-  'monozukuri-hojyokin':   'subsidy',
-  'shooryoka':             'subsidy',
-  'jigyo-shinsyutsu':      'subsidy',
-  'shoene':                'subsidy',
-  'seichokasoku':          'subsidy',
-  'jizokuka-hojyokin':     'subsidy',
-  'it-donyu':              'subsidy',
-  'it-security':           'subsidy',
+  // 設備投資補助金
+  'monozukuri-hojyokin':   'invest',
+  'shooryoka':             'invest',
+  'jigyo-shinsyutsu':      'invest',
+  'seichokasoku':          'invest',
+  // IT・デジタル補助金
+  'it-donyu':              'it',
+  'it-security':           'it',
+  // 販路・省エネ補助金
+  'shoene':                'hanbai',
+  'jizokuka-hojyokin':     'hanbai',
   // 一般雇用
   'trial-ippan':                 'employ',
   'tokutei-shushokukonnansha':   'employ',
@@ -4899,12 +4899,14 @@ const RESULT_GROUP_MAP = {
   'tokutei-shinkibo':       'wage',
 };
 const RESULT_GROUPS = [
-  { key: 'subsidy',   icon: '🏭', label: '補助金・IT投資',    cls: 'grp-subsidy',   desc: '設備投資・デジタル化・省エネ' },
+  { key: 'invest',    icon: '🏭', label: '設備投資補助金',     cls: 'grp-invest',    desc: 'ものづくり・省力化・事業再構築・成長加速' },
+  { key: 'it',        icon: '💻', label: 'IT・デジタル補助金', cls: 'grp-it',        desc: 'IT導入・セキュリティ対策' },
+  { key: 'hanbai',    icon: '🌱', label: '販路・省エネ補助金', cls: 'grp-hanbai',    desc: '販路開拓・持続化・省エネ設備' },
   { key: 'employ',    icon: '👥', label: '一般雇用',           cls: 'grp-employ',    desc: '採用・雇用維持・正社員化' },
   { key: 'shogaisha', icon: '♿', label: '障害者雇用',         cls: 'grp-shogaisha', desc: '障害者の採用・定着・施設整備' },
   { key: 'hr',        icon: '📚', label: '人材育成',           cls: 'grp-hr',        desc: '研修・スキルアップ・資格取得' },
   { key: 'wage',      icon: '💰', label: '賃上げ・働き方改革', cls: 'grp-wage',      desc: '賃金引上げ・両立支援・残業削減' },
-  { key: 'other',     icon: '📋', label: 'その他',             cls: 'grp-subsidy',   desc: '' },
+  { key: 'other',     icon: '📋', label: 'その他',             cls: 'grp-invest',    desc: '' },
 ];
 function getResultGroup(id) {
   return RESULT_GROUP_MAP[id] || 'other';
@@ -5326,12 +5328,12 @@ function renderResults(scored, combos, conflicts, meta) {
           </div>
         </div>
         <div class="results-summary-cell results-summary-accent">
-          <div class="results-summary-label">最大受給合計</div>
+          <div class="results-summary-label">上限額の参考値</div>
           <div class="results-summary-value">
             <span class="results-summary-num">${amountManTotal}</span>
             <span class="results-summary-unit">万円</span>
           </div>
-          <div class="results-summary-note">全件並行申請時の概算</div>
+          <div class="results-summary-note">各制度の最大受給額の合計（目安）</div>
         </div>
         <div class="results-summary-cell">
           <div class="results-summary-label">最短準備期間</div>
@@ -5343,11 +5345,7 @@ function renderResults(scored, combos, conflicts, meta) {
         </div>
       </div>
       <div class="results-disclaimer">
-        <span class="results-disclaimer-icon">⚠️</span>
-        <div>
-          <strong>本診断結果はあくまで「可能性の目安」です</strong>
-          この診断は入力情報をもとに該当しやすい制度を抽出したものであり、受給・採択を保証するものではありません。各制度には詳細な要件・審査・予算枠があり、実際に通るかどうかは申請内容や審査状況によって異なります。正式な申請前には、必ず各制度の公式情報および専門家（社会保険労務士・中小企業診断士等）にご確認ください。
-        </div>
+        <div>※ この結果はあくまで目安です。各制度には詳細な要件や審査があるため、すべてが受給・採択されるとは限りません。</div>
       </div>
     </div>
   `;
@@ -5552,7 +5550,7 @@ function renderResults(scored, combos, conflicts, meta) {
         <div class="result-group-head ${grp.cls}">
           <span class="result-group-icon">${grp.icon}</span>
           <span class="result-group-label">${grp.label}</span>
-          ${grp.desc ? `<span style="font-size:11px;color:#64748b;margin-left:4px;">— ${grp.desc}</span>` : ''}
+          ${grp.desc ? `<span class="result-group-desc">— ${grp.desc}</span>` : ''}
           <span class="result-group-count">${items.length}件</span>
         </div>`;
       html += renderGroupItems(items);

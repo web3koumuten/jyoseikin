@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>岩手県・盛岡市 事業者向け支援制度一覧</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0066ff;
+    --primary-dark: #0052cc;
+    --primary-light: #eff6ff;
+    --accent: #0e9f6e;
+    --accent-light: #ecfdf5;
+    --gray-50: #f8f9fc;
+    --gray-100: #f1f3f8;
+    --gray-200: #e4e7f0;
+    --gray-400: #9aa3b8;
+    --gray-600: #5c6480;
+    --gray-700: #3d4461;
+    --gray-900: #1a1f36;
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow: 0 4px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: white;
+    color: var(--gray-900);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    border-top: 3px solid transparent;
+    border-image: linear-gradient(90deg, #16a34a 0%, #0066ff 50%, #0ea5e9 100%) 1;
+  }
+
+  /* ── ナビバー ── */
+  .site-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-200);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  }
+  .site-nav-inner {
+    max-width: 960px; margin: 0 auto; padding: 0 24px;
+    height: 60px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-logo {
+    font-size: 15px; font-weight: 800; color: var(--gray-900);
+    letter-spacing: -0.03em; display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .site-logo-mark {
+    width: 32px; height: 32px; background: #16a34a; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 14px; font-weight: 900;
+  }
+  .nav-back {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; color: var(--gray-600); text-decoration: none; font-weight: 500;
+    padding: 6px 12px; border-radius: 8px; border: 1px solid var(--gray-200);
+    transition: background 0.15s;
+  }
+  .nav-back:hover { background: var(--gray-50); }
+
+  /* ── ヘッダー ── */
+  .page-header {
+    background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 40px 24px 32px;
+    text-align: center;
+  }
+  .page-header-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: white; border: 1px solid #bbf7d0; border-radius: 20px;
+    padding: 4px 14px; font-size: 12px; font-weight: 600; color: #16a34a;
+    margin-bottom: 16px;
+  }
+  .page-header h1 {
+    font-size: 26px; font-weight: 800; color: var(--gray-900); margin-bottom: 10px;
+    letter-spacing: -0.02em;
+  }
+  .page-header p {
+    font-size: 14px; color: var(--gray-600); max-width: 600px; margin: 0 auto;
+  }
+  .header-stats {
+    display: flex; justify-content: center; gap: 32px; margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .header-stat { text-align: center; }
+  .header-stat-num { font-size: 28px; font-weight: 800; color: var(--primary); }
+  .header-stat-label { font-size: 12px; color: var(--gray-600); margin-top: 2px; }
+
+  /* ── メインコンテンツ ── */
+  .main { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* ── フィルターバー ── */
+  .filter-bar {
+    display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 7px 16px; border-radius: 20px; border: 1px solid var(--gray-200);
+    background: white; font-size: 13px; font-weight: 500; cursor: pointer;
+    color: var(--gray-700); transition: all 0.15s; font-family: inherit;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--primary); color: white; border-color: var(--primary);
+  }
+  .filter-btn.active-green { background: #16a34a; color: white; border-color: #16a34a; }
+  .filter-btn.active-blue  { background: #0066ff; color: white; border-color: #0066ff; }
+
+  /* ── セクション ── */
+  .section { margin-bottom: 48px; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 20px; border-radius: 12px 12px 0 0; margin-bottom: 0;
+    border-left: 5px solid;
+  }
+  .section-header.iwate {
+    background: #f0fdf4; border-color: #16a34a;
+  }
+  .section-header.morioka {
+    background: #eff6ff; border-color: #2563eb;
+  }
+  .section-header-icon { font-size: 22px; }
+  .section-header-title {
+    font-size: 16px; font-weight: 800; color: var(--gray-900);
+  }
+  .section-header-sub {
+    font-size: 12px; color: var(--gray-600); margin-top: 1px;
+  }
+  .section-header-count {
+    margin-left: auto; background: white; border-radius: 20px;
+    padding: 3px 12px; font-size: 12px; font-weight: 700; color: var(--gray-600);
+  }
+
+  /* ── カード ── */
+  .cards { border: 1px solid var(--gray-200); border-radius: 0 0 12px 12px; overflow: hidden; }
+  .card {
+    padding: 20px 24px; border-bottom: 1px solid var(--gray-100);
+    background: white; transition: background 0.1s;
+  }
+  .card:last-child { border-bottom: none; }
+  .card:hover { background: var(--gray-50); }
+  .card-top {
+    display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px;
+  }
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+  .tag {
+    display: inline-block; padding: 2px 9px; border-radius: 4px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  }
+  .tag-industry { background: #fef9c3; color: #854d0e; }
+  .tag-type-invest { background: #eff6ff; color: #1d4ed8; }
+  .tag-type-hr { background: #fdf4ff; color: #7e22ce; }
+  .tag-type-wage { background: #fff1f2; color: #be123c; }
+  .tag-type-create { background: #ecfdf5; color: #166534; }
+  .tag-type-sales { background: #fff7ed; color: #c2410c; }
+  .tag-type-env { background: #f0fdf4; color: #15803d; }
+  .tag-area { background: var(--gray-100); color: var(--gray-700); }
+  .tag-limited { background: #fef2f2; color: #991b1b; }
+  .card-name {
+    font-size: 15px; font-weight: 700; color: var(--gray-900); line-height: 1.4;
+  }
+  .card-body { display: flex; gap: 24px; align-items: flex-start; }
+  .card-desc {
+    flex: 1; font-size: 13px; color: var(--gray-600); line-height: 1.7;
+  }
+  .card-meta {
+    min-width: 160px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .card-amount-box {
+    background: var(--gray-50); border-radius: 8px; padding: 10px 14px; text-align: center;
+  }
+  .card-amount-label { font-size: 11px; color: var(--gray-400); font-weight: 500; }
+  .card-amount-value { font-size: 20px; font-weight: 800; color: var(--primary); line-height: 1.2; }
+  .card-amount-unit { font-size: 12px; color: var(--gray-600); font-weight: 500; }
+  .card-amount-note { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+  .card-deadline {
+    font-size: 12px; color: var(--gray-600); text-align: center;
+  }
+  .card-deadline span { font-weight: 600; color: #dc2626; }
+  .card-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; color: var(--primary); text-decoration: none; font-weight: 500;
+    margin-top: 8px;
+  }
+  .card-link:hover { text-decoration: underline; }
+
+  /* ── 免責 ── */
+  .disclaimer {
+    margin-top: 40px; padding: 16px 20px;
+    background: var(--gray-50); border-radius: 10px;
+    font-size: 12px; color: var(--gray-600); line-height: 1.8;
+  }
+
+  /* ── 更新日 ── */
+  .update-note {
+    text-align: center; font-size: 12px; color: var(--gray-400); margin-top: 24px;
+  }
+
+  /* ── レスポンシブ ── */
+  @media (max-width: 600px) {
+    .page-header h1 { font-size: 20px; }
+    .card-body { flex-direction: column; }
+    .card-meta { min-width: auto; width: 100%; flex-direction: row; flex-wrap: wrap; gap: 8px; }
+    .card-amount-box { flex: 1; }
+    .header-stats { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ナビバー -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="/" class="site-logo">
+      <div class="site-logo-mark">地</div>
+      岩手・盛岡 支援制度
+    </a>
+    <a href="/" class="nav-back">← 診断に戻る</a>
+  </div>
+</nav>
+
+<!-- ページヘッダー -->
+<div class="page-header">
+  <div class="page-header-badge">📍 岩手県・盛岡市 自治体独自制度</div>
+  <h1>地域限定の事業者向け支援制度</h1>
+  <p>岩手県・盛岡市が独自に実施している補助金・助成金・支援金の一覧です。<br>国の補助金とは別に使える制度も多くあります。</p>
+  <div class="header-stats">
+    <div class="header-stat">
+      <div class="header-stat-num" id="total-count">13</div>
+      <div class="header-stat-label">収録制度数</div>
+    </div>
+    <div class="header-stat">
+      <div class="header-stat-num">2</div>
+      <div class="header-stat-label">対象自治体</div>
+    </div>
+    <div class="header-stat">
+      <div class="header-stat-num">2026</div>
+      <div class="header-stat-label">調査年度</div>
+    </div>
+  </div>
+</div>
+
+<!-- メイン -->
+<main class="main">
+
+  <!-- フィルター -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCards('all', this)">すべて</button>
+    <button class="filter-btn" onclick="filterCards('iwate', this)">岩手県</button>
+    <button class="filter-btn" onclick="filterCards('morioka', this)">盛岡市</button>
+    <button class="filter-btn" onclick="filterCards('hr', this)">採用・賃上げ</button>
+    <button class="filter-btn" onclick="filterCards('invest', this)">設備投資</button>
+    <button class="filter-btn" onclick="filterCards('sales', this)">販路開拓</button>
+    <button class="filter-btn" onclick="filterCards('env', this)">環境・省エネ</button>
+    <button class="filter-btn" onclick="filterCards('create', this)">起業・創業</button>
+  </div>
+
+  <!-- 岩手県セクション -->
+  <div class="section" id="section-iwate" data-section="iwate">
+    <div class="section-header iwate">
+      <div class="section-header-icon">🌿</div>
+      <div>
+        <div class="section-header-title">岩手県の支援制度</div>
+        <div class="section-header-sub">岩手県が中小企業・事業者向けに実施している独自制度</div>
+      </div>
+      <div class="section-header-count" id="iwate-count">8件</div>
+    </div>
+    <div class="cards">
+
+      <!-- 1 -->
+      <div class="card" data-area="iwate" data-type="wage">
+        <div class="card-tags">
+          <span class="tag tag-area">岩手県</span>
+          <span class="tag tag-type-wage">賃上げ</span>
+          <span class="tag tag-type-hr">人材確保</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">物価高騰対策賃上げ支援金</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            物価高騰に対応し、県内中小企業等の賃上げを支援する支援金。従業員の賃金を一定額以上引き上げた事業者に支給。時給971円未満の従業員を1,031円以上に引き上げた場合は2万円の加算あり。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">最大受給額</div>
+              <div class="card-amount-value">100<span class="card-amount-unit">万円</span></div>
+              <div class="card-amount-note">1人5万円×最大20人分</div>
+            </div>
+            <div class="card-deadline">申請期限 <span>2026年11月13日</span></div>
+            <a class="card-link" href="https://iwate-bukkakoutoutaisaku.pref.iwate.jp/" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="card" data-area="iwate" data-type="invest">
+        <div class="card-tags">
+          <span class="tag tag-area">岩手県</span>
+          <span class="tag tag-type-invest">設備投資</span>
+          <span class="tag tag-type-hr">人材育成</span>
+          <span class="tag tag-type-sales">販路開拓</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">中小企業者等賃上げ環境整備支援事業費補助金</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            経営革新計画に基づき生産性向上・価格転嫁・賃上げに取り組む県内中小企業・小規模事業者の設備投資、人材育成、販路開拓にかかる経費を補助。補助率1/2以内。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">補助上限</div>
+              <div class="card-amount-value">200<span class="card-amount-unit">万円</span></div>
+              <div class="card-amount-note">補助率 1/2以内</div>
+            </div>
+            <a class="card-link" href="https://www.pref.iwate.jp/kensei/nyuusatsu/1010807/1066780.html" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="card" data-area="iwate" data-type="hr">
+        <div class="card-tags">
+          <span class="tag tag-area">岩手県</span>
+          <span class="tag tag-type-hr">人材確保</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">副業・兼業人材活用事業費補助金</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            岩手県プロフェッショナル人材戦略拠点を通じ、県外在住の副業・兼業人材（5年以上の職業経験を持つスキル人材）を採用した際の紹介手数料・交通費・宿泊費等を補助。DX・経営企画等の専門人材確保に有効。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">補助内容</div>
+              <div class="card-amount-value" style="font-size:14px;">紹介料等<br>一部補助</div>
+            </div>
+            <div class="card-deadline">申請期間 〜<span>2026年2月28日</span></div>
+            <a class="card-link" href="https://www.pref.iwate.jp/sangyoukoyou/koyouroudou/koyou/1057549/1033031.html" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="card" data-area="iwate" data-type="create">
+        <div class="card-tags">
+          <span class="tag tag-area">岩手県</span>
+          <span class="tag tag-type-create">起業・創業</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">地方創生起業支援金</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            地域課題の解決を目的にデジタル技術を活用して新たに起業する者、またはSociety5.0関連業種での事業承継・第二創業を実施する者を支援。店舗賃借料・設備費・広報費・外注費等が対象。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">最大支給額</div>
+              <div class="card-amount-value">200<span class="card-amount-unit">万円</span></div>
+              <div class="card-amount-note">補助率 1/2以内</div>
+            </div>
+            <a class="card-link" href="https://www.startup-iwate.pref.iwate.jp/support_list/1670/" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="card" data-area="iwate" data-type="hr">
+        <div class="card-tags">
+          <span class="tag tag-area">岩手県</span>
+          <span class="tag tag-type-hr">雇用</span>
+          <span class="tag tag-limited">沿岸12市町村限定</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">事業復興型雇用確保助成金</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            岩手県沿岸12市町村に所在する事業所が、被災三県（岩手・宮城・福島）の求職者を雇用した場合に助成。雇入費（最大120万円）＋住宅支援費あり。令和7年3月15日以降の雇い入れが対象。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">最大助成額</div>
+              <div class="card-amount-value">120<span class="card-amount-unit">万円</span></div>
+              <div class="card-amount-note">1人・3年間</div>
+            </div>
+            <a class="card-link" href="https://www.pref.iwate.jp/sangyoukoyou/koyouroudou/koyou/1017342/index.html" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="card" data-area="iwate" data-type="invest">
+        <div class="card-tags">
+          <span class="tag tag-area">岩手県</span>
+          <span class="tag tag-type-invest">新事業</span>
+          <span class="tag tag-type-sales">販路開拓</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">中小企業等連携支援事業</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            岩手県の農林水産物等の地域資源を活用した「地域資源型産業」振興のため、企業間・産業間・地域間の連携により新事業創出・新商品開発・高付加価値化・販路開拓に取り組む団体・企業を支援。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">補助内容</div>
+              <div class="card-amount-value" style="font-size:14px;">経費<br>一部補助</div>
+            </div>
+            <a class="card-link" href="https://www.pref.iwate.jp/engan/keiei/1072771/shien/1013973.html" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="card" data-area="iwate" data-type="hr">
+        <div class="card-tags">
+          <span class="tag tag-area">岩手県</span>
+          <span class="tag tag-type-hr">人材確保</span>
+          <span class="tag tag-limited">水産加工業者向け</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">沿岸地域基幹産業人材確保支援事業</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            沿岸地域の基幹産業である水産加工事業者を対象に、DX推進や女性が働きやすい職場環境整備を行う場合、県と市町村が共同して補助。人材確保・定着に向けた取組みを支援。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">補助内容</div>
+              <div class="card-amount-value" style="font-size:14px;">DX・環境整備<br>経費補助</div>
+            </div>
+            <a class="card-link" href="https://www.pref.iwate.jp/engan/keiei/1072771/shien/1013973.html" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="card" data-area="iwate" data-type="env">
+        <div class="card-tags">
+          <span class="tag tag-area">岩手県</span>
+          <span class="tag tag-type-env">脱炭素・GX</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">脱炭素化・省エネ支援（補助金・貸付金リンク集）</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            岩手県内の事業者が取り組む地球温暖化対策・脱炭素化に関する補助金・貸付金制度をまとめたページ。省エネ設備導入、再生可能エネルギー活用、CO2削減設備等が対象。詳細は公式サイトで確認。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">複数制度あり</div>
+              <div class="card-amount-value" style="font-size:14px;">各種<br>補助・貸付</div>
+            </div>
+            <a class="card-link" href="https://www.pref.iwate.jp/kurashikankyou/gx/1067346.html" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 盛岡市セクション -->
+  <div class="section" id="section-morioka" data-section="morioka">
+    <div class="section-header morioka">
+      <div class="section-header-icon">🏙️</div>
+      <div>
+        <div class="section-header-title">盛岡市の支援制度</div>
+        <div class="section-header-sub">盛岡市が中小企業・事業者向けに実施している独自制度</div>
+      </div>
+      <div class="section-header-count" id="morioka-count">5件</div>
+    </div>
+    <div class="cards">
+
+      <!-- 1 -->
+      <div class="card" data-area="morioka" data-type="invest">
+        <div class="card-tags">
+          <span class="tag tag-area">盛岡市</span>
+          <span class="tag tag-type-invest">運送業</span>
+          <span class="tag tag-limited">トラック事業者限定</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">盛岡市運送事業者燃料価格高騰対策支援金</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            市内のトラック事業者等（一般貨物自動車運送事業者、特定貨物自動車運送事業者等）を対象に、燃料費高騰による経営への影響を軽減するための支援金。第4弾として実施中。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">最大支給額</div>
+              <div class="card-amount-value">160<span class="card-amount-unit">万円</span></div>
+            </div>
+            <div class="card-deadline">申請期限 <span>2026年7月31日</span></div>
+            <a class="card-link" href="https://www.city.morioka.iwate.jp/jigyousha/1026070/shogyo/1032739.html" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="card" data-area="morioka" data-type="env">
+        <div class="card-tags">
+          <span class="tag tag-area">盛岡市</span>
+          <span class="tag tag-type-env">環境・省エネ</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">盛岡市電気自動車導入促進補助金</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            市内で電気自動車（EV）を新たに導入する事業者に対して補助金を交付。業務用車両の電動化・脱炭素化を推進。個人・事業者両方が対象（事業者用としての申請も可）。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">補助内容</div>
+              <div class="card-amount-value" style="font-size:14px;">EV導入<br>費用補助</div>
+            </div>
+            <div class="card-deadline">申請期間 〜<span>2026年2月27日</span></div>
+            <a class="card-link" href="https://www.city.morioka.iwate.jp/kurashi/kankyo/kankyokatsudo/1047508.html" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="card" data-area="morioka" data-type="invest">
+        <div class="card-tags">
+          <span class="tag tag-area">盛岡市</span>
+          <span class="tag tag-type-invest">設備投資</span>
+          <span class="tag tag-limited">製造業・情報サービス業</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">製造業及び情報サービス業市場開拓等事業補助金</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            市内の中小製造業者または情報サービス業者（団体含む）が展示会・見本市への出品・出展を通じて市場開拓・販路拡大を行う際の経費の一部を補助。補助率は対象経費の1/2以内。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">補助上限</div>
+              <div class="card-amount-value" style="font-size:16px;">国内<span style="font-size:22px;">10</span>万円<br>海外<span style="font-size:22px;">25</span>万円</div>
+            </div>
+            <a class="card-link" href="https://www.city.morioka.iwate.jp/jigyousha/1026070/kogyo/1008220.html" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="card" data-area="morioka" data-type="invest">
+        <div class="card-tags">
+          <span class="tag tag-area">盛岡市</span>
+          <span class="tag tag-type-invest">IT</span>
+          <span class="tag tag-limited">県外IT企業向け</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">盛岡市サテライトオフィス設置支援事業補助金</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            岩手県外に主たる事業所を有する製造業または情報サービス業事業者が、盛岡市内にサテライトオフィスを設置する場合に要する施設改修費・備品購入費・通信費・賃借料等を補助。従事者数に応じて補助額が変動。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">補助内容</div>
+              <div class="card-amount-value" style="font-size:14px;">改修・備品<br>賃借料補助</div>
+            </div>
+            <a class="card-link" href="http://www.city.morioka.iwate.jp/jigyousha/sangyo/kogyo/1034731.html" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="card" data-area="morioka" data-type="create">
+        <div class="card-tags">
+          <span class="tag tag-area">盛岡市</span>
+          <span class="tag tag-type-create">起業・創業</span>
+        </div>
+        <div class="card-top">
+          <div class="card-name">盛岡市ふるさと起業家支援プロジェクト補助金</div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            市内で事業を立ち上げた起業家を対象に、ふるさと納税制度を活用した地域外からの資金調達の仕組みを活用した補助制度。令和6年度から開始。市内での新規創業者向け。
+          </div>
+          <div class="card-meta">
+            <div class="card-amount-box">
+              <div class="card-amount-label">補助内容</div>
+              <div class="card-amount-value" style="font-size:14px;">起業経費<br>一部補助</div>
+            </div>
+            <a class="card-link" href="https://www.city.morioka.iwate.jp/jigyousha/shien/sangyokasseika/1008075.html" target="_blank">公式サイト →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 免責・備考 -->
+  <div class="disclaimer">
+    ※ この一覧は2026年5月時点の調査に基づくものです。各制度の申請要件・補助額・募集期間等は変更される場合があります。必ず公式サイトで最新情報をご確認ください。<br>
+    ※ 制度によっては予算上限に達し次第終了するものがあります。早めの確認をおすすめします。<br>
+    ※ 各制度に詳細な要件があり、すべての事業者が対象になるとは限りません。
+  </div>
+
+  <div class="update-note">最終調査日：2026年5月8日</div>
+
+</main>
+
+<script>
+function filterCards(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const cards = document.querySelectorAll('.card');
+  let iwateVisible = 0, moriokaVisible = 0;
+
+  cards.forEach(card => {
+    const area = card.dataset.area;
+    const cardType = card.dataset.type;
+    let show = false;
+
+    if (type === 'all') {
+      show = true;
+    } else if (type === 'iwate') {
+      show = area === 'iwate';
+    } else if (type === 'morioka') {
+      show = area === 'morioka';
+    } else {
+      show = cardType === type;
+    }
+
+    card.style.display = show ? '' : 'none';
+    if (show) {
+      if (area === 'iwate') iwateVisible++;
+      if (area === 'morioka') moriokaVisible++;
+    }
+  });
+
+  document.getElementById('iwate-count').textContent = iwateVisible + '件';
+  document.getElementById('morioka-count').textContent = moriokaVisible + '件';
+  document.getElementById('total-count').textContent = iwateVisible + moriokaVisible;
+
+  // セクションが空なら非表示
+  document.getElementById('section-iwate').style.display = iwateVisible > 0 ? '' : 'none';
+  document.getElementById('section-morioka').style.display = moriokaVisible > 0 ? '' : 'none';
+}
+</script>
+</body>
+</html>

@@ -5087,6 +5087,98 @@ const SUBSIDIES = [
     "wage_required": false,
     "bonus_points": {},
     "q15_keywords": ["新商品", "商品開発", "販路開拓", "地域活性化", "新サービス", "ファンド"]
+  },
+  {
+    "id": "iwate-jizokuryoku-kyoka",
+    "name": "岩手県小規模事業者事業継続力強化支援事業費補助金",
+    "area": "iwate",
+    "max_amount": 2500000,
+    "amount_note": "1社当たり上限50万円×申請小規模事業者数、上限250万円。機械設備の購入・設置費用、クラウドサービス初期費用が対象。補助率2/3以内",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 2,
+    "company_size": ["小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内の小規模事業者で、国が認定した「事業継続力強化計画」または「連携事業継続力強化計画」に基づく防災・減災設備の導入が対象。計画の事前認定取得が申請の前提条件。令和7年度第2回公募実施中",
+    "description": "自然災害・感染症等に備えたBCP（事業継続力強化）計画を策定し、防災・減災のための設備投資を行う岩手県内の小規模事業者を支援する制度。1社50万円、複数社共同で最大250万円（補助率2/3）。まず国の「事業継続力強化計画」認定を取得してから申請。この計画認定を取得するとものづくり補助金等の審査加点にもなる一石二鳥の制度。",
+    "conditions": ["岩手県内の小規模事業者", "国の事業継続力強化計画の認定が申請前提", "認定計画に基づく防災・減災設備の購入・設置"],
+    "compatible_with": ["monozukuri-hojyokin", "shooryoka"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["BCP", "事業継続", "防災", "災害対策", "設備", "クラウド", "減災"]
+  },
+  {
+    "id": "morioka-digital-jissho",
+    "name": "盛岡市デジタル技術実証実験事業補助金",
+    "area": "morioka",
+    "max_amount": 1000000,
+    "amount_note": "補助率4/5以内、1件当たり上限100万円。AI・IoT・ビッグデータ・ロボティクス・VR/AR・5G等の先端デジタル技術を活用した実証実験の経費が対象",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 3,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": ["情報サービス業", "製造業"],
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "盛岡市内に主たる事業所を有する情報サービス業・インターネット附随サービス業・製造業の事業者または事業者団体。AI/IoT/ロボティクス等先端技術を活用し、公共性・緊急性の高い社会課題を解決する実証実験事業が対象。早期の社会実装が期待できる熟度の高い事業であること。問合せ：盛岡市ものづくり推進課 019-626-7538",
+    "description": "盛岡市内の情報サービス業・製造業がAI・IoT・ロボティクス・VR/AR・5Gなどの先端技術を活用した実証実験を行う際の費用を補助率4/5（上限100万円）で支援する制度。社会課題解決につながる波及性の高い事業が対象で審査あり。IT企業・製造業のPoC（概念実証）や新サービス検証に活用できる盛岡市独自の制度。",
+    "conditions": ["盛岡市内の情報サービス業・インターネット附随サービス業・製造業", "AI/IoT等先端技術を活用した実証実験", "社会課題解決・ビジネス波及性が高い事業"],
+    "compatible_with": ["it-donyu", "monozukuri-hojyokin"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["AI", "IoT", "実証実験", "ロボット", "VR", "AR", "5G", "デジタル技術", "PoC"]
+  },
+  {
+    "id": "morioka-jinzai-ikusei",
+    "name": "盛岡市中小企業人材育成支援事業補助金",
+    "area": "morioka",
+    "max_amount": 150000,
+    "amount_note": "上限15万円。中小企業大学校（仙台校）主催研修、東北大学RIPS（地域イノベーションプロデューサー塾）、その他市長が認める研修の受講費が補助対象",
+    "timing": "before_investment",
+    "lead_time_months": 1,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 1,
+    "note_eligibility": "盛岡市内の中小企業の役員・従業員が対象の研修を受講する場合に補助。中小企業大学校（仙台校）・東北大学RIPSなど指定研修が対象。申請窓口は盛岡市商工観光課",
+    "description": "盛岡市内の中小企業が役員・従業員を中小企業大学校（仙台校）や東北大学RIPS等の経営力強化研修に派遣する際の費用を補助（上限15万円）。業種問わず利用でき難易度が低い。経営者・管理職クラスのスキルアップ費用として活用可能。",
+    "conditions": ["盛岡市内の中小企業", "役員または従業員が指定研修を受講", "中小企業大学校(仙台校)・東北大学RIPS等"],
+    "compatible_with": ["jinzai-ikusei-shien", "jinzai-reskilling"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["研修", "人材育成", "経営力", "スキルアップ", "教育", "幹部育成"]
+  },
+  {
+    "id": "morioka-nosanbutsu-kasseika",
+    "name": "盛岡市農畜産物活用事業補助金",
+    "area": "morioka",
+    "max_amount": 2400000,
+    "amount_note": "上限240万円（採択件数最大3件）。盛岡産農畜産物を活用した商品・サービス開発や販路開拓の経費が対象。申請前に事前相談必須（盛岡市経済企画課 019-613-8298）",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 3,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "盛岡産農畜産物等の利用拡大と産地としての認知度向上を図る事業者が対象（市内外の事業者・農業生産者も可）。採択件数最大3件のため競争率高め。公募期間（令和7年度）：2025年4月24日〜5月15日。申請前の事前相談が必須",
+    "description": "盛岡産農畜産物を活用した新商品・新サービスの開発・提供や販路開拓に取り組む事業者に上限240万円を補助する制度。農業生産者・食品加工業者・飲食店・観光業者など幅広い業種が対象で、盛岡市外の事業者も申請可能。採択件数最大3件と倍率は高いが補助額が大きい。申請前の事前相談が必須なので早めに問い合わせを。",
+    "conditions": ["盛岡産農畜産物を活用した事業", "新商品・サービス開発または販路開拓", "申請前に事前相談必須（盛岡市経済企画課）"],
+    "compatible_with": ["jizokuka-hojyokin", "iwate-shinshop-chiiki"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["農産物", "農畜産", "食品", "新商品", "地産地消", "農業", "加工品", "販路"]
   }
 ];
 
@@ -5482,6 +5574,10 @@ function runDiagnosis() {
     if (q14.includes('jigyo-shinsyutsu') || q14.includes('monozukuri') || q14.includes('seichokasoku')) {
       addP('iwate-kibou-fund', 1, '岩手県内＋新商品・サービス開発→いわて希望応援ファンド助成金で開発・販路開拓費を補填');
     }
+    // BCP・事業継続力強化（小規模事業者のみ・業種問わず）
+    if (sizes.includes('小規模事業者')) {
+      addP('iwate-jizokuryoku-kyoka', 2, '岩手県内の小規模事業者→事業継続力強化支援補助金（上限250万）でBCP計画＋設備導入。ものづくり補助金の加点にもなる');
+    }
   }
   if (isMorioka) {
     // 盛岡市（岩手にも含まれるので追加スコア）
@@ -5504,6 +5600,18 @@ function runDiagnosis() {
     // 建設・店舗改修予定
     if (q16 >= 50) {
       addP('morioka-sanzai', 1, '盛岡市内＋店舗改修予定→市産材利用補助金（上限20万円）で内装に木材活用');
+    }
+    // デジタル技術実証実験（情報サービス業・製造業）
+    if (industry === '情報サービス業' || industry === '製造業') {
+      addP('morioka-digital-jissho', 2, '盛岡市内＋情報サービス・製造業→デジタル技術実証実験補助金（補助率4/5・上限100万円）でAI/IoT等の実証をほぼ無償で');
+    }
+    // 人材育成（従業員あり・業種問わず）
+    if (employees >= 1) {
+      addP('morioka-jinzai-ikusei', 1, '盛岡市内＋従業員あり→中小企業人材育成支援補助金（上限15万円）で役員・幹部の研修費を補助');
+    }
+    // 農畜産物活用（食品・農業・観光系）
+    if (industry === '宿泊・飲食・観光' || industry === '製造業' || industry === 'その他') {
+      addP('morioka-nosanbutsu-kasseika', 1, '盛岡市内＋食品・観光・製造系→農畜産物活用事業補助金（上限240万円）で盛岡産素材を使った商品・サービス開発を');
     }
   }
 
@@ -5816,6 +5924,10 @@ const RESULT_GROUP_MAP = {
   'iwate-jigyo-shokei-hojo': 'chiiki',
   'iwate-tenjikai':          'chiiki',
   'iwate-kibou-fund':        'chiiki',
+  'iwate-jizokuryoku-kyoka': 'chiiki',
+  'morioka-digital-jissho':  'chiiki',
+  'morioka-jinzai-ikusei':   'chiiki',
+  'morioka-nosanbutsu-kasseika': 'chiiki',
   // 設備投資補助金
   'monozukuri-hojyokin':   'invest',
   'shooryoka':             'invest',

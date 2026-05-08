@@ -6225,6 +6225,45 @@ const SUBSIDY_WORKFLOW_MAP = {
   // ── 設備設置型助成金（発注・着工前申請必須）──
   'judokyuen-boushi':              'joseikin_setsubi',
   'shogaisha-shisetsu-setchino':   'joseikin_setsubi',
+  // ── 岩手県・盛岡市 地域独自制度（補助金・公募型）──
+  'iwate-chinageshien':            'hojyokin',
+  'iwate-chinagekankyo':           'hojyokin',
+  'iwate-sogyoshien':              'hojyokin',
+  'iwate-shoene-jigyo':            'hojyokin',
+  'iwate-kensetsu-dx':             'hojyokin',
+  'iwate-kensetsu-keiei':          'hojyokin',
+  'iwate-kaigo-tech':              'hojyokin',
+  'iwate-healthtech':              'hojyokin',
+  'iwate-fukugyo-jinzai':          'hojyokin',
+  'iwate-koyo-kaifuku':            'hojyokin',
+  'iwate-miryoku-shokuba':         'hojyokin',
+  'iwate-kaigo-kankyokaizen':      'hojyokin',
+  'iwate-shogaifukushi-kankyokaizen': 'hojyokin',
+  'iwate-gaikoku-kaigo':           'hojyokin',
+  'iwate-kyoiku-ryoko':            'hojyokin',
+  'iwate-taiyoko':                 'hojyokin',
+  'iwate-ev-hojo':                 'hojyokin',
+  'iwate-suisan-renkei':           'hojyokin',
+  'iwate-shinshop-chiiki':         'hojyokin',
+  'iwate-chizai':                  'hojyokin',
+  'iwate-shogyo-kasseika':         'hojyokin',
+  'iwate-telework':                'hojyokin',
+  'iwate-kaigai-shutsugan':        'hojyokin',
+  'iwate-jigyo-shokei-hojo':       'hojyokin',
+  'iwate-tenjikai':                'hojyokin',
+  'iwate-kibou-fund':              'hojyokin',
+  'iwate-jizokuryoku-kyoka':       'hojyokin',
+  'morioka-unso-nenryo':           'hojyokin',
+  'morioka-ev-donyu':              'hojyokin',
+  'morioka-shijo-kaitaku':         'hojyokin',
+  'morioka-satellite':             'hojyokin',
+  'morioka-kigyo-richi':           'hojyokin',
+  'morioka-furusato-kigyo':        'hojyokin',
+  'morioka-takimaki':              'hojyokin',
+  'morioka-sanzai':                'hojyokin',
+  'morioka-digital-jissho':        'hojyokin',
+  'morioka-jinzai-ikusei':         'hojyokin',
+  'morioka-nosanbutsu-kasseika':   'hojyokin',
 };
 
 // ─────────────────────────────────────────────
@@ -6253,7 +6292,7 @@ function showLoading(matchCount, callback) {
       box-shadow: var(--shadow);
     ">
       <div style="font-size: 13px; color: var(--gray-600); margin-bottom: 28px; font-weight: 600; letter-spacing: 0.04em;">
-        45件の制度データを照合しています
+        80件の制度データを照合しています
       </div>
       <div id="loading-steps" style="display: flex; flex-direction: column; gap: 10px; max-width: 320px; margin: 0 auto 28px; text-align: left;"></div>
       <div style="height: 4px; background: var(--gray-100); border-radius: 99px; max-width: 320px; margin: 0 auto 24px; overflow: hidden;">
@@ -6352,12 +6391,70 @@ function renderResults(scored, combos, conflicts, meta) {
       { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '電子申請に必要。無料で取得できます。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: 'gBizID公式サイト' },
       { done: false, title: '経営計画書・補助事業計画書を作成する', detail: '「なぜこの事業に取り組むか」「売上目標はいくらか」を書面にまとめます。商工会議所が添削してくれます。' },
     ],
+    // ── 岩手県 制度 申請ステップ ──
+    'iwate-chinageshien': iwateSteps,
+    'iwate-chinagekankyo': iwateSteps,
+    'iwate-sogyoshien': iwateSteps,
+    'iwate-shoene-jigyo': iwateSteps,
+    'iwate-kensetsu-dx': iwateSteps,
+    'iwate-kensetsu-keiei': iwateSteps,
+    'iwate-kaigo-tech': iwateSteps,
+    'iwate-healthtech': iwateSteps,
+    'iwate-fukugyo-jinzai': iwateSteps,
+    'iwate-koyo-kaifuku': iwateSteps,
+    'iwate-miryoku-shokuba': iwateSteps,
+    'iwate-kaigo-kankyokaizen': iwateSteps,
+    'iwate-shogaifukushi-kankyokaizen': iwateSteps,
+    'iwate-gaikoku-kaigo': iwateSteps,
+    'iwate-kyoiku-ryoko': iwateSteps,
+    'iwate-taiyoko': iwateSteps,
+    'iwate-ev-hojo': iwateSteps,
+    'iwate-suisan-renkei': iwateSteps,
+    'iwate-shinshop-chiiki': iwateSteps,
+    'iwate-chizai': iwateSteps,
+    'iwate-shogyo-kasseika': iwateSteps,
+    'iwate-telework': iwateSteps,
+    'iwate-kaigai-shutsugan': iwateSteps,
+    'iwate-jigyo-shokei-hojo': iwateSteps,
+    'iwate-tenjikai': iwateSteps,
+    'iwate-kibou-fund': iwateSteps,
+    'iwate-jizokuryoku-kyoka': iwateSteps,
+    // ── 盛岡市 制度 申請ステップ ──
+    'morioka-unso-nenryo': moriokaSteps,
+    'morioka-ev-donyu': moriokaSteps,
+    'morioka-shijo-kaitaku': moriokaSteps,
+    'morioka-satellite': moriokaSteps,
+    'morioka-kigyo-richi': moriokaSteps,
+    'morioka-furusato-kigyo': moriokaSteps,
+    'morioka-takimaki': moriokaSteps,
+    'morioka-sanzai': moriokaSteps,
+    'morioka-digital-jissho': moriokaSteps,
+    'morioka-jinzai-ikusei': moriokaSteps,
+    'morioka-nosanbutsu-kasseika': moriokaSteps,
   };
 
   const defaultSteps = [
     { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '多くの補助金申請に必須です。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: 'gBizID公式サイト' },
     { done: false, title: '地域の商工会議所・認定支援機関に相談する', detail: '申請書類や要件の確認は専門家に相談するのが最短ルートです。' },
     { done: false, title: '公募要領を確認する', detail: '締切・対象経費・申請書式を公式サイトで確認してください。' },
+  ];
+
+  // 岩手県制度 共通申請ステップ
+  const iwateSteps = [
+    { done: false, title: '公募期間・要件を確認する', detail: '岩手県商工労働観光部 経営支援課（019-629-5544）またはいわて産業振興センター（019-631-3825）に確認。公募期間が短い制度が多いため早めのチェックを。', link: 'https://www.joho-iwate.or.jp/', linkText: 'いわて産業振興センター公式サイト' },
+    { done: false, title: '担当窓口に事前相談する', detail: '補助対象経費・必要書類・スケジュールの確認のため、申請前に担当課への相談を強く推奨。事前相談が必須条件の制度もあります。' },
+    { done: false, title: '申請書類を準備・提出する（公募期間内）', detail: '事業計画書・見積書・法人登記簿謄本等を揃えて公募期間内に提出。⚠️ 採択通知が来るまで設備の発注・事業着手は厳禁。' },
+    { done: false, title: '採択通知後に事業を実施する', detail: '採択・交付決定通知を受け取ってから設備発注・工事・経費執行を行います。交付決定前着手は補助対象外になります。' },
+    { done: false, title: '実績報告・補助金請求', detail: '事業完了後に実績報告書・領収書等を提出。審査通過後に補助金が入金されます。' },
+  ];
+
+  // 盛岡市制度 共通申請ステップ
+  const moriokaSteps = [
+    { done: false, title: '公募期間・要件を確認する', detail: '盛岡市役所の担当課（商工観光課・ものづくり推進課・経済企画課等）に問い合わせ。公募期間が短く採択件数が限られる制度もあるため早めに確認を。', link: 'https://www.city.morioka.iwate.jp/', linkText: '盛岡市公式サイト' },
+    { done: false, title: '事前相談を行う', detail: '盛岡市の制度は事前相談が必須または強く推奨されているものが多い。補助対象経費・要件・書類を担当課に確認してください。' },
+    { done: false, title: '申請書類を準備・提出する（公募期間内）', detail: '申請書・事業計画書・見積書等を揃えて公募期間内に提出。⚠️ 採択通知前に着工・発注すると補助対象外になります。' },
+    { done: false, title: '採択・交付決定後に事業を実施する', detail: '交付決定通知書を受け取ってから設備購入・事業実施を行います。' },
+    { done: false, title: '実績報告・補助金請求', detail: '事業完了後に実績報告書・領収書等を提出。確認後に補助金が入金されます。' },
   ];
 
   // 申請フロータイムライン レンダラー（縦ステッパー型）

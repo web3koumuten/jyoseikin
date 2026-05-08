@@ -4972,6 +4972,52 @@ const SUBSIDIES = [
     "wage_required": false,
     "bonus_points": {},
     "q15_keywords": ["飲食", "商店街", "クーポン", "集客", "広告", "イベント", "販促"]
+  },
+  {
+    "id": "iwate-telework",
+    "name": "岩手県テレワーク導入推進事業費補助金",
+    "area": "iwate",
+    "max_amount": 2000000,
+    "amount_note": "補助対象経費の2/3以内、上限200万円。テレワーク用端末・ソフトウェア・セキュリティ機器・通信環境整備費等が対象。テレワーク導入推進計画の策定が必要",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 1,
+    "note_eligibility": "岩手県内に事業所を有する中小企業等。県税に未納がないこと。テレワーク導入推進計画を策定し、計画に基づく取り組みを実施すること。申請窓口はジョブカフェいわて（019-656-1580）",
+    "description": "岩手県内の中小企業がテレワークを導入する際の設備・ソフトウェア等の費用を補助率2/3（上限200万円）で支援する制度。テレワーク用PC・タブレット・セキュリティツール・クラウドサービス導入費等が対象。働き方改革・採用力強化・BCP対策を兼ねる投資として有効。IT導入補助金との重複申請は要確認。",
+    "conditions": ["岩手県内に事業所", "テレワーク導入推進計画の策定", "従業員が1名以上"],
+    "compatible_with": ["jinzai-hito-investment", "iwate-miryoku-shokuba"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["テレワーク", "リモートワーク", "在宅勤務", "クラウド", "IT導入", "働き方改革", "BCP", "セキュリティ"]
+  },
+  {
+    "id": "iwate-kaigai-shutsugan",
+    "name": "海外出願支援事業（いわて産業振興センター）",
+    "area": "iwate",
+    "max_amount": 1500000,
+    "amount_note": "特許：上限150万円、実用新案・意匠・商標：上限60万円、冒認対策商標：上限30万円（補助率1/2）。外国特許庁への出願手数料・翻訳費・弁理士費用が対象",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内に事業所を有する中小企業者等。日本国内で特許・実用新案・意匠・商標出願済のものを外国特許庁に優先権主張して出願する場合が対象。いわて産業振興センターが窓口。国内出願補助（iwate-chizai）と合わせた活用が可能",
+    "description": "岩手県内の中小企業が保有する特許・商標等を海外でも権利化する際の外国出願費用（翻訳費・弁理士費用・出願手数料等）の一部を補助する制度。特許の場合上限150万円、商標・意匠は60万円。海外展開・輸出を検討している事業者が知財を海外でも保護する際に活用できる。いわて産業振興センターに事前相談を推奨。",
+    "conditions": ["岩手県内に事業所", "国内出願済の特許・実用新案・意匠・商標を保有", "外国特許庁への出願予定"],
+    "compatible_with": ["iwate-chizai", "mono-zukuri"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["特許", "商標", "意匠", "海外", "輸出", "知財", "海外展開", "外国出願"]
   }
 ];
 
@@ -5347,6 +5393,14 @@ function runDiagnosis() {
     if (industry === '宿泊・飲食・観光' || industry === '小売業') {
       addP('iwate-shogyo-kasseika', 2, '岩手県内飲食店・商店街→利用促進費補助金（上限250万円）で集客・販促コスト削減');
     }
+    // テレワーク（業種問わず・従業員あり）
+    if (employees >= 1) {
+      addP('iwate-telework', 2, '岩手県内＋従業員あり→テレワーク導入推進補助金（補助率2/3・上限200万円）で働き方改革＆採用力強化');
+    }
+    // 海外出願（海外展開・製造・開発系）
+    if (q14.includes('jigyo-shinsyutsu') || q14.includes('monozukuri') || q14.includes('it-donyu')) {
+      addP('iwate-kaigai-shutsugan', 1, '岩手県内＋新事業・ものづくり系→海外出願支援事業（特許上限150万円）で海外知財を保護');
+    }
   }
   if (isMorioka) {
     // 盛岡市（岩手にも含まれるので追加スコア）
@@ -5676,6 +5730,8 @@ const RESULT_GROUP_MAP = {
   'iwate-shinshop-chiiki':   'chiiki',
   'iwate-chizai':            'chiiki',
   'iwate-shogyo-kasseika':   'chiiki',
+  'iwate-telework':          'chiiki',
+  'iwate-kaigai-shutsugan':  'chiiki',
   // 設備投資補助金
   'monozukuri-hojyokin':   'invest',
   'shooryoka':             'invest',

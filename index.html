@@ -765,6 +765,7 @@
   .result-group-head.grp-shogaisha{ background: #fdf4ff; border-left: 5px solid #9333ea; }
   .result-group-head.grp-hr       { background: #fff7ed; border-left: 5px solid #ea580c; }
   .result-group-head.grp-wage     { background: #fff1f2; border-left: 5px solid #e11d48; }
+  .result-group-head.grp-chiiki   { background: #f0fdf4; border-left: 5px solid #16a34a; }
   .result-group-icon { font-size: 20px; flex-shrink: 0; }
   .result-group-label {
     font-size: 14px;
@@ -4275,6 +4276,380 @@ const SUBSIDIES = [
       "溶接",
       "CAD"
     ]
+  },
+
+  // ═══════════════════════════════════════════════
+  // 岩手県・盛岡市 独自支援制度
+  // ═══════════════════════════════════════════════
+
+  {
+    "id": "iwate-chinageshien",
+    "name": "岩手県物価高騰対策賃上げ支援金",
+    "area": "iwate",
+    "max_amount": 1000000,
+    "amount_note": "従業員1人当たり5万円×最大20人分（1事業所最大100万円）。時給971円未満→1,031円以上に引き上げた場合は2万円加算",
+    "timing": "after_investment",
+    "lead_time_months": 1,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": true,
+    "min_employees": 1,
+    "note_eligibility": "岩手県内に事業所を有する中小企業等。賃金引き上げ実施済みの従業員分が対象",
+    "description": "物価高騰を受け、岩手県内の中小企業等が賃金を引き上げた場合に支給される県独自の支援金。国の補助金と重複受給可。申請は賃上げ実施後に行い、要件が比較的シンプルで申請しやすい。",
+    "conditions": ["岩手県内事業所であること", "賃金引き上げを実施済みまたは予定"],
+    "compatible_with": ["gyomu-kaizen", "career-up-chingin-kaitei"],
+    "incompatible_with": [],
+    "wage_required": true,
+    "bonus_points": {},
+    "q15_keywords": ["賃上げ", "賃金", "給料", "最低賃金"]
+  },
+  {
+    "id": "iwate-chinagekankyo",
+    "name": "岩手県中小企業等賃上げ環境整備支援事業費補助金",
+    "area": "iwate",
+    "max_amount": 2000000,
+    "amount_note": "補助率1/2以内、上限200万円。設備投資・人材育成・販路開拓の経費が対象",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内の中小企業・小規模事業者。経営革新計画承認取得者が対象",
+    "description": "岩手県が独自に行う、賃上げに向けた環境整備を支援する補助金。経営革新計画を承認された事業者が、生産性向上のための設備投資・人材育成・販路開拓に要する経費の1/2を補助。補助上限200万円で国の補助金と組み合わせ可能。",
+    "conditions": ["岩手県内事業所であること", "経営革新計画の承認が必要（未承認者は事前申請可）"],
+    "compatible_with": ["monozukuri-hojyokin", "it-donyu"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": { "経営革新計画": 2 },
+    "q15_keywords": ["設備投資", "人材育成", "販路", "賃上げ", "生産性"]
+  },
+  {
+    "id": "iwate-sogyoshien",
+    "name": "岩手県地方創生起業支援金",
+    "area": "iwate",
+    "max_amount": 2000000,
+    "amount_note": "補助率1/2以内、上限200万円。店舗賃借料・設備費・広報費・外注費・人件費等が対象",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 2,
+    "company_size": ["小規模事業者", "中小企業"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内に居住（または居住予定）し、地域課題解決型の社会的事業を起業・第二創業・事業承継する方。デジタル技術活用またはSociety5.0関連業種が要件",
+    "description": "岩手県独自の起業支援制度。地域課題の解決を目的にデジタル技術を活用して新たに起業する方、またはSociety5.0関連業種での事業承継・第二創業を行う方に最大200万円を支援。岩手県中小企業団体中央会が窓口。",
+    "conditions": ["岩手県内に居住または居住予定", "デジタル技術活用・地域課題解決型の事業であること"],
+    "compatible_with": [],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["起業", "創業", "開業", "第二創業", "新事業"]
+  },
+  {
+    "id": "iwate-shoene-jigyo",
+    "name": "岩手県事業者向け省エネルギー対策推進事業",
+    "area": "iwate",
+    "max_amount": 800000,
+    "amount_note": "補助率1/2、上限50万円（いわて脱炭素化経営企業等認定取得者は上限80万円）。高効率空調・照明・給湯機器・換気設備への更新が対象",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内の中小事業者等。既存設備を従来比30%以上省CO2効果のある高効率機器に更新する場合が対象",
+    "description": "岩手県内の中小事業者が既存の空調・照明・給湯・換気設備を高効率機器に更新する際の費用を補助する県独自制度。補助率1/2で上限50万円（脱炭素認定取得者は80万円）。国の省エネ補助金と組み合わせ可能な場合もある。",
+    "conditions": ["岩手県内事業所であること", "従来機器比30%以上の省CO2効果がある機器への更新"],
+    "compatible_with": ["shoene"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["省エネ", "空調", "照明", "LED", "給湯", "光熱費", "脱炭素", "エネルギー"]
+  },
+  {
+    "id": "iwate-kensetsu-dx",
+    "name": "岩手県建設DX推進事業費補助金",
+    "area": "iwate",
+    "max_amount": 2000000,
+    "amount_note": "人材育成支援事業200万円・生産性向上事業150万円・バックオフィスDX50万円。いずれも補助率1/2以内",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人"],
+    "industry_restriction": ["建設業"],
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内に主たる営業所を有し、岩手県知事または国土交通大臣の建設業許可を受けた建設業者",
+    "description": "岩手県内の建設業者向けDX推進補助金。現場の効率化・安全性向上・働き方改革を目的に、建設DX人材育成（最大200万円）・生産性向上設備導入（最大150万円）・バックオフィスDX（最大50万円）の3種類から申請可能。補助率はいずれも1/2以内。",
+    "conditions": ["岩手県内建設業許可業者であること", "事業終了後に実績報告書の提出"],
+    "compatible_with": ["it-donyu", "jinzai-hito-investment"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["建設", "施工", "現場", "DX", "BIM", "ICT", "ドローン", "バックオフィス"]
+  },
+  {
+    "id": "iwate-kensetsu-keiei",
+    "name": "岩手県建設業経営力強化支援事業費補助金",
+    "area": "iwate",
+    "max_amount": 1000000,
+    "amount_note": "補助率1/2以内、上限100万円。新分野進出・新技術開発・販路開拓に要する経費が対象",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人"],
+    "industry_restriction": ["建設業"],
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県建設業許可を受けた事業者。新分野進出・新技術開発等の場合は複数社でのグループ申請も可",
+    "description": "岩手県建設業者が新分野に進出したり、新技術を開発・導入する際の経費を支援する県独自補助金。上限100万円・補助率1/2。建設DX補助金と合わせて活用することで、より多くの支援を受けられる可能性がある。",
+    "conditions": ["岩手県内建設業許可業者であること"],
+    "compatible_with": ["iwate-kensetsu-dx"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["建設", "新分野", "多角化", "販路", "施工管理"]
+  },
+  {
+    "id": "iwate-kaigo-tech",
+    "name": "岩手県介護テクノロジー導入等支援事業費補助金",
+    "area": "iwate",
+    "max_amount": 2600000,
+    "amount_note": "介護ロボット：移乗支援100万円・移動・排泄支援等30万円。ICT導入：職員規模に応じ100〜260万円（職員31名以上で最大260万円）",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主", "社会福祉法人等", "NPO等"],
+    "industry_restriction": ["医療・介護・福祉"],
+    "requires_employee_insurance": true,
+    "min_employees": 1,
+    "note_eligibility": "岩手県内の介護保険サービス事業所（訪問介護・通所介護・特養等）。事前協議が必要",
+    "description": "岩手県が介護事業所のICT化・介護ロボット導入を支援する独自補助金。介護記録・勤怠管理ソフト等のICT導入で最大260万円（職員規模による）、介護ロボット（移乗支援機器等）の導入で最大100万円。事前協議締切は例年8月頃。",
+    "conditions": ["岩手県内介護保険サービス事業所であること", "事前協議（例年8月頃締切）の実施"],
+    "compatible_with": ["it-donyu"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["介護", "介護ロボット", "ICT", "記録システム", "訪問", "特養"]
+  },
+  {
+    "id": "iwate-healthtech",
+    "name": "岩手県ヘルステック等製品化促進事業費補助金",
+    "area": "iwate",
+    "max_amount": 1499999,
+    "amount_note": "補助率1/2以内、上限149万9,999円。ヘルステック等分野の製品開発・事業化に要する経費が対象",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人"],
+    "industry_restriction": ["製造業"],
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内に生産拠点または開発拠点を有するものづくり中小企業。ヘルステック・医療機器・福祉用具等の分野",
+    "description": "岩手県内のものづくり中小企業が、ヘルステック・医療機器・福祉用具等の製品開発や事業化に取り組む場合の経費を補助。補助率1/2、上限約150万円。岩手県中小企業団体中央会が公募窓口。",
+    "conditions": ["岩手県内に生産・開発拠点を有するものづくり中小企業", "ヘルステック等分野の製品開発事業であること"],
+    "compatible_with": ["monozukuri-hojyokin"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["医療", "介護用品", "福祉機器", "ヘルスケア", "製品開発"]
+  },
+  {
+    "id": "iwate-fukugyo-jinzai",
+    "name": "岩手県副業・兼業人材活用事業費補助金",
+    "area": "iwate",
+    "max_amount": 500000,
+    "amount_note": "マッチング手数料・交通費・宿泊費等の一部補助。上限額は案件により異なる（要問い合わせ）",
+    "timing": "after_investment",
+    "lead_time_months": 2,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内事業所を有する中小企業等。岩手県プロフェッショナル人材戦略拠点経由での採用が条件",
+    "description": "岩手県プロフェッショナル人材戦略拠点を活用して県外副業・兼業人材（DX・経営企画・営業等の高スキル人材）を採用した際の紹介手数料・交通費・宿泊費等を補助する制度。DX推進人材や専門職の確保に活用できる。",
+    "conditions": ["岩手県プロフェッショナル人材戦略拠点経由での採用", "岩手県内事業所"],
+    "compatible_with": ["jinzai-hito-investment"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["DX人材", "専門家", "副業", "プロ人材", "外部人材"]
+  },
+  {
+    "id": "iwate-koyo-kaifuku",
+    "name": "岩手県事業復興型雇用確保助成金",
+    "area": "iwate",
+    "max_amount": 1200000,
+    "amount_note": "雇用1人当たり3年間で最大120万円（月額3.3万円相当）。住宅支援費の加算制度もあり",
+    "timing": "after_investment",
+    "lead_time_months": 1,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": true,
+    "min_employees": 0,
+    "note_eligibility": "【対象地域限定】岩手県沿岸12市町村（宮古・釜石・大船渡・陸前高田等）に所在する事業所が条件。被災三県（岩手・宮城・福島）の求職者を雇い入れた場合に助成",
+    "description": "岩手県沿岸12市町村の事業所が、被災三県の求職者を新たに雇用した場合に1人最大120万円（3年間）を助成する県独自制度。令和7年3月15日以降の雇い入れが対象。沿岸部での採用を強化したい事業者に最適。",
+    "conditions": ["岩手県沿岸12市町村内の事業所であること（対象地域限定）", "被災三県（岩手・宮城・福島）の求職者を雇用"],
+    "compatible_with": ["career-up-seishainuka"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["採用", "雇用", "求人", "人材不足", "沿岸"]
+  },
+
+  {
+    "id": "morioka-unso-nenryo",
+    "name": "盛岡市運送事業者燃料価格高騰対策支援金",
+    "area": "morioka",
+    "max_amount": 1600000,
+    "amount_note": "最大160万円（車両台数・燃料消費量等に応じた算定）",
+    "timing": "after_investment",
+    "lead_time_months": 1,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": ["運送業"],
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "盛岡市内に営業所を有する一般貨物・特定貨物自動車運送事業者等。第4弾の申請期限は2026年7月31日",
+    "description": "燃料費高騰の影響を受ける盛岡市内のトラック事業者等を支援する市独自の支援金。車両台数や燃料消費実績に基づいて最大160万円を支給。申請期限は2026年7月31日（第4弾）。",
+    "conditions": ["盛岡市内に営業所を有する運送事業者", "申請期限2026年7月31日"],
+    "compatible_with": [],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["運送", "トラック", "燃料", "軽油", "配送"]
+  },
+  {
+    "id": "morioka-ev-donyu",
+    "name": "盛岡市電気自動車導入促進補助金",
+    "area": "morioka",
+    "max_amount": 300000,
+    "amount_note": "EV新規導入時の購入費の一部補助（具体的な補助額は窓口に要確認）。申請受付2025年4月1日〜2026年2月27日",
+    "timing": "before_investment",
+    "lead_time_months": 1,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "盛岡市内で電気自動車を新規導入する事業者（業務用車両）。個人利用分も対象になる場合あり",
+    "description": "盛岡市内の事業者が業務用電気自動車（EV）を新規導入する際に補助金を交付する市独自制度。脱炭素・CO2削減を目的とし、国の補助金（クリーンエネルギー自動車補助金）と組み合わせることで実質負担を大幅削減できる。",
+    "conditions": ["盛岡市内での業務用EV導入", "申請期間2025年4月1日〜2026年2月27日"],
+    "compatible_with": ["shoene"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["電気自動車", "EV", "車両", "脱炭素", "省エネ"]
+  },
+  {
+    "id": "morioka-shijo-kaitaku",
+    "name": "盛岡市製造業・情報サービス業市場開拓等事業補助金",
+    "area": "morioka",
+    "max_amount": 250000,
+    "amount_note": "国内展示会：上限10万円、海外展示会・見本市：上限25万円。補助率は対象経費の1/2以内",
+    "timing": "before_investment",
+    "lead_time_months": 1,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": ["製造業", "情報サービス業"],
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "盛岡市内の中小製造業者または情報サービス業者（団体も可）。展示会・見本市への出品・出展が対象",
+    "description": "盛岡市内の製造業・情報サービス業事業者が展示会や見本市に出展して市場開拓・販路拡大する際の費用を補助。補助率1/2で国内最大10万円、海外最大25万円。申請しやすく採択率も比較的高い。",
+    "conditions": ["盛岡市内の中小製造業者または情報サービス業者", "市場開拓・販路拡大を目的とした展示会等への出展"],
+    "compatible_with": ["jizokuka-hojyokin"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["展示会", "見本市", "販路", "海外", "出展", "製造", "IT", "情報システム"]
+  },
+  {
+    "id": "morioka-satellite",
+    "name": "盛岡市サテライトオフィス設置支援事業補助金",
+    "area": "morioka",
+    "max_amount": 5000000,
+    "amount_note": "施設改修費・備品購入費・通信費・賃借料等を補助。サテライトオフィス従事者数に応じて補助額が変動（要窓口確認）",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人"],
+    "industry_restriction": ["製造業", "情報サービス業"],
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県外に主たる事業所を有する製造業または情報サービス業の事業者が、盛岡市内にサテライトオフィスを新たに設置する場合",
+    "description": "県外のIT企業・製造業が盛岡市にサテライトオフィスを開設する際の施設改修費・備品・通信費・賃借料等を補助する制度。テレワーク拠点や地方分散オフィスとしての活用も促進。",
+    "conditions": ["岩手県外に主たる事業所がある製造業または情報サービス業事業者", "盛岡市内への新規サテライトオフィス設置"],
+    "compatible_with": [],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["サテライト", "テレワーク", "拠点", "事務所", "オフィス"]
+  },
+  {
+    "id": "morioka-kigyo-richi",
+    "name": "盛岡市企業立地促進補助金",
+    "area": "morioka",
+    "max_amount": 300000000,
+    "amount_note": "固定資産投資額の10%以内（上限3億円）。製造業：投資1億円以上＋新規雇用10人以上。IT・ソフト業：投資1億円以上＋新規雇用5人以上",
+    "timing": "before_investment",
+    "lead_time_months": 6,
+    "difficulty": 3,
+    "company_size": ["中小企業"],
+    "legal_form_eligible": ["法人"],
+    "industry_restriction": ["製造業", "情報サービス業"],
+    "requires_employee_insurance": true,
+    "min_employees": 5,
+    "note_eligibility": "盛岡市内の工場新設・拡充・移転またはコンタクトセンター等の立地。製造業は市内居住者を10人以上新規雇用、IT・ソフト業は5人以上新規雇用が要件",
+    "description": "盛岡市内に工場等を新設・拡充する際の大規模補助金。固定資産投資額の10%（上限3億円）に加え、新規雇用奨励金（市内居住者を5年以上雇用で1人20万円）も別途支給される。大型設備投資時に非常に有効な制度。",
+    "conditions": ["盛岡市内での工場等新設・拡充", "製造業は投資1億円以上＋市内居住者10人以上新規雇用"],
+    "compatible_with": [],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["工場", "新設", "拡充", "立地", "設備投資"]
+  },
+  {
+    "id": "morioka-furusato-kigyo",
+    "name": "盛岡市ふるさと起業家支援プロジェクト補助金",
+    "area": "morioka",
+    "max_amount": 3000000,
+    "amount_note": "ふるさと納税を活用した資金調達を活用した補助（補助額は調達額に連動、上限要確認）",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 2,
+    "company_size": ["小規模事業者", "中小企業"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "盛岡市内で新規に事業を立ち上げた起業家。ふるさと納税制度を活用した資金調達と組み合わせた支援",
+    "description": "盛岡市がふるさと納税制度を活用した独自の起業支援制度（令和6年度開始）。盛岡市内での新規起業家が対象で、クラウドファンディング型のふるさと納税で集めた資金に対して市が補助を上乗せする仕組み。",
+    "conditions": ["盛岡市内での新規起業", "ふるさと納税を活用したクラウドファンディングの実施"],
+    "compatible_with": ["iwate-sogyoshien"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["起業", "創業", "開業", "ふるさと納税", "資金調達"]
   }
 ];
 
@@ -4331,6 +4706,17 @@ function classifyCompany(q6, q7, q8, q9) {
 function checkEligibility(s, company) {
   const { legalForm, sizes, employees, industry } = company;
   const reasons = [];
+
+  // ⓪ エリア限定チェック（岩手・盛岡制度）
+  if (s.area) {
+    const q4val = (document.getElementById('q4')?.value || '').trim();
+    if (s.area === 'iwate' && !q4val.includes('岩手')) {
+      return { ok: false, reason: '岩手県内の事業所が対象の制度です' };
+    }
+    if (s.area === 'morioka' && !q4val.includes('盛岡')) {
+      return { ok: false, reason: '盛岡市内の事業所が対象の制度です' };
+    }
+  }
 
   // ① 法人形態チェック（最重要・NGなら即除外）
   const legalOK = s.legal_form_eligible.some(lf => {
@@ -4574,6 +4960,57 @@ function runDiagnosis() {
   if (employees >= 5) {
     addP('ryoritsu-ikukyu-shien', 1, '従業員5名以上→育休支援コースの活用余地あり');
     addP('konenreisha-koyosuishin', 1, '従業員5名以上→65歳超雇用推進助成金の制度整備が可能');
+  }
+
+  // ── 岩手県・盛岡市の地域制度スコアリング
+  const q4loc = (document.getElementById('q4')?.value || '').trim();
+  const isIwate  = q4loc.includes('岩手');
+  const isMorioka = q4loc.includes('盛岡');
+  if (isIwate) {
+    // 全業種共通：賃上げ支援金
+    addP('iwate-chinageshien', 2, '岩手県内事業所→物価高騰対策賃上げ支援金が活用可能');
+    addP('iwate-shoene-jigyo', 1, '岩手県内事業所→県独自の省エネ設備更新補助（上限80万円）が対象');
+    // 賃上げ意向ありの場合
+    if (canWage) {
+      addP('iwate-chinagekankyo', 2, '岩手県内＋賃上げ意向あり→県の賃上げ環境整備支援補助金（上限200万円）を活用');
+    }
+    // 起業・新事業
+    if (q14.includes('startup') || q14.includes('jigyo-shinsyutsu')) {
+      addP('iwate-sogyoshien', 2, '岩手県内での新規起業・第二創業→県の地方創生起業支援金（上限200万円）が有力');
+    }
+    // 建設業
+    if (industry === '建設業') {
+      addP('iwate-kensetsu-dx',    3, '岩手県内建設業→建設DX補助金（最大200万円）を積極活用すべき');
+      addP('iwate-kensetsu-keiei', 2, '岩手県内建設業→新分野進出・技術開発補助金（上限100万円）も対象');
+    }
+    // 製造業
+    if (industry === '製造業') {
+      addP('iwate-healthtech', 1, '岩手県内製造業→ヘルステック等製品化促進補助金（上限150万円）を検討');
+    }
+    // 介護・福祉
+    if (industry === '医療・介護・福祉') {
+      addP('iwate-kaigo-tech', 3, '岩手県内介護事業所→県の介護テクノロジー導入補助金（最大260万円）が最有力');
+    }
+    // 従業員あり
+    if (employees >= 1) {
+      addP('iwate-fukugyo-jinzai', 1, '岩手県内事業所→県外副業・兼業人材の活用補助金を検討');
+    }
+  }
+  if (isMorioka) {
+    // 盛岡市（岩手にも含まれるので追加スコア）
+    if (industry === '運送業') {
+      addP('morioka-unso-nenryo', 3, '盛岡市内運送事業者→燃料価格高騰対策支援金（最大160万円）を申請');
+    }
+    addP('morioka-ev-donyu', 1, '盛岡市内事業所→市のEV導入補助金で脱炭素コスト削減');
+    if (industry === '製造業' || industry === '情報サービス業') {
+      addP('morioka-shijo-kaitaku', 2, '盛岡市内製造業・情報サービス業→市の展示会出展補助金（国内10万・海外25万円）が活用可能');
+    }
+    if (q16 >= 10000) {
+      addP('morioka-kigyo-richi', 2, '盛岡市内＋大型設備投資→企業立地促進補助金（上限3億円）の検討を');
+    }
+    if (q14.includes('startup')) {
+      addP('morioka-furusato-kigyo', 2, '盛岡市内での新規起業→ふるさと起業家支援補助金の活用を検討');
+    }
   }
 
   // ── 投資規模別
@@ -4849,6 +5286,23 @@ function getCategory(id) {
 
 // ─── 結果グループ定義 ─────────────────────────────────────
 const RESULT_GROUP_MAP = {
+  // 岩手県・盛岡市 地域支援制度
+  'iwate-chinageshien':    'chiiki',
+  'iwate-chinagekankyo':   'chiiki',
+  'iwate-sogyoshien':      'chiiki',
+  'iwate-shoene-jigyo':    'chiiki',
+  'iwate-kensetsu-dx':     'chiiki',
+  'iwate-kensetsu-keiei':  'chiiki',
+  'iwate-kaigo-tech':      'chiiki',
+  'iwate-healthtech':      'chiiki',
+  'iwate-fukugyo-jinzai':  'chiiki',
+  'iwate-koyo-kaifuku':    'chiiki',
+  'morioka-unso-nenryo':   'chiiki',
+  'morioka-ev-donyu':      'chiiki',
+  'morioka-shijo-kaitaku': 'chiiki',
+  'morioka-satellite':     'chiiki',
+  'morioka-kigyo-richi':   'chiiki',
+  'morioka-furusato-kigyo':'chiiki',
   // 設備投資補助金
   'monozukuri-hojyokin':   'invest',
   'shooryoka':             'invest',
@@ -4899,6 +5353,7 @@ const RESULT_GROUP_MAP = {
   'tokutei-shinkibo':       'wage',
 };
 const RESULT_GROUPS = [
+  { key: 'chiiki',    icon: '📍', label: '岩手県・盛岡市 独自支援制度', cls: 'grp-chiiki',    desc: '国の補助金とは別に使える地域独自の制度' },
   { key: 'invest',    icon: '🏭', label: '設備投資補助金',     cls: 'grp-invest',    desc: 'ものづくり・省力化・事業再構築・成長加速' },
   { key: 'it',        icon: '💻', label: 'IT・デジタル補助金', cls: 'grp-it',        desc: 'IT導入・セキュリティ対策' },
   { key: 'hanbai',    icon: '🌱', label: '販路・省エネ補助金', cls: 'grp-hanbai',    desc: '販路開拓・持続化・省エネ設備' },
@@ -5339,14 +5794,6 @@ function renderResults(scored, combos, conflicts, meta) {
       <div class="results-disclaimer">
         <div>※ この結果はあくまで目安です。各制度には詳細な要件や審査があるため、すべてが受給・採択されるとは限りません。</div>
       </div>
-      <a href="/iwate.html" style="display:flex;align-items:center;gap:12px;margin-top:14px;padding:14px 18px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;text-decoration:none;color:inherit;">
-        <div style="width:36px;height:36px;background:#16a34a;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;">📍</div>
-        <div style="flex:1;">
-          <div style="font-size:13px;font-weight:700;color:#166534;">岩手県・盛岡市 独自の支援制度も確認する</div>
-          <div style="font-size:12px;color:#4b5563;margin-top:2px;">国の補助金とは別に使える自治体制度を13件掲載しています</div>
-        </div>
-        <div style="font-size:16px;color:#16a34a;">→</div>
-      </a>
     </div>
   `;
 

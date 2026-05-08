@@ -4834,6 +4834,144 @@ const SUBSIDIES = [
     "wage_required": false,
     "bonus_points": {},
     "q15_keywords": ["店舗", "改修", "内装", "木材", "飲食店", "リフォーム", "新築"]
+  },
+  {
+    "id": "iwate-taiyoko",
+    "name": "岩手県事業者向け自家消費型太陽光発電設備設置事業補助金",
+    "area": "iwate",
+    "max_amount": 50000000,
+    "amount_note": "1kW当たり5万円（上限5,000万円）。自家消費型太陽光発電設備（パネル・架台・パワコン等）の設置費用が対象。受付期間：2025年3月27日〜12月15日（予算消化次第終了）",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内に事業所を有する中小企業者等。電力会社への売電を主目的としない自家消費型であることが必須。太陽光発電設備（10kW以上が目安）の新規設置が対象",
+    "description": "岩手県内の中小企業が自社で消費する電力を賄う太陽光発電設備を設置する際、1kW当たり5万円（上限5,000万円）を補助する制度。電気代削減と脱炭素の両立を目的とする。省エネ補助金との組み合わせも要確認。",
+    "conditions": ["岩手県内の事業所に設置", "自家消費型（売電主目的でない）", "10kW以上の設備が目安"],
+    "compatible_with": ["shoene", "it-dojo"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["太陽光", "再生可能エネルギー", "省エネ", "電気代", "脱炭素", "設備投資"]
+  },
+  {
+    "id": "iwate-ev-hojo",
+    "name": "岩手県事業者向けEV等導入事業費補助金",
+    "area": "iwate",
+    "max_amount": 5000000,
+    "amount_note": "太陽光発電設備＋EV充電設備のセット導入が対象。補助率・上限額は設備規模により異なる。受付〜2025年10月31日",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内に事業所を有する中小企業者等。EV（電気自動車）充電設備と太陽光発電設備を組み合わせて導入する場合が対象。EV単体のみでは対象外の場合あり",
+    "description": "岩手県内の中小企業が太陽光発電設備とEV充電設備を合わせて導入する場合に補助する制度。脱炭素・省エネ対策として、自社EV・社用車の電動化と合わせた申請が有効。iwate-taiyokoとの併用可否は要確認。",
+    "conditions": ["岩手県内の事業所", "太陽光発電設備＋EV充電設備のセット導入", "2025年10月31日までに申請"],
+    "compatible_with": ["iwate-taiyoko", "shoene"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["EV", "電気自動車", "充電設備", "太陽光", "脱炭素", "設備投資"]
+  },
+  {
+    "id": "iwate-suisan-renkei",
+    "name": "岩手県水産加工業連携新活動促進事業費補助金",
+    "area": "iwate",
+    "max_amount": 1000000,
+    "amount_note": "補助率1/2以内。旅費・専門家謝金・広告宣伝費・印刷製本費等が対象（設備費は対象外）。複数社グループで申請",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": ["製造業", "水産業"],
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県の沿岸12市町村に立地する水産加工業者2社以上のグループが対象。新たな販路開拓・商品開発・広報活動等の取り組みが対象。設備投資費は補助対象外",
+    "description": "岩手県沿岸12市町村の水産加工業者が2社以上グループを組み、新たな販路開拓や商品開発・PR活動に取り組む場合に支援する制度。旅費・専門家謝金・広告宣伝費等の経費が対象。水産加工品の高付加価値化・輸出拡大に向けた活動に最適。",
+    "conditions": ["沿岸12市町村立地の水産加工業者", "2社以上のグループで申請", "新たな販路開拓・商品開発・広報活動等"],
+    "compatible_with": ["jizoku-ka"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["水産", "加工", "食品", "販路", "グループ", "商品開発", "PR"]
+  },
+  {
+    "id": "iwate-shinshop-chiiki",
+    "name": "岩手県北・沿岸地域 新商品・地域サービス開発事業",
+    "area": "iwate",
+    "max_amount": 2000000,
+    "amount_note": "補助率1/2以内、上限200万円が目安。農林水産物・観光資源を活かした新商品・サービス開発費が対象",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県北・沿岸地域に立地する事業者が対象。地域の農林水産物・観光資源を活用した新商品・新サービスの開発事業。県北振興局・沿岸振興局が窓口",
+    "description": "岩手県北・沿岸地域の農林水産物や観光資源を活かした新商品・地域サービスの開発を支援する制度。食品製造業・観光業・農業等が地域資源を活用して付加価値を高める取り組みに対して補助。県北・沿岸エリアの事業者が優先される。",
+    "conditions": ["岩手県北・沿岸地域の事業者", "地域の農林水産物・観光資源を活用", "新商品・新サービスの開発"],
+    "compatible_with": ["jizoku-ka", "mono-zukuri"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["新商品", "商品開発", "農林水産", "観光", "地域資源", "サービス開発"]
+  },
+  {
+    "id": "iwate-chizai",
+    "name": "産業財産権取得補助金（いわて産業振興センター）",
+    "area": "iwate",
+    "max_amount": 200000,
+    "amount_note": "補助率1/2以内、上限20万円。特許・実用新案・意匠・商標の国内出願費用（出願手数料・弁理士費用）が対象。海外出願は別途支援制度あり",
+    "timing": "before_investment",
+    "lead_time_months": 1,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内に主たる事業所を有する中小企業者等。特許・実用新案・意匠・商標の国内出願が対象。いわて産業振興センターへの事前相談が推奨される",
+    "description": "岩手県内の中小企業が特許・実用新案・意匠・商標等の産業財産権を取得する際の出願費用（出願手数料・弁理士費用等）の1/2（上限20万円）を補助する制度。いわて産業振興センターが窓口で、申請前の無料相談も利用可能。海外出願には別途「海外出願支援事業」あり。",
+    "conditions": ["岩手県内に主たる事業所", "特許・実用新案・意匠・商標の国内出願", "中小企業者等"],
+    "compatible_with": ["mono-zukuri", "jizoku-ka"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["特許", "商標", "意匠", "実用新案", "知的財産", "知財", "産業財産権"]
+  },
+  {
+    "id": "iwate-shogyo-kasseika",
+    "name": "飲食店・商店街利用促進費補助金（岩手県）",
+    "area": "iwate",
+    "max_amount": 2500000,
+    "amount_note": "補助率1/2以内、上限250万円。割引クーポン発行・ガイドブック制作・イベント開催費等が対象",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": ["サービス業（宿泊・娯楽）", "小売業"],
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内の飲食店・商店街等が行う利用促進活動が対象。割引クーポンの発行、ガイドブック・チラシ制作、集客イベントの開催費用等が補助対象経費となる。商店街振興組合や飲食店グループでの申請も可",
+    "description": "岩手県内の飲食店・商店街が顧客の利用促進のために行う広告宣伝・販売促進活動を補助する制度。割引クーポン発行、ガイドブック制作、集客イベント費用等の1/2（上限250万円）が対象。コロナ禍以降の消費回復・にぎわい創出を目的とした取り組みに活用できる。",
+    "conditions": ["岩手県内の飲食店・商店街等", "利用促進活動（クーポン・広告・イベント等）", "補助対象経費の領収書等の保存"],
+    "compatible_with": ["jizoku-ka"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["飲食", "商店街", "クーポン", "集客", "広告", "イベント", "販促"]
   }
 ];
 
@@ -5190,6 +5328,25 @@ function runDiagnosis() {
     if (industry === '宿泊・飲食・観光') {
       addP('iwate-kyoiku-ryoko', 2, '岩手県内宿泊・観光事業者→教育旅行催行支援金で修学旅行受入コスト補填');
     }
+    // 設備投資（太陽光・EV）
+    if (q16 >= 100) {
+      addP('iwate-taiyoko', 2, '岩手県内＋設備投資予定→自家消費型太陽光発電設備補助（1kW×5万円、上限5,000万円）で電気代削減');
+      addP('iwate-ev-hojo',  1, '岩手県内＋設備投資→EV等導入補助金（太陽光+EV充電セット）で脱炭素対応');
+    }
+    // 水産加工業（沿岸エリア）
+    if (industry === '製造業' || industry === 'その他') {
+      addP('iwate-suisan-renkei', 1, '岩手県内＋製造・加工業→水産加工業連携新活動促進補助金（沿岸エリア・グループ申請）を確認');
+    }
+    // 新商品開発・地域資源活用
+    if (q14.includes('jigyo-shinsyutsu') || q14.includes('shinki-kaihatsu')) {
+      addP('iwate-shinshop-chiiki', 1, '岩手県北・沿岸エリア→農林水産物・観光資源活用の新商品・サービス開発補助金を検討');
+    }
+    // 知的財産・特許
+    addP('iwate-chizai', 1, '岩手県内事業者→いわて産業振興センターの産業財産権取得補助金（上限20万円）を活用');
+    // 飲食・商店街
+    if (industry === '宿泊・飲食・観光' || industry === '小売業') {
+      addP('iwate-shogyo-kasseika', 2, '岩手県内飲食店・商店街→利用促進費補助金（上限250万円）で集客・販促コスト削減');
+    }
   }
   if (isMorioka) {
     // 盛岡市（岩手にも含まれるので追加スコア）
@@ -5513,6 +5670,12 @@ const RESULT_GROUP_MAP = {
   'sanriku-shinshop':        'chiiki',
   'morioka-takimaki':        'chiiki',
   'morioka-sanzai':          'chiiki',
+  'iwate-taiyoko':           'chiiki',
+  'iwate-ev-hojo':           'chiiki',
+  'iwate-suisan-renkei':     'chiiki',
+  'iwate-shinshop-chiiki':   'chiiki',
+  'iwate-chizai':            'chiiki',
+  'iwate-shogyo-kasseika':   'chiiki',
   // 設備投資補助金
   'monozukuri-hojyokin':   'invest',
   'shooryoka':             'invest',

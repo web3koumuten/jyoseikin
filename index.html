@@ -5232,16 +5232,7 @@ function checkEligibility(s, company) {
   const { legalForm, sizes, employees, industry } = company;
   const reasons = [];
 
-  // ⓪ エリア限定チェック（岩手・盛岡制度）
-  if (s.area) {
-    const q4val = (document.getElementById('q4')?.value || '').trim();
-    if (s.area === 'iwate' && !q4val.includes('岩手')) {
-      return { ok: false, reason: '岩手県内の事業所が対象の制度です' };
-    }
-    if (s.area === 'morioka' && !q4val.includes('盛岡')) {
-      return { ok: false, reason: '盛岡市内の事業所が対象の制度です' };
-    }
-  }
+  // ⓪ エリア限定チェック（岩手・盛岡制度は常時表示のためスキップ）
 
   // ① 法人形態チェック（最重要・NGなら即除外）
   const legalOK = s.legal_form_eligible.some(lf => {
@@ -5487,11 +5478,8 @@ function runDiagnosis() {
     addP('konenreisha-koyosuishin', 1, '従業員5名以上→65歳超雇用推進助成金の制度整備が可能');
   }
 
-  // ── 岩手県・盛岡市の地域制度スコアリング
-  const q4loc = (document.getElementById('q4')?.value || '').trim();
-  const isIwate  = q4loc.includes('岩手');
-  const isMorioka = q4loc.includes('盛岡');
-  if (isIwate) {
+  // ── 岩手県・盛岡市の地域制度スコアリング（常時実行）
+  {
     // 全業種共通：賃上げ支援金
     addP('iwate-chinageshien', 2, '岩手県内事業所→物価高騰対策賃上げ支援金が活用可能');
     addP('iwate-shoene-jigyo', 1, '岩手県内事業所→県独自の省エネ設備更新補助（上限80万円）が対象');
@@ -5576,8 +5564,8 @@ function runDiagnosis() {
       addP('iwate-jizokuryoku-kyoka', 2, '岩手県内の小規模事業者→事業継続力強化支援補助金（上限250万）でBCP計画＋設備導入。ものづくり補助金の加点にもなる');
     }
   }
-  if (isMorioka) {
-    // 盛岡市（岩手にも含まれるので追加スコア）
+  {
+    // 盛岡市制度スコアリング（常時実行）
     if (industry === '運送業') {
       addP('morioka-unso-nenryo', 3, '盛岡市内運送事業者→燃料価格高騰対策支援金（最大160万円）を申請');
     }

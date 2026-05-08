@@ -5520,10 +5520,11 @@ function runDiagnosis() {
     if (industry === '医療・介護・福祉') {
       addP('iwate-kaigo-tech', 3, '岩手県内介護事業所→県の介護テクノロジー導入補助金（最大260万円）が最有力');
     }
-    // 従業員あり
+    // 従業員あり・雇用
     if (employees >= 1) {
       addP('iwate-fukugyo-jinzai', 1, '岩手県内事業所→県外副業・兼業人材の活用補助金を検討');
       addP('iwate-miryoku-shokuba', 2, '岩手県内＋従業員あり→職場環境整備補助金（上限125万円）を活用して採用力強化');
+      addP('iwate-koyo-kaifuku', 1, '岩手県内＋新規雇用あり→事業復興型雇用確保助成金（雇用1人あたり最大120万円）で採用コスト圧縮');
     }
     // 介護・福祉
     if (industry === '医療・介護・福祉') {
@@ -5593,6 +5594,10 @@ function runDiagnosis() {
     }
     if (q14.includes('startup')) {
       addP('morioka-furusato-kigyo', 2, '盛岡市内での新規起業→ふるさと起業家支援補助金の活用を検討');
+    }
+    // 県外企業のサテライトオフィス設置（IT・製造業）
+    if (industry === '情報サービス業' || industry === '製造業') {
+      addP('morioka-satellite', 2, '盛岡市内に拠点設置を検討している製造業・IT企業→サテライトオフィス設置支援補助金（最大500万円）を活用');
     }
     if (industry === '宿泊・飲食・観光') {
       addP('morioka-takimaki', 2, '盛岡市内飲食店→薪ストーブ設置補助金（上限50万円）で暖房コスト削減と集客力アップ');

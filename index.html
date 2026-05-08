@@ -36,7 +36,7 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     border-top: 3px solid transparent;
-    border-image: linear-gradient(90deg, #0066ff 0%, #6366f1 50%, #06b6d4 100%) 1;
+    border-color: #0066ff;
   }
 
   /* ── ナビバー ── */
@@ -758,15 +758,15 @@
     border-radius: 10px;
     margin-bottom: 10px;
   }
-  .result-group-head.grp-invest   { background: #eff6ff; border-left: 5px solid #2563eb; }
-  .result-group-head.grp-it       { background: #f0f9ff; border-left: 5px solid #0ea5e9; }
-  .result-group-head.grp-hanbai   { background: #f0fdf4; border-left: 5px solid #16a34a; }
-  .result-group-head.grp-employ   { background: #fefce8; border-left: 5px solid #ca8a04; }
-  .result-group-head.grp-shogaisha{ background: #fdf4ff; border-left: 5px solid #9333ea; }
-  .result-group-head.grp-hr       { background: #fff7ed; border-left: 5px solid #ea580c; }
-  .result-group-head.grp-wage     { background: #fff1f2; border-left: 5px solid #e11d48; }
-  .result-group-head.grp-chiiki   { background: #f0fdf4; border-left: 5px solid #16a34a; }
-  .result-group-icon { font-size: 20px; flex-shrink: 0; }
+  .result-group-head.grp-invest,
+  .result-group-head.grp-it,
+  .result-group-head.grp-hanbai,
+  .result-group-head.grp-employ,
+  .result-group-head.grp-shogaisha,
+  .result-group-head.grp-hr,
+  .result-group-head.grp-wage     { background: #f4f5f7; border-left: 4px solid #6b7280; }
+  .result-group-head.grp-chiiki   { background: #f0f4ff; border-left: 4px solid #2563eb; }
+  .result-group-icon { font-size: 16px; flex-shrink: 0; display: none; }
   .result-group-label {
     font-size: 14px;
     font-weight: 800;
@@ -1627,11 +1627,7 @@
     padding: 0 32px;
     position: relative;
     overflow: hidden;
-    background:
-      radial-gradient(ellipse 60% 50% at 20% 50%, rgba(0,102,255,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 60% at 80% 15%, rgba(99,102,241,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 40% at 55% 90%, rgba(6,182,212,0.06) 0%, transparent 60%),
-      #fafbfe;
+    background: #ffffff;
     border-bottom: 1px solid var(--gray-200);
   }
   /* ノイズテクスチャ */
@@ -1650,7 +1646,7 @@
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent 0%, #0066ff 20%, #6366f1 50%, #06b6d4 80%, transparent 100%);
+    background: #0066ff;
     opacity: 0.4;
   }
   .hero-layout {
@@ -1702,7 +1698,7 @@
     display: inline-block;
     width: 32px;
     height: 2px;
-    background: linear-gradient(90deg, #0066ff, #6366f1);
+    background: #0066ff;
     border-radius: 1px;
   }
   .hero-h1 {
@@ -1725,7 +1721,7 @@
     font-size: 1.28em;
     font-weight: 900;
     letter-spacing: -0.05em;
-    background: linear-gradient(135deg, #0066ff 0%, #4f5bd5 45%, #0066ff 100%);
+    background: #0066ff;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -5983,15 +5979,15 @@ const RESULT_GROUP_MAP = {
   'tokutei-shinkibo':       'wage',
 };
 const RESULT_GROUPS = [
-  { key: 'chiiki',    icon: '📍', label: '岩手県・盛岡市 独自支援制度', cls: 'grp-chiiki',    desc: '国の補助金とは別に使える地域独自の制度' },
-  { key: 'invest',    icon: '🏭', label: '設備投資補助金',     cls: 'grp-invest',    desc: 'ものづくり・省力化・事業再構築・成長加速' },
-  { key: 'it',        icon: '💻', label: 'IT・デジタル補助金', cls: 'grp-it',        desc: 'IT導入・セキュリティ対策' },
-  { key: 'hanbai',    icon: '🌱', label: '販路・省エネ補助金', cls: 'grp-hanbai',    desc: '販路開拓・持続化・省エネ設備' },
-  { key: 'employ',    icon: '👥', label: '一般雇用',           cls: 'grp-employ',    desc: '採用・雇用維持・正社員化' },
-  { key: 'shogaisha', icon: '♿', label: '障害者雇用',         cls: 'grp-shogaisha', desc: '障害者の採用・定着・施設整備' },
-  { key: 'hr',        icon: '📚', label: '人材育成',           cls: 'grp-hr',        desc: '研修・スキルアップ・資格取得' },
-  { key: 'wage',      icon: '💰', label: '賃上げ・働き方改革', cls: 'grp-wage',      desc: '賃金引上げ・両立支援・残業削減' },
-  { key: 'other',     icon: '📋', label: 'その他',             cls: 'grp-invest',    desc: '' },
+  { key: 'chiiki',    icon: '', label: '岩手県・盛岡市 独自支援制度', cls: 'grp-chiiki',    desc: '国の補助金とは別に使える地域独自の制度' },
+  { key: 'invest',    icon: '', label: '設備投資補助金',     cls: 'grp-invest',    desc: 'ものづくり・省力化・事業再構築・成長加速' },
+  { key: 'it',        icon: '', label: 'IT・デジタル補助金', cls: 'grp-it',        desc: 'IT導入・セキュリティ対策' },
+  { key: 'hanbai',    icon: '', label: '販路・省エネ補助金', cls: 'grp-hanbai',    desc: '販路開拓・持続化・省エネ設備' },
+  { key: 'employ',    icon: '', label: '一般雇用',           cls: 'grp-employ',    desc: '採用・雇用維持・正社員化' },
+  { key: 'shogaisha', icon: '', label: '障害者雇用',         cls: 'grp-shogaisha', desc: '障害者の採用・定着・施設整備' },
+  { key: 'hr',        icon: '', label: '人材育成',           cls: 'grp-hr',        desc: '研修・スキルアップ・資格取得' },
+  { key: 'wage',      icon: '', label: '賃上げ・働き方改革', cls: 'grp-wage',      desc: '賃金引上げ・両立支援・残業削減' },
+  { key: 'other',     icon: '', label: 'その他',             cls: 'grp-invest',    desc: '' },
 ];
 function getResultGroup(id) {
   return RESULT_GROUP_MAP[id] || 'other';
@@ -6042,7 +6038,7 @@ const SUBSIDY_SERIES_MAP = {
 const WORKFLOW_TYPES = {
   hojyokin: {
     label: '補助金・公募型',
-    note: '⚠️ 交付決定前に事業を開始すると補助金が受け取れません。採択後も必ず「交付決定通知」が届いてから着手してください。',
+    note: '※交付決定前に事業を開始すると補助金が受け取れません。採択後も必ず「交付決定通知」が届いてから着手してください。',
     steps: [
       { label: '公募・要件確認' },
       { label: '計画書作成・申請' },
@@ -6054,7 +6050,7 @@ const WORKFLOW_TYPES = {
   },
   joseikin_kunren: {
     label: '人材開発支援助成金型',
-    note: '⚠️ 訓練開始の2週間前までに都道府県労働局へ「訓練計画届出書」を提出することが支給の前提条件です。',
+    note: '※訓練開始の2週間前までに都道府県労働局へ「訓練計画届出書」を提出することが支給の前提条件です。',
     steps: [
       { label: '要件確認・対象者選定' },
       { label: '訓練計画届出', warn: true, warnText: '実施2週間前に必須' },
@@ -6065,7 +6061,7 @@ const WORKFLOW_TYPES = {
   },
   career_up: {
     label: 'キャリアアップ助成金型',
-    note: '⚠️ 正社員転換・賃金改定等を実施する前に「キャリアアップ計画書」をハローワークに提出することが必須です。',
+    note: '※正社員転換・賃金改定等を実施する前に「キャリアアップ計画書」をハローワークに提出することが必須です。',
     steps: [
       { label: 'キャリアアップ計画届出', warn: true, warnText: '転換前に必須' },
       { label: '正社員転換等の実施' },
@@ -6076,7 +6072,7 @@ const WORKFLOW_TYPES = {
   },
   trial_hire: {
     label: 'トライアル雇用型',
-    note: '⚠️ ハローワーク等の紹介状が必須。採用を決定する前にハローワークへ「計画書」を提出することが必要です。',
+    note: '※ハローワーク等の紹介状が必須。採用を決定する前にハローワークへ「計画書」を提出することが必要です。',
     steps: [
       { label: 'ハロワへ求人登録' },
       { label: '採用前に計画届出', warn: true, warnText: '雇用決定前に必須' },
@@ -6087,7 +6083,7 @@ const WORKFLOW_TYPES = {
   },
   ryoritsu: {
     label: '両立支援等助成金型',
-    note: '⚠️ 育休・介護休業等の制度を従業員が利用する前に、就業規則への明記と労働基準監督署への届出が必要です。',
+    note: '※育休・介護休業等の制度を従業員が利用する前に、就業規則への明記と労働基準監督署への届出が必要です。',
     steps: [
       { label: '就業規則整備・届出', warn: true, warnText: '従業員利用前に必須' },
       { label: '従業員が制度を利用' },
@@ -6098,7 +6094,7 @@ const WORKFLOW_TYPES = {
   },
   chinagekoyo: {
     label: '業務改善助成金型',
-    note: '⚠️ 設備・機器の発注・購入前に都道府県労働局へ交付申請することが必須です。先に買ってしまうと対象外になります。',
+    note: '※設備・機器の発注・購入前に都道府県労働局へ交付申請することが必須です。先に買ってしまうと対象外になります。',
     steps: [
       { label: '最低賃金確認・計画' },
       { label: '交付申請（発注前）', warn: true, warnText: '設備発注前に必須' },
@@ -6109,7 +6105,7 @@ const WORKFLOW_TYPES = {
   },
   koyo_antei: {
     label: '雇用調整助成金型',
-    note: '⚠️ 休業・教育訓練を実施する前に「休業等実施計画届」を都道府県労働局へ提出することが必要です。',
+    note: '※休業・教育訓練を実施する前に「休業等実施計画届」を都道府県労働局へ提出することが必要です。',
     steps: [
       { label: '売上減少要件確認' },
       { label: '計画届出（休業前）', warn: true, warnText: '休業実施前に必須' },
@@ -6120,7 +6116,7 @@ const WORKFLOW_TYPES = {
   },
   sangyo_koyo: {
     label: '産業雇用安定助成金型（在籍出向）',
-    note: '⚠️ 在籍型出向の開始前に「出向計画書」を産業雇用安定センター等に提出する必要があります。',
+    note: '※在籍型出向の開始前に「出向計画書」を産業雇用安定センター等に提出する必要があります。',
     steps: [
       { label: '出向先確保・三者合意' },
       { label: '出向計画届出（開始前）', warn: true, warnText: '出向開始前に必須' },
@@ -6131,7 +6127,7 @@ const WORKFLOW_TYPES = {
   },
   hatarakikata: {
     label: '働き方改革推進支援助成金型',
-    note: '⚠️ 取り組みを開始する前に都道府県労働局への「交付申請」が必要です。先行して実施した費用は補助対象外になります。',
+    note: '※取り組みを開始する前に都道府県労働局への「交付申請」が必要です。先行して実施した費用は補助対象外になります。',
     steps: [
       { label: '現状確認・目標設定' },
       { label: '交付申請（着手前）', warn: true, warnText: '取り組み前に必須' },
@@ -6142,7 +6138,7 @@ const WORKFLOW_TYPES = {
   },
   konenreisha: {
     label: '特定求職者雇用開発助成金型',
-    note: '⚠️ ハローワーク等の紹介状が必須。雇い入れ後2週間以内に「受給資格確認申請」をハローワークへ提出することが必要です。',
+    note: '※ハローワーク等の紹介状が必須。雇い入れ後2週間以内に「受給資格確認申請」をハローワークへ提出することが必要です。',
     steps: [
       { label: 'ハロワへ求人登録' },
       { label: '紹介状で採用', warn: true, warnText: '紹介状が必須' },
@@ -6153,7 +6149,7 @@ const WORKFLOW_TYPES = {
   },
   koyo_kanri: {
     label: '雇用管理制度助成コース型',
-    note: '⚠️ 制度整備の前に「雇用管理改善計画」の認定を受けることが必要です。離職率改善目標の達成で最大230万円が追加支給されます。',
+    note: '※制度整備の前に「雇用管理改善計画」の認定を受けることが必要です。離職率改善目標の達成で最大230万円が追加支給されます。',
     steps: [
       { label: '計画策定・認定申請', warn: true, warnText: '整備前に必須' },
       { label: '制度整備・運用開始' },
@@ -6164,7 +6160,7 @@ const WORKFLOW_TYPES = {
   },
   joseikin_setsubi: {
     label: '設備設置型助成金',
-    note: '⚠️ 設備の発注・工事の着工前に都道府県労働局への申請が必要です。先に工事を始めると補助対象外になります。',
+    note: '※設備の発注・工事の着工前に都道府県労働局への申請が必要です。先に工事を始めると補助対象外になります。',
     steps: [
       { label: '設置計画・要件確認' },
       { label: '事前申請（着工前）', warn: true, warnText: '発注・着工前に必須' },
@@ -6372,7 +6368,7 @@ function renderResults(scored, combos, conflicts, meta) {
   const iwateSteps = [
     { done: false, title: '公募期間・要件を確認する', detail: '岩手県商工労働観光部 経営支援課（019-629-5544）またはいわて産業振興センター（019-631-3825）に確認。公募期間が短い制度が多いため早めのチェックを。', link: 'https://www.joho-iwate.or.jp/', linkText: 'いわて産業振興センター公式サイト' },
     { done: false, title: '担当窓口に事前相談する', detail: '補助対象経費・必要書類・スケジュールの確認のため、申請前に担当課への相談を強く推奨。事前相談が必須条件の制度もあります。' },
-    { done: false, title: '申請書類を準備・提出する（公募期間内）', detail: '事業計画書・見積書・法人登記簿謄本等を揃えて公募期間内に提出。⚠️ 採択通知が来るまで設備の発注・事業着手は厳禁。' },
+    { done: false, title: '申請書類を準備・提出する（公募期間内）', detail: '事業計画書・見積書・法人登記簿謄本等を揃えて公募期間内に提出。※採択通知が来るまで設備の発注・事業着手は厳禁。' },
     { done: false, title: '採択通知後に事業を実施する', detail: '採択・交付決定通知を受け取ってから設備発注・工事・経費執行を行います。交付決定前着手は補助対象外になります。' },
     { done: false, title: '実績報告・補助金請求', detail: '事業完了後に実績報告書・領収書等を提出。審査通過後に補助金が入金されます。' },
   ];
@@ -6381,7 +6377,7 @@ function renderResults(scored, combos, conflicts, meta) {
   const moriokaSteps = [
     { done: false, title: '公募期間・要件を確認する', detail: '盛岡市役所の担当課（商工観光課・ものづくり推進課・経済企画課等）に問い合わせ。公募期間が短く採択件数が限られる制度もあるため早めに確認を。', link: 'https://www.city.morioka.iwate.jp/', linkText: '盛岡市公式サイト' },
     { done: false, title: '事前相談を行う', detail: '盛岡市の制度は事前相談が必須または強く推奨されているものが多い。補助対象経費・要件・書類を担当課に確認してください。' },
-    { done: false, title: '申請書類を準備・提出する（公募期間内）', detail: '申請書・事業計画書・見積書等を揃えて公募期間内に提出。⚠️ 採択通知前に着工・発注すると補助対象外になります。' },
+    { done: false, title: '申請書類を準備・提出する（公募期間内）', detail: '申請書・事業計画書・見積書等を揃えて公募期間内に提出。※採択通知前に着工・発注すると補助対象外になります。' },
     { done: false, title: '採択・交付決定後に事業を実施する', detail: '交付決定通知書を受け取ってから設備購入・事業実施を行います。' },
     { done: false, title: '実績報告・補助金請求', detail: '事業完了後に実績報告書・領収書等を提出。確認後に補助金が入金されます。' },
   ];
@@ -6957,7 +6953,7 @@ function onQ12Change(val) {
   } else if (inputWage < localMin + 80) {
     fb.className = 'inline-feedback';
     fb.innerHTML = `
-      ✅ 時給 <strong>${inputWage.toLocaleString()}円</strong> — 補助金の賃上げ要件（地域最低賃金＋30円）をクリアできる水準です。<br>
+      時給 <strong>${inputWage.toLocaleString()}円</strong> — 補助金の賃上げ要件（地域最低賃金＋30円）をクリアできる水準です。<br>
       業務改善助成金で設備投資費用の一部を補助してもらいながら、さらなる賃上げを実現できます。
     `;
   } else {

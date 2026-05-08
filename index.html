@@ -6368,6 +6368,24 @@ function renderResults(scored, combos, conflicts, meta) {
   const hasGbiz = meta.q18 === '取得済み';
   const hasSecAction = (meta.q20 || []).includes('SECURITY ACTION');
 
+  // 岩手県制度 共通申請ステップ
+  const iwateSteps = [
+    { done: false, title: '公募期間・要件を確認する', detail: '岩手県商工労働観光部 経営支援課（019-629-5544）またはいわて産業振興センター（019-631-3825）に確認。公募期間が短い制度が多いため早めのチェックを。', link: 'https://www.joho-iwate.or.jp/', linkText: 'いわて産業振興センター公式サイト' },
+    { done: false, title: '担当窓口に事前相談する', detail: '補助対象経費・必要書類・スケジュールの確認のため、申請前に担当課への相談を強く推奨。事前相談が必須条件の制度もあります。' },
+    { done: false, title: '申請書類を準備・提出する（公募期間内）', detail: '事業計画書・見積書・法人登記簿謄本等を揃えて公募期間内に提出。⚠️ 採択通知が来るまで設備の発注・事業着手は厳禁。' },
+    { done: false, title: '採択通知後に事業を実施する', detail: '採択・交付決定通知を受け取ってから設備発注・工事・経費執行を行います。交付決定前着手は補助対象外になります。' },
+    { done: false, title: '実績報告・補助金請求', detail: '事業完了後に実績報告書・領収書等を提出。審査通過後に補助金が入金されます。' },
+  ];
+
+  // 盛岡市制度 共通申請ステップ
+  const moriokaSteps = [
+    { done: false, title: '公募期間・要件を確認する', detail: '盛岡市役所の担当課（商工観光課・ものづくり推進課・経済企画課等）に問い合わせ。公募期間が短く採択件数が限られる制度もあるため早めに確認を。', link: 'https://www.city.morioka.iwate.jp/', linkText: '盛岡市公式サイト' },
+    { done: false, title: '事前相談を行う', detail: '盛岡市の制度は事前相談が必須または強く推奨されているものが多い。補助対象経費・要件・書類を担当課に確認してください。' },
+    { done: false, title: '申請書類を準備・提出する（公募期間内）', detail: '申請書・事業計画書・見積書等を揃えて公募期間内に提出。⚠️ 採択通知前に着工・発注すると補助対象外になります。' },
+    { done: false, title: '採択・交付決定後に事業を実施する', detail: '交付決定通知書を受け取ってから設備購入・事業実施を行います。' },
+    { done: false, title: '実績報告・補助金請求', detail: '事業完了後に実績報告書・領収書等を提出。確認後に補助金が入金されます。' },
+  ];
+
   // 補助金ごとの申請ステップ定義
   const NEXT_STEPS_MAP = {
     'monozukuri-hojyokin': [
@@ -6442,24 +6460,6 @@ function renderResults(scored, combos, conflicts, meta) {
     { done: hasGbiz, title: 'gBizIDプライムを取得する', detail: '多くの補助金申請に必須です。', link: 'https://gbiz-id.go.jp/top/index.html', linkText: 'gBizID公式サイト' },
     { done: false, title: '地域の商工会議所・認定支援機関に相談する', detail: '申請書類や要件の確認は専門家に相談するのが最短ルートです。' },
     { done: false, title: '公募要領を確認する', detail: '締切・対象経費・申請書式を公式サイトで確認してください。' },
-  ];
-
-  // 岩手県制度 共通申請ステップ
-  const iwateSteps = [
-    { done: false, title: '公募期間・要件を確認する', detail: '岩手県商工労働観光部 経営支援課（019-629-5544）またはいわて産業振興センター（019-631-3825）に確認。公募期間が短い制度が多いため早めのチェックを。', link: 'https://www.joho-iwate.or.jp/', linkText: 'いわて産業振興センター公式サイト' },
-    { done: false, title: '担当窓口に事前相談する', detail: '補助対象経費・必要書類・スケジュールの確認のため、申請前に担当課への相談を強く推奨。事前相談が必須条件の制度もあります。' },
-    { done: false, title: '申請書類を準備・提出する（公募期間内）', detail: '事業計画書・見積書・法人登記簿謄本等を揃えて公募期間内に提出。⚠️ 採択通知が来るまで設備の発注・事業着手は厳禁。' },
-    { done: false, title: '採択通知後に事業を実施する', detail: '採択・交付決定通知を受け取ってから設備発注・工事・経費執行を行います。交付決定前着手は補助対象外になります。' },
-    { done: false, title: '実績報告・補助金請求', detail: '事業完了後に実績報告書・領収書等を提出。審査通過後に補助金が入金されます。' },
-  ];
-
-  // 盛岡市制度 共通申請ステップ
-  const moriokaSteps = [
-    { done: false, title: '公募期間・要件を確認する', detail: '盛岡市役所の担当課（商工観光課・ものづくり推進課・経済企画課等）に問い合わせ。公募期間が短く採択件数が限られる制度もあるため早めに確認を。', link: 'https://www.city.morioka.iwate.jp/', linkText: '盛岡市公式サイト' },
-    { done: false, title: '事前相談を行う', detail: '盛岡市の制度は事前相談が必須または強く推奨されているものが多い。補助対象経費・要件・書類を担当課に確認してください。' },
-    { done: false, title: '申請書類を準備・提出する（公募期間内）', detail: '申請書・事業計画書・見積書等を揃えて公募期間内に提出。⚠️ 採択通知前に着工・発注すると補助対象外になります。' },
-    { done: false, title: '採択・交付決定後に事業を実施する', detail: '交付決定通知書を受け取ってから設備購入・事業実施を行います。' },
-    { done: false, title: '実績報告・補助金請求', detail: '事業完了後に実績報告書・領収書等を提出。確認後に補助金が入金されます。' },
   ];
 
   // 申請フロータイムライン レンダラー（縦ステッパー型）

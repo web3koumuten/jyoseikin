@@ -5018,6 +5018,75 @@ const SUBSIDIES = [
     "wage_required": false,
     "bonus_points": {},
     "q15_keywords": ["特許", "商標", "意匠", "海外", "輸出", "知財", "海外展開", "外国出願"]
+  },
+  {
+    "id": "iwate-jigyo-shokei-hojo",
+    "name": "岩手県事業承継補助金",
+    "area": "iwate",
+    "max_amount": 1000000,
+    "amount_note": "補助率1/2以内、上限100万円。事業承継を機に行う新取組（設備投資・販路開拓・IT導入・広報等）または第三者承継に向けた取組の経費が対象。消費税は補助対象外",
+    "timing": "before_investment",
+    "lead_time_months": 2,
+    "difficulty": 2,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内の中小企業者・小規模企業者で、事業承継を契機とした新たな取組（設備購入・IT導入・販路開拓・広報費等）または第三者承継に向けた取組（専門家費用・M&A仲介費等）を行う場合が対象。申請窓口は岩手県商工会連合会",
+    "description": "後継者への事業承継を機に、新商品開発・設備更新・IT化・販路開拓など新たな取組を行う際の費用の1/2（上限100万円）を補助する岩手県独自の制度。第三者（M&A等）への事業承継を検討している場合の専門家費用等も対象。国の事業承継・M&A補助金との使い分けを確認のうえ活用を。",
+    "conditions": ["岩手県内の中小・小規模企業", "事業承継を契機とした新取組 or 第三者承継取組", "申請は岩手県商工会連合会経由"],
+    "compatible_with": ["jizoku-ka", "it-dojo"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["事業承継", "後継者", "M&A", "引継ぎ", "承継", "世代交代"]
+  },
+  {
+    "id": "iwate-tenjikai",
+    "name": "岩手県展示会等出展支援事業費補助金（いわて産業振興センター）",
+    "area": "iwate",
+    "max_amount": 200000,
+    "amount_note": "出展料・小間装飾費・派遣説明員の旅費宿泊費が対象。上限20万円。国内外の展示会・商談会への出展費用を補助",
+    "timing": "before_investment",
+    "lead_time_months": 1,
+    "difficulty": 1,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内に主たる事業所を有する中小企業者等。国内外の展示会・見本市・商談会への出展が対象。申請前にいわて産業振興センター（019-631-3825）への相談が必要。先着順のため予算終了次第終了",
+    "description": "岩手県内の中小企業が国内外の展示会・見本市・商談会に出展する際の費用（出展料・装飾費・旅費等）を補助する制度（上限20万円）。業種を問わず利用でき、新規取引先の開拓や製品・サービスのPRを目的とした出展に幅広く活用できる。盛岡市製造業・IT向けの別補助金（morioka-shijo-kaitaku）との違いも確認を。",
+    "conditions": ["岩手県内に主たる事業所", "国内外の展示会・商談会への出展", "事前にいわて産業振興センターへ相談"],
+    "compatible_with": ["morioka-shijo-kaitaku", "jizoku-ka"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["展示会", "商談会", "見本市", "販路開拓", "出展", "PR", "営業"]
+  },
+  {
+    "id": "iwate-kibou-fund",
+    "name": "いわて希望応援ファンド 地域活性化支援事業助成金",
+    "area": "iwate",
+    "max_amount": 1000000,
+    "amount_note": "助成率・上限額は申請内容により異なる（最大100万円程度が目安）。新商品・新サービス開発費、販路開拓費等が対象。年1〜2回公募",
+    "timing": "before_investment",
+    "lead_time_months": 3,
+    "difficulty": 3,
+    "company_size": ["中小企業", "小規模事業者"],
+    "legal_form_eligible": ["法人", "個人事業主"],
+    "industry_restriction": null,
+    "requires_employee_insurance": false,
+    "min_employees": 0,
+    "note_eligibility": "岩手県内に主たる事業所を有する中小企業者等。地域活性化につながる新商品・新サービスの開発やその販路開拓等の新たな取り組みが対象。いわて産業振興センターが運営するファンドから助成。審査があるため採択率を確認のこと",
+    "description": "いわて産業振興センターが運営する「いわて希望応援ファンド」を活用し、岩手県内の中小企業が行う新商品・新サービス開発や販路開拓の取り組みを助成する制度。小規模なものづくり・IT・観光・農商工連携等の幅広いビジネスに対応。公募型のため毎年1〜2回の募集時期に合わせた計画が必要。",
+    "conditions": ["岩手県内に主たる事業所", "地域活性化に寄与する新商品・サービス開発や販路開拓", "審査・採択あり"],
+    "compatible_with": ["jizoku-ka", "mono-zukuri", "iwate-shinshop-chiiki"],
+    "incompatible_with": [],
+    "wage_required": false,
+    "bonus_points": {},
+    "q15_keywords": ["新商品", "商品開発", "販路開拓", "地域活性化", "新サービス", "ファンド"]
   }
 ];
 
@@ -5401,6 +5470,18 @@ function runDiagnosis() {
     if (q14.includes('jigyo-shinsyutsu') || q14.includes('monozukuri') || q14.includes('it-donyu')) {
       addP('iwate-kaigai-shutsugan', 1, '岩手県内＋新事業・ものづくり系→海外出願支援事業（特許上限150万円）で海外知財を保護');
     }
+    // 事業承継を検討している場合
+    if (q14.includes('jigyo-shokei')) {
+      addP('iwate-jigyo-shokei-hojo', 3, '岩手県内＋事業承継→県の事業承継補助金（上限100万円）で承継後の新取組や第三者承継を支援');
+    }
+    // 展示会出展・販路開拓（業種問わず）
+    if (q14.includes('jigyo-shinsyutsu') || q14.includes('jizokuka')) {
+      addP('iwate-tenjikai', 2, '岩手県内＋販路開拓→展示会等出展支援補助金（上限20万円）で新規取引先を開拓');
+    }
+    // 新商品・新サービス開発
+    if (q14.includes('jigyo-shinsyutsu') || q14.includes('monozukuri') || q14.includes('seichokasoku')) {
+      addP('iwate-kibou-fund', 1, '岩手県内＋新商品・サービス開発→いわて希望応援ファンド助成金で開発・販路開拓費を補填');
+    }
   }
   if (isMorioka) {
     // 盛岡市（岩手にも含まれるので追加スコア）
@@ -5732,6 +5813,9 @@ const RESULT_GROUP_MAP = {
   'iwate-shogyo-kasseika':   'chiiki',
   'iwate-telework':          'chiiki',
   'iwate-kaigai-shutsugan':  'chiiki',
+  'iwate-jigyo-shokei-hojo': 'chiiki',
+  'iwate-tenjikai':          'chiiki',
+  'iwate-kibou-fund':        'chiiki',
   // 設備投資補助金
   'monozukuri-hojyokin':   'invest',
   'shooryoka':             'invest',

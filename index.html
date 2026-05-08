@@ -4286,8 +4286,8 @@ const SUBSIDIES = [
     "id": "iwate-chinageshien",
     "name": "岩手県物価高騰対策賃上げ支援金",
     "area": "iwate",
-    "max_amount": 1000000,
-    "amount_note": "従業員1人当たり5万円×最大20人分（1事業所最大100万円）。時給971円未満→1,031円以上に引き上げた場合は2万円加算",
+    "max_amount": 3000000,
+    "amount_note": "従業員1人当たり6万円×最大50人分（1事業所最大300万円）。岩手県全体で30,000人を上限とし、上限に達し次第終了",
     "timing": "after_investment",
     "lead_time_months": 1,
     "difficulty": 1,
@@ -4296,9 +4296,9 @@ const SUBSIDIES = [
     "industry_restriction": null,
     "requires_employee_insurance": true,
     "min_employees": 1,
-    "note_eligibility": "岩手県内に事業所を有する中小企業等。賃金引き上げ実施済みの従業員分が対象",
-    "description": "物価高騰を受け、岩手県内の中小企業等が賃金を引き上げた場合に支給される県独自の支援金。国の補助金と重複受給可。申請は賃上げ実施後に行い、要件が比較的シンプルで申請しやすい。",
-    "conditions": ["岩手県内事業所であること", "賃金引き上げを実施済みまたは予定"],
+    "note_eligibility": "岩手県内に事業所を有する中小企業等（個人事業主・協同組合等含む、従業員1人以上）。令和6年10月1日〜令和7年9月30日の期間中に1時間当たり60円以上賃上げした従業員分が対象",
+    "description": "物価高騰を受け、岩手県内の中小企業等が時間給を60円以上引き上げた場合に、従業員1人あたり6万円（最大50人分・最大300万円）を支給する県独自の支援金。令和7年2月20日受付開始。問い合わせ先：物価高騰対策賃上げ支援事業事務局（019-601-7165）",
+    "conditions": ["岩手県内事業所であること", "1時間当たり60円以上の賃上げを実施（対象期間：令和6年10月〜令和7年9月）"],
     "compatible_with": ["gyomu-kaizen", "career-up-chingin-kaitei"],
     "incompatible_with": [],
     "wage_required": true,
@@ -4862,8 +4862,8 @@ const SUBSIDIES = [
     "id": "iwate-ev-hojo",
     "name": "岩手県事業者向けEV等導入事業費補助金",
     "area": "iwate",
-    "max_amount": 5000000,
-    "amount_note": "太陽光発電設備＋EV充電設備のセット導入が対象。補助率・上限額は設備規模により異なる。受付〜2025年10月31日",
+    "max_amount": 1250000,
+    "amount_note": "上限125万円。EV・PHV・太陽光発電設備・蓄電池・充放電設備等の導入経費を補助。補助率は設備種別により異なる。受付〜2025年10月31日",
     "timing": "before_investment",
     "lead_time_months": 2,
     "difficulty": 2,
@@ -4872,9 +4872,9 @@ const SUBSIDIES = [
     "industry_restriction": null,
     "requires_employee_insurance": false,
     "min_employees": 0,
-    "note_eligibility": "岩手県内に事業所を有する中小企業者等。EV（電気自動車）充電設備と太陽光発電設備を組み合わせて導入する場合が対象。EV単体のみでは対象外の場合あり",
-    "description": "岩手県内の中小企業が太陽光発電設備とEV充電設備を合わせて導入する場合に補助する制度。脱炭素・省エネ対策として、自社EV・社用車の電動化と合わせた申請が有効。iwate-taiyokoとの併用可否は要確認。",
-    "conditions": ["岩手県内の事業所", "太陽光発電設備＋EV充電設備のセット導入", "2025年10月31日までに申請"],
+    "note_eligibility": "岩手県内に事業所を有する中小企業者等。EV・PHV・太陽光発電設備・蓄電池・充放電設備等のいずれかを導入し、省エネ効果等を情報発信する意欲のある事業者",
+    "description": "岩手県内の中小企業が脱炭素化を推進するため、EV・PHV・太陽光発電・蓄電池・充放電設備等を導入する際の経費を上限125万円で補助する制度。導入後は省エネ効果等を社外に情報発信することが条件。iwate-taiyokoとの組み合わせも要検討。",
+    "conditions": ["岩手県内の事業所", "EV・PHV・太陽光・蓄電池・充放電設備等のいずれかを導入", "2025年10月31日までに申請", "導入効果の情報発信"],
     "compatible_with": ["iwate-taiyoko", "shoene"],
     "incompatible_with": [],
     "wage_required": false,
@@ -5538,7 +5538,7 @@ function runDiagnosis() {
     // 設備投資（太陽光・EV）
     if (q16 >= 100) {
       addP('iwate-taiyoko', 2, '岩手県内＋設備投資予定→自家消費型太陽光発電設備補助（1kW×5万円、上限5,000万円）で電気代削減');
-      addP('iwate-ev-hojo',  1, '岩手県内＋設備投資→EV等導入補助金（太陽光+EV充電セット）で脱炭素対応');
+      addP('iwate-ev-hojo',  1, '岩手県内＋脱炭素設備投資→EV/PHV・太陽光・蓄電池等のEV等導入補助金（上限125万円）で対応');
     }
     // 水産加工業（沿岸エリア）
     if (industry === '製造業' || industry === 'その他') {

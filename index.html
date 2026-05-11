@@ -6256,6 +6256,7 @@ function showLoading(matchCount, callback) {
   document.getElementById('form-area').style.display = 'none';
   const el = document.getElementById('results');
   el.style.display = 'block';
+  history.pushState({ view: 'results' }, '');
 
   el.innerHTML = `
     <div id="loading-screen" style="
@@ -6864,6 +6865,7 @@ function renderCard(s, i) {
 function startDiagnosis() {
   document.getElementById('intro-hero').style.display = 'none';
   document.getElementById('form-area').style.display = 'block';
+  history.pushState({ view: 'form' }, '');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -7069,6 +7071,30 @@ if (document.readyState !== 'loading') {
   const btn = document.getElementById('btn-start-diagnosis');
   if (btn) btn.addEventListener('click', startDiagnosis);
 }
+
+// ── ブラウザ戻るボタン対応 ──
+history.replaceState({ view: 'intro' }, '');
+
+window.addEventListener('popstate', function(e) {
+  const view = (e.state && e.state.view) ? e.state.view : 'intro';
+  const intro = document.getElementById('intro-hero');
+  const form  = document.getElementById('form-area');
+  const res   = document.getElementById('results');
+  if (view === 'intro') {
+    if (intro) intro.style.display = '';
+    if (form)  form.style.display  = 'none';
+    if (res)   res.style.display   = 'none';
+  } else if (view === 'form') {
+    if (intro) intro.style.display = 'none';
+    if (form)  form.style.display  = 'block';
+    if (res)   res.style.display   = 'none';
+  } else if (view === 'results') {
+    if (intro) intro.style.display = 'none';
+    if (form)  form.style.display  = 'none';
+    if (res)   res.style.display   = 'block';
+  }
+  window.scrollTo(0, 0);
+});
 
 function toggle(id) { document.getElementById(id)?.classList.toggle('open'); }
 

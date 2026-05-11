@@ -1570,6 +1570,18 @@
   .btn-reset { background: none; border: 1px solid var(--gray-200); border-radius: 8px; padding: 10px 24px; color: var(--gray-600); cursor: pointer; font-family: inherit; font-size: 14px; }
   .btn-reset:hover { background: var(--gray-100); }
 
+  /* 書類チェックボタン */
+  .chip-doc-check { display: inline-flex; align-items: center; gap: 4px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; border-radius: 20px; padding: 2px 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; }
+  .chip-doc-check::before { content: '📋'; font-size: 11px; }
+  .doc-check-banner { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%); border: 1px solid #bfdbfe; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+  .doc-check-banner-icon { font-size: 32px; flex-shrink: 0; }
+  .doc-check-banner-body { flex: 1; }
+  .doc-check-banner-title { font-size: 14px; font-weight: 700; color: #1e40af; margin-bottom: 4px; }
+  .doc-check-banner-desc { font-size: 12px; color: #3b82f6; line-height: 1.5; }
+  .btn-doc-check { display: inline-flex; align-items: center; gap: 6px; background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; white-space: nowrap; transition: background 0.15s; flex-shrink: 0; }
+  .btn-doc-check:hover { background: #1d4ed8; color: #fff; }
+  .btn-doc-check::before { content: '📄'; font-size: 15px; }
+
   .section-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-200); }
   .result-section { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
 
@@ -6560,6 +6572,7 @@ function renderResults(scored, combos, conflicts, meta) {
             <span class="result-row-chip">準備 ${leadTime}</span>
             <span class="result-row-chip${isUrgentTiming ? ' alert' : ''}">${timingLabel}</span>
             ${s.wage_required ? `<span class="result-row-chip alert">賃上げ必須</span>` : ''}
+            ${s.id === 'career-up-seishainuka' ? `<span class="chip-doc-check">書類チェックあり</span>` : ''}
           </div>
           <div class="result-row-amount">
             <div class="result-row-amount-label">${s.daily_rate ? '日額上限' : '最大受給額'}</div>
@@ -6634,6 +6647,17 @@ function renderResults(scored, combos, conflicts, meta) {
                 <div>${s.compatible_with.map(id => { const o = SUBSIDIES.find(x => x.id === id); return o ? `<span class="ctag">${o.name}</span>` : ''; }).join('')}</div>
               </div>
             </div>` : ''}
+
+          ${s.id === 'career-up-seishainuka' ? `
+            <div class="doc-check-banner">
+              <div class="doc-check-banner-icon">📋</div>
+              <div class="doc-check-banner-body">
+                <div class="doc-check-banner-title">就業規則・賃金規程をAIが自動チェック</div>
+                <div class="doc-check-banner-desc">申請前に書類の不備を洗い出せます。PDFをアップロードするだけで14項目を診断。</div>
+              </div>
+              <a href="check.html" class="btn-doc-check" onclick="event.stopPropagation()">書類チェック →</a>
+            </div>
+          ` : ''}
 
         </div>
       </div>

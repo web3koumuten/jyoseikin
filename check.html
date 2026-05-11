@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>キャリアアップ助成金 書類チェックツール</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+:root {
+  --primary: #1d4ed8;
+  --primary-light: #eff6ff;
+  --accent: #059669;
+  --warn: #d97706;
+  --danger: #dc2626;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-400: #9ca3af;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-900: #111827;
+  --radius: 10px;
+  --font: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: var(--gray-50); color: var(--gray-900); line-height: 1.6; font-size: 14px; }
+
+/* ── ヘッダー ── */
+.header {
+  background: white;
+  border-bottom: 1px solid var(--gray-200);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border: 1px solid var(--primary);
+  border-radius: 6px;
+}
+.header-back:hover { background: var(--primary-light); }
+.header-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+.header-badge {
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  border: 1px solid #fcd34d;
+}
+
+/* ── コンテナ ── */
+.container { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
+
+/* ── APIキー設定 ── */
+.api-setup {
+  background: white;
+  border: 1.5px solid #fcd34d;
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.api-setup-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #92400e;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.api-setup-desc {
+  font-size: 12px;
+  color: var(--gray-600);
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+.api-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.api-input {
+  flex: 1;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: monospace;
+  font-size: 13px;
+  outline: none;
+}
+.api-input:focus { border-color: var(--primary); }
+.btn-save-key {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-save-key:hover { background: #1e40af; }
+.api-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  padding: 10px 14px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  color: #166534;
+}
+.btn-reset-key {
+  background: none;
+  border: 1px solid #16a34a;
+  color: #16a34a;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+/* ── ページ説明 ── */
+.page-desc {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--gray-600);
+  line-height: 1.8;
+}
+.page-desc strong { color: var(--gray-900); }
+
+/* ── アップロードエリア ── */
+.upload-section {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.upload-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--gray-900);
+}
+.drop-zone {
+  border: 2px dashed var(--gray-200);
+  border-radius: 8px;
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.drop-zone:hover, .drop-zone.drag-over {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+.drop-icon { font-size: 36px; margin-bottom: 8px; }
+.drop-label { font-size: 14px; font-weight: 600; color: var(--gray-700); margin-bottom: 4px; }
+.drop-sub { font-size: 12px; color: var(--gray-400); }
+.drop-input { display: none; }
+
+/* ── アップロード済みファイル ── */
+.file-list { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+.file-icon { font-size: 18px; flex-shrink: 0; }
+.file-info { flex: 1; min-width: 0; }
+.file-name { font-size: 13px; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-meta { font-size: 11px; color: var(--gray-400); }
+.file-type-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.badge-unknown { background: var(--gray-100); color: var(--gray-600); border: 1px solid var(--gray-200); }
+.badge-shugyo { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.badge-chingin { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.badge-rodojooken { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+.badge-kyujin { background: #fdf4ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+.badge-kyaria { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
+.badge-chingindata { background: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd; }
+.badge-shukkin { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+.btn-remove {
+  background: none;
+  border: none;
+  color: var(--gray-400);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.btn-remove:hover { color: var(--danger); }
+
+/* ── チェック実行ボタン ── */
+.run-section { text-align: center; margin: 20px 0; }
+.btn-run {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 40px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-run:hover:not(:disabled) { background: #1e40af; transform: translateY(-1px); }
+.btn-run:disabled { background: var(--gray-400); cursor: not-allowed; transform: none; }
+.btn-run-sub { font-size: 12px; color: var(--gray-400); margin-top: 6px; }
+
+/* ── ローディング ── */
+.loading-wrap {
+  display: none;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 40px 20px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.loading-spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--gray-200);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 14px; color: var(--gray-600); }
+.loading-step { font-size: 12px; color: var(--gray-400); margin-top: 6px; }
+
+/* ── 結果エリア ── */
+.result-wrap { display: none; }
+
+/* 総合判定 */
+.overall-card {
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.overall-card.rating-a { background: #f0fdf4; border: 2px solid #4ade80; }
+.overall-card.rating-b { background: #fefce8; border: 2px solid #facc15; }
+.overall-card.rating-c { background: #fff7ed; border: 2px solid #fb923c; }
+.overall-card.rating-d { background: #fef2f2; border: 2px solid #f87171; }
+.rating-badge {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rating-a .rating-badge { background: #4ade80; color: white; }
+.rating-b .rating-badge { background: #facc15; color: white; }
+.rating-c .rating-badge { background: #fb923c; color: white; }
+.rating-d .rating-badge { background: #f87171; color: white; }
+.overall-body { flex: 1; }
+.overall-label { font-size: 12px; font-weight: 700; color: var(--gray-600); margin-bottom: 4px; }
+.overall-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.overall-comment { font-size: 13px; line-height: 1.8; color: var(--gray-700); }
+
+/* サマリーバー */
+.summary-bar {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.summary-item { display: flex; align-items: center; gap: 6px; }
+.summary-count {
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+}
+.s-ok { color: var(--accent); }
+.s-fix { color: var(--warn); }
+.s-check { color: var(--primary); }
+.s-ng { color: var(--danger); }
+.s-unknown { color: var(--gray-400); }
+.summary-label { font-size: 11px; color: var(--gray-600); }
+
+/* チェック結果カード */
+.checks-section {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.checks-header {
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.check-item {
+  border-bottom: 1px solid var(--gray-100);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.check-item:last-child { border-bottom: none; }
+.check-item:hover { background: var(--gray-50); }
+.check-item-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+}
+.check-status-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.status-ok { background: #f0fdf4; color: #166534; border: 1px solid #86efac; }
+.status-fix { background: #fefce8; color: #854d0e; border: 1px solid #fde047; }
+.status-check { background: #eff6ff; color: #1d4ed8; border: 1px solid #93c5fd; }
+.status-ng { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+.status-unknown { background: var(--gray-100); color: var(--gray-600); border: 1px solid var(--gray-300); }
+.check-item-name { flex: 1; font-size: 13px; font-weight: 600; }
+.check-risk-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+.risk-high { background: #fee2e2; color: #991b1b; }
+.risk-mid { background: #fef3c7; color: #92400e; }
+.risk-low { background: #f0fdf4; color: #166534; }
+.check-arrow {
+  font-size: 12px;
+  color: var(--gray-400);
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+.check-item.open .check-arrow { transform: rotate(90deg); }
+
+.check-item-body {
+  display: none;
+  padding: 0 20px 16px;
+  border-top: 1px solid var(--gray-100);
+  background: #fafafa;
+}
+.check-item.open .check-item-body { display: block; }
+.check-row { margin-top: 10px; }
+.check-row-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray-600);
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.check-row-value {
+  font-size: 12px;
+  color: var(--gray-700);
+  line-height: 1.7;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  padding: 8px 10px;
+  white-space: pre-wrap;
+}
+.evidence-text { border-left: 3px solid var(--primary); }
+.fix-text { border-left: 3px solid var(--warn); }
+.ng-text { border-left: 3px solid var(--danger); }
+
+/* 追加情報セクション */
+.info-section {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+.info-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.info-list { display: flex; flex-direction: column; gap: 6px; }
+.info-list-item {
+  font-size: 12px;
+  color: var(--gray-700);
+  padding: 6px 10px;
+  background: var(--gray-50);
+  border-radius: 6px;
+  border-left: 3px solid var(--gray-200);
+  line-height: 1.6;
+}
+.info-list-item.danger { border-left-color: var(--danger); background: #fef2f2; }
+.info-list-item.warn { border-left-color: var(--warn); background: #fff7ed; }
+.info-list-item.ok { border-left-color: var(--accent); background: #f0fdf4; }
+.info-list-item.info { border-left-color: var(--primary); background: var(--primary-light); }
+
+/* 注意書き */
+.disclaimer {
+  background: #f8f9fa;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: 11px;
+  color: var(--gray-600);
+  line-height: 1.8;
+  margin-top: 16px;
+}
+
+/* エラー */
+.error-card {
+  background: #fef2f2;
+  border: 1.5px solid #fca5a5;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  color: #991b1b;
+  font-size: 13px;
+  margin-bottom: 16px;
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .overall-card { flex-direction: column; gap: 12px; }
+  .summary-bar { gap: 12px; }
+  .check-item-header { gap: 8px; }
+  .check-item-name { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a class="header-back" href="index.html">← 診断に戻る</a>
+  <div class="header-title">キャリアアップ助成金 書類チェックツール</div>
+  <div class="header-badge">正社員化コース</div>
+</div>
+
+<div class="container">
+
+  <!-- APIキー設定 -->
+  <div class="api-setup" id="api-setup-section">
+    <div class="api-setup-title">APIキーの設定が必要です</div>
+    <div class="api-setup-desc">
+      このツールはAnthropic（Claude）APIを使って書類を解析します。<br>
+      <strong>APIキーはこのブラウザのみに保存され、外部に送信されません。</strong><br>
+      Anthropic Console（<a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>）でキーを発行してください。
+    </div>
+    <div class="api-input-row">
+      <input type="password" class="api-input" id="api-key-input" placeholder="sk-ant-api03-..." autocomplete="off">
+      <button class="btn-save-key" onclick="saveApiKey()">保存</button>
+    </div>
+  </div>
+  <div class="api-status" id="api-status-section" style="display:none; margin-bottom:16px;">
+    <span>APIキー設定済み</span>
+    <button class="btn-reset-key" onclick="resetApiKey()">変更</button>
+  </div>
+
+  <!-- 説明 -->
+  <div class="page-desc">
+    <strong>使い方：</strong>就業規則・賃金規程・労働条件通知書・求人票などのPDFをアップロードして「チェック実行」を押してください。<br>
+    キャリアアップ助成金（正社員化コース）の申請前に<strong>不備・矛盾・不支給リスク</strong>がないか自動でチェックします。<br>
+    ※ 本ツールの結果は参考情報です。最終判断は必ず社労士・ハローワーク窓口にご確認ください。
+  </div>
+
+  <!-- アップロードエリア -->
+  <div class="upload-section">
+    <div class="upload-section-title">書類をアップロード（複数可）</div>
+    <div class="drop-zone" id="drop-zone">
+      <div class="drop-icon">📄</div>
+      <div class="drop-label">クリックまたはドラッグ＆ドロップ</div>
+      <div class="drop-sub">PDF・テキストファイル対応 ／ 複数ファイル同時アップロード可</div>
+      <input type="file" class="drop-input" id="file-input" accept=".pdf,.txt" multiple>
+    </div>
+    <div class="file-list" id="file-list"></div>
+  </div>
+
+  <!-- チェック実行 -->
+  <div class="run-section">
+    <button class="btn-run" id="btn-run" onclick="runCheck()" disabled>
+      <span>書類チェックを実行</span>
+    </button>
+    <div class="btn-run-sub" id="run-sub-text">書類をアップロードしてください</div>
+  </div>
+
+  <!-- エラー -->
+  <div class="error-card" id="error-card"></div>
+
+  <!-- ローディング -->
+  <div class="loading-wrap" id="loading-wrap">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">書類を解析しています...</div>
+    <div class="loading-step" id="loading-step">PDFテキストを抽出中</div>
+  </div>
+
+  <!-- 結果 -->
+  <div class="result-wrap" id="result-wrap"></div>
+
+  <!-- 免責事項 -->
+  <div class="disclaimer">
+    ※ 本ツールはAI（Claude）による参考情報の提供であり、法的アドバイスや受給保証を行うものではありません。
+    申請可否の最終判断は、ハローワーク、都道府県労働局、または社会保険労務士にご確認ください。
+    書類の内容によっては、誤った判定が行われる可能性があります。
+  </div>
+</div>
+
+<script>
+// ── pdf.js ワーカー設定 ──
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+// ── ファイルデータ保持 ──
+const uploadedFiles = []; // { file, text, detectedType }
+
+// ── APIキー管理 ──
+function getApiKey() { return localStorage.getItem('ca_check_api_key') || ''; }
+function saveApiKey() {
+  const key = document.getElementById('api-key-input').value.trim();
+  if (!key.startsWith('sk-ant')) { alert('APIキーの形式が正しくありません（sk-ant... から始まるキーを入力）'); return; }
+  localStorage.setItem('ca_check_api_key', key);
+  showApiStatus();
+}
+function resetApiKey() {
+  localStorage.removeItem('ca_check_api_key');
+  document.getElementById('api-key-input').value = '';
+  document.getElementById('api-setup-section').style.display = '';
+  document.getElementById('api-status-section').style.display = 'none';
+}
+function showApiStatus() {
+  document.getElementById('api-setup-section').style.display = 'none';
+  document.getElementById('api-status-section').style.display = 'flex';
+}
+if (getApiKey()) showApiStatus();
+
+// ── 書類種別の自動判定 ──
+function detectDocType(text) {
+  const t = text.slice(0, 3000);
+  if (/就業規則/.test(t) && /非正規|パート|アルバイト|有期/.test(t)) return { type: 'shugyo_hireg', label: '非正規就業規則', cls: 'badge-shugyo' };
+  if (/就業規則/.test(t)) return { type: 'shugyo', label: '就業規則', cls: 'badge-shugyo' };
+  if (/賃金規程|賃金規則|給与規程/.test(t)) return { type: 'chingin', label: '賃金規程', cls: 'badge-chingin' };
+  if (/労働条件通知書|雇用契約書/.test(t)) return { type: 'rodo', label: '労働条件通知書', cls: 'badge-rodojooken' };
+  if (/求人票|求人情報|ハローワーク求人/.test(t)) return { type: 'kyujin', label: '求人票', cls: 'badge-kyujin' };
+  if (/キャリアアップ計画|労働者キャリアアップ/.test(t)) return { type: 'kyaria', label: 'キャリアアップ計画書', cls: 'badge-kyaria' };
+  if (/賃金台帳/.test(t)) return { type: 'chingin_data', label: '賃金台帳', cls: 'badge-chingindata' };
+  if (/出勤簿|タイムカード|勤怠/.test(t)) return { type: 'shukkin', label: '出勤簿', cls: 'badge-shukkin' };
+  return { type: 'unknown', label: '種別不明', cls: 'badge-unknown' };
+}
+
+// ── PDF テキスト抽出 ──
+async function extractPdfText(file) {
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+  let text = '';
+  for (let i = 1; i <= Math.min(pdf.numPages, 30); i++) {
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    text += content.items.map(item => item.str).join(' ') + '\n';
+  }
+  return text;
+}
+
+// ── ファイル読み込み処理 ──
+async function processFile(file) {
+  let text = '';
+  if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) {
+    text = await extractPdfText(file);
+  } else {
+    text = await file.text();
+  }
+  const detected = detectDocType(text);
+  return { file, text, detectedType: detected };
+}
+
+function renderFileList() {
+  const list = document.getElementById('file-list');
+  list.innerHTML = '';
+  uploadedFiles.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'file-item';
+    div.innerHTML = `
+      <div class="file-icon">📄</div>
+      <div class="file-info">
+        <div class="file-name">${item.file.name}</div>
+        <div class="file-meta">${(item.file.size / 1024).toFixed(0)}KB ／ ${item.text.length}文字抽出</div>
+      </div>
+      <span class="file-type-badge ${item.detectedType.cls}">${item.detectedType.label}</span>
+      <button class="btn-remove" onclick="removeFile(${idx})">×</button>
+    `;
+    list.appendChild(div);
+  });
+  updateRunButton();
+}
+
+function removeFile(idx) {
+  uploadedFiles.splice(idx, 1);
+  renderFileList();
+}
+
+function updateRunButton() {
+  const btn = document.getElementById('btn-run');
+  const sub = document.getElementById('run-sub-text');
+  if (uploadedFiles.length === 0) {
+    btn.disabled = true;
+    sub.textContent = '書類をアップロードしてください';
+  } else {
+    btn.disabled = false;
+    sub.textContent = `${uploadedFiles.length}件の書類を解析します`;
+  }
+}
+
+// ── ドラッグ＆ドロップ ──
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', async e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  await addFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener('change', async e => {
+  await addFiles(e.target.files);
+  e.target.value = '';
+});
+
+async function addFiles(fileList) {
+  for (const file of fileList) {
+    if (uploadedFiles.find(f => f.file.name === file.name)) continue;
+    try {
+      const processed = await processFile(file);
+      uploadedFiles.push(processed);
+    } catch(e) {
+      console.error(e);
+    }
+  }
+  renderFileList();
+}
+
+// ── Claude API 呼び出し ──
+async function callClaude(apiKey, docsText) {
+  const systemPrompt = `あなたはキャリアアップ助成金（正社員化コース）の申請支援に精通した社会保険労務士です。
+企業から提出された書類を分析し、申請前のリスクと不備を洗い出してください。
+
+【重要なルール】
+- PDFに書いていない内容を推測してOKにしない
+- 判定の根拠となる文言を必ず抜き出す
+- 根拠文言が見つからない場合は「不明」または「NG」とする
+- 最終的な受給可否を断定しない
+
+【判定基準】
+- OK：必要な文言が明確に存在し、他書類と矛盾なし
+- 要修正：制度はあるが文言が曖昧・対象者不足・記載不足
+- 要確認：日付・金額・別書類がないと判断できない
+- NG：必須文言なし・重大な不支給リスクあり
+- 不明：該当箇所を読み取れない・書類種別不明
+
+以下のJSON形式で出力してください：
+{
+  "overall_rating": "A|B|C|D",
+  "rating_label": "A：申請に進める可能性が高い|B：一部修正すれば申請に進める可能性がある|C：重大な不備があり、このままでは危ない|D：書類不足または判定不能",
+  "overall_comment": "総合コメント",
+  "detected_docs": ["検出した書類種別リスト"],
+  "checks": [
+    {
+      "id": 1,
+      "name": "チェック項目名",
+      "status": "OK|要修正|要確認|NG|不明",
+      "risk": "高|中|低",
+      "source_docs": ["根拠書類名"],
+      "evidence": "根拠となる文言（なければ「記載なし」）",
+      "missing": "不足している文言・内容",
+      "fix_suggestion": "修正案・対応策",
+      "notes": "確認推奨事項"
+    }
+  ],
+  "missing_docs": ["不足している書類リスト"],
+  "docs_to_fix": ["修正が必要な書類リスト"],
+  "high_risk_items": ["高リスク項目の概要リスト"],
+  "next_actions": ["次にやるべき作業リスト"],
+  "expert_consult": ["専門家・労働局への確認推奨項目リスト"]
+}`;
+
+  const userPrompt = `以下の書類を分析してください。
+
+${docsText}
+
+【チェック項目】
+1. 書類種別判定：アップロード書類が何に該当するか
+2. 雇用区分判定：正社員・有期契約社員・無期雇用パート・有期雇用パートの4区分が定義されているか
+3. 適用規程判定：正社員と非正規それぞれに適切な規程が適用される設計か
+4. 正社員転換制度判定：就業規則に転換制度が明記されているか（対象者3区分含む）
+5. 転換手続判定：対象者・在籍期間・評価基準・出勤状況・懲戒・選考方法・転換日・規程切替・通知書交付が記載されているか
+6. 正社員処遇判定：昇給・賞与または退職金・賃金決定方法・格付け方法が規定されているか
+7. 3％増額判定：転換後6か月賃金が転換前6か月より3％以上増額する根拠があるか
+8. 労働条件通知書判定：雇用区分・契約期間・更新条件・労働時間・適用規程が記載されているか
+9. 有期雇用チェック：有期雇用の場合の契約期間・更新上限・更新基準の記載
+10. 求人票判定：雇用形態・雇用期間・転換制度の表現が適切か（「必ず正社員」等の高リスク表現がないか）
+11. キャリアアップ計画判定：計画書の有無・提出日が転換日より前か
+12. 申請期限判定：転換後6か月賃金支給日の翌日から2か月以内に申請できるか
+13. 試用期間判定：転換後の試用期間に関する記載があるか
+14. 書類間整合性判定：雇用区分名・契約期間・労働時間・転換制度表現・規程名・賃金決定方法が書類間で一致しているか
+
+JSONのみを返してください（説明文・コードブロックは不要）。`;
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 4096,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }]
+    })
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`API Error ${res.status}: ${err}`);
+  }
+  const data = await res.json();
+  return data.content[0].text;
+}
+
+// ── チェック実行 ──
+async function runCheck() {
+  const apiKey = getApiKey();
+  if (!apiKey) { alert('先にAPIキーを設定してください'); return; }
+  if (uploadedFiles.length === 0) { alert('書類をアップロードしてください'); return; }
+
+  document.getElementById('error-card').style.display = 'none';
+  document.getElementById('result-wrap').style.display = 'none';
+  document.getElementById('loading-wrap').style.display = 'block';
+  document.getElementById('btn-run').disabled = true;
+
+  const setStep = t => document.getElementById('loading-step').textContent = t;
+
+  try {
+    setStep('書類テキストを整理中...');
+
+    // 書類テキストを結合（上限12000文字/書類）
+    let docsText = '';
+    for (const item of uploadedFiles) {
+      const excerpt = item.text.slice(0, 12000);
+      docsText += `\n\n===== 【${item.detectedType.label}】${item.file.name} =====\n${excerpt}`;
+    }
+    // 全体で40000文字に制限
+    if (docsText.length > 40000) docsText = docsText.slice(0, 40000) + '\n...[以下省略]';
+
+    setStep('AIが書類を解析中（30秒〜2分かかる場合があります）...');
+    const rawResult = await callClaude(apiKey, docsText);
+
+    setStep('結果を整形中...');
+    let result;
+    try {
+      // JSONのみ抽出（前後にテキストがある場合に備えて）
+      const match = rawResult.match(/\{[\s\S]*\}/);
+      result = JSON.parse(match ? match[0] : rawResult);
+    } catch(e) {
+      throw new Error('APIの返答をJSONとして解析できませんでした。再実行してください。\n\n' + rawResult.slice(0, 300));
+    }
+
+    document.getElementById('loading-wrap').style.display = 'none';
+    renderResult(result);
+
+  } catch(err) {
+    document.getElementById('loading-wrap').style.display = 'none';
+    document.getElementById('btn-run').disabled = false;
+    const ec = document.getElementById('error-card');
+    ec.style.display = 'block';
+    ec.innerHTML = '<strong>エラーが発生しました</strong><br>' + err.message.replace(/\n/g,'<br>');
+  }
+}
+
+// ── 結果レンダリング ──
+function renderResult(result) {
+  const wrap = document.getElementById('result-wrap');
+
+  const ratingMap = {
+    A: { cls: 'rating-a', title: 'A：申請に進める可能性が高い' },
+    B: { cls: 'rating-b', title: 'B：一部修正すれば申請に進める可能性がある' },
+    C: { cls: 'rating-c', title: 'C：重大な不備があり、このままでは危ない' },
+    D: { cls: 'rating-d', title: 'D：書類不足または判定不能' }
+  };
+  const r = ratingMap[result.overall_rating] || ratingMap['D'];
+
+  const statusMap = {
+    'OK': { cls: 'status-ok', label: 'OK' },
+    '要修正': { cls: 'status-fix', label: '要修正' },
+    '要確認': { cls: 'status-check', label: '要確認' },
+    'NG': { cls: 'status-ng', label: 'NG' },
+    '不明': { cls: 'status-unknown', label: '不明' }
+  };
+  const riskMap = {
+    '高': 'risk-high',
+    '中': 'risk-mid',
+    '低': 'risk-low'
+  };
+
+  const checks = result.checks || [];
+  const counts = { OK: 0, '要修正': 0, '要確認': 0, NG: 0, '不明': 0 };
+  checks.forEach(c => { counts[c.status] = (counts[c.status] || 0) + 1; });
+
+  function safeText(v) {
+    if (!v || v === '' || v === 'null' || v === 'undefined') return '—';
+    if (Array.isArray(v)) return v.join('、') || '—';
+    return String(v);
+  }
+
+  function listHtml(arr, cls = '') {
+    if (!arr || arr.length === 0) return '<div class="info-list-item">なし</div>';
+    return arr.map(item => `<div class="info-list-item ${cls}">${item}</div>`).join('');
+  }
+
+  wrap.innerHTML = `
+    <!-- 総合判定 -->
+    <div class="overall-card ${r.cls}">
+      <div class="rating-badge">${result.overall_rating || 'D'}</div>
+      <div class="overall-body">
+        <div class="overall-label">総合判定</div>
+        <div class="overall-title">${r.title}</div>
+        <div class="overall-comment">${safeText(result.overall_comment)}</div>
+      </div>
+    </div>
+
+    <!-- サマリーバー -->
+    <div class="summary-bar">
+      <div class="summary-item"><div class="summary-count s-ok">${counts['OK']}</div><div class="summary-label">OK</div></div>
+      <div class="summary-item"><div class="summary-count s-fix">${counts['要修正']}</div><div class="summary-label">要修正</div></div>
+      <div class="summary-item"><div class="summary-count s-check">${counts['要確認']}</div><div class="summary-label">要確認</div></div>
+      <div class="summary-item"><div class="summary-count s-ng">${counts['NG']}</div><div class="summary-label">NG</div></div>
+      <div class="summary-item"><div class="summary-count s-unknown">${counts['不明']}</div><div class="summary-label">不明</div></div>
+    </div>
+
+    <!-- チェック結果一覧 -->
+    <div class="checks-section">
+      <div class="checks-header">チェック結果一覧（${checks.length}項目）</div>
+      ${checks.map((c, i) => {
+        const s = statusMap[c.status] || statusMap['不明'];
+        const riskCls = riskMap[c.risk] || 'risk-low';
+        return `
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-item-header">
+            <span class="check-status-badge ${s.cls}">${s.label}</span>
+            <span class="check-item-name">${c.name || 'チェック' + (i+1)}</span>
+            <span class="check-risk-badge ${riskCls}">リスク${c.risk || '低'}</span>
+            <span class="check-arrow">▶</span>
+          </div>
+          <div class="check-item-body">
+            ${c.source_docs && c.source_docs.length ? `<div class="check-row"><div class="check-row-label">確認書類</div><div class="check-row-value">${safeText(c.source_docs)}</div></div>` : ''}
+            ${c.evidence ? `<div class="check-row"><div class="check-row-label">根拠文言</div><div class="check-row-value evidence-text">${c.evidence}</div></div>` : ''}
+            ${c.missing ? `<div class="check-row"><div class="check-row-label">不足・問題点</div><div class="check-row-value ng-text">${c.missing}</div></div>` : ''}
+            ${c.fix_suggestion ? `<div class="check-row"><div class="check-row-label">修正案</div><div class="check-row-value fix-text">${c.fix_suggestion}</div></div>` : ''}
+            ${c.notes ? `<div class="check-row"><div class="check-row-label">確認推奨事項</div><div class="check-row-value">${c.notes}</div></div>` : ''}
+          </div>
+        </div>
+        `;
+      }).join('')}
+    </div>
+
+    <!-- 高リスク項目 -->
+    ${(result.high_risk_items && result.high_risk_items.length) ? `
+    <div class="info-section">
+      <div class="info-section-title" style="color:#991b1b;">高リスク項目</div>
+      <div class="info-list">${listHtml(result.high_risk_items, 'danger')}</div>
+    </div>` : ''}
+
+    <!-- 不足書類 -->
+    ${(result.missing_docs && result.missing_docs.length) ? `
+    <div class="info-section">
+      <div class="info-section-title" style="color:#92400e;">不足している書類</div>
+      <div class="info-list">${listHtml(result.missing_docs, 'warn')}</div>
+    </div>` : ''}
+
+    <!-- 修正が必要な書類 -->
+    ${(result.docs_to_fix && result.docs_to_fix.length) ? `
+    <div class="info-section">
+      <div class="info-section-title" style="color:#c2410c;">修正が必要な書類</div>
+      <div class="info-list">${listHtml(result.docs_to_fix, 'warn')}</div>
+    </div>` : ''}
+
+    <!-- 次にやるべき作業 -->
+    ${(result.next_actions && result.next_actions.length) ? `
+    <div class="info-section">
+      <div class="info-section-title" style="color:#1d4ed8;">次にやるべき作業</div>
+      <div class="info-list">${listHtml(result.next_actions, 'info')}</div>
+    </div>` : ''}
+
+    <!-- 専門家への確認推奨事項 -->
+    ${(result.expert_consult && result.expert_consult.length) ? `
+    <div class="info-section">
+      <div class="info-section-title" style="color:#166534;">専門家・労働局への確認推奨項目</div>
+      <div class="info-list">${listHtml(result.expert_consult, 'ok')}</div>
+    </div>` : ''}
+  `;
+
+  wrap.style.display = 'block';
+  wrap.scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('btn-run').disabled = false;
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>

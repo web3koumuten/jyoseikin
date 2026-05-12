@@ -232,76 +232,157 @@ body { font-family: var(--font); background: var(--gray-50); color: var(--gray-9
 /* ── カード詳細 ── */
 .card-body {
   display: none;
-  border-top: 1px solid var(--gray-100);
-  padding: 18px 18px 16px 16px;
-  background: #fafbfc;
+  border-top: 1px solid var(--gray-200);
+  padding: 0;
+  background: #f7f8fa;
 }
 .card.open .card-body { display: block; }
 
-.detail-section {
-  margin-bottom: 14px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--gray-100);
+/* キーファクト行 */
+.key-facts {
+  display: flex;
+  border-bottom: 1px solid var(--gray-200);
+  background: #fff;
 }
-.detail-section:last-of-type { border-bottom: none; margin-bottom: 0; }
-.detail-label {
+.key-fact {
+  flex: 1;
+  padding: 12px 16px;
+  border-right: 1px solid var(--gray-100);
+}
+.key-fact:last-child { border-right: none; }
+.key-fact-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gray-400);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.key-fact-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-900);
+  line-height: 1.35;
+}
+.key-fact-value.big {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--primary);
+}
+.key-fact-value.big span { font-size: 12px; font-weight: 600; color: var(--gray-400); margin-left: 2px; }
+.key-fact-value.deadline-near { color: #b91c1c; }
+.key-fact-value.deadline-middle { color: #92400e; }
+
+/* コンテンツエリア */
+.detail-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 14px; }
+
+/* 概要ブロック */
+.d-overview {
+  font-size: 13px;
+  color: var(--gray-700);
+  line-height: 1.85;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-left: 4px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+}
+.card[data-area="morioka"] .d-overview { border-left-color: var(--cyan); }
+
+/* スケジュールブロック */
+.d-schedule-wrap {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.d-schedule-head {
+  background: #fef3c7;
+  border-bottom: 1px solid #fde68a;
+  padding: 7px 14px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #78350f;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.d-schedule-body {
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #451a03;
+  line-height: 1.85;
+}
+
+/* 2カラム情報 */
+.d-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.d-box {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.d-box-label {
   font-size: 10px;
   font-weight: 800;
   color: var(--gray-400);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 6px;
+  letter-spacing: 0.07em;
+  margin-bottom: 7px;
 }
-.detail-value {
-  font-size: 13px;
-  color: var(--gray-700);
-  line-height: 1.8;
-}
-.detail-value.accent {
-  background: #f0f5ff;
-  border-left: 3px solid var(--primary);
-  padding: 10px 14px;
-  border-radius: 0 6px 6px 0;
-  font-size: 13px;
-  color: var(--gray-700);
-  line-height: 1.8;
-}
-.detail-2col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-.conditions-list { display: flex; flex-direction: column; gap: 4px; }
-.condition-item {
+.d-box-value {
   font-size: 12px;
   color: var(--gray-700);
-  padding: 5px 12px;
-  background: #fff;
-  border: 1px solid var(--gray-200);
-  border-radius: 4px;
-  line-height: 1.6;
+  line-height: 1.75;
 }
-.contact-block {
-  margin-top: 14px;
-  padding: 10px 14px;
+
+/* 条件チップ */
+.d-conditions { display: flex; flex-wrap: wrap; gap: 6px; }
+.d-chip {
+  font-size: 12px;
+  color: var(--gray-700);
   background: #fff;
   border: 1px solid var(--gray-200);
-  border-radius: 6px;
-  font-size: 12px;
-  color: var(--gray-600);
+  border-radius: 99px;
+  padding: 4px 12px;
+  line-height: 1.5;
   font-weight: 500;
 }
+
+/* セクション見出し */
+.d-section-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gray-500, #6b7280);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+/* 問い合わせ */
+.d-contact {
+  background: var(--gray-900);
+  color: rgba(255,255,255,0.8);
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.d-contact strong { color: #fff; margin-right: 6px; font-weight: 700; }
 
 /* 空状態 */
 .empty-state { text-align: center; padding: 60px 20px; color: var(--gray-400); font-size: 14px; }
 
 @media (max-width: 640px) {
-  .detail-2col { grid-template-columns: 1fr; }
+  .d-2col { grid-template-columns: 1fr; }
+  .key-facts { flex-wrap: wrap; }
+  .key-fact { flex: 0 0 50%; }
   .card-amount { font-size: 20px; }
   .header-title { display: none; }
   .page-banner { padding: 20px 16px 18px; }
   .page-banner-title { font-size: 18px; }
 }
+
 </style>
 </head>
 <body>
@@ -1005,6 +1086,7 @@ const TODAY_INT = parseInt(new Date().toISOString().slice(0,10).replace(/-/g,'')
 function renderCard(s, idx) {
   const areaLabel = s.area === 'iwate' ? '岩手県' : '盛岡市';
   const dlCls     = { near: 'near', middle: 'middle', far: '', ongoing: '', check: '' }[s.deadline_status] || '';
+  const dlFactCls = dlCls === 'near' ? 'deadline-near' : dlCls === 'middle' ? 'deadline-middle' : '';
 
   return `
   <div class="card" id="card-${idx}" data-area="${s.area}">
@@ -1023,29 +1105,72 @@ function renderCard(s, idx) {
       <div class="card-chevron">›</div>
     </div>
     <div class="card-body" id="body-${idx}">
-      <div class="detail-section">
-        <div class="detail-label">制度概要</div>
-        <div class="detail-value">${s.description}</div>
-      </div>
-      <div class="detail-section">
-        <div class="detail-label">申請スケジュール・準備のポイント</div>
-        <div class="detail-value accent">${s.schedule}</div>
-      </div>
-      <div class="detail-section detail-2col">
-        <div>
-          <div class="detail-label">支給額・補助率</div>
-          <div class="detail-value" style="font-size:12px;color:var(--gray-600)">${s.amount_note}</div>
+
+      <!-- キーファクト行 -->
+      <div class="key-facts">
+        <div class="key-fact">
+          <div class="key-fact-label">最大受給額</div>
+          <div class="key-fact-value big">${amountMan(s.max_amount)}<span>万円</span></div>
         </div>
-        <div>
-          <div class="detail-label">対象・要件</div>
-          <div class="detail-value" style="font-size:12px;color:var(--gray-600)">${s.note_eligibility}</div>
+        <div class="key-fact">
+          <div class="key-fact-label">申請期限</div>
+          <div class="key-fact-value ${dlFactCls}">${s.deadline_text}</div>
+        </div>
+        <div class="key-fact">
+          <div class="key-fact-label">難易度</div>
+          <div class="key-fact-value">${diffText(s.difficulty)}</div>
+        </div>
+        <div class="key-fact">
+          <div class="key-fact-label">問い合わせ先</div>
+          <div class="key-fact-value" style="font-size:11px;font-weight:500;color:var(--gray-600)">${s.contact || '—'}</div>
         </div>
       </div>
-      <div class="detail-section">
-        <div class="detail-label">主な条件</div>
-        <div class="conditions-list">${s.conditions.map(c => `<div class="condition-item">${c}</div>`).join('')}</div>
-      </div>
-      ${s.contact ? `<div class="contact-block">問い合わせ先：${s.contact}</div>` : ''}
+
+      <!-- 本文 -->
+      <div class="detail-body">
+
+        <!-- 概要 -->
+        <div>
+          <div class="d-section-title">制度概要</div>
+          <div class="d-overview">${s.description}</div>
+        </div>
+
+        <!-- 申請スケジュール -->
+        <div>
+          <div class="d-section-title">申請スケジュール・準備のポイント</div>
+          <div class="d-schedule-wrap">
+            <div class="d-schedule-head">いつ・何をすべきか</div>
+            <div class="d-schedule-body">${s.schedule}</div>
+          </div>
+        </div>
+
+        <!-- 支給額・対象要件 -->
+        <div>
+          <div class="d-section-title">詳細情報</div>
+          <div class="d-2col">
+            <div class="d-box">
+              <div class="d-box-label">支給額・補助率</div>
+              <div class="d-box-value">${s.amount_note}</div>
+            </div>
+            <div class="d-box">
+              <div class="d-box-label">対象・要件</div>
+              <div class="d-box-value">${s.note_eligibility}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 主な条件 -->
+        <div>
+          <div class="d-section-title">主な条件</div>
+          <div class="d-conditions">
+            ${s.conditions.map(c => `<span class="d-chip">${c}</span>`).join('')}
+          </div>
+        </div>
+
+      </div><!-- /detail-body -->
+
+      ${s.contact ? `<div class="d-contact"><strong>問い合わせ先</strong>${s.contact}</div>` : ''}
+
     </div>
   </div>`;
 }

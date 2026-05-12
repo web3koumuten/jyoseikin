@@ -1795,6 +1795,38 @@
     transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .btn-hero:hover .btn-hero-arrow { transform: translateX(4px); }
+  .btn-hero-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn-hero-sub {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    color: var(--primary);
+    border: 1.5px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 16px 28px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+    transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .btn-hero-sub:hover {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0,102,255,0.15);
+  }
+  .btn-hero-sub:active { transform: translateY(0); }
   .hero-trust {
     display: flex;
     align-items: center;
@@ -1867,7 +1899,9 @@
     .hero-h1 { font-size: 26px; letter-spacing: -0.03em; }
     .hero-h1-main { font-size: 0.88em; }
     .hero-accent { font-size: 1.15em; }
+    .btn-hero-group { flex-direction: column; align-items: stretch; }
     .btn-hero { width: 100%; justify-content: center; padding: 16px 36px; }
+    .btn-hero-sub { width: 100%; justify-content: center; }
     .hero-sub { font-size: 13.5px; margin-bottom: 32px; }
     .hero-graphic { max-width: 260px; padding-bottom: 32px; }
     .hero-trust { flex-wrap: wrap; gap: 10px; }
@@ -2123,7 +2157,10 @@
       <p class="hero-overline">Subsidy Finder</p>
       <h1 class="hero-h1"><span class="hero-h1-main">御社に使える補助金、</span><span class="hero-accent">5分でわかります。</span></h1>
       <p class="hero-sub">業種・従業員数・経営状況を入力するだけ。最大45制度の中から、あなたの会社に合った補助金・助成金を自動で絞り込みます。</p>
-      <button class="btn-hero" id="btn-start-diagnosis">無料で診断する <span class="btn-hero-arrow">→</span></button>
+      <div class="btn-hero-group">
+        <button class="btn-hero" id="btn-start-diagnosis">無料で診断する <span class="btn-hero-arrow">→</span></button>
+        <a href="list.html" class="btn-hero-sub">📋 岩手県・盛岡市の助成金一覧</a>
+      </div>
       <div class="hero-trust">
         <span class="hero-trust-item"><svg class="hero-trust-icon" viewBox="0 0 16 16"><path d="M13.3 4L6.5 10.8 2.7 7"/></svg>45制度対応</span>
         <span class="hero-trust-item"><svg class="hero-trust-icon" viewBox="0 0 16 16"><path d="M13.3 4L6.5 10.8 2.7 7"/></svg>約5分</span>

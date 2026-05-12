@@ -1370,6 +1370,9 @@ function renderCard(s, idx) {
           <div class="d-overview">${s.description}</div>
         </div>
 
+        <!-- 申請フロー -->
+        ${renderFlow(s)}
+
         <!-- 申請スケジュール -->
         <div>
           <div class="d-section-title">申請スケジュール・準備のポイント</div>
@@ -1401,9 +1404,6 @@ function renderCard(s, idx) {
             ${s.conditions.map(c => `<span class="d-chip">${c}</span>`).join('')}
           </div>
         </div>
-
-        <!-- 申請フロー -->
-        ${renderFlow(s)}
 
       </div><!-- /detail-body -->
 

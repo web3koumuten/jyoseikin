@@ -1572,7 +1572,7 @@
 
   /* 書類チェックボタン */
   .chip-doc-check { display: inline-flex; align-items: center; gap: 4px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; border-radius: 20px; padding: 2px 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; }
-  .chip-doc-check::before { content: '📋'; font-size: 11px; }
+  .chip-doc-check::before { content: ''; }
   .doc-check-banner { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%); border: 1px solid #bfdbfe; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
   .doc-check-banner-icon { font-size: 32px; flex-shrink: 0; }
   .doc-check-banner-body { flex: 1; }
@@ -1580,7 +1580,7 @@
   .doc-check-banner-desc { font-size: 12px; color: #3b82f6; line-height: 1.5; }
   .btn-doc-check { display: inline-flex; align-items: center; gap: 6px; background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; white-space: nowrap; transition: background 0.15s; flex-shrink: 0; }
   .btn-doc-check:hover { background: #1d4ed8; color: #fff; }
-  .btn-doc-check::before { content: '📄'; font-size: 15px; }
+  .btn-doc-check::before { content: ''; }
 
   .section-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-200); }
   .result-section { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
@@ -2159,7 +2159,7 @@
       <p class="hero-sub">業種・従業員数・経営状況を入力するだけ。最大45制度の中から、あなたの会社に合った補助金・助成金を自動で絞り込みます。</p>
       <div class="btn-hero-group">
         <button class="btn-hero" id="btn-start-diagnosis">無料で診断する <span class="btn-hero-arrow">→</span></button>
-        <a href="list.html" class="btn-hero-sub">📋 岩手県・盛岡市の助成金一覧</a>
+        <a href="list.html" class="btn-hero-sub">岩手県・盛岡市の助成金一覧</a>
       </div>
       <div class="hero-trust">
         <span class="hero-trust-item"><svg class="hero-trust-icon" viewBox="0 0 16 16"><path d="M13.3 4L6.5 10.8 2.7 7"/></svg>45制度対応</span>
@@ -6688,7 +6688,7 @@ function renderResults(scored, combos, conflicts, meta) {
 
           ${s.id === 'career-up-seishainuka' ? `
             <div class="doc-check-banner">
-              <div class="doc-check-banner-icon">📋</div>
+              <div class="doc-check-banner-icon"></div>
               <div class="doc-check-banner-body">
                 <div class="doc-check-banner-title">就業規則・賃金規程をAIが自動チェック</div>
                 <div class="doc-check-banner-desc">申請前に書類の不備を洗い出せます。PDFをアップロードするだけで14項目を診断。</div>

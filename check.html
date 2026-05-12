@@ -400,7 +400,7 @@ body { font-family: var(--font); background: var(--gray-50); color: var(--gray-9
   <div class="upload-section">
     <div class="upload-section-title">書類をアップロード（複数可）</div>
     <div class="drop-zone" id="drop-zone">
-      <div class="drop-icon">📄</div>
+      <div class="drop-icon"></div>
       <div class="drop-label">クリックまたはドラッグ＆ドロップ</div>
       <div class="drop-sub">PDF・テキストファイル対応 ／ 複数ファイル同時アップロード可</div>
       <input type="file" class="drop-input" id="file-input" accept=".pdf,.txt" multiple>
@@ -490,7 +490,7 @@ function renderFileList() {
     const div = document.createElement('div');
     div.className = 'file-item';
     div.innerHTML = `
-      <div class="file-icon">📄</div>
+      <div class="file-icon"></div>
       <div class="file-info">
         <div class="file-name">${item.file.name}</div>
         <div class="file-meta">${(item.file.size / 1024).toFixed(0)}KB ／ ${item.text.length}文字抽出</div>
@@ -1133,7 +1133,7 @@ function renderResult(result) {
     </div>` : ''}
     ${(result.next_actions && result.next_actions.length) ? `
     <div class="info-section">
-      <div class="info-section-title" style="color:#1d4ed8;">✅ 次にやるべき作業</div>
+      <div class="info-section-title" style="color:#1d4ed8;">次にやるべき作業</div>
       <div class="info-list">${listHtml(result.next_actions, 'info')}</div>
     </div>` : ''}
     ${(result.expert_consult && result.expert_consult.length) ? `

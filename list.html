@@ -370,6 +370,119 @@ body { font-family: var(--font); background: var(--gray-50); color: var(--gray-9
 }
 .d-contact strong { color: #fff; margin-right: 6px; font-weight: 700; }
 
+/* ── 申請フロー ── */
+.d-flow-wrap {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.d-flow-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+}
+.d-flow-header-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gray-600);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.d-flow-type-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 99px;
+  background: #e0edff;
+  color: var(--primary);
+}
+.d-flow-note {
+  margin: 10px 14px;
+  font-size: 12px;
+  color: #1e3a8a;
+  background: #eff6ff;
+  border-left: 3px solid #93c5fd;
+  padding: 8px 12px;
+  border-radius: 0 6px 6px 0;
+  line-height: 1.7;
+}
+.d-flow-steps {
+  padding: 10px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.d-flow-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  position: relative;
+}
+.d-flow-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 36px;
+  bottom: -4px;
+  width: 2px;
+  background: var(--gray-200);
+}
+.d-flow-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--gray-400);
+  flex-shrink: 0;
+  background: #fff;
+  position: relative;
+  z-index: 1;
+  margin-top: 4px;
+}
+.d-flow-step.highlight .d-flow-num {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.d-flow-content {
+  padding: 6px 0 18px;
+  flex: 1;
+}
+.d-flow-step-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray-900);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.4;
+}
+.d-flow-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #dbeafe;
+  color: #1e3a8a;
+  flex-shrink: 0;
+}
+.d-flow-badge.warn { background: #fee2e2; color: #991b1b; }
+.d-flow-badge.green { background: #d1fae5; color: #065f46; }
+.d-flow-step-desc {
+  font-size: 12px;
+  color: var(--gray-600);
+  margin-top: 3px;
+  line-height: 1.6;
+}
+
 /* 空状態 */
 .empty-state { text-align: center; padding: 60px 20px; color: var(--gray-400); font-size: 14px; }
 
@@ -1082,6 +1195,128 @@ function diffText(d) {
 // ── 今日の日付（YYYYMMDD整数） ──
 const TODAY_INT = parseInt(new Date().toISOString().slice(0,10).replace(/-/g,''));
 
+// ── フロー定義 ──
+const FLOWS = {
+  kobo: {
+    label: '補助金・公募型',
+    note: '交付決定前に事業を開始すると補助金が受け取れません。採択後も必ず「交付決定通知」が届いてから着手してください。',
+    steps: [
+      { title: '公募・要件確認', desc: '公募要領を確認し、自社が対象要件を満たすかチェック。不明点は事前相談を活用。' },
+      { title: '申請書類作成・提出', desc: '事業計画書・見積書等を作成し、期限内に申請。計画書の質が採否を左右する。' },
+      { title: '採択審査', desc: '審査機関による書類審査（数週間〜数ヶ月）。採択結果を待つ。' },
+      { title: '交付決定', badge: '着手NG', badgeCls: 'warn', desc: 'この通知が届くまで事業着手・発注・契約は厳禁。通知後に初めて着手できる。', hl: true },
+      { title: '事業実施・実績報告', desc: '補助対象の事業を実施し、完了後に実績報告書・証憑書類を提出。' },
+      { title: '補助金入金', desc: '確定検査・精算を経て補助金が指定口座に振り込まれる。' },
+    ]
+  },
+  jizen: {
+    label: '事前申請型',
+    note: '着工・発注・購入の前に申請が必要です。申請前に事業を開始すると補助対象外になります。',
+    steps: [
+      { title: '事前相談・要件確認', badge: '推奨', badgeCls: 'green', desc: '窓口に相談して補助対象か確認。必要書類リストも入手できる。' },
+      { title: '交付申請（着手前）', badge: '着手NG', badgeCls: 'warn', desc: 'この申請が承認される前に発注・着工・購入は厳禁。', hl: true },
+      { title: '審査・承認', desc: '審査完了まで数週間〜数ヶ月かかる場合あり。承認通知を待つ。' },
+      { title: '事業実施', desc: '承認後に設備導入・工事・研修等を実施。' },
+      { title: '実績報告・検査', desc: '事業完了後に実績報告書と証憑書類（領収書・写真等）を提出。' },
+      { title: '補助金入金', desc: '確定検査後に補助金が振り込まれる。' },
+    ]
+  },
+  shienkin: {
+    label: '支援金・給付型',
+    note: '対象となる取組を実施した後に申請する仕組みです。実施中から証拠書類（領収書・記録等）の保管を徹底してください。',
+    steps: [
+      { title: '対象取組の実施', desc: '賃上げ・燃料消費など、補助対象となる取組を実施。書類を適切に保管。' },
+      { title: '申請書類の準備', desc: '取組の証明書類（賃金台帳・領収書・実績記録等）を整理・収集。' },
+      { title: '窓口への申請', desc: '申請期限内に必要書類を揃えて窓口または郵送で申請。' },
+      { title: '審査・確認', desc: '書類審査（数週間程度）。不備があると修正を求められることがある。' },
+      { title: '支援金の入金', desc: '審査完了後、支援金が指定口座に振り込まれる。' },
+    ]
+  },
+  joseikin: {
+    label: '助成金・雇用型',
+    note: '雇用・取組の実施後に申請する仕組みです。採用前から支給要件を確認し、書類を整えておくことが重要です。',
+    steps: [
+      { title: '要件確認・準備', desc: '支給要件（雇用形態・就業規則等）を事前に確認。就業規則の整備が必要な場合あり。' },
+      { title: '対象となる雇用・取組の実施', desc: '雇用契約・各種取組を実施。雇用契約書・賃金台帳等を適切に整備・保管。' },
+      { title: '申請書類の準備', desc: '雇用契約書・賃金台帳・出勤簿・取組実績記録等を収集・整理。' },
+      { title: '申請・審査', desc: '窓口へ申請書類を提出。必要に応じて追加資料の提出を求められることあり。' },
+      { title: '支給決定・入金', desc: '審査完了後、助成金が指定口座に振り込まれる。支給まで数ヶ月かかる場合あり。' },
+    ]
+  },
+};
+
+// ID → フロータイプ の対応表
+const FLOW_MAP = {
+  'iwate-chinageshien':              'shienkin',
+  'sanriku-shinshop':                'kobo',
+  'morioka-unso-nenryo':             'shienkin',
+  'iwate-kyoiku-ryoko':              'shienkin',
+  'iwate-chinageshien-sogyoshien':   'kobo',
+  'iwate-taiyoko':                   'jizen',
+  'iwate-ev-hojo':                   'jizen',
+  'iwate-chizai':                    'jizen',
+  'iwate-kaigai-shutsugan':          'jizen',
+  'iwate-tenjikai':                  'jizen',
+  'morioka-sanzai':                  'jizen',
+  'iwate-chinagekankyo':             'kobo',
+  'iwate-shoene-jigyo':              'jizen',
+  'iwate-kensetsu-dx':               'kobo',
+  'iwate-kensetsu-keiei':            'kobo',
+  'iwate-kaigo-tech':                'jizen',
+  'iwate-healthtech':                'kobo',
+  'iwate-fukugyo-jinzai':            'jizen',
+  'iwate-koyo-kaifuku':              'joseikin',
+  'iwate-miryoku-shokuba':           'kobo',
+  'iwate-kaigo-kankyokaizen':        'kobo',
+  'iwate-shogaifukushi-kankyokaizen':'kobo',
+  'iwate-gaikoku-kaigo':             'jizen',
+  'iwate-suisan-renkei':             'kobo',
+  'iwate-shinshop-chiiki':           'kobo',
+  'iwate-shogyo-kasseika':           'kobo',
+  'iwate-telework':                  'jizen',
+  'iwate-jigyo-shokei-hojo':         'kobo',
+  'iwate-kibou-fund':                'kobo',
+  'iwate-jizokuryoku-kyoka':         'kobo',
+  'morioka-shijo-kaitaku':           'jizen',
+  'morioka-satellite':               'jizen',
+  'morioka-kigyo-richi':             'jizen',
+  'morioka-furusato-kigyo':          'kobo',
+  'morioka-takimaki':                'jizen',
+  'morioka-digital-jissho':          'kobo',
+  'morioka-jinzai-ikusei':           'jizen',
+  'morioka-nosanbutsu-kasseika':     'kobo',
+};
+
+// ── 申請フロー HTML 生成 ──
+function renderFlow(s) {
+  const ftype = FLOW_MAP[s.id];
+  const flow  = FLOWS[ftype];
+  if (!flow) return '';
+  const stepsHtml = flow.steps.map((st, i) => `
+    <div class="d-flow-step ${st.hl ? 'highlight' : ''}">
+      <div class="d-flow-num">${i + 1}</div>
+      <div class="d-flow-content">
+        <div class="d-flow-step-title">
+          ${st.title}
+          ${st.badge ? `<span class="d-flow-badge ${st.badgeCls || ''}">${st.badge}</span>` : ''}
+        </div>
+        <div class="d-flow-step-desc">${st.desc}</div>
+      </div>
+    </div>`).join('');
+  return `
+    <div>
+      <div class="d-section-title">申請フロー</div>
+      <div class="d-flow-wrap">
+        <div class="d-flow-header">
+          <div class="d-flow-header-title">申請フロー</div>
+          <span class="d-flow-type-badge">${flow.label}</span>
+        </div>
+        <div class="d-flow-note">${flow.note}</div>
+        <div class="d-flow-steps">${stepsHtml}</div>
+      </div>
+    </div>`;
+}
+
 // ── カードレンダリング ──
 function renderCard(s, idx) {
   const areaLabel = s.area === 'iwate' ? '岩手県' : '盛岡市';
@@ -1166,6 +1401,9 @@ function renderCard(s, idx) {
             ${s.conditions.map(c => `<span class="d-chip">${c}</span>`).join('')}
           </div>
         </div>
+
+        <!-- 申請フロー -->
+        ${renderFlow(s)}
 
       </div><!-- /detail-body -->
 

@@ -4,37 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>岩手県・盛岡市 補助金・助成金一覧</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #1d4ed8;
+  --primary: #1a56db;
   --primary-light: #eff6ff;
-  --iwate: #059669;
-  --iwate-light: #ecfdf5;
-  --morioka: #7c3aed;
-  --morioka-light: #f5f3ff;
-  --warn: #d97706;
-  --danger: #dc2626;
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-400: #9ca3af;
-  --gray-600: #4b5563;
-  --gray-700: #374151;
+  --gray-50: #f8f9fa;
+  --gray-100: #f0f1f3;
+  --gray-200: #d8dadf;
+  --gray-400: #9098a6;
+  --gray-600: #555e6d;
+  --gray-700: #3a404c;
   --gray-900: #111827;
-  --radius: 10px;
-  --font: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+  --font: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font); background: var(--gray-50); color: var(--gray-900); line-height: 1.6; font-size: 14px; }
+body { font-family: var(--font); background: var(--gray-50); color: var(--gray-900); line-height: 1.65; font-size: 14px; -webkit-font-smoothing: antialiased; }
 
 /* ── ヘッダー ── */
 .header {
-  background: white;
+  background: #fff;
   border-bottom: 1px solid var(--gray-200);
-  padding: 12px 20px;
+  padding: 0 20px;
+  height: 56px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -42,193 +39,197 @@ body { font-family: var(--font); background: var(--gray-50); color: var(--gray-9
 .header-back {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   color: var(--primary);
   text-decoration: none;
   font-size: 13px;
   font-weight: 600;
-  padding: 6px 12px;
-  border: 1px solid var(--primary);
-  border-radius: 6px;
+  padding: 5px 11px;
+  border: 1px solid var(--gray-200);
+  border-radius: 5px;
   flex-shrink: 0;
+  transition: background 0.1s;
 }
-.header-back:hover { background: var(--primary-light); }
-.header-title { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+.header-back:hover { background: var(--gray-50); }
+.header-title { font-size: 14px; font-weight: 700; color: var(--gray-900); }
 .header-count { font-size: 12px; color: var(--gray-400); margin-left: auto; white-space: nowrap; }
 
 /* ── コンテナ ── */
-.container { max-width: 900px; margin: 0 auto; padding: 20px 16px 80px; }
+.container { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
 
 /* ── ページヘッド ── */
 .page-head { margin-bottom: 20px; }
-.page-head-title { font-size: 20px; font-weight: 800; color: var(--gray-900); margin-bottom: 4px; }
+.page-head-title { font-size: 18px; font-weight: 800; color: var(--gray-900); margin-bottom: 4px; letter-spacing: -0.02em; }
 .page-head-sub { font-size: 13px; color: var(--gray-600); }
 
-/* ── フィルター・検索バー ── */
-.toolbar {
-  background: white;
+/* ── 統計バー ── */
+.stats-bar {
+  background: #fff;
   border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  margin-bottom: 16px;
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
   display: flex;
-  gap: 10px;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--gray-600);
+}
+.stats-item strong { font-size: 17px; font-weight: 800; color: var(--gray-900); margin-right: 2px; }
+
+/* ── ツールバー ── */
+.toolbar {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  gap: 8px;
   flex-wrap: wrap;
   align-items: center;
 }
-.filter-tabs { display: flex; gap: 6px; }
+.filter-tabs { display: flex; gap: 4px; }
 .filter-tab {
-  padding: 5px 14px;
-  border-radius: 99px;
-  border: 1.5px solid var(--gray-200);
-  background: white;
+  padding: 4px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--gray-200);
+  background: #fff;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.12s;
+  font-family: var(--font);
   color: var(--gray-600);
+  transition: all 0.1s;
 }
-.filter-tab.active-all    { background: var(--gray-900); color: white; border-color: var(--gray-900); }
-.filter-tab.active-iwate  { background: var(--iwate); color: white; border-color: var(--iwate); }
-.filter-tab.active-morioka { background: var(--morioka); color: white; border-color: var(--morioka); }
+.filter-tab:hover { background: var(--gray-50); }
+.filter-tab.active { background: var(--gray-900); color: #fff; border-color: var(--gray-900); }
 .search-input {
   flex: 1;
   min-width: 160px;
-  border: 1.5px solid var(--gray-200);
-  border-radius: 6px;
-  padding: 6px 12px;
+  border: 1px solid var(--gray-200);
+  border-radius: 5px;
+  padding: 5px 11px;
   font-size: 13px;
-  font-family: inherit;
+  font-family: var(--font);
   outline: none;
+  color: var(--gray-900);
 }
 .search-input:focus { border-color: var(--primary); }
 .sort-select {
-  border: 1.5px solid var(--gray-200);
-  border-radius: 6px;
-  padding: 6px 10px;
+  border: 1px solid var(--gray-200);
+  border-radius: 5px;
+  padding: 5px 10px;
   font-size: 12px;
-  font-family: inherit;
+  font-family: var(--font);
   outline: none;
   color: var(--gray-700);
-  background: white;
+  background: #fff;
   cursor: pointer;
 }
 .sort-select:focus { border-color: var(--primary); }
 
-/* ── カード ── */
-.card-list { display: flex; flex-direction: column; gap: 10px; }
+/* ── カードリスト ── */
+.card-list { display: flex; flex-direction: column; gap: 6px; }
+
 .card {
-  background: white;
+  background: #fff;
   border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
+  border-left: 3px solid var(--gray-200);
+  border-radius: 5px;
   overflow: hidden;
-  transition: box-shadow 0.12s;
+  transition: border-color 0.12s;
 }
-.card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.card[data-area="iwate"]   { border-left-color: var(--primary); }
+.card[data-area="morioka"] { border-left-color: #0891b2; }
+.card:hover { border-color: var(--gray-400); border-left-color: inherit; }
+
 .card-head {
-  padding: 14px 16px 10px;
+  padding: 13px 16px 11px 14px;
   cursor: pointer;
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: flex-start;
 }
-.card-badges { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
-.badge {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 99px;
-  white-space: nowrap;
-}
-.badge-iwate   { background: var(--iwate-light);   color: var(--iwate);   border: 1px solid #a7f3d0; }
-.badge-morioka { background: var(--morioka-light); color: var(--morioka); border: 1px solid #ddd6fe; }
-.badge-deadline-near   { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
-.badge-deadline-middle { background: #fff7ed; color: #c2410c; border: 1px solid #fdba74; }
-.badge-deadline-far    { background: #f0fdf4; color: #166534; border: 1px solid #86efac; }
-.badge-deadline-ongoing { background: var(--primary-light); color: var(--primary); border: 1px solid #93c5fd; }
-.badge-deadline-check  { background: var(--gray-100); color: var(--gray-600); border: 1px solid var(--gray-300); }
-
 .card-main { flex: 1; min-width: 0; }
-.card-name { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; line-height: 1.4; }
-.card-meta { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-.card-amount { font-size: 18px; font-weight: 800; color: var(--primary); }
-.card-amount-unit { font-size: 11px; font-weight: 600; color: var(--gray-400); margin-left: 2px; }
-.card-deadline-text { font-size: 12px; color: var(--gray-600); }
-.card-toggle { font-size: 11px; color: var(--gray-400); transition: transform 0.15s; flex-shrink: 0; padding-top: 2px; }
-.card.open .card-toggle { transform: rotate(180deg); }
+.card-area { font-size: 11px; font-weight: 600; color: var(--gray-400); letter-spacing: 0.02em; margin-bottom: 3px; }
+.card[data-area="iwate"]   .card-area { color: var(--primary); }
+.card[data-area="morioka"] .card-area { color: #0891b2; }
+.card-name { font-size: 14px; font-weight: 700; color: var(--gray-900); line-height: 1.45; margin-bottom: 6px; }
+.card-meta { display: flex; gap: 14px; flex-wrap: wrap; align-items: baseline; }
+.card-amount { font-size: 20px; font-weight: 800; color: var(--gray-900); letter-spacing: -0.03em; }
+.card-amount small { font-size: 12px; font-weight: 600; color: var(--gray-400); margin-left: 1px; }
+.card-deadline { font-size: 12px; color: var(--gray-600); }
+.card-deadline.near { color: #b91c1c; font-weight: 700; }
+.card-deadline.middle { color: #b45309; font-weight: 600; }
+.card-difficulty { font-size: 12px; color: var(--gray-400); }
+.card-chevron {
+  font-size: 16px;
+  color: var(--gray-400);
+  flex-shrink: 0;
+  padding-top: 2px;
+  transition: transform 0.18s;
+  user-select: none;
+}
+.card.open .card-chevron { transform: rotate(90deg); }
 
+/* ── カード詳細 ── */
 .card-body {
   display: none;
   border-top: 1px solid var(--gray-100);
-  padding: 14px 16px;
-  background: var(--gray-50);
+  padding: 16px 16px 16px 14px;
 }
 .card.open .card-body { display: block; }
 
-.card-row { margin-bottom: 10px; }
-.card-row:last-child { margin-bottom: 0; }
-.card-row-label {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--gray-600);
-  margin-bottom: 3px;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
-.card-row-value {
+.info-block { margin-bottom: 0; }
+.info-block.full { grid-column: 1 / -1; }
+.info-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.info-value {
   font-size: 13px;
   color: var(--gray-700);
-  line-height: 1.7;
+  line-height: 1.75;
 }
-.card-amount-note { font-size: 12px; color: var(--gray-600); line-height: 1.6; }
-.conditions-list { display: flex; flex-direction: column; gap: 3px; margin-top: 2px; }
+.info-value.small { font-size: 12px; color: var(--gray-600); }
+.conditions-list { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
 .condition-item {
   font-size: 12px;
   color: var(--gray-700);
-  padding: 3px 8px;
-  background: white;
-  border-left: 3px solid var(--gray-200);
-  border-radius: 2px;
+  padding: 4px 10px;
+  background: var(--gray-50);
+  border-left: 2px solid var(--gray-200);
+  line-height: 1.6;
 }
-.tag-list { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; }
-.tag {
-  font-size: 11px;
-  background: var(--gray-100);
+.contact-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
   color: var(--gray-600);
-  padding: 2px 7px;
+  margin-top: 12px;
+  padding: 6px 12px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
   border-radius: 4px;
 }
 
 /* 空状態 */
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--gray-400);
-  font-size: 14px;
-}
+.empty-state { text-align: center; padding: 60px 20px; color: var(--gray-400); font-size: 14px; }
 
-/* 統計バー */
-.stats-bar {
-  background: white;
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  margin-bottom: 14px;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  font-size: 12px;
-  color: var(--gray-600);
-}
-.stats-item strong { font-weight: 700; color: var(--gray-900); font-size: 16px; }
-.stats-iwate { color: var(--iwate); }
-.stats-morioka { color: var(--morioka); }
-
-@media (max-width: 600px) {
-  .toolbar { gap: 8px; }
-  .card-head { flex-direction: column; gap: 8px; }
-  .card-badges { flex-direction: row; }
-  .card-amount { font-size: 16px; }
+@media (max-width: 640px) {
+  .info-grid { grid-template-columns: 1fr; }
+  .card-amount { font-size: 17px; }
   .header-title { font-size: 13px; }
 }
 </style>
@@ -244,18 +245,18 @@ body { font-family: var(--font); background: var(--gray-50); color: var(--gray-9
 <div class="container">
   <div class="page-head">
     <div class="page-head-title">令和8年度 岩手県・盛岡市 補助金・助成金一覧</div>
-    <div class="page-head-sub">38件を掲載。締切日順に並んでいます。クリックで詳細を確認できます。</div>
+    <div class="page-head-sub">38件掲載。締切日順に並んでいます。クリックで詳細・申請スケジュールを確認できます。</div>
   </div>
 
   <div class="stats-bar">
     <div class="stats-item">全体 <strong id="stat-total">38</strong> 件</div>
-    <div class="stats-item stats-iwate">岩手県 <strong id="stat-iwate">0</strong> 件</div>
-    <div class="stats-item stats-morioka">盛岡市 <strong id="stat-morioka">0</strong> 件</div>
+    <div class="stats-item">岩手県 <strong id="stat-iwate">0</strong> 件</div>
+    <div class="stats-item">盛岡市 <strong id="stat-morioka">0</strong> 件</div>
   </div>
 
   <div class="toolbar">
     <div class="filter-tabs">
-      <button class="filter-tab active-all" onclick="setFilter('all', this)">全て</button>
+      <button class="filter-tab active" onclick="setFilter('all', this)">すべて</button>
       <button class="filter-tab" onclick="setFilter('iwate', this)">岩手県</button>
       <button class="filter-tab" onclick="setFilter('morioka', this)">盛岡市</button>
     </div>
@@ -273,22 +274,20 @@ body { font-family: var(--font); background: var(--gray-50); color: var(--gray-9
 </div>
 
 <script>
-// ════════════════════════════════════════════════════
-// 岩手県・盛岡市 補助金データ
-// ════════════════════════════════════════════════════
 const LOCAL_SUBSIDIES = [
   {
     id: 'iwate-chinageshien',
     name: '岩手県物価高騰対策賃上げ支援金',
     area: 'iwate',
     max_amount: 4000000,
-    amount_note: '従業員1人当たり6万円×最大50人分（1事業所最大400万円）。岩手県全体で25億4,000万円を上限とし、上限に達し次第終了',
-    deadline_text: '令和8年11月13日受付終了',
+    amount_note: '従業員1人当たり6万円×最大50人分（1事業所最大400万円）。岩手県全体で25億4,000万円が上限のため、上限到達次第終了。',
+    deadline_text: '令和8年11月13日 受付終了',
     deadline_sort: 20261113,
     deadline_status: 'near',
-    description: '物価高騰を受け、岩手県内の中小企業等が時間給を60円以上引き上げた場合に、従業員1人あたり6万円（最大50人分・最大400万円）を支給する県独自の支援金。令和8年11月13日受付終了（予算上限25億4,000万円に達し次第終了）。',
-    note_eligibility: '岩手県内に事業所を有する中小企業等（個人事業主・協同組合等含む、従業員1人以上）。令和7年10月1日〜令和8年9月30日の期間中に1時間当たり60円以上賃上げした従業員分が対象。令和8年2月13日受付開始',
-    conditions: ['岩手県内事業所であること', '1時間当たり60円以上の賃上げを実施（対象期間：令和7年10月〜令和8年9月）'],
+    description: '物価高騰を受け、岩手県内の中小企業等が時間給を60円以上引き上げた場合に、従業員1人あたり6万円（最大50人分・最大400万円）を支給する県独自の支援金。令和8年2月13日から受付を開始しており、予算上限（25億4,000万円）に達し次第終了となる。',
+    note_eligibility: '岩手県内に事業所を有する中小企業等（個人事業主・協同組合等含む、従業員1人以上）。令和7年10月1日〜令和8年9月30日の期間中に1時間当たり60円以上賃上げした従業員分が対象。',
+    conditions: ['岩手県内事業所であること', '対象期間（令和7年10月〜令和8年9月）に時給60円以上の賃上げを実施'],
+    schedule: '受付期間は令和8年2月13日〜11月13日。賃上げ実施後にまとめて申請できる仕組みのため、9〜10月頃に対象期間の賃上げ実績をまとめて申請するのが効率的。ただし予算上限（25億4千万円）があるため、早期申請を強く推奨する。申請は郵送または窓口持参のみ。',
     difficulty: 1,
     contact: '物価高騰対策賃上げ支援事業事務局（019-601-7165）',
   },
@@ -297,13 +296,14 @@ const LOCAL_SUBSIDIES = [
     name: 'さんりく基金助成事業（新商品・地域サービス開発）',
     area: 'iwate',
     max_amount: 500000,
-    amount_note: '助成限度額50万円。岩手県北・沿岸地域を拠点とする事業者が対象',
-    deadline_text: '令和8年5月25日（申込期限）',
+    amount_note: '助成限度額50万円。岩手県北・沿岸地域を拠点とする事業者が対象。',
+    deadline_text: '令和8年5月25日 申込期限',
     deadline_sort: 20260525,
     deadline_status: 'near',
     description: '公益財団法人さんりく基金が岩手県北・沿岸地域の復興・振興のために実施する助成制度。地域の農林水産物や観光資源を活かした新商品開発、体験プログラム開発、新たなサービス開発に最大50万円を助成。',
-    note_eligibility: '岩手県北・沿岸地域（久慈市・宮古市・釜石市・大船渡市・陸前高田市等）を拠点とする事業者・団体。農林水産物・観光資源等の地域特性を活かした新商品・サービス開発が対象',
+    note_eligibility: '岩手県北・沿岸地域（久慈市・宮古市・釜石市・大船渡市・陸前高田市等）を拠点とする事業者・団体。農林水産物・観光資源等の地域特性を活かした新商品・サービス開発が対象。',
     conditions: ['岩手県北・沿岸地域を拠点とする事業者・団体（対象地域限定）', '地域資源を活かした新商品・サービス開発事業であること'],
+    schedule: '令和8年5月25日が申込期限でありすでに直前。書類（事業計画書・収支計画等）を早急に準備し、申込後の審査に備える必要がある。申込方法はいわて産業振興センターへの持参または郵送で受付。採択後は事業実施〜実績報告のスケジュール管理が重要。',
     difficulty: 2,
     contact: 'さんりく基金（いわて産業振興センター）',
   },
@@ -312,13 +312,14 @@ const LOCAL_SUBSIDIES = [
     name: '盛岡市運送事業者燃料価格高騰対策支援金',
     area: 'morioka',
     max_amount: 1600000,
-    amount_note: '最大160万円（車両台数・燃料消費量等に応じた算定）',
-    deadline_text: '2026年7月31日（第4弾）',
+    amount_note: '最大160万円。車両台数・燃料消費量等に応じた算定。',
+    deadline_text: '2026年7月31日 申請期限（第4弾）',
     deadline_sort: 20260731,
     deadline_status: 'middle',
-    description: '燃料費高騰の影響を受ける盛岡市内のトラック事業者等を支援する市独自の支援金。車両台数や燃料消費実績に基づいて最大160万円を支給。申請期限は2026年7月31日（第4弾）。',
-    note_eligibility: '盛岡市内に営業所を有する一般貨物・特定貨物自動車運送事業者等。第4弾の申請期限は2026年7月31日',
+    description: '燃料費高騰の影響を受ける盛岡市内のトラック事業者等を支援する市独自の支援金。車両台数や燃料消費実績に基づいて最大160万円を支給。過去3弾の実績がある継続制度のため手続きに慣れた申請しやすい制度。',
+    note_eligibility: '盛岡市内に営業所を有する一般貨物・特定貨物自動車運送事業者等。第4弾の申請期限は2026年7月31日。',
     conditions: ['盛岡市内に営業所を有する運送事業者', '申請期限2026年7月31日'],
+    schedule: '申請期限は2026年7月31日。過去に第1〜3弾を申請した事業者は手続きの流れが分かっているため準備しやすい。まず燃料消費実績（車両ごとの燃料消費量・購入証明）を整理してから盛岡市商工観光課へ申請を行う。6月中に書類を揃えておくと余裕を持って申請できる。',
     difficulty: 1,
     contact: '盛岡市商工観光課',
   },
@@ -327,13 +328,14 @@ const LOCAL_SUBSIDIES = [
     name: 'いわて教育旅行催行支援緊急対策支援金',
     area: 'iwate',
     max_amount: 3000000,
-    amount_note: '物価高騰分の価格差を補填する支援金。金額は旅行規模・人数等による（要算定）',
-    deadline_text: '令和8年9月30日宿泊分まで',
+    amount_note: '物価高騰分の価格差を補填する支援金。金額は旅行規模・人数等による（要算定）。',
+    deadline_text: '令和8年9月30日 宿泊分まで対象',
     deadline_sort: 20260930,
     deadline_status: 'middle',
     description: '物価高騰により価格転嫁が困難な教育旅行（修学旅行等）を受け入れる岩手県内の宿泊事業者・貸切バス事業者への支援金。コスト上昇分を補填する仕組みで、観光業の経営安定を支援。令和8年9月30日宿泊分まで対象。',
-    note_eligibility: '岩手県内の宿泊事業者または貸切バス事業者。文部科学省が定める教育課程の一環として実施される旅行（修学旅行等）の受入が対象',
+    note_eligibility: '岩手県内の宿泊事業者または貸切バス事業者。文部科学省が定める教育課程の一環として実施される旅行（修学旅行等）の受入が対象。',
     conditions: ['岩手県内の宿泊施設または貸切バス事業者', '修学旅行等の教育旅行の受入'],
+    schedule: '令和8年9月30日宿泊分まで対象。旅行実施後に申請する仕組みのため、受入予約が確定した段階で岩手県観光局に申請スケジュールを確認することを推奨。複数回の受入がある場合はその都度申請が必要になる可能性があるため、年度内のスケジュールを早めに把握しておくこと。',
     difficulty: 1,
     contact: '岩手県観光局',
   },
@@ -342,13 +344,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県地方創生起業支援金',
     area: 'iwate',
     max_amount: 2000000,
-    amount_note: '補助率1/2以内、上限200万円。店舗賃借料・設備費・広報費・外注費・人件費等が対象',
-    deadline_text: '令和9年2月15日まで',
+    amount_note: '補助率1/2以内、上限200万円。店舗賃借料・設備費・広報費・外注費・人件費等が対象。',
+    deadline_text: '令和9年2月15日 申請期限',
     deadline_sort: 20270215,
     deadline_status: 'far',
-    description: '岩手県独自の起業支援制度（令和8年度公募実施中）。岩手県内で地域課題の解決を目的とした新規起業・第二創業・事業承継に対し最大200万円（対象経費の1/2以内）を支援。申請期限：令和9年2月15日まで。',
-    note_eligibility: '岩手県内に居住（または居住予定）し、地域課題解決を目的とした社会的事業を起業・第二創業・事業承継する方。令和8年度公募実施中（岩手県中小企業団体中央会が窓口）',
-    conditions: ['岩手県内に居住または居住予定（令和9年2月15日まで）', '地域課題解決を目的とした社会的事業であること'],
+    description: '岩手県独自の起業支援制度（令和8年度公募実施中）。岩手県内で地域課題の解決を目的とした新規起業・第二創業・事業承継に対し最大200万円（対象経費の1/2以内）を支援。',
+    note_eligibility: '岩手県内に居住（または居住予定）し、地域課題解決を目的とした社会的事業を起業・第二創業・事業承継する方。令和8年度公募実施中（岩手県中小企業団体中央会が窓口）。',
+    conditions: ['岩手県内に居住または居住予定', '地域課題解決を目的とした社会的事業であること'],
+    schedule: '申請期限は令和9年2月15日だが、審査があるため2〜3ヶ月前（11〜12月頃）からの準備を推奨する。事業計画書・収支計画の作成が中心となるため、岩手県中小企業団体中央会への無料事前相談を早めに活用すること。採択後は補助事業の実施〜完了報告という流れになる。',
     difficulty: 2,
     contact: '岩手県中小企業団体中央会',
   },
@@ -357,13 +360,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県事業者向け自家消費型太陽光発電設備設置事業補助金',
     area: 'iwate',
     max_amount: 50000000,
-    amount_note: '中小事業者：1kW当たり5万円（上限5,000万円）。中小事業者以外：1kW当たり3万円（上限3,000万円）。令和8年度受付中（予算消化次第終了）',
+    amount_note: '中小事業者：1kW当たり5万円（上限5,000万円）。中小事業者以外：1kW当たり3万円（上限3,000万円）。令和8年度受付中（予算消化次第終了）。',
     deadline_text: '受付中（予算消化次第終了）',
     deadline_sort: 99990000,
     deadline_status: 'ongoing',
     description: '岩手県内の中小企業が自社で消費する電力を賄う太陽光発電設備を設置する際、1kW当たり5万円（上限5,000万円）を補助する制度（令和8年度受付中）。電気代削減と脱炭素の両立を目的とする。',
-    note_eligibility: '岩手県内に事業所を有する中小企業者等。電力会社への売電を主目的としない自家消費型であることが必須。太陽光発電設備（10kW以上が目安）の新規設置が対象',
+    note_eligibility: '岩手県内に事業所を有する中小企業者等。電力会社への売電を主目的としない自家消費型であることが必須。太陽光発電設備（10kW以上が目安）の新規設置が対象。',
     conditions: ['岩手県内の事業所に設置', '自家消費型（売電主目的でない）', '10kW以上の設備が目安'],
+    schedule: '令和8年度受付中だが予算消化次第終了のため早めの申請が必要。まず設計・施工業者に見積を取り、発注前に申請手続きを開始する。補助金額が大きいため申請件数が多く、問い合わせから採択まで時間がかかる場合がある。設備導入計画の最初の段階（設計前）で岩手県環境生活部地球温暖化対策課へ相談を。',
     difficulty: 2,
     contact: '岩手県環境生活部地球温暖化対策課',
   },
@@ -372,13 +376,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県事業者向けEV等導入事業費補助金',
     area: 'iwate',
     max_amount: 1250000,
-    amount_note: '上限125万円。EV（PHV含む）・太陽光発電設備・車載型蓄電池・充放電設備等の導入経費を補助。令和8年度公募受付中（2026年4月〜）',
+    amount_note: '上限125万円。EV・PHV・太陽光発電設備・車載型蓄電池・充放電設備等の導入経費を補助。令和8年度（2026年4月〜）受付中。',
     deadline_text: '受付中（令和8年度）',
     deadline_sort: 99990001,
     deadline_status: 'ongoing',
     description: '岩手県温暖化防止県民会議が実施する、県内中小企業向けのEV・太陽光・蓄電池等脱炭素設備導入補助金（令和8年度受付中）。上限125万円。導入効果の情報発信が条件。',
-    note_eligibility: '岩手県内に拠点を有する中小事業者等。対象設備に関して国の補助金を受けていないこと、県税の滞納がないこと',
+    note_eligibility: '岩手県内に拠点を有する中小事業者等。対象設備に関して国の補助金を受けていないこと、県税の滞納がないことが要件。',
     conditions: ['岩手県内に拠点を有する中小事業者等', 'EV・PHV・太陽光・蓄電池・充放電設備等を導入', '国の同設備補助と重複受給不可', '導入効果の情報発信'],
+    schedule: '令和8年度（2026年4月〜）受付中。設備の発注・購入前に申請が必要なため、導入計画の最初の段階で申請手続きを確認すること。購入後の申請は対象外となる。国の補助金との重複受給が不可のため、他の補助金との組み合わせを事前に整理してから申請準備を進めることを推奨する。',
     difficulty: 2,
     contact: '岩手県温暖化防止県民会議（019-629-5393）',
   },
@@ -387,13 +392,14 @@ const LOCAL_SUBSIDIES = [
     name: '産業財産権取得補助金（いわて産業振興センター）',
     area: 'iwate',
     max_amount: 200000,
-    amount_note: '補助率1/2以内、上限20万円。特許・実用新案・意匠・商標の国内出願費用（出願手数料・弁理士費用）が対象',
+    amount_note: '補助率1/2以内、上限20万円。特許・実用新案・意匠・商標の国内出願費用（出願手数料・弁理士費用）が対象。',
     deadline_text: '随時受付',
     deadline_sort: 99990100,
     deadline_status: 'ongoing',
     description: '岩手県内の中小企業が特許・実用新案・意匠・商標等の産業財産権を取得する際の出願費用の1/2（上限20万円）を補助する制度。いわて産業振興センターが窓口で、申請前の無料相談も利用可能。',
-    note_eligibility: '岩手県内に主たる事業所を有する中小企業者等。特許・実用新案・意匠・商標の国内出願が対象',
+    note_eligibility: '岩手県内に主たる事業所を有する中小企業者等。特許・実用新案・意匠・商標の国内出願が対象。',
     conditions: ['岩手県内に主たる事業所', '特許・実用新案・意匠・商標の国内出願', '中小企業者等'],
+    schedule: '随時受付中。出願前の事前相談が無料で受けられるため、いわて産業振興センター（019-631-3825）に相談してから申請準備を進めるのが効率的。特許の場合は出願から審査まで数年かかるため、早期申請が有利。出願後に補助金申請を行う流れが一般的。',
     difficulty: 1,
     contact: 'いわて産業振興センター（019-631-3825）',
   },
@@ -402,13 +408,14 @@ const LOCAL_SUBSIDIES = [
     name: '海外出願支援事業（いわて産業振興センター）',
     area: 'iwate',
     max_amount: 1500000,
-    amount_note: '特許：上限150万円、実用新案・意匠・商標：上限60万円、冒認対策商標：上限30万円（補助率1/2）',
+    amount_note: '特許：上限150万円、実用新案・意匠・商標：上限60万円、冒認対策商標：上限30万円（補助率1/2）。',
     deadline_text: '随時受付',
     deadline_sort: 99990101,
     deadline_status: 'ongoing',
     description: '岩手県内の中小企業が保有する特許・商標等を海外でも権利化する際の外国出願費用の一部を補助する制度。特許の場合上限150万円、商標・意匠は60万円。海外展開・輸出を検討している事業者に有効。',
-    note_eligibility: '岩手県内に事業所を有する中小企業者等。日本国内で特許・実用新案・意匠・商標出願済のものを外国特許庁に優先権主張して出願する場合が対象',
+    note_eligibility: '岩手県内に事業所を有する中小企業者等。日本国内で特許・実用新案・意匠・商標出願済のものを外国特許庁に優先権主張して出願する場合が対象。',
     conditions: ['岩手県内に事業所', '国内出願済の特許・実用新案・意匠・商標を保有', '外国特許庁への出願予定'],
+    schedule: '随時受付中だが、国内出願後に外国出願できる優先権主張の期限（特許は12ヶ月、商標・意匠は6ヶ月）があるため、国内出願後すぐにいわて産業振興センターへ相談することを推奨する。海外展開・輸出を検討し始めた段階で早めに問い合わせを。',
     difficulty: 2,
     contact: 'いわて産業振興センター（019-631-3825）',
   },
@@ -417,13 +424,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県展示会等出展支援事業費補助金',
     area: 'iwate',
     max_amount: 200000,
-    amount_note: '出展料・小間装飾費・派遣説明員の旅費宿泊費が対象。上限20万円',
+    amount_note: '出展料・小間装飾費・派遣説明員の旅費宿泊費が対象。上限20万円。',
     deadline_text: '先着順（予算終了次第終了）',
     deadline_sort: 99990102,
     deadline_status: 'ongoing',
     description: '岩手県内の中小企業が国内外の展示会・見本市・商談会に出展する際の費用（出展料・装飾費・旅費等）を補助する制度（上限20万円）。業種を問わず利用でき、新規取引先の開拓や製品・サービスのPRを目的とした出展に活用できる。',
-    note_eligibility: '岩手県内に主たる事業所を有する中小企業者等。申請前にいわて産業振興センター（019-631-3825）への相談が必要。先着順のため予算終了次第終了',
+    note_eligibility: '岩手県内に主たる事業所を有する中小企業者等。申請前にいわて産業振興センター（019-631-3825）への相談が必要。先着順のため予算終了次第終了。',
     conditions: ['岩手県内に主たる事業所', '国内外の展示会・商談会への出展', '事前にいわて産業振興センターへ相談'],
+    schedule: '先着順のため予算終了次第終了。出展が決定したらすぐにいわて産業振興センターへ相談すること（事前相談が必須要件）。出展1ヶ月前を目安に申請手続きを完了させることを推奨する。展示会への出展が複数回ある場合は1回ごとに申請が必要。',
     difficulty: 1,
     contact: 'いわて産業振興センター（019-631-3825）',
   },
@@ -432,13 +440,14 @@ const LOCAL_SUBSIDIES = [
     name: '盛岡市市産材利用店舗等支援事業',
     area: 'morioka',
     max_amount: 200000,
-    amount_note: '利用した市産材の資材費の1/2以内、上限20万円。店舗・飲食店等の新築・増改築・修繕工事が対象',
+    amount_note: '利用した市産材の資材費の1/2以内、上限20万円。店舗・飲食店等の新築・増改築・修繕工事が対象。',
     deadline_text: '先着順（予算終了次第終了）',
     deadline_sort: 99990200,
     deadline_status: 'ongoing',
     description: '盛岡市内の店舗や飲食店が新築・改修時に盛岡市産の木材を使用した場合に、使用した市産材の資材費の1/2（上限20万円）を補助する制度。内装木質化や什器の木製化なども対象になる場合あり。先着順。',
-    note_eligibility: '盛岡市内の店舗・飲食店等の新築・増改築・修繕工事に盛岡市産材を使用する場合。工事完了後に市産材利用の表示が必要',
+    note_eligibility: '盛岡市内の店舗・飲食店等の新築・増改築・修繕工事に盛岡市産材を使用する場合。工事完了後に市産材利用の表示が必要。',
     conditions: ['盛岡市内の店舗・飲食店等', '市産材を新たに使用する工事', '完了後に市産材利用の表示'],
+    schedule: '先着順・予算終了次第終了。工事着工前の申請が必須のため、リフォーム・新築の計画段階（設計時）から補助金の利用を検討すること。施工業者と市産材の調達について事前に相談し、見積書を準備してから盛岡市農林部林業振興課に申請する。工事後の事後申請は対象外。',
     difficulty: 1,
     contact: '盛岡市農林部林業振興課',
   },
@@ -447,13 +456,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県中小企業等賃上げ環境整備支援事業費補助金',
     area: 'iwate',
     max_amount: 2000000,
-    amount_note: '補助率2/3以内、上限200万円。機械装置・システム構築費・人材育成・販路開拓等の経費が対象',
+    amount_note: '補助率2/3以内、上限200万円。機械装置・システム構築費・人材育成・販路開拓等の経費が対象。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991000,
     deadline_status: 'check',
     description: '岩手県が独自に行う、賃上げに向けた環境整備を支援する補助金。経営革新計画を承認された事業者が、生産性向上のための設備投資・人材育成・販路開拓に要する経費の2/3（上限200万円）を補助。',
-    note_eligibility: '岩手県内の中小企業・小規模事業者。経営革新計画承認取得者が対象',
+    note_eligibility: '岩手県内の中小企業・小規模事業者。経営革新計画承認取得者が対象（未承認者は申請と並行して承認申請が可能）。',
     conditions: ['岩手県内事業所であること', '経営革新計画の承認が必要（未承認者は事前申請可）'],
+    schedule: '令和8年度公募中のため締切日は要確認。経営革新計画の承認が申請前提となるため、未承認の場合は計画承認申請から始める必要がある（承認まで数ヶ月）。まず岩手県商工労働観光部経営支援課（019-629-5544）に現在の公募状況と申請スケジュールを確認し、早めに動き出すことを推奨する。',
     difficulty: 2,
     contact: '岩手県商工労働観光部 経営支援課（019-629-5544）',
   },
@@ -462,13 +472,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県事業者向け省エネルギー対策推進事業',
     area: 'iwate',
     max_amount: 800000,
-    amount_note: '補助率1/2、上限50万円（いわて脱炭素化経営企業等認定取得者は上限80万円）。高効率空調・照明・給湯機器・換気設備への更新が対象',
+    amount_note: '補助率1/2、上限50万円（いわて脱炭素化経営企業等認定取得者は上限80万円）。高効率空調・照明・給湯機器・換気設備への更新が対象。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991001,
     deadline_status: 'check',
     description: '岩手県内の中小事業者が既存の空調・照明・給湯・換気設備を高効率機器に更新する際の費用を補助する県独自制度。補助率1/2で上限50万円（脱炭素認定取得者は80万円）。',
-    note_eligibility: '岩手県内の中小事業者等。既存設備を従来比30%以上省CO2効果のある高効率機器に更新する場合が対象',
+    note_eligibility: '岩手県内の中小事業者等。既存設備を従来比30%以上省CO2効果のある高効率機器に更新する場合が対象。',
     conditions: ['岩手県内事業所であること', '従来機器比30%以上の省CO2効果がある機器への更新'],
+    schedule: '令和8年度公募中のため締切日は要確認。設備更新の計画が決まったら早めに申請手続きを開始する。機器カタログや見積書（省CO2効果の数値が記載されたもの）の準備が必要。既存設備の情報（型番・購入年・消費電力等）も申請書類に必要になるため、事前に整理しておくこと。',
     difficulty: 1,
     contact: '岩手県環境生活部地球温暖化対策課',
   },
@@ -477,13 +488,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県建設DX推進事業費補助金',
     area: 'iwate',
     max_amount: 2000000,
-    amount_note: '人材育成支援事業200万円・生産性向上事業150万円・バックオフィスDX50万円。いずれも補助率1/2以内',
+    amount_note: '人材育成支援事業200万円・生産性向上事業150万円・バックオフィスDX50万円。いずれも補助率1/2以内。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991002,
     deadline_status: 'check',
     description: '岩手県内の建設業者向けDX推進補助金。現場の効率化・安全性向上・働き方改革を目的に、建設DX人材育成（最大200万円）・生産性向上設備導入（最大150万円）・バックオフィスDX（最大50万円）の3種類から申請可能。',
-    note_eligibility: '岩手県内に主たる営業所を有し、岩手県知事または国土交通大臣の建設業許可を受けた建設業者',
+    note_eligibility: '岩手県内に主たる営業所を有し、岩手県知事または国土交通大臣の建設業許可を受けた建設業者。',
     conditions: ['岩手県内建設業許可業者であること', '事業終了後に実績報告書の提出'],
+    schedule: '令和8年度公募中のため締切日は要確認。3種類の補助事業（人材育成・生産性向上・バックオフィスDX）があり、申請条件が異なる。自社で取り組みたい内容を整理した上で岩手県県土整備部建設技術振興課に事前相談し、適した申請枠を確認してから書類準備を進めることを推奨する。',
     difficulty: 2,
     contact: '岩手県県土整備部建設技術振興課',
   },
@@ -492,13 +504,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県建設業経営力強化支援事業費補助金',
     area: 'iwate',
     max_amount: 1000000,
-    amount_note: '補助率1/2以内、上限100万円。新分野進出・新技術開発・販路開拓に要する経費が対象',
+    amount_note: '補助率1/2以内、上限100万円。新分野進出・新技術開発・販路開拓に要する経費が対象。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991003,
     deadline_status: 'check',
     description: '岩手県建設業者が新分野に進出したり、新技術を開発・導入する際の経費を支援する県独自補助金。上限100万円・補助率1/2。',
-    note_eligibility: '岩手県建設業許可を受けた事業者。新分野進出・新技術開発等の場合は複数社でのグループ申請も可',
+    note_eligibility: '岩手県建設業許可を受けた事業者。新分野進出・新技術開発等の場合は複数社でのグループ申請も可。',
     conditions: ['岩手県内建設業許可業者であること'],
+    schedule: '令和8年度公募中のため締切日は要確認。複数社でのグループ申請も可能なため、取引先や協力会社との連携を検討することで採択可能性が高まる場合がある。申請前に事業計画の内容（新分野進出の具体的な内容、期待効果）を整理しておくこと。',
     difficulty: 2,
     contact: '岩手県県土整備部建設技術振興課',
   },
@@ -507,13 +520,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県介護テクノロジー導入等支援事業費補助金',
     area: 'iwate',
     max_amount: 2600000,
-    amount_note: '介護ロボット：移乗支援100万円・移動・排泄支援等30万円。ICT導入：職員規模に応じ100〜260万円',
-    deadline_text: '要確認（例年8月頃締切）',
+    amount_note: '介護ロボット：移乗支援100万円・移動・排泄支援等30万円。ICT導入：職員規模に応じ100〜260万円。',
+    deadline_text: '要確認（例年8月頃に事前協議締切）',
     deadline_sort: 99991004,
     deadline_status: 'check',
-    description: '岩手県が介護事業所のICT化・介護ロボット導入を支援する独自補助金。介護記録・勤怠管理ソフト等のICT導入で最大260万円（職員規模による）、介護ロボット（移乗支援機器等）の導入で最大100万円。事前協議締切は例年8月頃。',
-    note_eligibility: '岩手県内の介護保険サービス事業所（訪問介護・通所介護・特養等）。事前協議が必要',
+    description: '岩手県が介護事業所のICT化・介護ロボット導入を支援する独自補助金。介護記録・勤怠管理ソフト等のICT導入で最大260万円（職員規模による）、介護ロボット（移乗支援機器等）の導入で最大100万円。',
+    note_eligibility: '岩手県内の介護保険サービス事業所（訪問介護・通所介護・特養等）。事前協議が必要。',
     conditions: ['岩手県内介護保険サービス事業所であること', '事前協議（例年8月頃締切）の実施'],
+    schedule: '事前協議の締切は例年8月頃。事前協議（事業実施計画の提出）→承認→本申請という2段階のプロセスのため、導入したい機器・システムの選定を7月上旬までに完了させ、8月の事前協議に備えることを推奨する。早めに岩手県保健福祉部長寿社会課に確認することで申請準備が整う。',
     difficulty: 1,
     contact: '岩手県保健福祉部長寿社会課',
   },
@@ -522,13 +536,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県ヘルステック等製品化促進事業費補助金',
     area: 'iwate',
     max_amount: 1499999,
-    amount_note: '補助率1/2以内、上限149万9,999円。ヘルステック等分野の製品開発・事業化に要する経費が対象',
+    amount_note: '補助率1/2以内、上限149万9,999円。ヘルステック等分野の製品開発・事業化に要する経費が対象。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991005,
     deadline_status: 'check',
     description: '岩手県内のものづくり中小企業が、ヘルステック・医療機器・福祉用具等の製品開発や事業化に取り組む場合の経費を補助。補助率1/2、上限約150万円。岩手県中小企業団体中央会が公募窓口。',
-    note_eligibility: '岩手県内に生産拠点または開発拠点を有するものづくり中小企業。ヘルステック・医療機器・福祉用具等の分野',
+    note_eligibility: '岩手県内に生産拠点または開発拠点を有するものづくり中小企業。ヘルステック・医療機器・福祉用具等の分野。',
     conditions: ['岩手県内に生産・開発拠点を有するものづくり中小企業', 'ヘルステック等分野の製品開発事業であること'],
+    schedule: '令和8年度公募中のため締切日は要確認。審査・採択があるため事業計画書の完成度が採否を左右する。技術的な独自性と市場性を丁寧に記述した計画書を作成し、岩手県中小企業団体中央会に早めに相談することを推奨する。',
     difficulty: 2,
     contact: '岩手県中小企業団体中央会',
   },
@@ -537,13 +552,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県副業・兼業人材活用事業費補助金',
     area: 'iwate',
     max_amount: 500000,
-    amount_note: 'マッチング手数料・交通費・宿泊費等の一部補助。上限額は案件により異なる（要問い合わせ）',
+    amount_note: 'マッチング手数料・交通費・宿泊費等の一部補助。上限額は案件により異なる（要問い合わせ）。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991006,
     deadline_status: 'check',
     description: '岩手県プロフェッショナル人材戦略拠点を活用して県外副業・兼業人材（DX・経営企画・営業等の高スキル人材）を採用した際の紹介手数料・交通費・宿泊費等を補助する制度。',
-    note_eligibility: '岩手県内事業所を有する中小企業等。岩手県プロフェッショナル人材戦略拠点経由での採用が条件',
+    note_eligibility: '岩手県内事業所を有する中小企業等。岩手県プロフェッショナル人材戦略拠点経由での採用が条件。',
     conditions: ['岩手県プロフェッショナル人材戦略拠点経由での採用', '岩手県内事業所'],
+    schedule: '令和8年度公募中のため締切日は要確認。まず岩手県プロフェッショナル人材戦略拠点（019-625-1505）に求める人材要件を相談し、マッチング後に補助申請という流れになる。採用が決定する前に補助制度の適用可否を確認しておくことが重要。',
     difficulty: 2,
     contact: '岩手県プロフェッショナル人材戦略拠点（019-625-1505）',
   },
@@ -552,13 +568,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県事業復興型雇用確保助成金',
     area: 'iwate',
     max_amount: 1200000,
-    amount_note: '雇用1人当たり3年間で最大120万円（月額3.3万円相当）。住宅支援費の加算制度もあり',
+    amount_note: '雇用1人当たり3年間で最大120万円（月額3.3万円相当）。住宅支援費の加算制度もあり。',
     deadline_text: '要確認（令和8年度実施中）',
     deadline_sort: 99991007,
     deadline_status: 'check',
     description: '岩手県沿岸12市町村の事業所が、被災三県の求職者を新たに雇用した場合に1人最大120万円（3年間）を助成する県独自制度。令和7年3月15日以降の雇い入れが対象。沿岸部での採用を強化したい事業者に最適。',
-    note_eligibility: '【対象地域限定】岩手県沿岸12市町村（宮古・釜石・大船渡・陸前高田等）に所在する事業所が条件。被災三県（岩手・宮城・福島）の求職者を雇い入れた場合に助成',
+    note_eligibility: '【対象地域限定】岩手県沿岸12市町村（宮古・釜石・大船渡・陸前高田等）に所在する事業所が対象。被災三県（岩手・宮城・福島）の求職者を雇い入れた場合に助成。',
     conditions: ['岩手県沿岸12市町村内の事業所であること（対象地域限定）', '被災三県（岩手・宮城・福島）の求職者を雇用'],
+    schedule: '令和8年度実施中のため締切日は要確認。雇用後に申請する仕組みのため、採用時から雇用契約書・賃金台帳等の書類を適切に保管しておくことが重要。3年間にわたる助成のため長期的な雇用計画と組み合わせて活用することを推奨する。',
     difficulty: 1,
     contact: '岩手県商工労働観光部産業人材育成課',
   },
@@ -567,13 +584,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県魅力ある職場づくり推進事業費補助金',
     area: 'iwate',
     max_amount: 1250000,
-    amount_note: '上限100万円（3区分以上の取組実施で125万円）。対象経費：専門家謝金・コンサル料・研修費・物品購入費等',
+    amount_note: '上限100万円（3区分以上の取組実施で125万円）。対象経費：専門家謝金・コンサル料・研修費・物品購入費等。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991008,
     deadline_status: 'check',
-    description: '若者・女性に魅力ある職場づくりに取り組む県内中小企業を支援する県独自補助金。時短勤務導入・子育て支援・スキルアップ研修など2区分以上の取組に対して最大125万円を補助。採用力強化・離職防止に直結する制度。',
-    note_eligibility: '岩手県内に事業所を有する中小企業等。「所定内労働時間の短縮」「子育てしやすい環境整備」「リスキリング支援」等2区分以上の取組が必須',
+    description: '若者・女性に魅力ある職場づくりに取り組む県内中小企業を支援する県独自補助金。時短勤務導入・子育て支援・スキルアップ研修など2区分以上の取組に対して最大125万円を補助。',
+    note_eligibility: '岩手県内に事業所を有する中小企業等。「所定内労働時間の短縮」「子育てしやすい環境整備」「リスキリング支援」等2区分以上の取組が必須。',
     conditions: ['岩手県内事業所', '所定内労働時間短縮・子育て支援・リスキリング等から2区分以上実施'],
+    schedule: '令和8年度公募中のため締切日は要確認。まず自社の職場課題を整理し、取り組む区分（2区分以上）を決めた上で申請準備を進めること。専門家・コンサルタントの活用も補助対象のため、外部の力を借りた計画づくりがしやすい。',
     difficulty: 2,
     contact: '岩手県商工労働観光部産業人材育成課',
   },
@@ -582,13 +600,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県介護人材確保・職場環境改善等事業費補助金',
     area: 'iwate',
     max_amount: 1000000,
-    amount_note: '1事業所あたりの上限は規模・取組内容による（要問い合わせ）。介護助手募集費・研修費・業務改善費等が対象',
+    amount_note: '1事業所あたりの上限は規模・取組内容による（要問い合わせ）。介護助手募集費・研修費・業務改善費等が対象。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991009,
     deadline_status: 'check',
-    description: '介護人材の確保・定着・職場環境改善に取り組む県内介護事業所を支援する県独自補助金。介護助手の募集経費・職場環境改善の研修費・業務見える化のためのシステム導入費等が対象。介護テクノロジー補助金と並行活用可能。',
-    note_eligibility: '岩手県内の介護保険サービス事業者（処遇改善加算算定中の事業所）',
+    description: '介護人材の確保・定着・職場環境改善に取り組む県内介護事業所を支援する県独自補助金。介護助手の募集経費・職場環境改善の研修費・業務見える化のためのシステム導入費等が対象。',
+    note_eligibility: '岩手県内の介護保険サービス事業者（処遇改善加算算定中の事業所）。',
     conditions: ['岩手県内介護保険サービス事業者', '処遇改善加算の取得'],
+    schedule: '令和8年度公募中のため締切日は要確認。介護テクノロジー補助金（iwate-kaigo-tech）と並行して申請できる場合があるため、まとめて相談することを推奨する。処遇改善加算を取得済みであることが前提条件のため、加算の取得状況を事前に確認してから申請準備を進めること。',
     difficulty: 1,
     contact: '岩手県保健福祉部長寿社会課',
   },
@@ -597,13 +616,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県障がい福祉人材確保・職場環境改善等事業補助金',
     area: 'iwate',
     max_amount: 1000000,
-    amount_note: '1事業所あたり上限は取組内容による（要問い合わせ）。求人広告費・研修費・業務改善費等が対象',
+    amount_note: '1事業所あたり上限は取組内容による（要問い合わせ）。求人広告費・研修費・業務改善費等が対象。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991010,
     deadline_status: 'check',
     description: '障がい福祉サービス事業所の人材確保・定着・職場環境改善を支援する県独自補助金。求人広告・研修・業務改善に要する費用を補助。介護系補助金との並行申請が可能な場合もある。',
-    note_eligibility: '岩手県内の障がい福祉サービス事業所。介護福祉補助金と別枠で申請可能',
+    note_eligibility: '岩手県内の障がい福祉サービス事業所。介護福祉補助金と別枠で申請可能。',
     conditions: ['岩手県内障がい福祉サービス事業所'],
+    schedule: '令和8年度公募中のため締切日は要確認。介護系補助金との並行申請が可能な場合があるため、岩手県保健福祉部障がい保健福祉課に確認することを推奨する。取り組みたい事業内容と補助対象経費の対応関係を事前に整理してから申請すると手続きがスムーズ。',
     difficulty: 1,
     contact: '岩手県保健福祉部障がい保健福祉課',
   },
@@ -612,13 +632,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県外国人介護人材受入施設等環境整備事業費補助金',
     area: 'iwate',
     max_amount: 1000000,
-    amount_note: '受入環境整備に係る費用（日本語教材・生活支援物品・通訳費等）を補助。令和8年度版が実施中',
+    amount_note: '受入環境整備に係る費用（日本語教材・生活支援物品・通訳費等）を補助。令和8年度版が実施中。',
     deadline_text: '要確認（令和8年度実施中）',
     deadline_sort: 99991011,
     deadline_status: 'check',
     description: '外国人介護人材（EPA・技能実習・特定技能等）を受け入れる岩手県内の介護事業所に対し、受入環境整備（日本語学習支援・生活物品・通訳費・Wi-Fi環境整備等）にかかる費用を補助する県独自制度。',
-    note_eligibility: '岩手県内で外国人介護人材を受け入れる（予定含む）介護事業所等',
+    note_eligibility: '岩手県内で外国人介護人材を受け入れる（予定含む）介護事業所等。',
     conditions: ['岩手県内で外国人介護人材を受け入れる（予定含む）介護事業所'],
+    schedule: '令和8年度実施中のため締切日は要確認。外国人介護人材の受入が決まった段階で早めに岩手県保健福祉部長寿社会課に問い合わせを。受入準備（宿舎確保・日本語学習環境整備等）と補助申請を並行して進めることで、スムーズな受入体制が整えられる。',
     difficulty: 1,
     contact: '岩手県保健福祉部長寿社会課',
   },
@@ -627,13 +648,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県水産加工業連携新活動促進事業費補助金',
     area: 'iwate',
     max_amount: 1000000,
-    amount_note: '補助率1/2以内。旅費・専門家謝金・広告宣伝費・印刷製本費等が対象（設備費は対象外）',
+    amount_note: '補助率1/2以内。旅費・専門家謝金・広告宣伝費・印刷製本費等が対象（設備費は対象外）。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991012,
     deadline_status: 'check',
     description: '岩手県沿岸12市町村の水産加工業者が2社以上グループを組み、新たな販路開拓や商品開発・PR活動に取り組む場合に支援する制度。旅費・専門家謝金・広告宣伝費等の経費が対象。',
-    note_eligibility: '岩手県の沿岸12市町村に立地する水産加工業者2社以上のグループが対象',
+    note_eligibility: '岩手県の沿岸12市町村に立地する水産加工業者2社以上のグループが対象。',
     conditions: ['沿岸12市町村立地の水産加工業者', '2社以上のグループで申請', '新たな販路開拓・商品開発・広報活動等'],
+    schedule: '令和8年度公募中のため締切日は要確認。2社以上のグループ申請が必要なため、連携先の確保が最初のステップ。グループ内で事業計画を共同作成し、岩手県農林水産部水産振興課に相談しながら申請を進めること。連携先の選定から申請まで2〜3ヶ月の余裕をもって動き出すことを推奨する。',
     difficulty: 2,
     contact: '岩手県農林水産部水産振興課',
   },
@@ -642,13 +664,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県北・沿岸地域 新商品・地域サービス開発事業',
     area: 'iwate',
     max_amount: 2000000,
-    amount_note: '補助率1/2以内、上限200万円が目安。農林水産物・観光資源を活かした新商品・サービス開発費が対象',
+    amount_note: '補助率1/2以内、上限200万円が目安。農林水産物・観光資源を活かした新商品・サービス開発費が対象。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991013,
     deadline_status: 'check',
     description: '岩手県北・沿岸地域の農林水産物や観光資源を活かした新商品・地域サービスの開発を支援する制度。食品製造業・観光業・農業等が地域資源を活用して付加価値を高める取り組みに対して補助。',
-    note_eligibility: '岩手県北・沿岸地域に立地する事業者が対象',
+    note_eligibility: '岩手県北・沿岸地域に立地する事業者が対象。',
     conditions: ['岩手県北・沿岸地域の事業者', '地域の農林水産物・観光資源を活用', '新商品・新サービスの開発'],
+    schedule: '令和8年度公募中のため締切日は要確認。地域資源を活用した新商品・サービス開発の具体的な計画書が必要。岩手県北振興局または沿岸振興局に事前相談してから申請準備を進めるのが効率的。試作・開発の実施スケジュールと資金計画を事前に整理しておくこと。',
     difficulty: 2,
     contact: '岩手県県北振興局・沿岸振興局',
   },
@@ -657,13 +680,14 @@ const LOCAL_SUBSIDIES = [
     name: '飲食店・商店街利用促進費補助金（岩手県）',
     area: 'iwate',
     max_amount: 2500000,
-    amount_note: '補助率1/2以内、上限250万円。割引クーポン発行・ガイドブック制作・イベント開催費等が対象',
+    amount_note: '補助率1/2以内、上限250万円。割引クーポン発行・ガイドブック制作・イベント開催費等が対象。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991014,
     deadline_status: 'check',
     description: '岩手県内の飲食店・商店街が顧客の利用促進のために行う広告宣伝・販売促進活動を補助する制度。割引クーポン発行、ガイドブック制作、集客イベント費用等の1/2（上限250万円）が対象。',
-    note_eligibility: '岩手県内の飲食店・商店街等が行う利用促進活動が対象',
+    note_eligibility: '岩手県内の飲食店・商店街等が行う利用促進活動が対象。',
     conditions: ['岩手県内の飲食店・商店街等', '利用促進活動（クーポン・広告・イベント等）'],
+    schedule: '令和8年度公募中のため締切日は要確認。広告宣伝・イベント開催等を実施する前に申請手続きを完了させる必要がある（事前申請が原則）。企画段階から補助金の活用を検討し、岩手県商工労働観光部商業・サービス産業振興課に早めに相談することを推奨する。',
     difficulty: 2,
     contact: '岩手県商工労働観光部商業・サービス産業振興課',
   },
@@ -672,13 +696,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県テレワーク導入推進事業費補助金',
     area: 'iwate',
     max_amount: 2000000,
-    amount_note: '補助対象経費の2/3以内、上限200万円。テレワーク用端末・ソフトウェア・セキュリティ機器・通信環境整備費等が対象',
+    amount_note: '補助対象経費の2/3以内、上限200万円。テレワーク用端末・ソフトウェア・セキュリティ機器・通信環境整備費等が対象。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991015,
     deadline_status: 'check',
     description: '岩手県内の中小企業がテレワークを導入する際の設備・ソフトウェア等の費用を補助率2/3（上限200万円）で支援する制度。テレワーク用PC・タブレット・セキュリティツール・クラウドサービス導入費等が対象。',
-    note_eligibility: '岩手県内に事業所を有する中小企業等。申請窓口はジョブカフェいわて（019-656-1580）',
+    note_eligibility: '岩手県内に事業所を有する中小企業等。申請窓口はジョブカフェいわて（019-656-1580）。',
     conditions: ['岩手県内に事業所', 'テレワーク導入推進計画の策定', '従業員が1名以上'],
+    schedule: '令和8年度公募中のため締切日は要確認。テレワーク導入推進計画の策定が申請条件のため、まずジョブカフェいわて（019-656-1580）に計画書の書き方を相談することを推奨する。機器発注前の申請が必要なため、導入機器の選定と申請手続きを並行して進めること。',
     difficulty: 2,
     contact: 'ジョブカフェいわて（019-656-1580）',
   },
@@ -687,13 +712,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県事業承継補助金',
     area: 'iwate',
     max_amount: 1000000,
-    amount_note: '補助率1/2以内、上限100万円。事業承継を機に行う新取組または第三者承継に向けた取組の経費が対象',
+    amount_note: '補助率1/2以内、上限100万円。事業承継を機に行う新取組または第三者承継に向けた取組の経費が対象。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991016,
     deadline_status: 'check',
     description: '後継者への事業承継を機に、新商品開発・設備更新・IT化・販路開拓など新たな取組を行う際の費用の1/2（上限100万円）を補助する岩手県独自の制度。',
-    note_eligibility: '岩手県内の中小企業者・小規模企業者で、事業承継を契機とした新たな取組を行う場合が対象。申請窓口は岩手県商工会連合会',
+    note_eligibility: '岩手県内の中小企業者・小規模企業者で、事業承継を契機とした新たな取組を行う場合が対象。申請窓口は岩手県商工会連合会。',
     conditions: ['岩手県内の中小・小規模企業', '事業承継を契機とした新取組 or 第三者承継取組'],
+    schedule: '令和8年度公募中のため締切日は要確認。事業承継の時期（前・中・後）に応じて対象経費が異なる。岩手県商工会連合会に相談し、自社の承継スケジュールと補助金活用計画を組み合わせて検討することを推奨する。承継後の新たな取組内容を具体的に計画してから申請すると採択率が上がる。',
     difficulty: 2,
     contact: '岩手県商工会連合会',
   },
@@ -702,13 +728,14 @@ const LOCAL_SUBSIDIES = [
     name: 'いわて希望応援ファンド 地域活性化支援事業助成金',
     area: 'iwate',
     max_amount: 1000000,
-    amount_note: '助成率・上限額は申請内容により異なる（最大100万円程度が目安）。年1〜2回公募',
+    amount_note: '助成率・上限額は申請内容により異なる（最大100万円程度が目安）。年1〜2回公募。',
     deadline_text: '要確認（年1〜2回公募）',
     deadline_sort: 99991017,
     deadline_status: 'check',
     description: 'いわて産業振興センターが運営する「いわて希望応援ファンド」を活用し、岩手県内の中小企業が行う新商品・新サービス開発や販路開拓の取り組みを助成する制度。公募型のため毎年1〜2回の募集時期に合わせた計画が必要。',
-    note_eligibility: '岩手県内に主たる事業所を有する中小企業者等。地域活性化につながる新商品・新サービスの開発やその販路開拓等の新たな取り組みが対象',
+    note_eligibility: '岩手県内に主たる事業所を有する中小企業者等。地域活性化につながる新商品・新サービスの開発やその販路開拓等の新たな取り組みが対象。',
     conditions: ['岩手県内に主たる事業所', '地域活性化に寄与する新商品・サービス開発や販路開拓', '審査・採択あり'],
+    schedule: '年1〜2回の公募型のため、いわて産業振興センターのホームページを定期的に確認し公募開始を見逃さないようにすること。採択審査があるため事業計画書の質が採否を左右する。公募開始から締切まで約1ヶ月程度の場合が多く、事前に事業計画の骨子を準備しておくことが重要。',
     difficulty: 3,
     contact: 'いわて産業振興センター（019-631-3825）',
   },
@@ -717,13 +744,14 @@ const LOCAL_SUBSIDIES = [
     name: '岩手県小規模事業者事業継続力強化支援事業費補助金',
     area: 'iwate',
     max_amount: 2500000,
-    amount_note: '1社当たり上限50万円×申請小規模事業者数、上限250万円。補助率2/3以内',
+    amount_note: '1社当たり上限50万円×申請小規模事業者数、上限250万円。補助率2/3以内。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99991018,
     deadline_status: 'check',
     description: '自然災害・感染症等に備えたBCP（事業継続力強化）計画を策定し、防災・減災のための設備投資を行う岩手県内の小規模事業者を支援する制度。1社50万円、複数社共同で最大250万円（補助率2/3）。',
-    note_eligibility: '岩手県内の小規模事業者で、国が認定した「事業継続力強化計画」または「連携事業継続力強化計画」に基づく防災・減災設備の導入が対象',
+    note_eligibility: '岩手県内の小規模事業者で、国が認定した「事業継続力強化計画」または「連携事業継続力強化計画」に基づく防災・減災設備の導入が対象。',
     conditions: ['岩手県内の小規模事業者', '国の事業継続力強化計画の認定が申請前提', '認定計画に基づく防災・減災設備の購入・設置'],
+    schedule: '令和8年度公募中のため締切日は要確認。国の「事業継続力強化計画」認定取得が申請前提条件。認定申請から認定まで約45日かかるため、補助金申請の数ヶ月前から動き出す必要がある。まず岩手県商工会連合会に相談し、計画認定の申請から補助金申請までの全体スケジュールを確認することを推奨する。',
     difficulty: 2,
     contact: '岩手県商工会連合会',
   },
@@ -732,13 +760,14 @@ const LOCAL_SUBSIDIES = [
     name: '盛岡市製造業・情報サービス業市場開拓等事業補助金',
     area: 'morioka',
     max_amount: 250000,
-    amount_note: '国内展示会：上限10万円、海外展示会・見本市：上限25万円。補助率は対象経費の1/2以内',
+    amount_note: '国内展示会：上限10万円、海外展示会・見本市：上限25万円。補助率は対象経費の1/2以内。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99992000,
     deadline_status: 'check',
     description: '盛岡市内の製造業・情報サービス業事業者が展示会や見本市に出展して市場開拓・販路拡大する際の費用を補助。補助率1/2で国内最大10万円、海外最大25万円。申請しやすく採択率も比較的高い。',
-    note_eligibility: '盛岡市内の中小製造業者または情報サービス業者（団体も可）。展示会・見本市への出品・出展が対象',
+    note_eligibility: '盛岡市内の中小製造業者または情報サービス業者（団体も可）。展示会・見本市への出品・出展が対象。',
     conditions: ['盛岡市内の中小製造業者または情報サービス業者', '市場開拓・販路拡大を目的とした展示会等への出展'],
+    schedule: '令和8年度公募中のため締切日は要確認。出展前の事前申請が必要なため、展示会への出展が決まったらすぐに盛岡市商工観光課へ申請手続きを確認することを推奨する。出展後の事後申請は対象外。手続きが比較的シンプルで採択率も高めのため、出展予定があれば積極的に活用を。',
     difficulty: 1,
     contact: '盛岡市商工観光課',
   },
@@ -747,13 +776,14 @@ const LOCAL_SUBSIDIES = [
     name: '盛岡市サテライトオフィス設置支援事業補助金',
     area: 'morioka',
     max_amount: 5000000,
-    amount_note: '施設改修費・備品購入費・通信費・賃借料等を補助。サテライトオフィス従事者数に応じて補助額が変動（要窓口確認）',
+    amount_note: '施設改修費・備品購入費・通信費・賃借料等を補助。サテライトオフィス従事者数に応じて補助額が変動（要窓口確認）。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99992001,
     deadline_status: 'check',
     description: '県外のIT企業・製造業が盛岡市にサテライトオフィスを開設する際の施設改修費・備品・通信費・賃借料等を補助する制度。テレワーク拠点や地方分散オフィスとしての活用も促進。',
-    note_eligibility: '岩手県外に主たる事業所を有する製造業または情報サービス業の事業者が、盛岡市内にサテライトオフィスを新たに設置する場合',
+    note_eligibility: '岩手県外に主たる事業所を有する製造業または情報サービス業の事業者が、盛岡市内にサテライトオフィスを新たに設置する場合。',
     conditions: ['岩手県外に主たる事業所がある製造業または情報サービス業事業者', '盛岡市内への新規サテライトオフィス設置'],
+    schedule: '令和8年度公募中のため締切日は要確認。物件選定・内装工事着工前に盛岡市商工観光課へ相談し、補助対象経費の範囲を確認してから契約を進めることを強く推奨する。工事着工後の申請は対象外となる可能性があるため、物件が決まった段階で速やかに問い合わせること。',
     difficulty: 2,
     contact: '盛岡市商工観光課',
   },
@@ -762,13 +792,14 @@ const LOCAL_SUBSIDIES = [
     name: '盛岡市企業立地促進補助金',
     area: 'morioka',
     max_amount: 300000000,
-    amount_note: '固定資産投資額の10%以内（上限3億円）。製造業：投資1億円以上＋新規雇用10人以上',
+    amount_note: '固定資産投資額の10%以内（上限3億円）。製造業：投資1億円以上＋新規雇用10人以上。',
     deadline_text: '要確認（随時受付）',
     deadline_sort: 99992002,
     deadline_status: 'check',
     description: '盛岡市内に工場等を新設・拡充する際の大規模補助金。固定資産投資額の10%（上限3億円）に加え、新規雇用奨励金（市内居住者を5年以上雇用で1人20万円）も別途支給される。大型設備投資時に非常に有効な制度。',
-    note_eligibility: '盛岡市内の工場新設・拡充・移転またはコンタクトセンター等の立地。製造業は市内居住者を10人以上新規雇用、IT・ソフト業は5人以上新規雇用が要件',
+    note_eligibility: '盛岡市内の工場新設・拡充・移転またはコンタクトセンター等の立地。製造業は市内居住者を10人以上新規雇用、IT・ソフト業は5人以上新規雇用が要件。',
     conditions: ['盛岡市内での工場等新設・拡充', '製造業は投資1億円以上＋市内居住者10人以上新規雇用'],
+    schedule: '随時受付中。工場等の建設・設備導入計画の最初の段階から盛岡市産業立地推進室に相談することを推奨する。補助金を前提とした投資計画・資金調達計画を組むことで、より有利な条件での設備投資が可能になる。大型案件のため事前調整に数ヶ月かかる場合があり、計画策定の早い段階での相談開始が重要。',
     difficulty: 3,
     contact: '盛岡市商工観光課 産業立地推進室',
   },
@@ -777,13 +808,14 @@ const LOCAL_SUBSIDIES = [
     name: '盛岡市ふるさと起業家支援プロジェクト補助金',
     area: 'morioka',
     max_amount: 3000000,
-    amount_note: 'ふるさと納税を活用した資金調達を活用した補助（補助額は調達額に連動、上限要確認）',
+    amount_note: 'ふるさと納税を活用した資金調達と連動した補助（補助額は調達額に連動、上限要確認）。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99992003,
     deadline_status: 'check',
     description: '盛岡市がふるさと納税制度を活用した独自の起業支援制度（令和6年度開始）。盛岡市内での新規起業家が対象で、クラウドファンディング型のふるさと納税で集めた資金に対して市が補助を上乗せする仕組み。',
-    note_eligibility: '盛岡市内で新規に事業を立ち上げた起業家。ふるさと納税制度を活用した資金調達と組み合わせた支援',
+    note_eligibility: '盛岡市内で新規に事業を立ち上げた起業家。ふるさと納税制度を活用した資金調達と組み合わせた支援。',
     conditions: ['盛岡市内での新規起業', 'ふるさと納税を活用したクラウドファンディングの実施'],
+    schedule: '令和8年度公募中のため締切日は要確認。ふるさと納税を活用したクラウドファンディングと補助金を組み合わせた独自の仕組みのため、まず盛岡市経済企画課に詳細な仕組みと手順を確認することを推奨する。起業計画・クラウドファンディング計画・補助金申請の3つを同時並行で進める必要がある。',
     difficulty: 2,
     contact: '盛岡市経済企画課',
   },
@@ -792,13 +824,14 @@ const LOCAL_SUBSIDIES = [
     name: '盛岡市薪ストーブ設置費補助事業（店舗向け）',
     area: 'morioka',
     max_amount: 500000,
-    amount_note: '経費総額の1/3以内かつ上限50万円。二次燃焼機能付き薪ストーブの設置費が対象。事前申請（発注前）が必須',
+    amount_note: '経費総額の1/3以内かつ上限50万円。二次燃焼機能付き薪ストーブの設置費が対象。事前申請（発注前）が必須。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99992004,
     deadline_status: 'check',
-    description: '盛岡市が木質バイオマス燃料の利用促進のために実施する、飲食店・店舗向けの薪ストーブ設置補助。設置費用の1/3（上限50万円）を補助。暖房コスト削減と脱炭素の両立に有効。発注前の事前申請が必須な点に注意。',
-    note_eligibility: '盛岡市内に所在する飲食店・店舗等（物販業含む）で、盛岡市産の薪の利用に努めること。発注（購入）前に申請が必要',
+    description: '盛岡市が木質バイオマス燃料の利用促進のために実施する、飲食店・店舗向けの薪ストーブ設置補助。設置費用の1/3（上限50万円）を補助。暖房コスト削減と脱炭素の両立に有効。',
+    note_eligibility: '盛岡市内に所在する飲食店・店舗等（物販業含む）で、盛岡市産の薪の利用に努めること。発注（購入）前に申請が必要。',
     conditions: ['盛岡市内の飲食店・店舗等', '二次燃焼機能付き薪ストーブの設置（発注前申請）', '盛岡市産の薪の利用に努めること'],
+    schedule: '令和8年度公募中のため締切日は要確認。発注（購入）前の申請が必須のため、薪ストーブ設置を検討し始めた段階で盛岡市農林部林業振興課へ問い合わせること。業者選定・見積取得前に申請手続きを確認することを強く推奨する。発注後の申請は対象外となる。',
     difficulty: 1,
     contact: '盛岡市農林部林業振興課',
   },
@@ -807,13 +840,14 @@ const LOCAL_SUBSIDIES = [
     name: '盛岡市デジタル技術実証実験事業補助金',
     area: 'morioka',
     max_amount: 1000000,
-    amount_note: '補助率4/5以内、1件当たり上限100万円。AI・IoT・ビッグデータ・ロボティクス・VR/AR・5G等の先端デジタル技術を活用した実証実験の経費が対象',
+    amount_note: '補助率4/5以内、1件当たり上限100万円。AI・IoT・ビッグデータ・ロボティクス・VR/AR・5G等の先端デジタル技術を活用した実証実験の経費が対象。',
     deadline_text: '要確認（令和8年度公募中）',
     deadline_sort: 99992005,
     deadline_status: 'check',
     description: '盛岡市内の情報サービス業・製造業がAI・IoT・ロボティクス・VR/AR・5Gなどの先端技術を活用した実証実験を行う際の費用を補助率4/5（上限100万円）で支援する制度。社会課題解決につながる波及性の高い事業が対象で審査あり。',
-    note_eligibility: '盛岡市内に主たる事業所を有する情報サービス業・インターネット附随サービス業・製造業の事業者または事業者団体',
+    note_eligibility: '盛岡市内に主たる事業所を有する情報サービス業・インターネット附随サービス業・製造業の事業者または事業者団体。',
     conditions: ['盛岡市内の情報サービス業・インターネット附随サービス業・製造業', 'AI/IoT等先端技術を活用した実証実験', '社会課題解決・ビジネス波及性が高い事業'],
+    schedule: '令和8年度公募中のため締切日は要確認。補助率4/5と非常に高いが審査があり採択は厳しめ。提案書では事業のビジネス波及性・社会課題解決の観点を強調することが採択のポイント。事前に盛岡市ものづくり推進課（019-626-7538）への相談が可能なため、提案内容の方向性を確認してから申請書を仕上げることを推奨する。',
     difficulty: 3,
     contact: '盛岡市ものづくり推進課（019-626-7538）',
   },
@@ -822,13 +856,14 @@ const LOCAL_SUBSIDIES = [
     name: '盛岡市中小企業人材育成支援事業補助金',
     area: 'morioka',
     max_amount: 150000,
-    amount_note: '上限15万円。中小企業大学校（仙台校）主催研修・東北大学RIPS等の受講費が補助対象',
+    amount_note: '上限15万円。中小企業大学校（仙台校）主催研修・東北大学RIPS等の受講費が補助対象。',
     deadline_text: '要確認（随時受付）',
     deadline_sort: 99992006,
     deadline_status: 'check',
     description: '盛岡市内の中小企業が役員・従業員を中小企業大学校（仙台校）や東北大学RIPS等の経営力強化研修に派遣する際の費用を補助（上限15万円）。業種問わず利用でき難易度が低い。',
-    note_eligibility: '盛岡市内の中小企業の役員・従業員が対象の研修を受講する場合に補助。申請窓口は盛岡市商工観光課',
+    note_eligibility: '盛岡市内の中小企業の役員・従業員が対象の研修を受講する場合に補助。申請窓口は盛岡市商工観光課。',
     conditions: ['盛岡市内の中小企業', '役員または従業員が指定研修を受講'],
+    schedule: '随時受付中。研修受講前の申請が必要なため、受講したい研修が補助対象かどうかを盛岡市商工観光課に事前確認することを推奨する。手続きが比較的シンプルで難易度が低い制度のため、研修参加を予定しているなら積極的に問い合わせを。受講後の事後申請は対象外となる。',
     difficulty: 1,
     contact: '盛岡市商工観光課',
   },
@@ -837,13 +872,14 @@ const LOCAL_SUBSIDIES = [
     name: '盛岡市農畜産物活用事業補助金',
     area: 'morioka',
     max_amount: 2400000,
-    amount_note: '上限240万円（採択件数最大3件）。盛岡産農畜産物を活用した商品・サービス開発や販路開拓の経費が対象',
+    amount_note: '上限240万円（採択件数最大3件）。盛岡産農畜産物を活用した商品・サービス開発や販路開拓の経費が対象。',
     deadline_text: '要確認（令和8年度実施中）',
     deadline_sort: 99992007,
     deadline_status: 'check',
-    description: '盛岡産農畜産物を活用した新商品・新サービスの開発・提供や販路開拓に取り組む事業者に上限240万円を補助する制度（令和8年度実施中）。採択件数最大3件と倍率は高いが補助額が大きい。申請前の事前相談が必須。',
-    note_eligibility: '盛岡産農畜産物等の利用拡大と産地としての認知度向上を図る事業者（市内外の事業者・農業生産者も可）。申請前の事前相談が必須（盛岡市経済企画課 019-613-8298）',
-    conditions: ['盛岡産農畜産物を活用した事業', '新商品・サービス開発または販路開拓', '申請前に事前相談必須（盛岡市経済企画課 019-613-8298）'],
+    description: '盛岡産農畜産物を活用した新商品・新サービスの開発・提供や販路開拓に取り組む事業者に上限240万円を補助する制度（令和8年度実施中）。採択件数最大3件と少ないため競争率は高いが補助額が大きい。',
+    note_eligibility: '盛岡産農畜産物等の利用拡大と産地としての認知度向上を図る事業者（市内外の事業者・農業生産者も可）。申請前の事前相談が必須（盛岡市経済企画課 019-613-8298）。',
+    conditions: ['盛岡産農畜産物を活用した事業', '新商品・サービス開発または販路開拓', '申請前に事前相談必須（019-613-8298）'],
+    schedule: '令和8年度実施中のため締切日は要確認。採択件数が最大3件と少なく競争率が高いため、事業計画の独自性・実現可能性・盛岡産農畜産物への貢献度が審査のポイントになる。申請前の事前相談が必須（盛岡市経済企画課 019-613-8298）のため、計画の骨子ができた段階で早めに相談を。',
     difficulty: 3,
     contact: '盛岡市経済企画課（019-613-8298）',
   },
@@ -855,19 +891,17 @@ let currentFilter = 'all';
 // ── フィルター切替 ──
 function setFilter(f, btn) {
   currentFilter = f;
-  document.querySelectorAll('.filter-tab').forEach(t => {
-    t.classList.remove('active-all', 'active-iwate', 'active-morioka');
-  });
-  btn.classList.add('active-' + f);
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
   renderList();
 }
 
 // ── 統計更新 ──
 function updateStats() {
-  const iwate  = LOCAL_SUBSIDIES.filter(s => s.area === 'iwate').length;
+  const iwate   = LOCAL_SUBSIDIES.filter(s => s.area === 'iwate').length;
   const morioka = LOCAL_SUBSIDIES.filter(s => s.area === 'morioka').length;
-  document.getElementById('stat-total').textContent  = LOCAL_SUBSIDIES.length;
-  document.getElementById('stat-iwate').textContent  = iwate;
+  document.getElementById('stat-total').textContent   = LOCAL_SUBSIDIES.length;
+  document.getElementById('stat-iwate').textContent   = iwate;
   document.getElementById('stat-morioka').textContent = morioka;
 }
 
@@ -878,60 +912,54 @@ function amountMan(v) {
   return m.toLocaleString('ja-JP');
 }
 
-// ── 締切バッジ ──
-function deadlineBadge(s) {
-  const cls = {
-    near:    'badge-deadline-near',
-    middle:  'badge-deadline-middle',
-    far:     'badge-deadline-far',
-    ongoing: 'badge-deadline-ongoing',
-    check:   'badge-deadline-check',
-  }[s.deadline_status] || 'badge-deadline-check';
-  return `<span class="badge ${cls}">${s.deadline_text}</span>`;
+// ── 難易度テキスト ──
+function diffText(d) {
+  return ['', '易しい', '普通', '難しい'][d] || '';
 }
 
 // ── カードレンダリング ──
 function renderCard(s, idx) {
-  const areaCls  = s.area === 'iwate' ? 'badge-iwate' : 'badge-morioka';
   const areaLabel = s.area === 'iwate' ? '岩手県' : '盛岡市';
-  const diffDots  = ['●','●','●'].map((d, i) => i < s.difficulty
-    ? `<span style="color:${s.difficulty === 1 ? '#059669' : s.difficulty === 2 ? '#d97706' : '#dc2626'}">${d}</span>`
-    : `<span style="color:#e5e7eb">${d}</span>`).join('');
+  const dlCls     = { near: 'near', middle: 'middle', far: '', ongoing: '', check: '' }[s.deadline_status] || '';
 
   return `
-  <div class="card" id="card-${idx}">
+  <div class="card" id="card-${idx}" data-area="${s.area}">
     <div class="card-head" onclick="toggleCard(${idx})">
-      <div class="card-badges">
-        <span class="badge ${areaCls}">${areaLabel}</span>
-        ${deadlineBadge(s)}
-      </div>
       <div class="card-main">
+        <div class="card-area">${areaLabel}</div>
         <div class="card-name">${s.name}</div>
         <div class="card-meta">
-          <span class="card-amount">${amountMan(s.max_amount)}<span class="card-amount-unit">万円</span></span>
-          <span style="font-size:12px;color:var(--gray-400)">難易度 ${diffDots}</span>
-          ${s.contact ? `<span style="font-size:11px;color:var(--gray-400)">📞 ${s.contact}</span>` : ''}
+          <span class="card-amount">${amountMan(s.max_amount)}<small>万円</small></span>
+          <span class="card-deadline ${dlCls}">${s.deadline_text}</span>
+          <span class="card-difficulty">難易度：${diffText(s.difficulty)}</span>
         </div>
       </div>
-      <div class="card-toggle">▼</div>
+      <div class="card-chevron">›</div>
     </div>
     <div class="card-body" id="body-${idx}">
-      <div class="card-row">
-        <div class="card-row-label">概要</div>
-        <div class="card-row-value">${s.description}</div>
+      <div class="info-grid">
+        <div class="info-block full">
+          <div class="info-label">制度概要</div>
+          <div class="info-value">${s.description}</div>
+        </div>
+        <div class="info-block full">
+          <div class="info-label">申請スケジュール・準備のポイント</div>
+          <div class="info-value">${s.schedule}</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">支給額・補助率</div>
+          <div class="info-value small">${s.amount_note}</div>
+        </div>
+        <div class="info-block">
+          <div class="info-label">対象・要件</div>
+          <div class="info-value small">${s.note_eligibility}</div>
+        </div>
+        <div class="info-block full">
+          <div class="info-label">主な条件</div>
+          <div class="conditions-list">${s.conditions.map(c => `<div class="condition-item">${c}</div>`).join('')}</div>
+        </div>
       </div>
-      <div class="card-row">
-        <div class="card-row-label">支給額・補助率</div>
-        <div class="card-amount-note">${s.amount_note}</div>
-      </div>
-      <div class="card-row">
-        <div class="card-row-label">対象・要件</div>
-        <div class="card-row-value" style="font-size:12px;">${s.note_eligibility}</div>
-      </div>
-      <div class="card-row">
-        <div class="card-row-label">主な条件</div>
-        <div class="conditions-list">${s.conditions.map(c => `<div class="condition-item">✓ ${c}</div>`).join('')}</div>
-      </div>
+      ${s.contact ? `<div class="contact-line">問い合わせ先：${s.contact}</div>` : ''}
     </div>
   </div>`;
 }
@@ -944,16 +972,16 @@ function renderList() {
   let items = LOCAL_SUBSIDIES.filter(s => {
     if (currentFilter !== 'all' && s.area !== currentFilter) return false;
     if (keyword) {
-      const haystack = [s.name, s.description, s.note_eligibility, ...(s.conditions || []), s.deadline_text].join(' ').toLowerCase();
-      return keyword.split(/\s+/).every(k => haystack.includes(k));
+      const hay = [s.name, s.description, s.note_eligibility, s.schedule, ...(s.conditions || []), s.deadline_text].join(' ').toLowerCase();
+      return keyword.split(/\s+/).every(k => hay.includes(k));
     }
     return true;
   });
 
-  if (sort === 'deadline')      items.sort((a, b) => a.deadline_sort - b.deadline_sort);
-  if (sort === 'amount_desc')   items.sort((a, b) => b.max_amount - a.max_amount);
-  if (sort === 'amount_asc')    items.sort((a, b) => a.max_amount - b.max_amount);
-  if (sort === 'difficulty')    items.sort((a, b) => a.difficulty - b.difficulty);
+  if (sort === 'deadline')    items.sort((a, b) => a.deadline_sort - b.deadline_sort);
+  if (sort === 'amount_desc') items.sort((a, b) => b.max_amount - a.max_amount);
+  if (sort === 'amount_asc')  items.sort((a, b) => a.max_amount - b.max_amount);
+  if (sort === 'difficulty')  items.sort((a, b) => a.difficulty - b.difficulty);
 
   const container = document.getElementById('card-list');
   const empty     = document.getElementById('empty-state');
@@ -969,11 +997,9 @@ function renderList() {
 }
 
 function toggleCard(idx) {
-  const card = document.getElementById('card-' + idx);
-  card.classList.toggle('open');
+  document.getElementById('card-' + idx).classList.toggle('open');
 }
 
-// ── 初期化 ──
 updateStats();
 renderList();
 </script>

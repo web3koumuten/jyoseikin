@@ -324,6 +324,43 @@
     color: #64748b;
     line-height: 1.6;
   }
+  .btn-back-to-form {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s, border-color 0.15s;
+    text-decoration: none;
+  }
+  .btn-back-to-form:hover { background: #f9fafb; border-color: #9ca3af; }
+  .results-back-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+  .results-back-note {
+    font-size: 11px;
+    color: #9ca3af;
+  }
+  .results-back-bottom {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
 
   /* Stack panel */
   .stack-panel {
@@ -6516,6 +6553,10 @@ function renderResults(scored, combos, conflicts, meta) {
   const minLead = leadTimes.length > 0 ? Math.min(...leadTimes) : null;
   html += `
     <div class="results-header">
+      <div class="results-back-row">
+        <button class="btn-back-to-form" onclick="goBackToForm()">← 入力内容を修正する</button>
+        <span class="results-back-note">入力データは保持されています</span>
+      </div>
       <div class="results-header-eyebrow">診断結果</div>
       <h2 class="results-header-title">${scored.length}件の制度が該当しました</h2>
       <p class="results-header-sub">事業内容・従業員規模・今後の計画から、最適な補助金・助成金を抽出しています。</p>
@@ -6843,7 +6884,11 @@ function renderResults(scored, combos, conflicts, meta) {
     html += `<div class="conflict-panel" style="font-size:12px"><strong>同時申請できない組み合わせ</strong>${conflicts.map(c=>`<div style="margin-top:4px">「${c.a.name}」と「${c.b.name}」は同一案件での併用不可</div>`).join('')}</div>`;
   }
 
-  html += `<div class="reset-area"><button class="btn-reset" onclick="location.reload()">最初からやり直す</button></div>`;
+  html += `
+  <div class="results-back-bottom">
+    <button class="btn-back-to-form" onclick="goBackToForm()">← 入力内容を修正する</button>
+    <button class="btn-reset" onclick="location.reload()">最初からやり直す</button>
+  </div>`;
   el.innerHTML = html;
   window.scrollTo(0, 0);
 }
@@ -7188,6 +7233,18 @@ window.addEventListener('popstate', function(e) {
   }
   window.scrollTo(0, 0);
 });
+
+// 診断結果 → フォームに戻る（入力データは保持）
+function goBackToForm() {
+  const intro = document.getElementById('intro-hero');
+  const form  = document.getElementById('form-area');
+  const res   = document.getElementById('results');
+  if (intro) intro.style.display = 'none';
+  if (form)  form.style.display  = 'block';
+  if (res)   res.style.display   = 'none';
+  history.pushState({ view: 'form' }, '');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 function toggle(id) { document.getElementById(id)?.classList.toggle('open'); }
 

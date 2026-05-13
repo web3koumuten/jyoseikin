@@ -2511,6 +2511,10 @@
             <input type="checkbox" name="q14" value="jigyo-shokei" onchange="updateQ15Tags()">
             <span class="q14-content"><span class="q14-icon q14-tag">承継</span><span class="q14-text"><strong>事業を引き継ぎたい・後継者に承継したい</strong><br><small>事業承継・M&A・廃業支援など</small></span></span>
           </label>
+          <label class="choice-row q14-card">
+            <input type="checkbox" name="q14" value="chinage" onchange="updateQ15Tags()">
+            <span class="q14-content"><span class="q14-icon q14-tag">賃上げ</span><span class="q14-text"><strong>従業員の給料を引き上げたい</strong><br><small>業務改善助成金・賃上げ促進支援・岩手県賃上げ補助など</small></span></span>
+          </label>
         </div>
       </div>
 
@@ -5552,6 +5556,16 @@ function runDiagnosis() {
     addP('konenreisha-koyosuishin', 1, '従業員5名以上→65歳超雇用推進助成金の制度整備が可能');
   }
 
+  // ── Q14: 賃上げ希望
+  if (q14.includes('chinage')) {
+    addP('gyomu-kaizen',            5, '賃上げ希望→業務改善助成金が最適（設備投資＋賃上げ達成で最大600万円）');
+    addP('iwate-chinageshien',      4, '賃上げ希望→岩手県物価高騰対策賃上げ支援金が対象');
+    addP('iwate-chinagekankyo',     4, '賃上げ希望→岩手県賃上げ環境整備支援補助金（上限200万円）が対象');
+    addP('career-up-chingin-kaitei',3, '賃上げ希望→キャリアアップ助成金 賃金改定コースで最大95万円');
+    addP('tokutei-shinkibo',        2, '賃上げ希望→特定最低賃金引上げに伴う社会保険適用促進助成金が対象');
+    addP('hatarakikata-jikangai',   1, '賃上げ希望→働き方改革推進支援助成金（賃金加算コース）も活用可能');
+  }
+
   // ── 岩手県・盛岡市の地域制度スコアリング（常時実行）
   {
     // 全業種共通：賃上げ支援金
@@ -7056,6 +7070,7 @@ const Q14_TAG_MAP = {
   'jinzai':           ['DX研修', 'リスキリング', 'OJT', '資格取得', 'eラーニング', 'マネジメント研修'],
   'seichokasoku':     ['大型工場', '新棟建設', '拠点拡張', '生産ライン増設'],
   'jigyo-shokei':     ['事業承継', '後継者育成', 'M&A', '廃業', '引き継ぎ'],
+  'chinage':          ['業務改善助成金', 'ベースアップ', '最低賃金引き上げ', '賃金テーブル改定', 'パート・非正規の賃上げ'],
 };
 
 // ─── Q15 サブ選択肢マップ（グローバル）───────────────────────

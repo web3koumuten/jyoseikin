@@ -2024,6 +2024,13 @@
   }
   .tag-btn:hover { background: #dbeafe; }
   .tag-btn.has-sub { border-color: #3b82f6; font-weight: 600; }
+  .tag-btn.selected { background: #1d4ed8; border-color: #1d4ed8; color: white; }
+  .tag-btn.selected:hover { background: #1e40af; }
+  .q15-sub-btn.selected { background: #dbeafe; border-color: #2563eb; font-weight: 700; }
+  .q15-sonota-wrap { margin-top: 10px; width: 100%; }
+  .q15-sonota-label { font-size: 12px; color: #374151; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+  .q15-sonota-input { width: 100%; border: 1px solid #d1d5db; border-radius: 8px; padding: 8px 12px; font-size: 13px; margin-top: 6px; font-family: inherit; box-sizing: border-box; }
+  .q15-sonota-input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
   .q15-sub-panel {
     display: flex;
     flex-wrap: wrap;
@@ -2471,13 +2478,17 @@
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="q">Q15</span>もう少し詳しく教えてください（自由記述）</div>
-        <p class="field-note">上で選んだ内容について、具体的な設備名・悩み・やりたいことを書いてください（任意）</p>
+        <div class="field-label"><span class="q">Q15</span>もう少し詳しく教えてください（複数選択可・任意）</div>
+        <p class="field-note">Q14で選んだ内容に応じた選択肢が表示されます。当てはまるものをすべて選んでください</p>
         <div id="q15-tags" class="tag-suggestions" style="display:none">
-          <div class="tag-suggest-label">よく使われるキーワード：</div>
+          <div class="tag-suggest-label">当てはまるものを選んでください：</div>
           <div id="q15-tag-btns" class="tag-suggest-btns"></div>
+          <div class="q15-sonota-wrap" id="q15-sonota-wrap" style="display:none">
+            <label class="q15-sonota-label"><input type="checkbox" id="q15-sonota-chk" onchange="toggleSonota()"> その他</label>
+            <input type="text" id="q15-sonota-text" class="q15-sonota-input" placeholder="具体的に教えてください" style="display:none" oninput="updateQ15Value()">
+          </div>
         </div>
-        <textarea id="q15" placeholder="例：木材の品質検査を自動化したい、協働ロボットで搬送作業を省力化したい、受注管理をクラウドに移したい など"></textarea>
+        <input type="hidden" id="q15">
       </div>
 
       <div class="inline-fields">
@@ -7002,6 +7013,67 @@ const Q14_TAG_MAP = {
   'jigyo-shokei':     ['事業承継', '後継者育成', 'M&A', '廃業', '引き継ぎ'],
 };
 
+// ─── Q15 サブ選択肢マップ（グローバル）───────────────────────
+const Q15_SUBTAGS = {
+  'リスキリング': ['AIリスキリング（生成AI・ChatGPT活用）', 'DX・デジタルスキル研修', '管理職・リーダーシップ研修', '語学・ビジネス系スキルアップ'],
+  'DX研修': ['AI・機械学習・データ分析研修', 'クラウド・SaaS活用研修', 'セキュリティ・情報管理研修', 'DX推進リーダー育成'],
+  'OJT': ['製造・技術職OJT', '営業・接客スキルOJT', '管理・事務系OJT', '新入社員・若手育成OJT'],
+  '資格取得': ['IT・デジタル系資格（基本情報・ITパスポート等）', '建設・施工管理系資格', '技術・製造系資格（溶接・機械等）', '介護・医療・福祉系資格'],
+  'eラーニング': ['AI・IT系オンライン講座', 'ビジネス・マネジメント系eラーニング', '語学・コミュニケーション学習', '業界特化型専門スキル講座'],
+  'マネジメント研修': ['経営・財務・会計研修', 'リーダーシップ・コーチング研修', '人事・労務管理研修', '組織マネジメント・1on1手法'],
+  '協働ロボット': ['搬送・物流ロボット（AGV・AMR）', '溶接・加工ロボット', '組立・検査・ピッキングロボット', '食品・農業向けロボット'],
+  '自動搬送機': ['AGV・無人搬送車の導入', 'フォークリフト自動化', 'ベルトコンベア・仕分け自動化', 'ピッキングシステム導入'],
+  '省エネコンプレッサー': ['インバータ制御コンプレッサー', '廃熱回収・エネルギー有効利用', 'エア漏れ診断・削減対策', '高効率コンプレッサーへの更新'],
+  'LED照明': ['工場・倉庫のLED化', '店舗・オフィスのLED化', '屋外・駐車場照明LED化', 'センサー・調光システム付きLED'],
+  'ホームページ': ['採用・求人サイトの制作・改善', 'ECサイト構築・ネット販売開始', 'コーポレートサイトリニューアル', 'LP・ランディングページ制作'],
+  'SNS広告': ['Instagram・Facebook広告運用', 'X（Twitter）広告運用', 'LINE広告・公式アカウント活用', 'YouTube・動画広告制作'],
+  'AI-OCR': ['請求書・領収書の自動読取', '契約書・帳票のデジタル化', '手書き文字・伝票の自動処理', '書類ワークフロー自動化'],
+  '在庫管理': ['在庫管理システム（WMS）導入', 'バーコード・QRコード管理', 'RFID・IoTによる在庫可視化', '自動倉庫・スマート倉庫導入'],
+  'CNC加工機': ['マシニングセンタ・フライス盤', 'CNC旋盤・複合加工機', 'レーザー切断機・ウォータージェット', '5軸加工機・高精度加工設備'],
+  '検品自動化': ['画像認識・AIカメラによる外観検査', '寸法・重量自動計測システム', '異物検知・X線検査装置', '全数検査ライン構築'],
+  '受発注システム': ['受発注管理システム（EDI）導入', 'クラウド型受発注プラットフォーム', '販売管理・基幹システム連携', 'ECモール・卸売管理システム'],
+  'クラウド会計': ['会計・経理システムのクラウド移行', '請求書・経費精算の電子化（インボイス対応）', '給与計算・勤怠管理クラウド化', 'バックオフィス全体のDX化'],
+  'RPA': ['請求・経理業務のRPA化', 'データ入力・転記作業の自動化', '受発注・在庫管理のRPA', 'レポート作成・集計業務の自動化'],
+  '新棟建設': ['工場・製造ラインの新棟建設', '物流・倉庫施設の新設', '店舗・事務所の新設・移転', '農業・加工施設の新設'],
+  '拠点拡張': ['新規事業所・営業所の開設', '海外拠点・輸出拠点の設立', '生産能力増強のための施設拡大', '福祉・介護施設の新設・増設'],
+};
+
+// Q15 選択値を hidden input に同期
+function updateQ15Value() {
+  const values = [];
+  // サブパネルがある親タグ → サブアイテムの選択状態から収集
+  // サブパネルがない親タグ → 親タグ自身の選択状態から収集
+  document.querySelectorAll('#q15-tag-btns .tag-btn').forEach(btn => {
+    const tag = btn.dataset.value;
+    const subs = Q15_SUBTAGS[tag];
+    if (subs) {
+      const panel = document.querySelector(`.q15-sub-panel[data-tag="${CSS.escape(tag)}"]`);
+      if (panel) {
+        panel.querySelectorAll('.q15-sub-btn.selected').forEach(sb => values.push(sb.dataset.value));
+      } else if (btn.classList.contains('selected')) {
+        values.push(tag); // パネルが閉じられた後もタグ名を保持
+      }
+    } else {
+      if (btn.classList.contains('selected')) values.push(tag);
+    }
+  });
+  const sonotaChk = document.getElementById('q15-sonota-chk');
+  const sonotaText = document.getElementById('q15-sonota-text');
+  if (sonotaChk?.checked && sonotaText?.value.trim()) values.push(sonotaText.value.trim());
+  const hidden = document.getElementById('q15');
+  if (hidden) hidden.value = values.join('、');
+}
+
+// その他チェックボックスのトグル
+function toggleSonota() {
+  const chk = document.getElementById('q15-sonota-chk');
+  const txt = document.getElementById('q15-sonota-text');
+  if (txt) txt.style.display = chk?.checked ? 'block' : 'none';
+  updateQ15Value();
+}
+
+let _q15ActiveSubPanel = null;
+
 function updateQ15Tags() {
   const checked = [...document.querySelectorAll('input[name="q14"]:checked')].map(el => el.value);
   const container = document.getElementById('q15-tags');
@@ -7013,66 +7085,50 @@ function updateQ15Tags() {
   const allTags = new Set();
   checked.forEach(key => { (Q14_TAG_MAP[key] || []).forEach(t => allTags.add(t)); });
 
-  // キーワード → サブ選択肢マップ
-  const Q15_SUBTAGS = {
-    'リスキリング': ['AIリスキリング（生成AI・ChatGPT活用）', 'DX・デジタルスキル研修', '管理職・リーダーシップ研修', '語学・ビジネス系スキルアップ'],
-    'DX研修': ['AI・機械学習・データ分析研修', 'クラウド・SaaS活用研修', 'セキュリティ・情報管理研修', 'DX推進リーダー育成'],
-    'OJT': ['製造・技術職OJT', '営業・接客スキルOJT', '管理・事務系OJT', '新入社員・若手育成OJT'],
-    '資格取得': ['IT・デジタル系資格（基本情報・ITパスポート等）', '建設・施工管理系資格', '技術・製造系資格（溶接・機械等）', '介護・医療・福祉系資格'],
-    'eラーニング': ['AI・IT系オンライン講座', 'ビジネス・マネジメント系eラーニング', '語学・コミュニケーション学習', '業界特化型専門スキル講座'],
-    'マネジメント研修': ['経営・財務・会計研修', 'リーダーシップ・コーチング研修', '人事・労務管理研修', '組織マネジメント・1on1手法'],
-    '協働ロボット': ['搬送・物流ロボット（AGV・AMR）', '溶接・加工ロボット', '組立・検査・ピッキングロボット', '食品・農業向けロボット'],
-    '自動搬送機': ['AGV・無人搬送車の導入', 'フォークリフト自動化', 'ベルトコンベア・仕分け自動化', 'ピッキングシステム導入'],
-    '省エネコンプレッサー': ['インバータ制御コンプレッサー', '廃熱回収・エネルギー有効利用', 'エア漏れ診断・削減対策', '高効率コンプレッサーへの更新'],
-    'LED照明': ['工場・倉庫のLED化', '店舗・オフィスのLED化', '屋外・駐車場照明LED化', 'センサー・調光システム付きLED'],
-    'ホームページ': ['採用・求人サイトの制作・改善', 'ECサイト構築・ネット販売開始', 'コーポレートサイトリニューアル', 'LP・ランディングページ制作'],
-    'SNS広告': ['Instagram・Facebook広告運用', 'X（Twitter）広告運用', 'LINE広告・公式アカウント活用', 'YouTube・動画広告制作'],
-    'AI-OCR': ['請求書・領収書の自動読取', '契約書・帳票のデジタル化', '手書き文字・伝票の自動処理', '書類ワークフロー自動化'],
-    '在庫管理': ['在庫管理システム（WMS）導入', 'バーコード・QRコード管理', 'RFID・IoTによる在庫可視化', '自動倉庫・スマート倉庫導入'],
-    'CNC加工機': ['マシニングセンタ・フライス盤', 'CNC旋盤・複合加工機', 'レーザー切断機・ウォータージェット', '5軸加工機・高精度加工設備'],
-    '検品自動化': ['画像認識・AIカメラによる外観検査', '寸法・重量自動計測システム', '異物検知・X線検査装置', '全数検査ライン構築'],
-    '受発注システム': ['受発注管理システム（EDI）導入', 'クラウド型受発注プラットフォーム', '販売管理・基幹システム連携', 'ECモール・卸売管理システム'],
-    'クラウド会計': ['会計・経理システムのクラウド移行', '請求書・経費精算の電子化（インボイス対応）', '給与計算・勤怠管理クラウド化', 'バックオフィス全体のDX化'],
-    'RPA': ['請求・経理業務のRPA化', 'データ入力・転記作業の自動化', '受発注・在庫管理のRPA', 'レポート作成・集計業務の自動化'],
-    '新棟建設': ['工場・製造ラインの新棟建設', '物流・倉庫施設の新設', '店舗・事務所の新設・移転', '農業・加工施設の新設'],
-    '拠点拡張': ['新規事業所・営業所の開設', '海外拠点・輸出拠点の設立', '生産能力増強のための施設拡大', '福祉・介護施設の新設・増設'],
-  };
-
-  // サブパネルの表示
-  let activeSubPanel = null;
-  function showSubPanel(tag, btn) {
-    if (activeSubPanel) { activeSubPanel.remove(); activeSubPanel = null; }
-    const subs = Q15_SUBTAGS[tag];
-    if (!subs) {
-      const ta = document.getElementById('q15');
-      if (ta) { ta.value = ta.value ? ta.value.trimEnd() + '、' + tag : tag; ta.focus(); }
-      return;
-    }
-    const panel = document.createElement('div');
-    panel.className = 'q15-sub-panel';
-    panel.innerHTML = `<div class="q15-sub-title">${tag}の詳細を選んでください</div>` +
-      subs.map(s => `<button type="button" class="q15-sub-btn">${s}</button>`).join('');
-    panel.querySelectorAll('.q15-sub-btn').forEach(sb => {
-      sb.onclick = () => {
-        const ta = document.getElementById('q15');
-        if (ta) { ta.value = ta.value ? ta.value.trimEnd() + '、' + sb.textContent : sb.textContent; ta.focus(); }
-        panel.remove(); activeSubPanel = null;
-      };
-    });
-    btn.parentNode.insertBefore(panel, btn.nextSibling);
-    activeSubPanel = panel;
-  }
-
   btnArea.innerHTML = '';
+  if (_q15ActiveSubPanel) { _q15ActiveSubPanel.remove(); _q15ActiveSubPanel = null; }
+
   allTags.forEach(tag => {
     const btn = document.createElement('button');
     btn.type = 'button';
+    btn.dataset.value = tag;
     btn.className = 'tag-btn' + (Q15_SUBTAGS[tag] ? ' has-sub' : '');
     btn.textContent = tag + (Q15_SUBTAGS[tag] ? ' ▾' : '');
-    btn.onclick = () => showSubPanel(tag, btn);
+    btn.onclick = () => {
+      const subs = Q15_SUBTAGS[tag];
+      if (!subs) {
+        // サブなし → そのままトグル
+        btn.classList.toggle('selected');
+        updateQ15Value();
+        return;
+      }
+      // サブあり → パネル開閉
+      const prevTag = _q15ActiveSubPanel?.dataset?.tag;
+      if (_q15ActiveSubPanel) { _q15ActiveSubPanel.remove(); _q15ActiveSubPanel = null; }
+      if (prevTag === tag) { btn.classList.remove('selected'); updateQ15Value(); return; } // 2回目で閉じる
+      const panel = document.createElement('div');
+      panel.className = 'q15-sub-panel';
+      panel.dataset.tag = tag;
+      panel.innerHTML = `<div class="q15-sub-title">${tag}の詳細（複数選択可）</div>` +
+        subs.map(s => `<button type="button" class="q15-sub-btn" data-value="${s}">${s}</button>`).join('');
+      panel.querySelectorAll('.q15-sub-btn').forEach(sb => {
+        sb.onclick = () => {
+          sb.classList.toggle('selected');
+          const anySelected = panel.querySelectorAll('.q15-sub-btn.selected').length > 0;
+          btn.classList.toggle('selected', anySelected);
+          updateQ15Value();
+        };
+      });
+      btn.parentNode.insertBefore(panel, btn.nextSibling);
+      _q15ActiveSubPanel = panel;
+      btn.classList.add('selected');
+      updateQ15Value();
+    };
     btnArea.appendChild(btn);
   });
 
+  const sonotaWrap = document.getElementById('q15-sonota-wrap');
+  if (sonotaWrap) sonotaWrap.style.display = 'block';
   container.style.display = 'block';
 }
 

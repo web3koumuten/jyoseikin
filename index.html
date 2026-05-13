@@ -3059,6 +3059,12 @@ const SUBSIDIES = [
     "bonus_points": {},
     "q15_keywords": [
       "リスキリング",
+      "AIリスキリング",
+      "生成AI",
+      "chatgpt",
+      "ai研修",
+      "DX研修",
+      "デジタルスキル",
       "新事業",
       "転換",
       "配置転換",
@@ -5766,7 +5772,9 @@ function runDiagnosis() {
     if (isSubsidy && score < 1) return null;
 
     // ── 例外③：雇用保険適用が必須な補助金は従業員0名には不要
-    if (s.requires_employee_insurance && employees === 0) return null;
+    // ※ Q8が未入力（空欄）の場合は除外しない（従業員がいる可能性があるため）
+    const q8Filled = (document.getElementById('q8')?.value || '').trim() !== '';
+    if (s.requires_employee_insurance && q8Filled && employees === 0) return null;
 
     // ── 例外④：障害者向け助成金は従業員のいない事業者には不要
     const isDisabilitySubsidy = ['trial-shogaisha','trial-shogaisha-tanjikan','career-up-shogaisha-seishainuka'].includes(s.id);

@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3つの助成金 完全解説ガイド | キャリアアップ・IT導入・特定求職者</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0066ff;
+    --primary-dark: #0052cc;
+    --primary-light: #eff6ff;
+    --accent: #0e9f6e;
+    --accent-light: #ecfdf5;
+    --gray-50: #f8f9fc;
+    --gray-100: #f1f3f8;
+    --gray-200: #e4e7f0;
+    --gray-400: #9aa3b8;
+    --gray-600: #5c6480;
+    --gray-700: #3d4461;
+    --gray-900: #1a1f36;
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow: 0 4px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+    --c-career: #0066ff;
+    --c-it: #7c3aed;
+    --c-tokutei: #0891b2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: white;
+    color: var(--gray-900);
+    font-size: 14px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    border-top: 3px solid var(--primary);
+  }
+
+  /* ── NAV ── */
+  .site-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-200);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  }
+  .site-nav-inner {
+    max-width: 1040px; margin: 0 auto;
+    padding: 0 32px; height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-logo {
+    font-size: 15px; font-weight: 800; color: var(--gray-900);
+    letter-spacing: -0.03em; display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .site-logo-mark {
+    width: 32px; height: 32px; background: var(--primary);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 14px; font-weight: 900; flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,102,255,0.3);
+  }
+  .nav-links { display: flex; align-items: center; gap: 8px; }
+  .nav-link {
+    font-size: 12px; font-weight: 600; color: var(--gray-600);
+    text-decoration: none; padding: 6px 12px; border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .nav-link:hover { background: var(--gray-100); color: var(--gray-900); }
+  .nav-link.primary {
+    background: var(--primary); color: white;
+    box-shadow: 0 2px 8px rgba(0,102,255,0.25);
+  }
+  .nav-link.primary:hover { background: var(--primary-dark); }
+
+  .container { max-width: 1040px; margin: 0 auto; padding: 0 32px 80px; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0052cc 0%, #0066ff 50%, #2563eb 100%);
+    padding: 64px 32px 56px;
+    color: white;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 99px;
+    padding: 5px 16px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 32px; font-weight: 900;
+    line-height: 1.3; margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .hero-sub {
+    font-size: 15px; opacity: 0.85; max-width: 600px;
+    margin: 0 auto 32px; line-height: 1.7;
+  }
+  .hero-cards {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    max-width: 720px; margin: 0 auto;
+  }
+  .hero-card {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px; padding: 14px 20px;
+    text-align: left; flex: 1; min-width: 200px;
+  }
+  .hero-card-label { font-size: 11px; opacity: 0.7; font-weight: 700; margin-bottom: 4px; }
+  .hero-card-name { font-size: 13px; font-weight: 800; line-height: 1.4; }
+  .hero-card-amount { font-size: 18px; font-weight: 900; margin-top: 6px; }
+  .hero-card-amount small { font-size: 11px; font-weight: 400; opacity: 0.7; }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin: 32px 0 40px;
+  }
+  .toc-title { font-size: 12px; font-weight: 800; color: var(--gray-600); letter-spacing: 0.05em; margin-bottom: 14px; }
+  .toc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .toc-list li { display: flex; align-items: baseline; gap: 10px; }
+  .toc-num { font-size: 11px; font-weight: 900; color: var(--primary); min-width: 20px; }
+  .toc-list a { font-size: 13px; font-weight: 600; color: var(--gray-700); text-decoration: none; }
+  .toc-list a:hover { color: var(--primary); text-decoration: underline; }
+  .toc-list span { font-size: 11px; color: var(--gray-400); }
+
+  /* ── SECTION HEADER ── */
+  .sec-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 28px 0 20px;
+    border-bottom: 2px solid var(--gray-200);
+    margin-bottom: 28px;
+  }
+  .sec-num {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 900; color: white; flex-shrink: 0;
+  }
+  .sec-num.career { background: var(--c-career); }
+  .sec-num.it { background: var(--c-it); }
+  .sec-num.tokutei { background: var(--c-tokutei); }
+  .sec-title { font-size: 22px; font-weight: 900; letter-spacing: -0.02em; }
+  .sec-sub { font-size: 13px; color: var(--gray-600); margin-top: 2px; }
+
+  /* ── OVERVIEW BOX ── */
+  .overview-box {
+    background: var(--primary-light);
+    border: 1px solid #bfdbfe;
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    font-size: 14px; line-height: 1.8;
+    color: var(--gray-900);
+  }
+  .overview-box.purple {
+    background: #f5f3ff; border-color: #c4b5fd; border-left-color: var(--c-it);
+  }
+  .overview-box.cyan {
+    background: #ecfeff; border-color: #a5f3fc; border-left-color: var(--c-tokutei);
+  }
+
+  /* ── COURSE CARD ── */
+  .course-card {
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .course-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px; cursor: pointer;
+    background: white;
+    transition: background 0.15s;
+    gap: 12px;
+  }
+  .course-head:hover { background: var(--gray-50); }
+  .course-head-left { display: flex; align-items: center; gap: 12px; flex: 1; }
+  .course-badge {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.03em;
+    padding: 3px 9px; border-radius: 99px; white-space: nowrap; flex-shrink: 0;
+  }
+  .course-badge.career { background: var(--primary-light); color: var(--primary); }
+  .course-badge.it { background: #f5f3ff; color: var(--c-it); }
+  .course-badge.tokutei { background: #ecfeff; color: var(--c-tokutei); }
+  .course-name { font-size: 14px; font-weight: 800; line-height: 1.4; }
+  .course-amount {
+    font-size: 20px; font-weight: 900; color: var(--primary); white-space: nowrap; flex-shrink: 0;
+  }
+  .course-amount small { font-size: 11px; font-weight: 400; color: var(--gray-600); display: block; text-align: right; }
+  .course-chevron { color: var(--gray-400); font-size: 12px; flex-shrink: 0; transition: transform 0.2s; }
+  .course-card.open .course-chevron { transform: rotate(180deg); }
+  .course-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--gray-200);
+    background: var(--gray-50);
+  }
+  .course-card.open .course-body { display: block; }
+
+  /* ── DETAIL BLOCKS ── */
+  .detail-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;
+  }
+  .detail-block {
+    background: white; border: 1px solid var(--gray-200);
+    border-radius: 10px; padding: 16px 18px;
+  }
+  .detail-block.full { grid-column: 1 / -1; }
+  .detail-block-title {
+    font-size: 11px; font-weight: 800; color: var(--gray-600);
+    letter-spacing: 0.05em; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .detail-block-title::before {
+    content: ''; width: 3px; height: 12px;
+    background: var(--primary); border-radius: 99px; flex-shrink: 0;
+  }
+  .detail-block p { font-size: 13px; line-height: 1.75; color: var(--gray-700); }
+  .detail-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .detail-list li {
+    font-size: 13px; color: var(--gray-700); padding-left: 14px;
+    position: relative; line-height: 1.6;
+  }
+  .detail-list li::before { content: '•'; position: absolute; left: 0; color: var(--primary); }
+
+  /* ── DOCS TABLE ── */
+  .docs-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .docs-table th {
+    text-align: left; font-size: 11px; font-weight: 800;
+    color: var(--gray-600); letter-spacing: 0.04em;
+    padding: 8px 12px; background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .docs-table td {
+    padding: 9px 12px; border-bottom: 1px solid var(--gray-100);
+    vertical-align: top; color: var(--gray-700); line-height: 1.6;
+  }
+  .docs-table tr:last-child td { border-bottom: none; }
+  .docs-tag {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 7px; border-radius: 4px; margin-left: 6px;
+    vertical-align: middle;
+  }
+  .docs-tag.must { background: #fee2e2; color: #991b1b; }
+  .docs-tag.cond { background: #fef3c7; color: #92400e; }
+
+  /* ── FLOW STEPS ── */
+  .flow-steps { display: flex; flex-direction: column; gap: 0; margin-top: 4px; }
+  .flow-step {
+    display: flex; gap: 14px; align-items: flex-start;
+    position: relative; padding-bottom: 16px;
+  }
+  .flow-step:last-child { padding-bottom: 0; }
+  .flow-step:not(:last-child)::after {
+    content: ''; position: absolute;
+    left: 14px; top: 30px; bottom: 0;
+    width: 2px; background: var(--gray-200);
+  }
+  .flow-num {
+    width: 30px; height: 30px; border-radius: 99px;
+    background: var(--primary); color: white;
+    font-size: 12px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .flow-text { padding-top: 6px; }
+  .flow-text strong { font-size: 13px; font-weight: 700; display: block; margin-bottom: 3px; }
+  .flow-text span { font-size: 12px; color: var(--gray-600); line-height: 1.6; }
+  .flow-warn {
+    display: inline-block; background: #fee2e2; color: #991b1b;
+    font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px;
+    margin-left: 8px; vertical-align: middle;
+  }
+
+  /* ── COMBO BOX ── */
+  .combo-box {
+    background: #ecfdf5; border: 1px solid #6ee7b7;
+    border-radius: 10px; padding: 14px 18px; margin-top: 16px;
+    font-size: 13px; color: #065f46;
+  }
+  .combo-box strong { display: block; font-size: 12px; font-weight: 800; margin-bottom: 6px; }
+
+  /* ── AMOUNT TABLE ── */
+  .amount-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+  .amount-table th {
+    padding: 9px 14px; background: var(--gray-100);
+    font-size: 11px; font-weight: 800; color: var(--gray-600);
+    letter-spacing: 0.04em; text-align: left;
+    border-bottom: 2px solid var(--gray-200);
+  }
+  .amount-table td {
+    padding: 10px 14px; border-bottom: 1px solid var(--gray-100);
+    vertical-align: middle; color: var(--gray-700);
+  }
+  .amount-table tr:last-child td { border-bottom: none; }
+  .amount-highlight { font-size: 16px; font-weight: 900; color: var(--primary); }
+
+  /* ── SECTION DIVIDER ── */
+  .sec-divider { border: none; border-top: 2px solid var(--gray-100); margin: 48px 0; }
+
+  /* ── POINT BOX ── */
+  .point-box {
+    background: #fffbeb; border: 1px solid #fde68a;
+    border-radius: 10px; padding: 16px 18px; margin-top: 16px;
+    font-size: 13px; color: #78350f; line-height: 1.7;
+  }
+  .point-box strong { display: block; font-weight: 800; margin-bottom: 6px; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, #0052cc, #0066ff);
+    border-radius: 16px; padding: 48px 40px;
+    text-align: center; color: white; margin-top: 48px;
+  }
+  .cta-section h2 { font-size: 24px; font-weight: 900; margin-bottom: 12px; }
+  .cta-section p { font-size: 14px; opacity: 0.85; margin-bottom: 28px; line-height: 1.7; }
+  .btn-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: white; color: var(--primary);
+    font-size: 15px; font-weight: 800; padding: 14px 32px;
+    border-radius: 10px; text-decoration: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 22px; }
+    .hero-cards { flex-direction: column; }
+    .detail-grid { grid-template-columns: 1fr; }
+    .site-nav-inner { padding: 0 16px; }
+    .container { padding: 0 16px 60px; }
+    .hero { padding: 40px 16px 36px; }
+    .course-amount { font-size: 16px; }
+    .sec-title { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-logo">
+      <div class="site-logo-mark">助</div>
+      補助金・助成金ガイド
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">診断ツール</a>
+      <a href="list.html" class="nav-link">岩手・盛岡一覧</a>
+      <a href="index.html#form" class="nav-link primary">無料診断を受ける →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">2026年度版 助成金完全解説</div>
+  <h1>知っておくべき3つの助成金<br>徹底ガイド</h1>
+  <p class="hero-sub">キャリアアップ助成金・IT導入補助金・特定求職者雇用開発助成金。<br>制度の中身・金額・書類・申請手順をまとめて解説します。</p>
+  <div class="hero-cards">
+    <div class="hero-card">
+      <div class="hero-card-label">01 キャリアアップ助成金</div>
+      <div class="hero-card-name">非正規→正規・待遇改善に</div>
+      <div class="hero-card-amount">最大 80万円<small>/人 × 何人でも</small></div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-label">02 IT導入補助金（2026）</div>
+      <div class="hero-card-name">システム・AIツール導入に</div>
+      <div class="hero-card-amount">最大 450万円<small>補助率 2/3</small></div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-label">03 特定求職者雇用開発助成金</div>
+      <div class="hero-card-name">障害者・高齢者等の採用に</div>
+      <div class="hero-card-amount">最大 240万円<small>/人（障害者採用）</small></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">目次</div>
+    <ul class="toc-list">
+      <li><span class="toc-num">01</span><a href="#career-up">キャリアアップ助成金（6コース）</a> <span>正社員化・賃金改善・賞与制度など</span></li>
+      <li><span class="toc-num">02</span><a href="#it-donyu">デジタル化・AI導入補助金2026（IT導入補助金）</a> <span>通常枠・インボイス枠・セキュリティ枠</span></li>
+      <li><span class="toc-num">03</span><a href="#tokutei">特定求職者雇用開発助成金</a> <span>障害者・高齢者・母子家庭の母等の採用</span></li>
+    </ul>
+  </div>
+
+  <!-- =====================================================
+       01 キャリアアップ助成金
+  ===================================================== -->
+  <div id="career-up">
+    <div class="sec-header">
+      <div class="sec-num career">01</div>
+      <div>
+        <div class="sec-title">キャリアアップ助成金</div>
+        <div class="sec-sub">非正規労働者の待遇改善・正社員化を推進する事業主への助成金。6つのコースがあり、組み合わせて受給できます。</div>
+      </div>
+    </div>
+
+    <div class="overview-box">
+      <strong style="display:block;font-weight:800;margin-bottom:8px;">制度の概要</strong>
+      パート・アルバイト・派遣などの非正規労働者を雇っている事業主が、その方たちの待遇を改善したり正社員にしたりすると国から助成金が支給される制度です。「1回やったら終わり」ではなく、<strong>転換した人数分だけ繰り返し受給できる</strong>のが最大の特徴です。「非正規を何人か正社員にしたい」「パートの時給を上げたい」「賞与を初めて出したい」という場面で使えます。
+      <br><br>
+      <strong>共通の前提条件：</strong>キャリアアップ計画書を事前に労働局へ提出すること（転換・制度導入の前に出す必要があります）。雇用保険の適用事業所であること。
+    </div>
+
+    <!-- コース一覧 -->
+
+    <!-- 正社員化コース -->
+    <div class="course-card" id="card-seishain">
+      <div class="course-head" onclick="toggleCourse('card-seishain')">
+        <div class="course-head-left">
+          <span class="course-badge career">正社員化</span>
+          <span class="course-name">正社員化コース — パート・契約社員を正社員に転換</span>
+        </div>
+        <div class="course-amount">40〜80万円<small>/人</small></div>
+        <div class="course-chevron">▼</div>
+      </div>
+      <div class="course-body">
+        <div class="detail-grid">
+          <div class="detail-block full">
+            <div class="detail-block-title">どんな助成金か</div>
+            <p>有期雇用労働者（パート・アルバイト・契約社員）を正社員（無期雇用フルタイム）に転換した事業主に支給されます。<br>
+            【2025年4月改正】雇入れから<strong>3年以上の方を転換</strong>すると80万円、3年未満は40万円（いずれも中小企業）。転換後6ヶ月の雇用継続と、転換時に賃金を3%以上増やすことが必須条件です。非正規を正社員にするたびに繰り返し申請できます。</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">支給額の詳細</div>
+            <table class="amount-table">
+              <tr><th>対象者</th><th>中小企業</th><th>大企業</th></tr>
+              <tr><td>雇入れ3年以上（重点支援）</td><td class="amount-highlight">80万円</td><td>60万円</td></tr>
+              <tr><td>雇入れ3年未満</td><td class="amount-highlight">40万円</td><td>30万円</td></tr>
+            </table>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">対象者・要件</div>
+            <ul class="detail-list">
+              <li>雇用保険に加入している有期雇用労働者が在籍</li>
+              <li>転換後6ヶ月間雇用継続すること</li>
+              <li>転換時に賃金を3%以上アップさせること</li>
+              <li>キャリアアップ計画書を<strong>転換前に</strong>提出済みであること</li>
+            </ul>
+          </div>
+          <div class="detail-block full">
+            <div class="detail-block-title">必要書類</div>
+            <table class="docs-table">
+              <tr><th>書類</th><th>備考</th></tr>
+              <tr><td>キャリアアップ計画書<span class="docs-tag must">必須・事前</span></td><td>転換前に労働局へ提出。遅れると受給不可</td></tr>
+              <tr><td>就業規則（転換規定が明記されたもの）</td><td>転換手続きが規定されていること</td></tr>
+              <tr><td>雇用契約書（有期→正社員 両方）</td><td>転換前後の雇用形態がわかるもの</td></tr>
+              <tr><td>賃金台帳（転換前後6ヶ月分）</td><td>3%以上の賃金増加を証明</td></tr>
+              <tr><td>出勤簿・タイムカード（転換後6ヶ月分）</td><td>雇用継続の確認に使用</td></tr>
+              <tr><td>雇用保険被保険者証（対象者分）</td><td>有期雇用期間の確認</td></tr>
+              <tr><td>登記簿謄本または個人事業の開業届</td><td>事業主確認書類</td></tr>
+            </table>
+          </div>
+          <div class="detail-block full">
+            <div class="detail-block-title">申請の流れ</div>
+            <div class="flow-steps">
+              <div class="flow-step">
+                <div class="flow-num">1</div>
+                <div class="flow-text">
+                  <strong>キャリアアップ計画書を労働局へ提出 <span class="flow-warn">転換前に必須</span></strong>
+                  <span>「この人を6ヶ月以内に正社員にする」という計画書。転換後に出しても受給できなくなります。最初の転換前に必ず提出してください。</span>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-num">2</div>
+                <div class="flow-text">
+                  <strong>就業規則に転換規定を整備</strong>
+                  <span>「一定条件を満たした有期雇用労働者は正社員に転換できる」旨を就業規則に明記します。社労士に依頼するのが確実です。</span>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-num">3</div>
+                <div class="flow-text">
+                  <strong>正社員に転換（賃金3%以上アップ）</strong>
+                  <span>転換日当日から賃金を3%以上増やすことが必要です。転換辞令・雇用契約書を取り交わします。</span>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-num">4</div>
+                <div class="flow-text">
+                  <strong>転換後6ヶ月間の雇用継続・賃金支払い</strong>
+                  <span>6ヶ月分の賃金台帳・出勤簿を保管しておきます。</span>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-num">5</div>
+                <div class="flow-text">
+                  <strong>支給申請（6ヶ月経過後2ヶ月以内）</strong>
+                  <span>書類一式を都道府県労働局またはハローワークへ提出。審査後1〜3ヶ月程度で振り込まれます。</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="detail-block full">
+            <div class="combo-box">
+              <strong>他のコースと組み合わせると受給額UP</strong>
+              正社員化コースと同時に「賃金規定等改定コース（+50万円）」「賞与・退職金コース（+50万円）」も申請できます。1人の転換で最大180万円近くになるケースも。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 障害者正社員化コース -->
+    <div class="course-card" id="card-shogaisha-sei">
+      <div class="course-head" onclick="toggleCourse('card-shogaisha-sei')">
+        <div class="course-head-left">
+          <span class="course-badge career">障害者正社員化</span>
+          <span class="course-name">障害者正社員化コース — 障害のある方を正社員に</span>
+        </div>
+        <div class="course-amount">120万円<small>/人</small></div>
+        <div class="course-chevron">▼</div>
+      </div>
+      <div class="course-body">
+        <div class="detail-grid">
+          <div class="detail-block full">
+            <div class="detail-block-title">どんな助成金か</div>
+            <p>有期雇用の障害者（障害者手帳所持者）を正社員に転換した事業主に、通常の正社員化コース（40〜80万円）より高い<strong>120万円/人</strong>が支給されます。重度障害者はさらに20万円加算。転換後6ヶ月の継続雇用と賃金3%以上の増加が条件です。「特定求職者雇用開発助成金」でまず採用し、「障害者トライアル雇用」で適性確認後、このコースで正社員化する"3段階活用"が最もお得なパターンです。</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">支給額</div>
+            <table class="amount-table">
+              <tr><th>区分</th><th>中小企業</th></tr>
+              <tr><td>通常の障害者</td><td class="amount-highlight">120万円</td></tr>
+              <tr><td>重度障害者</td><td class="amount-highlight">140万円</td></tr>
+            </table>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">主な条件</div>
+            <ul class="detail-list">
+              <li>障害者手帳・精神障害者保健福祉手帳等を取得していること</li>
+              <li>有期雇用として在籍している方が対象</li>
+              <li>キャリアアップ計画書を転換前に提出</li>
+              <li>転換後6ヶ月継続雇用＋賃金3%UP</li>
+            </ul>
+          </div>
+          <div class="detail-block full">
+            <div class="detail-block-title">必要書類</div>
+            <table class="docs-table">
+              <tr><th>書類</th><th>備考</th></tr>
+              <tr><td>キャリアアップ計画書<span class="docs-tag must">転換前に提出</span></td><td></td></tr>
+              <tr><td>障害者手帳・精神障害者保健福祉手帳等（写し）</td><td>障害の種類・等級の確認</td></tr>
+              <tr><td>就業規則（転換規定）</td><td></td></tr>
+              <tr><td>雇用契約書（転換前後）</td><td></td></tr>
+              <tr><td>賃金台帳・出勤簿（転換後6ヶ月分）</td><td></td></tr>
+              <tr><td>雇用保険被保険者証</td><td></td></tr>
+            </table>
+          </div>
+          <div class="detail-block full">
+            <div class="combo-box">
+              <strong>王道の3段階パターン（最大受給額）</strong>
+              ①特定求職者雇用開発助成金で採用（最大240万円）→ ②障害者トライアル雇用で適性確認（月8万×3ヶ月）→ ③このコースで正社員化（120万円）。合計で最大380万円以上の受給が可能です。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 賃金規定等改定コース -->
+    <div class="course-card" id="card-chingin">
+      <div class="course-head" onclick="toggleCourse('card-chingin')">
+        <div class="course-head-left">
+          <span class="course-badge career">賃金改定</span>
+          <span class="course-name">賃金規定等改定コース — 非正規の時給を3%以上引き上げ</span>
+        </div>
+        <div class="course-amount">50万円<small>/事業所</small></div>
+        <div class="course-chevron">▼</div>
+      </div>
+      <div class="course-body">
+        <div class="detail-grid">
+          <div class="detail-block full">
+            <div class="detail-block-title">どんな助成金か</div>
+            <p>中小企業が有期雇用労働者の賃金を<strong>3%以上引き上げ</strong>、その内容を就業規則の賃金規定に明記した場合に支給されます。1事業所あたり最大50万円で、<strong>中小企業のみ対象</strong>です。最低賃金引き上げに対応しながら助成金も受け取れるため、賃上げを考えている事業主には積極的に使ってほしい制度です。</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">支給額・対象</div>
+            <ul class="detail-list">
+              <li>最大50万円（1事業所あたり）</li>
+              <li>中小企業のみ対象（大企業は不可）</li>
+              <li>引き上げ人数や引き上げ率によって変動</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">主な条件</div>
+            <ul class="detail-list">
+              <li>有期雇用労働者の賃金を3%以上引き上げ</li>
+              <li>就業規則に賃金規定として整備</li>
+              <li>キャリアアップ計画書を事前提出</li>
+            </ul>
+          </div>
+          <div class="detail-block full">
+            <div class="detail-block-title">必要書類</div>
+            <table class="docs-table">
+              <tr><th>書類</th><th>備考</th></tr>
+              <tr><td>キャリアアップ計画書<span class="docs-tag must">事前提出</span></td><td></td></tr>
+              <tr><td>就業規則（賃金規定の改定箇所）</td><td>改定前・改定後両方</td></tr>
+              <tr><td>賃金台帳（改定前後3ヶ月分）</td><td>3%以上の引き上げを証明</td></tr>
+              <tr><td>雇用保険被保険者証（対象者分）</td><td></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 賃金規定等共通化コース -->
+    <div class="course-card" id="card-kyotsu">
+      <div class="course-head" onclick="toggleCourse('card-kyotsu')">
+        <div class="course-head-left">
+          <span class="course-badge career">賃金共通化</span>
+          <span class="course-name">賃金規定等共通化コース — 正規・非正規の賃金体系を統一</span>
+        </div>
+        <div class="course-amount">72万円<small>/事業所</small></div>
+        <div class="course-chevron">▼</div>
+      </div>
+      <div class="course-body">
+        <div class="detail-grid">
+          <div class="detail-block full">
+            <div class="detail-block-title">どんな助成金か</div>
+            <p>正規・非正規社員の賃金規定を<strong>共通化（同一労働同一賃金）</strong>した事業主に支給されます。1事業所あたり72万円で、正社員化コースと組み合わせた場合は受給額が積み上がります。就業規則の改定だけでなく、共通化後6ヶ月分の賃金を実際に支払った実績が必要です。難易度はやや高いですが、社労士と連携して進めると取り組みやすくなります。</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">支給額</div>
+            <ul class="detail-list">
+              <li>最大72万円（1事業所）</li>
+              <li>中小・大企業いずれも対象</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">主な条件</div>
+            <ul class="detail-list">
+              <li>正規・非正規共通の賃金規定を就業規則に整備</li>
+              <li>整備後6ヶ月分の賃金を支払うこと</li>
+              <li>キャリアアップ計画書を事前提出</li>
+            </ul>
+          </div>
+          <div class="detail-block full">
+            <div class="detail-block-title">必要書類</div>
+            <table class="docs-table">
+              <tr><th>書類</th><th>備考</th></tr>
+              <tr><td>キャリアアップ計画書<span class="docs-tag must">事前提出</span></td><td></td></tr>
+              <tr><td>就業規則（共通賃金規定の整備箇所）</td><td>整備前・整備後両方</td></tr>
+              <tr><td>賃金台帳（整備後6ヶ月分）</td><td>正規・非正規両方</td></tr>
+              <tr><td>雇用保険被保険者証</td><td></td></tr>
+            </table>
+          </div>
+          <div class="point-box">
+            <strong>社労士への相談を強く推奨</strong>
+            「共通化」の要件は解釈が難しく、就業規則の書き方で受給可否が分かれます。制度活用前に社会保険労務士に確認することをお勧めします。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 賞与・退職金コース -->
+    <div class="course-card" id="card-shoyo">
+      <div class="course-head" onclick="toggleCourse('card-shoyo')">
+        <div class="course-head-left">
+          <span class="course-badge career">賞与・退職金</span>
+          <span class="course-name">賞与・退職金制度導入コース — パートに初めてボーナスを出す</span>
+        </div>
+        <div class="course-amount">50万円<small>/事業所</small></div>
+        <div class="course-chevron">▼</div>
+      </div>
+      <div class="course-body">
+        <div class="detail-grid">
+          <div class="detail-block full">
+            <div class="detail-block-title">どんな助成金か</div>
+            <p>有期雇用労働者に<strong>新たに賞与制度または退職金制度</strong>を設け、実際に支給した事業主に支給されます。「就業規則を作るだけ」ではなく、<strong>実際に払った実績</strong>が条件です。1事業所50万円で正社員化コースや賃金改定コースと組み合わせて申請できます。パート・アルバイトへの待遇改善と採用力向上につながる取り組みです。</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">支給額</div>
+            <ul class="detail-list">
+              <li>最大50万円（1事業所）</li>
+              <li>賞与制度導入または退職金制度導入のいずれか</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">主な条件</div>
+            <ul class="detail-list">
+              <li>就業規則に賞与・退職金規定を新たに整備</li>
+              <li>有期雇用労働者に実際に支給すること</li>
+              <li>キャリアアップ計画書を事前提出</li>
+            </ul>
+          </div>
+          <div class="detail-block full">
+            <div class="detail-block-title">必要書類</div>
+            <table class="docs-table">
+              <tr><th>書類</th><th>備考</th></tr>
+              <tr><td>キャリアアップ計画書<span class="docs-tag must">事前提出</span></td><td></td></tr>
+              <tr><td>就業規則（賞与・退職金規定）</td><td>規定前・規定後両方</td></tr>
+              <tr><td>賞与支払明細または退職金支払証明</td><td>実際に支払ったことの証明</td></tr>
+              <tr><td>賃金台帳</td><td></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 短時間労働者延長コース -->
+    <div class="course-card" id="card-tanjikan">
+      <div class="course-head" onclick="toggleCourse('card-tanjikan')">
+        <div class="course-head-left">
+          <span class="course-badge career">短時間延長</span>
+          <span class="course-name">短時間労働者労働時間延長支援コース — 週20時間未満のパートを社保加入へ</span>
+        </div>
+        <div class="course-amount">25.5万円<small>/人</small></div>
+        <div class="course-chevron">▼</div>
+      </div>
+      <div class="course-body">
+        <div class="detail-grid">
+          <div class="detail-block full">
+            <div class="detail-block-title">どんな助成金か</div>
+            <p>週20時間未満で働くパートタイマーの労働時間を延長して、社会保険に加入させた事業主に<strong>1人あたり25.5万円</strong>を支給します。「106万円の壁」「130万円の壁」を超えて社会保険に加入させる際に、会社側の負担（社会保険料の会社負担分など）を補助してくれる制度です。延長後6ヶ月の雇用継続が条件です。</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">支給額</div>
+            <ul class="detail-list">
+              <li>1人あたり最大25.5万円</li>
+              <li>中小・大企業いずれも対象</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">主な条件</div>
+            <ul class="detail-list">
+              <li>週所定労働時間が20時間未満のパートが在籍</li>
+              <li>労働時間を延長して社会保険適用要件を満たす</li>
+              <li>延長後6ヶ月間継続雇用</li>
+              <li>キャリアアップ計画書を事前提出</li>
+            </ul>
+          </div>
+          <div class="detail-block full">
+            <div class="detail-block-title">必要書類</div>
+            <table class="docs-table">
+              <tr><th>書類</th><th>備考</th></tr>
+              <tr><td>キャリアアップ計画書<span class="docs-tag must">事前提出</span></td><td></td></tr>
+              <tr><td>雇用契約書（延長前後）</td><td>労働時間の変化がわかるもの</td></tr>
+              <tr><td>社会保険資格取得届（写し）</td><td>社会保険加入の証明</td></tr>
+              <tr><td>賃金台帳・出勤簿（延長後6ヶ月分）</td><td></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- キャリアアップ共通注意点 -->
+    <div class="point-box" style="margin-top:8px;">
+      <strong>キャリアアップ助成金 共通の注意点</strong>
+      どのコースも<strong>「キャリアアップ計画書は転換・制度導入の前に提出」</strong>が大原則です。後から出しても受給できません。また、就業規則の整備は社会保険労務士への依頼を推奨します。申請先は都道府県労働局またはハローワークです。
+    </div>
+  </div>
+
+  <hr class="sec-divider">
+
+  <!-- =====================================================
+       02 IT導入補助金（2026）
+  ===================================================== -->
+  <div id="it-donyu">
+    <div class="sec-header">
+      <div class="sec-num it">02</div>
+      <div>
+        <div class="sec-title">デジタル化・AI導入補助金2026（IT導入補助金）</div>
+        <div class="sec-sub">ITツール・AIシステムの導入費用を国が2/3補助。2026年3月30日より申請受付開始。</div>
+      </div>
+    </div>
+
+    <div class="overview-box purple">
+      <strong style="display:block;font-weight:800;margin-bottom:8px;">制度の概要</strong>
+      2026年度より「デジタル化・AI導入補助金」に名称変更・拡充されました。会計・勤怠・受発注・在庫管理・AI活用・ECサイトなど幅広いITツールが対象で、<strong>認定されたITベンダー経由で申請</strong>するのが特徴です。補助率は2/3（小規模事業者は一部3/4）で、難易度が低く申請しやすい補助金です。
+    </div>
+
+    <!-- 枠一覧 -->
+    <div class="course-card" id="card-it-normal">
+      <div class="course-head" onclick="toggleCourse('card-it-normal')">
+        <div class="course-head-left">
+          <span class="course-badge it">通常枠</span>
+          <span class="course-name">通常枠 — 会計・勤怠・在庫・AIツール等の導入</span>
+        </div>
+        <div class="course-amount">5〜450万円<small>補助率 2/3</small></div>
+        <div class="course-chevron">▼</div>
+      </div>
+      <div class="course-body">
+        <div class="detail-grid">
+          <div class="detail-block full">
+            <div class="detail-block-title">どんな補助金か</div>
+            <p>業務プロセスを効率化するITツール（クラウドシステム・AI・業務ソフト等）の導入費用の<strong>2/3を補助</strong>します。1プロセス以上の効率化なら5〜150万円、4プロセス以上なら最大450万円まで申請できます。製造業でも「AI検品システム」「生産管理システム」などに活用できます。</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">支給額の詳細</div>
+            <table class="amount-table">
+              <tr><th>申請区分</th><th>補助額</th><th>補助率</th></tr>
+              <tr><td>1プロセス以上</td><td class="amount-highlight">5〜150万円</td><td>2/3（小規模3/4）</td></tr>
+              <tr><td>4プロセス以上</td><td class="amount-highlight">150〜450万円</td><td>2/3</td></tr>
+            </table>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">対象ツールの例</div>
+            <ul class="detail-list">
+              <li>クラウド会計・経費精算ソフト</li>
+              <li>勤怠管理・シフト管理システム</li>
+              <li>受発注・在庫管理システム</li>
+              <li>AI-OCR・RPA・生成AIツール</li>
+              <li>ECサイト・POSレジシステム</li>
+              <li>生産管理・工程管理システム</li>
+            </ul>
+          </div>
+          <div class="detail-block full">
+            <div class="detail-block-title">申請の流れ</div>
+            <div class="flow-steps">
+              <div class="flow-step">
+                <div class="flow-num">1</div>
+                <div class="flow-text">
+                  <strong>gBizIDプライムを取得 <span class="flow-warn">申請前に必須</span></strong>
+                  <span>無料で取得できますが郵送確認で約2週間かかります。今すぐ申請しておくことを強く推奨します。</span>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-num">2</div>
+                <div class="flow-text">
+                  <strong>SECURITY ACTION（★1以上）を宣言</strong>
+                  <span>IPAのサイトで5分でオンライン完結。これも申請の前提条件です。</span>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-num">3</div>
+                <div class="flow-text">
+                  <strong>認定IT導入支援事業者（ベンダー）に相談</strong>
+                  <span>この補助金は必ず認定ベンダー経由で申請します。入れたいシステムのベンダーに「補助金対応しているか」を確認してください。</span>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-num">4</div>
+                <div class="flow-text">
+                  <strong>ベンダーと共同で申請書類を作成・提出</strong>
+                  <span>ベンダーが申請サポートをしてくれます。公募期間（2026年3月30日〜）内に提出。</span>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-num">5</div>
+                <div class="flow-text">
+                  <strong>交付決定後にITツールを導入・支払い</strong>
+                  <span>交付決定前の契約・支払いは補助対象外になります。必ず決定通知を受けてから進めてください。</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="detail-block full">
+            <div class="detail-block-title">必要書類</div>
+            <table class="docs-table">
+              <tr><th>書類</th><th>備考</th></tr>
+              <tr><td>gBizIDプライムのアカウント<span class="docs-tag must">事前取得</span></td><td>取得に約2週間かかるため早めに</td></tr>
+              <tr><td>SECURITY ACTION宣言<span class="docs-tag must">事前</span></td><td>IPAサイトでオンライン完結</td></tr>
+              <tr><td>IT導入支援事業者との申請書類（共同作成）</td><td>ベンダーがサポート</td></tr>
+              <tr><td>見積書・契約書（ITツール）</td><td>交付決定後に締結</td></tr>
+              <tr><td>確定申告書または決算書（直近1期分）</td><td>審査用</td></tr>
+              <tr><td>登記簿謄本または個人事業の開業届</td><td></td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" id="card-it-invoice">
+      <div class="course-head" onclick="toggleCourse('card-it-invoice')">
+        <div class="course-head-left">
+          <span class="course-badge it">インボイス枠</span>
+          <span class="course-name">インボイス枠（電子取引類型）— 電子インボイス・会計ソフト導入</span>
+        </div>
+        <div class="course-amount">最大350万円<small>補助率 2/3</small></div>
+        <div class="course-chevron">▼</div>
+      </div>
+      <div class="course-body">
+        <div class="detail-grid">
+          <div class="detail-block full">
+            <div class="detail-block-title">どんな補助金か</div>
+            <p>インボイス制度に対応した会計ソフト・受発注システム・決済ツールなどの導入費用を補助します。最大350万円で、インボイス未登録の免税事業者向けの特例枠もあります。電子帳簿保存法への対応と合わせて活用する事業者が多い枠です。</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">支給額</div>
+            <ul class="detail-list">
+              <li>最大350万円、補助率2/3</li>
+              <li>インボイス対応ツールが対象</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">対象ツール例</div>
+            <ul class="detail-list">
+              <li>インボイス対応会計・経理ソフト</li>
+              <li>電子請求書・電子取引システム</li>
+              <li>インボイス対応POSレジ</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" id="card-it-security">
+      <div class="course-head" onclick="toggleCourse('card-it-security')">
+        <div class="course-head-left">
+          <span class="course-badge it">セキュリティ枠</span>
+          <span class="course-name">セキュリティ対策推進枠 — ウイルス対策・バックアップ等</span>
+        </div>
+        <div class="course-amount">5〜150万円<small>補助率 1/2</small></div>
+        <div class="course-chevron">▼</div>
+      </div>
+      <div class="course-body">
+        <div class="detail-grid">
+          <div class="detail-block full">
+            <div class="detail-block-title">どんな補助金か</div>
+            <p>サイバー攻撃対策・ウイルス対策ソフト・セキュリティ監視ツールなどの導入費用の<strong>1/2を補助</strong>します。通常枠より補助率は低いですが、セキュリティ対策は業種問わず必要な投資であり、ITツール導入の一環として組み合わせて申請できます。補助額は5〜150万円です。</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">対象ツール例</div>
+            <ul class="detail-list">
+              <li>ウイルス対策・EDRツール</li>
+              <li>クラウドバックアップサービス</li>
+              <li>メールセキュリティ・フィルタリング</li>
+              <li>VPN・多要素認証システム</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">注意点</div>
+            <ul class="detail-list">
+              <li>補助率1/2（通常枠の2/3より低い）</li>
+              <li>IPA承認の「セキュリティツール」のみ対象</li>
+              <li>SECURITY ACTION宣言が前提</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="point-box" style="margin-top:8px;">
+      <strong>IT導入補助金 共通の注意点</strong>
+      <strong>交付決定前の契約・支払いは補助対象外</strong>になります。「先に買ってから申請」は絶対にNGです。また、gBizIDの取得に2週間かかるため、興味がある場合は今すぐ取得手続きを始めてください。申請はすべて認定ベンダーと共同で行います。
+    </div>
+  </div>
+
+  <hr class="sec-divider">
+
+  <!-- =====================================================
+       03 特定求職者雇用開発助成金
+  ===================================================== -->
+  <div id="tokutei">
+    <div class="sec-header">
+      <div class="sec-num tokutei">03</div>
+      <div>
+        <div class="sec-title">特定求職者雇用開発助成金 特定就職困難者コース</div>
+        <div class="sec-sub">障害者・高齢者・母子家庭の母などをハローワーク経由で採用した事業主への助成金。</div>
+      </div>
+    </div>
+
+    <div class="overview-box cyan">
+      <strong style="display:block;font-weight:800;margin-bottom:8px;">制度の概要</strong>
+      就職が難しいとされる方々（障害者・60歳以上の高齢者・母子家庭の母・生活保護受給者など）を、<strong>ハローワークや職業紹介事業者の紹介を通じて</strong>採用した事業主に助成金が支給されます。雇い入れ後2週間以内に受給資格確認申請が必要なため、採用後すぐに手続きをとることが重要です。トライアル雇用や障害者正社員化コースと組み合わせると受給額が大きくなります。
+    </div>
+
+    <div class="course-card" id="card-tokutei-main">
+      <div class="course-head" onclick="toggleCourse('card-tokutei-main')">
+        <div class="course-head-left">
+          <span class="course-badge tokutei">特定就職困難者</span>
+          <span class="course-name">特定就職困難者コース — 障害者・高齢者・母子家庭の母等の採用</span>
+        </div>
+        <div class="course-amount">最大240万円<small>/人（障害者）</small></div>
+        <div class="course-chevron">▼</div>
+      </div>
+      <div class="course-body">
+        <div class="detail-grid">
+          <div class="detail-block full">
+            <div class="detail-block-title">どんな助成金か</div>
+            <p>障害者・高齢者・母子家庭の母・生活保護受給者などをハローワーク等の紹介で採用した場合に、最長2年間にわたって賃金相当額の一部が支給されます。<strong>障害者採用なら最大240万円（中小企業）</strong>と非常に高額です。採用後の定着支援という性格が強く、2週間以内の申請が必須です。</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">支給額（中小企業）</div>
+            <table class="amount-table">
+              <tr><th>対象者</th><th>助成額</th><th>期間</th></tr>
+              <tr><td>重度障害者・45歳以上の障害者等</td><td class="amount-highlight">240万円</td><td>2年</td></tr>
+              <tr><td>障害者（上記以外）</td><td class="amount-highlight">120万円</td><td>1年</td></tr>
+              <tr><td>60歳以上65歳未満の高齢者</td><td class="amount-highlight">70万円</td><td>1年</td></tr>
+              <tr><td>母子家庭の母等</td><td class="amount-highlight">60万円</td><td>1年</td></tr>
+            </table>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-title">主な条件</div>
+            <ul class="detail-list">
+              <li>ハローワーク・職業紹介事業者の<strong>紹介状が必須</strong></li>
+              <li>雇い入れ後<strong>2週間以内</strong>に受給資格確認申請</li>
+              <li>1年以上継続して雇用する見込みがあること</li>
+              <li>雇用保険の適用事業所であること</li>
+              <li>過去3年間に不当解雇等がないこと</li>
+            </ul>
+          </div>
+          <div class="detail-block full">
+            <div class="detail-block-title">必要書類</div>
+            <table class="docs-table">
+              <tr><th>書類</th><th>備考</th></tr>
+              <tr><td>ハローワーク等の紹介状<span class="docs-tag must">採用時に必須</span></td><td>自己応募・縁故採用は対象外</td></tr>
+              <tr><td>受給資格確認申請書<span class="docs-tag must">採用後2週間以内</span></td><td>遅れると受給不可になります</td></tr>
+              <tr><td>雇用保険被保険者資格取得届（写し）</td><td>採用直後に手続きを</td></tr>
+              <tr><td>雇用契約書（対象者分）</td><td>1年以上の雇用契約であること</td></tr>
+              <tr><td>障害者手帳等（写し）<span class="docs-tag cond">障害者のみ</span></td><td>手帳の種類・等級の確認</td></tr>
+              <tr><td>母子家庭の証明（戸籍謄本等）<span class="docs-tag cond">母子家庭のみ</span></td><td></td></tr>
+              <tr><td>賃金台帳（支給対象期ごとに提出）</td><td>支給申請のたびに必要</td></tr>
+              <tr><td>出勤簿・タイムカード</td><td></td></tr>
+              <tr><td>登記簿謄本または個人事業の開業届</td><td></td></tr>
+            </table>
+          </div>
+          <div class="detail-block full">
+            <div class="detail-block-title">申請の流れ</div>
+            <div class="flow-steps">
+              <div class="flow-step">
+                <div class="flow-num">1</div>
+                <div class="flow-text">
+                  <strong>ハローワークに求人票を出す</strong>
+                  <span>この助成金は必ずハローワーク等の紹介経由での採用が必要です。直接採用では受給できません。</span>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-num">2</div>
+                <div class="flow-text">
+                  <strong>紹介状を持った対象者と面接・採用決定</strong>
+                  <span>紹介状は大切に保管してください。申請時に必要になります。</span>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-num">3</div>
+                <div class="flow-text">
+                  <strong>雇い入れ後2週間以内に受給資格確認申請 <span class="flow-warn">最重要</span></strong>
+                  <span>管轄のハローワークへ「受給資格確認申請書」を提出します。この期限を過ぎると受給できなくなります。採用当日か翌日に動くことを推奨します。</span>
+                </div>
+              </div>
+              <div class="flow-step">
+                <div class="flow-num">4</div>
+                <div class="flow-text">
+                  <strong>支給対象期ごとに支給申請</strong>
+                  <span>6ヶ月ごとに賃金台帳・出勤簿等を添付して支給申請します。障害者は最大4回（2年分）申請できます。</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="detail-block full">
+            <div class="combo-box">
+              <strong>トライアル雇用との組み合わせが王道</strong>
+              まずトライアル雇用（障害者：月8万円×3ヶ月）で適性確認しながら採用し、本採用後にこの助成金（最大240万円）を申請→さらにキャリアアップ助成金障害者正社員化コース（最大120〜140万円）と繋げる3段階が最も効率的です。合計で<strong>最大380万円以上</strong>の受給が可能になります。
+            </div>
+            <div class="point-box" style="margin-top:12px;">
+              <strong>よくある失敗パターン</strong>
+              「採用してから2週間以内の申請」を見落として受給できなくなるケースが非常に多いです。採用が決まったら翌営業日にはハローワークに連絡することを習慣にしてください。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>自社に合う助成金を<br>無料で診断する</h2>
+    <p>業種・従業員数・今後の計画を入力するだけで、<br>受給できる可能性の高い助成金を自動で抽出します。</p>
+    <a href="index.html" class="btn-cta">無料診断ツールを使う →</a>
+  </div>
+
+</div>
+
+<script>
+function toggleCourse(id) {
+  const card = document.getElementById(id);
+  if (card) card.classList.toggle('open');
+}
+// 最初は全部閉じた状態。クリックで開く。
+</script>
+</body>
+</html>

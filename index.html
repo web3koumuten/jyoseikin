@@ -6451,53 +6451,53 @@ function showLoading(matchCount, callback) {
   runStep();
 }
 
-// ── 公式ページURL一覧
+// ── 公式ページURL一覧（各助成金の専用ページに直リンク）
 const OFFICIAL_URLS = {
   // 補助金（中小企業庁・経産省系）
-  'jizokuka-hojyokin':          'https://www.jizokuka-r3.jp/',
+  'jizokuka-hojyokin':          'https://www.chusho.meti.go.jp/keiei/shokibo/jizoku/',
   'it-donyu':                   'https://www.it-hojo.jp/',
   'monozukuri-hojyokin':        'https://portal.monodukuri-hojo.jp/',
   'shooryoka':                  'https://shoryokuka.smrj.go.jp/',
   'jigyo-shinsyutsu':           'https://jigyou-saikouchiku.go.jp/',
   'shoene':                     'https://sii.or.jp/jigyou_saikouchiku/',
   'jigyo-shokei':               'https://jigyo-hikitsugi.jp/',
-  'seichokasoku':               'https://www.chusho.meti.go.jp/',
+  'seichokasoku':               'https://www.chusho.meti.go.jp/kinyu/seichokasoku/',
   'it-security':                'https://www.it-hojo.jp/',
-  // 人材開発支援助成金系（厚労省）
+  // 人材開発支援助成金（厚労省・各コース専用ページ）
   'jinzai-ikusei-shien':        'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/d01-1.html',
   'jinzai-hito-investment':     'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/d01-1.html',
   'jinzai-reskilling':          'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/d01-1.html',
   'jinzai-kyuka-fuyo':          'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/d01-1.html',
   'jinzai-kensetsu-gino':       'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/kensetsu.html',
   'jinzai-kensetsu-nintei':     'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/ninti.html',
-  // キャリアアップ助成金
+  // キャリアアップ助成金（専用ページ）
   'career-up-seishainuka':             'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/part_haken/jigyounushi/career.html',
   'career-up-shogaisha-seishainuka':   'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/part_haken/jigyounushi/career.html',
   'career-up-chingin-kaitei':          'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/part_haken/jigyounushi/career.html',
   'career-up-chingin-kyotsu':          'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/part_haken/jigyounushi/career.html',
   'career-up-shoyo-taishokukin':       'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/part_haken/jigyounushi/career.html',
   'career-up-tanjikan-enchyo':         'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/part_haken/jigyounushi/career.html',
-  // トライアル雇用
-  'trial-ippan':                'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/trial_02.html',
-  'trial-shogaisha':            'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/trial_02.html',
-  'trial-shogaisha-tanjikan':   'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/trial_02.html',
-  // 特定求職者雇用開発助成金
-  'tokutei-shushokukonnansha':  'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/tokutei_02.html',
-  // 両立支援等助成金
-  'ryoritsu-papa-shien':        'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/ryouritsu/kikaikin/index.html',
-  'ryoritsu-ikukyu-shien':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/ryouritsu/kikaikin/index.html',
-  'ryoritsu-kaigo-boushi':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/ryouritsu/kikaikin/index.html',
-  'ryoritsu-funin-shien':       'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/ryouritsu/kikaikin/index.html',
-  'ryoritsu-ikukyu-kouhyo':     'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/ryouritsu/kikaikin/index.html',
-  'ryoritsu-gyomu-daigae':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/ryouritsu/kikaikin/index.html',
-  // その他助成金（厚労省）
-  'konenreisha-koyosuishin':    'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/koureisha/topics/tp120903-1_00017.html',
-  'gyomu-kaizen':               'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/gyomukaizen.html',
-  'hatarakikata-jikangai':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000148322.html',
-  'hatarakikata-interval':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000148322.html',
+  // トライアル雇用（コース別専用ページ）
+  'trial-ippan':                'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/newpage_16286.html',
+  'trial-shogaisha':            'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/shougai_trial.html',
+  'trial-shogaisha-tanjikan':   'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/shougai_trial.html',
+  // 特定求職者雇用開発助成金（専用ページ）
+  'tokutei-shushokukonnansha':  'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/tokutei_konnan.html',
+  // 両立支援等助成金（専用ページ）
+  'ryoritsu-papa-shien':        'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kodomo/shokuba_kosodate/ryouritsu01/index.html',
+  'ryoritsu-ikukyu-shien':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kodomo/shokuba_kosodate/ryouritsu01/index.html',
+  'ryoritsu-kaigo-boushi':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kodomo/shokuba_kosodate/ryouritsu01/index.html',
+  'ryoritsu-funin-shien':       'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kodomo/shokuba_kosodate/ryouritsu01/index.html',
+  'ryoritsu-ikukyu-kouhyo':     'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kodomo/shokuba_kosodate/ryouritsu01/index.html',
+  'ryoritsu-gyomu-daigae':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kodomo/shokuba_kosodate/ryouritsu01/index.html',
+  // その他助成金（厚労省・専用ページ）
+  'konenreisha-koyosuishin':    'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000139692.html',
+  'gyomu-kaizen':               'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudoukijun/zigyonushi/shienjigyou/03.html',
+  'hatarakikata-jikangai':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000120692.html',
+  'hatarakikata-interval':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000150891.html',
   'jinzai-kakuho-koyokanri':    'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/jinzaikakuho.html',
-  'sangyo-koyo-antei-shukko':   'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/sangyokoyouantei.html',
-  'sangyo-koyo-skillup':        'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/sangyokoyouantei.html',
+  'sangyo-koyo-antei-shukko':   'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000082805_00008.html',
+  'sangyo-koyo-skillup':        'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000082805_00012.html',
   'judokyuen-boushi':           'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000049881.html',
   'koyo-chosei':                'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/pageL07.html',
   'shogaisha-shisetsu-setchino':'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/shougai_04.html',

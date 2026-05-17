@@ -1736,157 +1736,119 @@
     margin: 0 -24px 40px;
     padding: 0 24px;
     background: #fff;
-    border-bottom: 1px solid var(--border-light);
   }
   .hx-wrap {
     max-width: 960px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 288px;
-    gap: 72px;
-    align-items: center;
-    padding: 80px 0 76px;
   }
-  /* ─── 左カラム ─── */
-  .hx-tag {
+  /* ─── トップバー ─── */
+  .hx-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 3px solid var(--gray-900);
+    border-bottom: 1px solid var(--border);
+    padding: 11px 0;
+  }
+  .hx-topbar-name {
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.14em;
-    color: var(--primary);
-    margin-bottom: 22px;
-    display: block;
+    letter-spacing: 0.13em;
+    color: var(--gray-900);
     text-transform: uppercase;
   }
-  .hx-h1 { margin-bottom: 24px; }
+  .hx-topbar-note {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--gray-600);
+  }
+  /* ─── 本文エリア ─── */
+  .hx-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    padding: 64px 0 56px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hx-h1 { margin: 0; }
   .hx-h1-sm {
     display: block;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 500;
     color: #8096b0;
     letter-spacing: -0.01em;
     line-height: 1.5;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
   .hx-h1-lg {
     display: block;
-    font-size: 58px;
+    font-size: 60px;
     font-weight: 900;
     color: var(--gray-900);
-    letter-spacing: -0.045em;
-    line-height: 1.08;
+    letter-spacing: -0.05em;
+    line-height: 1.06;
   }
   .hx-lead {
     font-size: 14px;
     line-height: 1.9;
     color: var(--gray-600);
-    margin-bottom: 36px;
-    max-width: 420px;
+    margin-bottom: 32px;
   }
   .hx-btn {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: var(--primary);
+    background: var(--gray-900);
     color: #fff;
     border: none;
-    border-radius: 8px;
-    padding: 15px 38px;
+    border-radius: 0;
+    padding: 16px 40px;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     font-family: inherit;
     letter-spacing: -0.01em;
-    box-shadow: 0 2px 6px rgba(24,84,165,0.22), 0 4px 14px rgba(24,84,165,0.14);
-    transition: background 0.12s, transform 0.1s, box-shadow 0.12s;
-    margin-bottom: 18px;
+    transition: background 0.12s, transform 0.1s;
+    margin-bottom: 16px;
   }
-  .hx-btn:hover { background: var(--primary-dark); box-shadow: 0 3px 10px rgba(24,84,165,0.32), 0 6px 20px rgba(24,84,165,0.18); transform: translateY(-1px); }
+  .hx-btn:hover { background: #2a3848; transform: translateY(-1px); }
   .hx-btn:active { transform: none; }
   .hx-btn-arrow { font-size: 16px; font-weight: 400; }
-  .hx-badges {
-    display: flex;
-    gap: 18px;
+  .hx-trust {
     font-size: 12px;
-    color: var(--gray-400);
+    color: var(--gray-600);
     font-weight: 500;
-    flex-wrap: wrap;
+    letter-spacing: 0.04em;
+    margin: 0;
   }
-
-  /* ─── 右カラム（スタッツカード） ─── */
-  .hx-card {
-    background: var(--surface-2);
-    border: 1px solid var(--border-light);
-    border-top: 3px solid var(--primary);
-    border-radius: 12px;
-    padding: 32px 26px 28px;
+  /* ─── スタットバー ─── */
+  .hx-statbar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 28px 0 32px;
   }
-  .hx-card-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: var(--gray-400);
-    text-transform: uppercase;
-    margin-bottom: 10px;
+  .hx-stat {
+    padding: 0 28px 0 0;
+    border-right: 1px solid var(--border);
   }
-  .hx-card-amount {
-    display: flex;
-    align-items: baseline;
-    gap: 3px;
-    margin-bottom: 22px;
-  }
-  .hx-card-yen {
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--primary);
-    letter-spacing: -0.02em;
-  }
-  .hx-card-num {
-    font-size: 52px;
+  .hx-stat:last-child { border-right: none; padding-right: 0; }
+  .hx-stat + .hx-stat { padding-left: 28px; }
+  .hx-stat-n {
+    display: block;
+    font-size: 30px;
     font-weight: 900;
-    color: var(--primary);
-    letter-spacing: -0.05em;
+    color: var(--gray-900);
+    letter-spacing: -0.04em;
     line-height: 1;
+    margin-bottom: 6px;
     font-feature-settings: "tnum" 1;
   }
-  .hx-card-unit {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--gray-700);
-    padding-bottom: 3px;
-  }
-  .hx-card-line {
-    height: 1px;
-    background: var(--border-light);
-    margin-bottom: 20px;
-  }
-  .hx-card-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-  .hx-card-stat {
-    background: #fff;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    padding: 14px 12px;
-  }
-  .hx-card-stat-n {
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--gray-900);
-    letter-spacing: -0.03em;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .hx-card-stat-n em {
-    font-style: normal;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0;
-  }
-  .hx-card-stat-l {
-    font-size: 10px;
-    color: var(--gray-400);
+  .hx-stat-l {
+    display: block;
+    font-size: 11px;
+    color: var(--gray-600);
     font-weight: 500;
     letter-spacing: 0.03em;
   }
@@ -1899,18 +1861,26 @@
   .btn-hero { display: none !important; }
 
   @media (max-width: 860px) {
-    .hx-wrap { grid-template-columns: 1fr; gap: 40px; padding: 56px 0 48px; }
-    .hx-h1-lg { font-size: 44px; }
-    .hx-card { display: none; }
-    .hx-badges { gap: 12px; }
+    .hx-body { grid-template-columns: 1fr; gap: 32px; padding: 48px 0 40px; }
+    .hx-h1-lg { font-size: 46px; }
+    .hx-statbar { grid-template-columns: repeat(2, 1fr); }
+    .hx-stat { border-right: none; padding: 0 0 20px 0; border-bottom: 1px solid var(--border); }
+    .hx-stat + .hx-stat { padding-left: 0; }
+    .hx-stat:last-child { border-bottom: none; padding-bottom: 0; }
+    .hx-stat:nth-child(odd) { padding-right: 20px; border-right: 1px solid var(--border); border-bottom: none; }
+    .hx-stat:nth-child(even) { padding-left: 20px; border-bottom: none; }
+    .hx-stat:nth-child(1), .hx-stat:nth-child(2) { padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .hx-stat:nth-child(3), .hx-stat:nth-child(4) { padding-top: 20px; }
   }
   @media (max-width: 560px) {
     #intro-hero { margin: 0 -12px 28px; padding: 0 12px; }
-    .hx-wrap { padding: 44px 0 36px; gap: 28px; }
-    .hx-h1-sm { font-size: 18px; }
-    .hx-h1-lg { font-size: 36px; }
-    .hx-lead { font-size: 13.5px; margin-bottom: 28px; }
+    .hx-body { padding: 36px 0 32px; gap: 24px; }
+    .hx-h1-sm { font-size: 17px; }
+    .hx-h1-lg { font-size: 38px; }
+    .hx-lead { font-size: 13.5px; margin-bottom: 24px; }
     .hx-btn { width: 100%; justify-content: center; }
+    .hx-stat-n { font-size: 24px; }
+    .hx-topbar-note { display: none; }
   }
 
   /* ── PROGRESS BAR ───────────────────────── */
@@ -2254,44 +2224,39 @@
 <div id="intro-hero">
   <div class="hx-wrap">
 
-    <div class="hx-left">
-      <p class="hx-tag">補助金・助成金　無料診断</p>
+    <div class="hx-topbar">
+      <span class="hx-topbar-name">補助金・助成金 無料診断</span>
+      <span class="hx-topbar-note">国・都道府県・市区町村　45制度対応</span>
+    </div>
 
+    <div class="hx-body">
       <h1 class="hx-h1">
         <span class="hx-h1-sm">御社に使える補助金を、</span>
-        <span class="hx-h1-lg">全部、見つける。</span>
+        <span class="hx-h1-lg">全部、<br>見つける。</span>
       </h1>
-
-      <p class="hx-lead">業種・従業員数・経営状況を入力するだけ。<br>45の制度から受給可能な補助金・助成金をすべて洗い出します。</p>
-
-      <button class="hx-btn" id="btn-start-diagnosis">無料で診断する<span class="hx-btn-arrow">→</span></button>
-
-      <div class="hx-badges">
-        <span>✓ 45制度対応</span>
-        <span>✓ 約5分で完了</span>
-        <span>✓ 登録不要・無料</span>
+      <div class="hx-action">
+        <p class="hx-lead">業種・従業員数・経営状況を入力するだけ。<br>45の制度から受給可能な補助金・助成金をすべて洗い出します。</p>
+        <button class="hx-btn" id="btn-start-diagnosis">無料で診断する<span class="hx-btn-arrow">→</span></button>
+        <p class="hx-trust">✓ 約5分　　✓ 登録不要　　✓ 完全無料</p>
       </div>
     </div>
 
-    <div class="hx-right">
-      <div class="hx-card">
-        <p class="hx-card-label">最大受給額目安</p>
-        <div class="hx-card-amount">
-          <span class="hx-card-yen">¥</span>
-          <span class="hx-card-num">1,250</span>
-          <span class="hx-card-unit">万円</span>
-        </div>
-        <div class="hx-card-line"></div>
-        <div class="hx-card-grid">
-          <div class="hx-card-stat">
-            <div class="hx-card-stat-n">45</div>
-            <div class="hx-card-stat-l">対応制度数</div>
-          </div>
-          <div class="hx-card-stat">
-            <div class="hx-card-stat-n">5<em>分</em></div>
-            <div class="hx-card-stat-l">診断所要時間</div>
-          </div>
-        </div>
+    <div class="hx-statbar">
+      <div class="hx-stat">
+        <span class="hx-stat-n">¥1,250万</span>
+        <span class="hx-stat-l">最大受給額目安</span>
+      </div>
+      <div class="hx-stat">
+        <span class="hx-stat-n">45</span>
+        <span class="hx-stat-l">対応制度数</span>
+      </div>
+      <div class="hx-stat">
+        <span class="hx-stat-n">5分</span>
+        <span class="hx-stat-l">診断所要時間</span>
+      </div>
+      <div class="hx-stat">
+        <span class="hx-stat-n">無料</span>
+        <span class="hx-stat-l">登録・費用不要</span>
       </div>
     </div>
 

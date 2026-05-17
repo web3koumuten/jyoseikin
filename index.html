@@ -2280,32 +2280,28 @@
     .result-row-head {
       display: flex;
       flex-direction: column;
-      padding: 14px 14px 12px;
+      padding: 14px 14px 10px;
       gap: 0;
     }
-    .result-row-cat-line { order: 1; margin-bottom: 4px; }
-    .result-row-title {
-      order: 2;
-      grid-area: unset;
-      font-size: 15px;
-      margin-bottom: 10px;
-      width: 100%;
-    }
-    .result-row-amount {
-      order: 3;
-      grid-area: unset;
-      text-align: left;
-      align-self: auto;
-      padding: 10px 0 8px;
-      border-top: 1px solid #f0f2f5;
+    .result-row-cat-line { margin-bottom: 5px; }
+    .result-row-title { font-size: 15px; margin-bottom: 10px; }
+    /* foot = chips(左) + amount(右) をそのまま横並び維持 */
+    .result-row-foot {
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      width: 100%;
+      align-items: center;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #f0f2f5;
     }
-    .result-row-amount-label { margin-bottom: 0; }
-    .result-row-amount-val > span:first-child { font-size: 22px; }
-    .result-row-foot { order: 4; padding-top: 4px; width: 100%; }
+    .result-row-chips { flex: 1; }
+    /* amount はfoot内で右寄せ、サイズだけ縮小 */
+    .result-row-amount {
+      flex-shrink: 0;
+      text-align: right;
+      padding-bottom: 0;
+      align-self: center;
+    }
+    .result-row-amount-val > span:first-child { font-size: 20px; }
     .result-row-cta { padding: 9px 14px; }
     .result-row-detail-inner { padding: 18px 14px 22px; }
 

@@ -1731,123 +1731,186 @@
   .next-step-badge.green { background: #d1fae5; color: #065f46; }
 
   /* ── INTRO HERO ─────────────────────────── */
-  /* ── ヒーロー（新デザイン） ── */
+  /* ── ヒーロー（タイポグラフィ重視） ── */
   #intro-hero {
     margin: 0 -24px 40px;
     padding: 0 24px;
-    background: #ffffff;
-    border-bottom: 1px solid var(--border);
+    background: #fff;
+    border-bottom: 1px solid var(--border-light);
   }
-  .hero-inner {
-    max-width: 680px;
+  .hx-wrap {
+    max-width: 960px;
     margin: 0 auto;
-    padding: 72px 0 64px;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 288px;
+    gap: 72px;
+    align-items: center;
+    padding: 80px 0 76px;
   }
-  .hero-kicker {
-    display: inline-block;
+  /* ─── 左カラム ─── */
+  .hx-tag {
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.14em;
     color: var(--primary);
-    background: var(--primary-light);
-    border-radius: 4px;
-    padding: 5px 14px;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
+    display: block;
+    text-transform: uppercase;
   }
-  .hero-h1 {
-    font-size: 40px;
+  .hx-h1 { margin-bottom: 24px; }
+  .hx-h1-sm {
+    display: block;
+    font-size: 22px;
+    font-weight: 500;
+    color: #8096b0;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+  .hx-h1-lg {
+    display: block;
+    font-size: 58px;
     font-weight: 900;
-    line-height: 1.3;
-    letter-spacing: -0.03em;
     color: var(--gray-900);
-    margin-bottom: 18px;
+    letter-spacing: -0.045em;
+    line-height: 1.08;
   }
-  .hero-accent { color: var(--primary); }
-  .hero-sub {
-    font-size: 15px;
+  .hx-lead {
+    font-size: 14px;
     line-height: 1.9;
     color: var(--gray-600);
-    margin-bottom: 28px;
-    max-width: 540px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 36px;
+    max-width: 420px;
   }
-  .hero-trust {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px 16px;
-    margin-bottom: 32px;
-    font-size: 13px;
-    color: var(--gray-600);
-    flex-wrap: wrap;
-  }
-  .hero-trust-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-weight: 500;
-  }
-  .trust-check { color: var(--accent); font-weight: 700; }
-  .hero-sep { color: var(--border); }
-  .hero-btn-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .btn-hero {
+  .hx-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     background: var(--primary);
-    color: white;
+    color: #fff;
     border: none;
     border-radius: 8px;
-    padding: 15px 40px;
-    font-size: 16px;
+    padding: 15px 38px;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     font-family: inherit;
     letter-spacing: -0.01em;
-    box-shadow: 0 2px 6px rgba(24,84,165,0.2), 0 4px 14px rgba(24,84,165,0.15);
-    transition: background 0.12s, box-shadow 0.12s, transform 0.1s;
+    box-shadow: 0 2px 6px rgba(24,84,165,0.22), 0 4px 14px rgba(24,84,165,0.14);
+    transition: background 0.12s, transform 0.1s, box-shadow 0.12s;
+    margin-bottom: 18px;
   }
-  .btn-hero:hover { background: var(--primary-dark); box-shadow: 0 3px 10px rgba(24,84,165,0.3), 0 6px 20px rgba(24,84,165,0.18); transform: translateY(-1px); }
-  .btn-hero:active { transform: translateY(0); }
-  .btn-hero-arrow { font-size: 15px; }
-  .btn-hero-group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
-  .btn-hero-sub {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: transparent;
+  .hx-btn:hover { background: var(--primary-dark); box-shadow: 0 3px 10px rgba(24,84,165,0.32), 0 6px 20px rgba(24,84,165,0.18); transform: translateY(-1px); }
+  .hx-btn:active { transform: none; }
+  .hx-btn-arrow { font-size: 16px; font-weight: 400; }
+  .hx-badges {
+    display: flex;
+    gap: 18px;
+    font-size: 12px;
+    color: var(--gray-400);
+    font-weight: 500;
+    flex-wrap: wrap;
+  }
+
+  /* ─── 右カラム（スタッツカード） ─── */
+  .hx-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border-light);
+    border-top: 3px solid var(--primary);
+    border-radius: 12px;
+    padding: 32px 26px 28px;
+  }
+  .hx-card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hx-card-amount {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    margin-bottom: 22px;
+  }
+  .hx-card-yen {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+  }
+  .hx-card-num {
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--primary);
+    letter-spacing: -0.05em;
+    line-height: 1;
+    font-feature-settings: "tnum" 1;
+  }
+  .hx-card-unit {
+    font-size: 17px;
+    font-weight: 700;
     color: var(--gray-700);
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 26px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
-    text-decoration: none;
-    transition: border-color 0.12s, background 0.12s, color 0.12s;
+    padding-bottom: 3px;
   }
-  .btn-hero-sub:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+  .hx-card-line {
+    height: 1px;
+    background: var(--border-light);
+    margin-bottom: 20px;
+  }
+  .hx-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .hx-card-stat {
+    background: #fff;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 14px 12px;
+  }
+  .hx-card-stat-n {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--gray-900);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hx-card-stat-n em {
+    font-style: normal;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .hx-card-stat-l {
+    font-size: 10px;
+    color: var(--gray-400);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
 
-  /* 旧要素は非表示 */
+  /* 旧クラス非表示 */
   .hero-layout, .hero-panel, .hero-stats-strip, .hero-points, .hero-features,
-  .hero-visual, .hero-graphic, .hero-content, .hero-overline { display: none !important; }
+  .hero-visual, .hero-graphic, .hero-content, .hero-overline,
+  .hero-inner, .hero-kicker, .hero-sub, .hero-trust, .hero-btn-row,
+  .hero-h1, .hero-accent, .btn-hero-group, .btn-hero-sub { display: none !important; }
+  .btn-hero { display: none !important; }
 
-  @media (max-width: 640px) {
+  @media (max-width: 860px) {
+    .hx-wrap { grid-template-columns: 1fr; gap: 40px; padding: 56px 0 48px; }
+    .hx-h1-lg { font-size: 44px; }
+    .hx-card { display: none; }
+    .hx-badges { gap: 12px; }
+  }
+  @media (max-width: 560px) {
     #intro-hero { margin: 0 -12px 28px; padding: 0 12px; }
-    .hero-inner { padding: 48px 0 40px; }
-    .hero-h1 { font-size: 28px; }
-    .hero-btn-row { flex-direction: column; align-items: stretch; }
-    .btn-hero, .btn-hero-sub { justify-content: center; text-align: center; width: 100%; }
-    .hero-sub { font-size: 13.5px; }
+    .hx-wrap { padding: 44px 0 36px; gap: 28px; }
+    .hx-h1-sm { font-size: 18px; }
+    .hx-h1-lg { font-size: 36px; }
+    .hx-lead { font-size: 13.5px; margin-bottom: 28px; }
+    .hx-btn { width: 100%; justify-content: center; }
   }
 
   /* ── PROGRESS BAR ───────────────────────── */
@@ -2189,21 +2252,49 @@
 
 <!-- INTRO HERO -->
 <div id="intro-hero">
-  <div class="hero-inner">
-    <p class="hero-kicker">補助金・助成金　無料診断サービス</p>
-    <h1 class="hero-h1">御社に使える補助金を、<br><span class="hero-accent">5分ですべてわかります。</span></h1>
-    <p class="hero-sub">業種・従業員数・経営状況を入力するだけ。全45制度の中から受給可能な<br>補助金・助成金を自動で診断します。登録不要・完全無料でご利用いただけます。</p>
-    <div class="hero-trust">
-      <span class="hero-trust-item"><span class="trust-check">✓</span>45制度対応</span>
-      <span class="hero-sep">|</span>
-      <span class="hero-trust-item"><span class="trust-check">✓</span>約5分で完了</span>
-      <span class="hero-sep">|</span>
-      <span class="hero-trust-item"><span class="trust-check">✓</span>完全無料・登録不要</span>
+  <div class="hx-wrap">
+
+    <div class="hx-left">
+      <p class="hx-tag">補助金・助成金　無料診断</p>
+
+      <h1 class="hx-h1">
+        <span class="hx-h1-sm">御社に使える補助金を、</span>
+        <span class="hx-h1-lg">全部、見つける。</span>
+      </h1>
+
+      <p class="hx-lead">業種・従業員数・経営状況を入力するだけ。<br>45の制度から受給可能な補助金・助成金をすべて洗い出します。</p>
+
+      <button class="hx-btn" id="btn-start-diagnosis">無料で診断する<span class="hx-btn-arrow">→</span></button>
+
+      <div class="hx-badges">
+        <span>✓ 45制度対応</span>
+        <span>✓ 約5分で完了</span>
+        <span>✓ 登録不要・無料</span>
+      </div>
     </div>
-    <div class="hero-btn-row">
-      <button class="btn-hero" id="btn-start-diagnosis">無料で診断する <span class="btn-hero-arrow">→</span></button>
-      <a href="list.html" class="btn-hero-sub">助成金一覧を見る</a>
+
+    <div class="hx-right">
+      <div class="hx-card">
+        <p class="hx-card-label">最大受給額目安</p>
+        <div class="hx-card-amount">
+          <span class="hx-card-yen">¥</span>
+          <span class="hx-card-num">1,250</span>
+          <span class="hx-card-unit">万円</span>
+        </div>
+        <div class="hx-card-line"></div>
+        <div class="hx-card-grid">
+          <div class="hx-card-stat">
+            <div class="hx-card-stat-n">45</div>
+            <div class="hx-card-stat-l">対応制度数</div>
+          </div>
+          <div class="hx-card-stat">
+            <div class="hx-card-stat-n">5<em>分</em></div>
+            <div class="hx-card-stat-l">診断所要時間</div>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
 

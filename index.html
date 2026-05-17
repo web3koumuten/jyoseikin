@@ -2278,19 +2278,22 @@
     /* ── 結果カード ── */
     .result-row { border-radius: 10px; }
     .result-row-head {
+      display: flex;
+      flex-direction: column;
       padding: 14px 14px 12px;
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        "cat"
-        "title"
-        "amount"
-        "foot";
       gap: 0;
     }
-    .result-row-cat-line { margin-bottom: 4px; }
-    .result-row-title { font-size: 15px; margin-bottom: 8px; }
+    .result-row-cat-line { order: 1; margin-bottom: 4px; }
+    .result-row-title {
+      order: 2;
+      grid-area: unset;
+      font-size: 15px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
     .result-row-amount {
-      grid-area: amount;
+      order: 3;
+      grid-area: unset;
       text-align: left;
       align-self: auto;
       padding: 10px 0 8px;
@@ -2298,10 +2301,11 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
+      width: 100%;
     }
     .result-row-amount-label { margin-bottom: 0; }
     .result-row-amount-val > span:first-child { font-size: 22px; }
-    .result-row-foot { padding-top: 4px; }
+    .result-row-foot { order: 4; padding-top: 4px; width: 100%; }
     .result-row-cta { padding: 9px 14px; }
     .result-row-detail-inner { padding: 18px 14px 22px; }
 

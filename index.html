@@ -5346,13 +5346,15 @@ function checkEligibility(s, company) {
   const sizeOK = s.company_size.some(sz => sizes.includes(sz));
   if (!sizeOK) return { ok: false, reason: `規模（${sizes.join('・') || '規模不明'}）は対象外` };
 
-  // ④ 最低従業員数チェック
-  if (s.min_employees > 0 && employees < s.min_employees) {
+  // ④ 最低従業員数チェック（Q8未入力の場合はスキップ：従業員がいる可能性があるため）
+  const q8Val = (document.getElementById('q8')?.value || '').trim();
+  const q8Filled = q8Val !== '';
+  if (s.min_employees > 0 && q8Filled && employees < s.min_employees) {
     return { ok: false, reason: `従業員${s.min_employees}名以上が必要（現在：${employees}名）` };
   }
 
-  // ⑤ 雇用保険チェック（従業員0人の場合）
-  if (s.requires_employee_insurance && employees === 0 && legalForm !== '個人事業主') {
+  // ⑤ 雇用保険チェック（Q8入力済みかつ従業員0人の場合のみ）
+  if (s.requires_employee_insurance && q8Filled && employees === 0 && legalForm !== '個人事業主') {
     return { ok: false, reason: '雇用保険適用事業所であること（従業員が必要）' };
   }
 
@@ -5565,6 +5567,19 @@ function runDiagnosis() {
   if (employees >= 5) {
     addP('ryoritsu-ikukyu-shien', 1, '従業員5名以上→育休支援コースの活用余地あり');
     addP('konenreisha-koyosuishin', 1, '従業員5名以上→65歳超雇用推進助成金の制度整備が可能');
+  }
+
+  // ── Q14: 人材育成・リスキリング（研修系を選んだら必ず登場）
+  if (q14.includes('jinzai')) {
+    addP('jinzai-reskilling',      5, '人材育成・研修希望→リスキリング支援コースが最適（訓練費75%補助）');
+    addP('jinzai-ikusei-shien',    4, '人材育成希望→人材開発支援助成金（OJT・OFF-JT）が対象');
+    addP('jinzai-hito-investment', 3, '人材育成希望→人への投資促進コース（高度デジタル人材育成）が対象');
+  }
+
+  // ── Q15: リスキリング・AI研修系キーワードを選択したら必ずリスキリング助成金を登場させる
+  const reskillingKeywords = ['リスキリング', 'aiリスキリング', '生成ai', 'chatgpt', 'ai研修', 'dx研修', 'デジタルスキル'];
+  if (reskillingKeywords.some(kw => freeText.includes(kw))) {
+    addP('jinzai-reskilling', 8, 'リスキリング・AI研修の選択→リスキリング支援コースが確実に対象');
   }
 
   // ── Q14: 賃上げ希望

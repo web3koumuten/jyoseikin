@@ -1618,6 +1618,11 @@
   .btn-doc-check { display: inline-flex; align-items: center; gap: 6px; background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; white-space: nowrap; transition: background 0.15s; flex-shrink: 0; }
   .btn-doc-check:hover { background: #1d4ed8; color: #fff; }
   .btn-doc-check::before { content: ''; }
+  .detail-official-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; padding-top: 16px; border-top: 1px solid #e5e7eb; }
+  .btn-lp-detail { display: inline-flex; align-items: center; gap: 4px; background: #eff6ff; color: #1d4ed8; border: 1.5px solid #bfdbfe; border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 700; text-decoration: none; transition: background 0.15s; }
+  .btn-lp-detail:hover { background: #dbeafe; }
+  .btn-official-page { display: inline-flex; align-items: center; gap: 4px; background: white; color: #374151; border: 1.5px solid #d1d5db; border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+  .btn-official-page:hover { background: #f9fafb; border-color: #9ca3af; }
 
   .section-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-200); }
   .result-section { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
@@ -6431,6 +6436,113 @@ function showLoading(matchCount, callback) {
   runStep();
 }
 
+// ── 公式ページURL一覧
+const OFFICIAL_URLS = {
+  // 補助金（中小企業庁・経産省系）
+  'jizokuka-hojyokin':          'https://www.jizokuka-r3.jp/',
+  'it-donyu':                   'https://www.it-hojo.jp/',
+  'monozukuri-hojyokin':        'https://portal.monodukuri-hojo.jp/',
+  'shooryoka':                  'https://shoryokuka.smrj.go.jp/',
+  'jigyo-shinsyutsu':           'https://jigyou-saikouchiku.go.jp/',
+  'shoene':                     'https://sii.or.jp/jigyou_saikouchiku/',
+  'jigyo-shokei':               'https://jigyo-hikitsugi.jp/',
+  'seichokasoku':               'https://www.chusho.meti.go.jp/',
+  'it-security':                'https://www.it-hojo.jp/',
+  // 人材開発支援助成金系（厚労省）
+  'jinzai-ikusei-shien':        'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/d01-1.html',
+  'jinzai-hito-investment':     'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/d01-1.html',
+  'jinzai-reskilling':          'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/d01-1.html',
+  'jinzai-kyuka-fuyo':          'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/d01-1.html',
+  'jinzai-kensetsu-gino':       'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/kensetsu.html',
+  'jinzai-kensetsu-nintei':     'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/ninti.html',
+  // キャリアアップ助成金
+  'career-up-seishainuka':             'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/part_haken/jigyounushi/career.html',
+  'career-up-shogaisha-seishainuka':   'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/part_haken/jigyounushi/career.html',
+  'career-up-chingin-kaitei':          'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/part_haken/jigyounushi/career.html',
+  'career-up-chingin-kyotsu':          'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/part_haken/jigyounushi/career.html',
+  'career-up-shoyo-taishokukin':       'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/part_haken/jigyounushi/career.html',
+  'career-up-tanjikan-enchyo':         'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/part_haken/jigyounushi/career.html',
+  // トライアル雇用
+  'trial-ippan':                'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/trial_02.html',
+  'trial-shogaisha':            'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/trial_02.html',
+  'trial-shogaisha-tanjikan':   'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/trial_02.html',
+  // 特定求職者雇用開発助成金
+  'tokutei-shushokukonnansha':  'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/tokutei_02.html',
+  // 両立支援等助成金
+  'ryoritsu-papa-shien':        'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/ryouritsu/kikaikin/index.html',
+  'ryoritsu-ikukyu-shien':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/ryouritsu/kikaikin/index.html',
+  'ryoritsu-kaigo-boushi':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/ryouritsu/kikaikin/index.html',
+  'ryoritsu-funin-shien':       'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/ryouritsu/kikaikin/index.html',
+  'ryoritsu-ikukyu-kouhyo':     'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/ryouritsu/kikaikin/index.html',
+  'ryoritsu-gyomu-daigae':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/ryouritsu/kikaikin/index.html',
+  // その他助成金（厚労省）
+  'konenreisha-koyosuishin':    'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/koureisha/topics/tp120903-1_00017.html',
+  'gyomu-kaizen':               'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/gyomukaizen.html',
+  'hatarakikata-jikangai':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000148322.html',
+  'hatarakikata-interval':      'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000148322.html',
+  'jinzai-kakuho-koyokanri':    'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/jinzaikakuho.html',
+  'sangyo-koyo-antei-shukko':   'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/sangyokoyouantei.html',
+  'sangyo-koyo-skillup':        'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/sangyokoyouantei.html',
+  'judokyuen-boushi':           'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000049881.html',
+  'koyo-chosei':                'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/pageL07.html',
+  'shogaisha-shisetsu-setchino':'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/shougai_04.html',
+  // 岩手県補助金・支援制度
+  'iwate-chinageshien':         'https://www.pref.iwate.jp/sangyou/roudou/1068994.html',
+  'iwate-chinagekankyo':        'https://www.pref.iwate.jp/sangyou/shoukou/',
+  'iwate-sogyoshien':           'https://www.pref.iwate.jp/sangyou/sogyo/',
+  'iwate-shoene-jigyo':         'https://www.pref.iwate.jp/sangyou/energy/',
+  'iwate-kensetsu-dx':          'https://www.pref.iwate.jp/sangyou/kensetsu/',
+  'iwate-kensetsu-keiei':       'https://www.pref.iwate.jp/sangyou/kensetsu/',
+  'iwate-kaigo-tech':           'https://www.pref.iwate.jp/kurashikankyou/kaigo/',
+  'iwate-healthtech':           'https://www.pref.iwate.jp/kurashikankyou/iryou/',
+  'iwate-fukugyo-jinzai':       'https://www.pref.iwate.jp/sangyou/roudou/',
+  'iwate-koyo-kaifuku':         'https://www.pref.iwate.jp/sangyou/roudou/',
+  'iwate-miryoku-shokuba':      'https://www.pref.iwate.jp/sangyou/roudou/',
+  'iwate-kaigo-kankyokaizen':   'https://www.pref.iwate.jp/kurashikankyou/kaigo/',
+  'iwate-shogaifukushi-kankyokaizen': 'https://www.pref.iwate.jp/kurashikankyou/syougai/',
+  'iwate-gaikoku-kaigo':        'https://www.pref.iwate.jp/kurashikankyou/kaigo/',
+  'iwate-kyoiku-ryoko':         'https://www.pref.iwate.jp/sangyou/kankou/',
+  'sanriku-shinshop':           'https://www.pref.iwate.jp/sangyou/suisan/',
+  'iwate-taiyoko':              'https://www.pref.iwate.jp/sangyou/energy/',
+  'iwate-ev-hojo':              'https://www.pref.iwate.jp/sangyou/energy/',
+  'iwate-suisan-renkei':        'https://www.pref.iwate.jp/sangyou/suisan/',
+  'iwate-shinshop-chiiki':      'https://www.pref.iwate.jp/sangyou/shoukou/',
+  'iwate-chizai':               'https://www.pref.iwate.jp/sangyou/shoukou/',
+  'iwate-shogyo-kasseika':      'https://www.pref.iwate.jp/sangyou/shoukou/',
+  'iwate-telework':             'https://www.pref.iwate.jp/sangyou/roudou/',
+  'iwate-kaigai-shutsugan':     'https://www.pref.iwate.jp/sangyou/shoukou/',
+  'iwate-jigyo-shokei-hojo':    'https://www.pref.iwate.jp/sangyou/shoukou/',
+  'iwate-tenjikai':             'https://www.pref.iwate.jp/sangyou/shoukou/',
+  'iwate-kibou-fund':           'https://www.pref.iwate.jp/sangyou/shoukou/',
+  'iwate-jizokuryoku-kyoka':    'https://www.pref.iwate.jp/sangyou/shoukou/',
+  // 盛岡市補助金・支援制度
+  'morioka-unso-nenryo':        'https://www.city.morioka.iwate.jp/sangyo/shigoto/',
+  'morioka-shijo-kaitaku':      'https://www.city.morioka.iwate.jp/sangyo/shigoto/',
+  'morioka-satellite':          'https://www.city.morioka.iwate.jp/sangyo/shigoto/',
+  'morioka-kigyo-richi':        'https://www.city.morioka.iwate.jp/sangyo/shigoto/',
+  'morioka-furusato-kigyo':     'https://www.city.morioka.iwate.jp/sangyo/shigoto/',
+  'morioka-digital-jissho':     'https://www.city.morioka.iwate.jp/sangyo/shigoto/',
+  'morioka-jinzai-ikusei':      'https://www.city.morioka.iwate.jp/sangyo/shigoto/',
+  'morioka-nosanbutsu-kasseika':'https://www.city.morioka.iwate.jp/sangyo/shigoto/',
+  'morioka-takimaki':           'https://www.city.morioka.iwate.jp/sangyo/shigoto/',
+  'morioka-sanzai':             'https://www.city.morioka.iwate.jp/sangyo/shigoto/',
+};
+
+// ── 詳細LPページURL（重点4制度）
+const LP_URLS = {
+  'career-up-seishainuka':           './lp.html#career-up',
+  'career-up-shogaisha-seishainuka': './lp.html#career-up',
+  'career-up-chingin-kaitei':        './lp.html#career-up',
+  'career-up-chingin-kyotsu':        './lp.html#career-up',
+  'career-up-shoyo-taishokukin':     './lp.html#career-up',
+  'career-up-tanjikan-enchyo':       './lp.html#career-up',
+  'it-donyu':                        './lp.html#it-donyu',
+  'tokutei-shushokukonnansha':       './lp.html#tokutei',
+  'trial-ippan':                     './lp.html#tokutei',
+  'trial-shogaisha':                 './lp.html#tokutei',
+  'trial-shogaisha-tanjikan':        './lp.html#tokutei',
+};
+
 function renderResults(scored, combos, conflicts, meta) {
   document.getElementById('form-area').style.display = 'none';
   const el = document.getElementById('results');
@@ -6770,6 +6882,11 @@ function renderResults(scored, combos, conflicts, meta) {
               <a href="check.html" class="btn-doc-check" onclick="event.stopPropagation()">書類チェック →</a>
             </div>
           ` : ''}
+
+          <div class="detail-official-row">
+            ${LP_URLS[s.id] ? `<a href="${LP_URLS[s.id]}" class="btn-lp-detail" onclick="event.stopPropagation()">詳細ガイドを見る →</a>` : ''}
+            ${OFFICIAL_URLS[s.id] ? `<a href="${OFFICIAL_URLS[s.id]}" target="_blank" rel="noopener" class="btn-official-page" onclick="event.stopPropagation()">公式ページを見る →</a>` : ''}
+          </div>
 
         </div>
       </div>

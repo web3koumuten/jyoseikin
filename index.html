@@ -1618,7 +1618,7 @@
   .btn-doc-check { display: inline-flex; align-items: center; gap: 6px; background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; white-space: nowrap; transition: background 0.15s; flex-shrink: 0; }
   .btn-doc-check:hover { background: #1d4ed8; color: #fff; }
   .btn-doc-check::before { content: ''; }
-  .detail-official-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; padding-top: 16px; border-top: 1px solid #e5e7eb; }
+  .detail-official-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #e5e7eb; }
   .btn-lp-detail { display: inline-flex; align-items: center; gap: 4px; background: #eff6ff; color: #1d4ed8; border: 1.5px solid #bfdbfe; border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 700; text-decoration: none; transition: background 0.15s; }
   .btn-lp-detail:hover { background: #dbeafe; }
   .btn-official-page { display: inline-flex; align-items: center; gap: 4px; background: white; color: #374151; border: 1.5px solid #d1d5db; border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
@@ -6828,6 +6828,11 @@ function renderResults(scored, combos, conflicts, meta) {
       <div class="result-row-detail" id="${detailId}">
         <div class="result-row-detail-inner">
 
+          <div class="detail-official-row">
+            ${LP_URLS[s.id] ? `<a href="${LP_URLS[s.id]}" class="btn-lp-detail" onclick="event.stopPropagation()">詳細ガイドを見る →</a>` : ''}
+            ${OFFICIAL_URLS[s.id] ? `<a href="${OFFICIAL_URLS[s.id]}" target="_blank" rel="noopener" class="btn-official-page" onclick="event.stopPropagation()">公式ページを見る →</a>` : ''}
+          </div>
+
           ${renderWorkflow(wf)}
 
           <div class="detail-amount-panel">
@@ -6897,11 +6902,6 @@ function renderResults(scored, combos, conflicts, meta) {
               <a href="check.html" class="btn-doc-check" onclick="event.stopPropagation()">書類チェック →</a>
             </div>
           ` : ''}
-
-          <div class="detail-official-row">
-            ${LP_URLS[s.id] ? `<a href="${LP_URLS[s.id]}" class="btn-lp-detail" onclick="event.stopPropagation()">詳細ガイドを見る →</a>` : ''}
-            ${OFFICIAL_URLS[s.id] ? `<a href="${OFFICIAL_URLS[s.id]}" target="_blank" rel="noopener" class="btn-official-page" onclick="event.stopPropagation()">公式ページを見る →</a>` : ''}
-          </div>
 
         </div>
       </div>

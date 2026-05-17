@@ -1731,126 +1731,153 @@
   .next-step-badge.green { background: #d1fae5; color: #065f46; }
 
   /* ── INTRO HERO ─────────────────────────── */
-  /* ── ヒーロー（タイポグラフィ重視） ── */
   #intro-hero {
     margin: 0 -24px 40px;
     padding: 0 24px;
-    background: #fff;
+    background: #0a1628;
   }
-  .hx-wrap {
+  .hx-inner {
     max-width: 960px;
     margin: 0 auto;
-  }
-  /* ─── トップバー ─── */
-  .hx-topbar {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 56px;
     align-items: center;
-    border-top: 3px solid var(--gray-900);
-    border-bottom: 1px solid var(--border);
-    padding: 11px 0;
+    padding: 88px 0 84px;
   }
-  .hx-topbar-name {
+  /* ─── 左：テキスト ─── */
+  .hx-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.13em;
-    color: var(--gray-900);
+    letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.38);
     text-transform: uppercase;
+    margin-bottom: 28px;
   }
-  .hx-topbar-note {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    color: var(--gray-600);
+  .hx-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 22px;
+    height: 2px;
+    background: #4f8ef7;
+    flex-shrink: 0;
   }
-  /* ─── 本文エリア ─── */
-  .hx-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: center;
-    padding: 64px 0 56px;
-    border-bottom: 1px solid var(--border);
-  }
-  .hx-h1 { margin: 0; }
-  .hx-h1-sm {
-    display: block;
-    font-size: 20px;
-    font-weight: 500;
-    color: #8096b0;
-    letter-spacing: -0.01em;
-    line-height: 1.5;
-    margin-bottom: 6px;
-  }
-  .hx-h1-lg {
-    display: block;
-    font-size: 60px;
+  .hx-h1 {
+    font-size: 50px;
     font-weight: 900;
-    color: var(--gray-900);
-    letter-spacing: -0.05em;
-    line-height: 1.06;
+    color: #fff;
+    letter-spacing: -0.045em;
+    line-height: 1.18;
+    margin: 0 0 26px;
   }
   .hx-lead {
     font-size: 14px;
-    line-height: 1.9;
-    color: var(--gray-600);
-    margin-bottom: 32px;
+    line-height: 1.95;
+    color: rgba(255,255,255,0.52);
+    margin-bottom: 40px;
+    max-width: 400px;
   }
   .hx-btn {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    background: var(--gray-900);
-    color: #fff;
+    gap: 12px;
+    background: #fff;
+    color: #0a1628;
     border: none;
     border-radius: 0;
-    padding: 16px 40px;
+    padding: 17px 40px;
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 800;
     cursor: pointer;
     font-family: inherit;
     letter-spacing: -0.01em;
     transition: background 0.12s, transform 0.1s;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
   }
-  .hx-btn:hover { background: #2a3848; transform: translateY(-1px); }
+  .hx-btn:hover { background: #dbeafe; transform: translateY(-1px); }
   .hx-btn:active { transform: none; }
   .hx-btn-arrow { font-size: 16px; font-weight: 400; }
-  .hx-trust {
+  .hx-meta {
     font-size: 12px;
-    color: var(--gray-600);
-    font-weight: 500;
-    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.1em;
     margin: 0;
   }
-  /* ─── スタットバー ─── */
-  .hx-statbar {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    padding: 28px 0 32px;
+  /* ─── 右：診断結果プレビュー ─── */
+  .hx-preview {
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
   }
-  .hx-stat {
-    padding: 0 28px 0 0;
-    border-right: 1px solid var(--border);
+  .hx-preview-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.03);
   }
-  .hx-stat:last-child { border-right: none; padding-right: 0; }
-  .hx-stat + .hx-stat { padding-left: 28px; }
-  .hx-stat-n {
-    display: block;
-    font-size: 30px;
-    font-weight: 900;
-    color: var(--gray-900);
-    letter-spacing: -0.04em;
-    line-height: 1;
-    margin-bottom: 6px;
-    font-feature-settings: "tnum" 1;
+  .hx-preview-head-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
   }
-  .hx-stat-l {
-    display: block;
+  .hx-preview-head-tag {
+    font-size: 10px;
+    font-weight: 600;
+    color: #4ade80;
+    background: rgba(74,222,128,0.1);
+    padding: 3px 8px;
+    letter-spacing: 0.05em;
+  }
+  .hx-preview-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 17px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.15s;
+  }
+  .hx-preview-item:last-of-type { border-bottom: none; }
+  .hx-preview-check {
+    width: 22px;
+    height: 22px;
+    background: rgba(74,222,128,0.12);
+    border: 1px solid rgba(74,222,128,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #4ade80;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .hx-preview-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.82);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+  .hx-preview-sub {
     font-size: 11px;
-    color: var(--gray-600);
-    font-weight: 500;
-    letter-spacing: 0.03em;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.02em;
+  }
+  .hx-preview-more {
+    padding: 14px 20px;
+    font-size: 12px;
+    color: #4f8ef7;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    background: rgba(79,142,247,0.04);
   }
 
   /* 旧クラス非表示 */
@@ -1861,36 +1888,21 @@
   .btn-hero { display: none !important; }
 
   @media (max-width: 860px) {
-    .hx-body { grid-template-columns: 1fr; gap: 32px; padding: 48px 0 40px; }
-    .hx-h1-lg { font-size: 46px; }
-    .hx-statbar { grid-template-columns: repeat(2, 1fr); }
-    .hx-stat { border-right: none; padding: 0 0 20px 0; border-bottom: 1px solid var(--border); }
-    .hx-stat + .hx-stat { padding-left: 0; }
-    .hx-stat:last-child { border-bottom: none; padding-bottom: 0; }
-    .hx-stat:nth-child(odd) { padding-right: 20px; border-right: 1px solid var(--border); border-bottom: none; }
-    .hx-stat:nth-child(even) { padding-left: 20px; border-bottom: none; }
-    .hx-stat:nth-child(1), .hx-stat:nth-child(2) { padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-    .hx-stat:nth-child(3), .hx-stat:nth-child(4) { padding-top: 20px; }
+    .hx-inner { grid-template-columns: 1fr; gap: 40px; padding: 64px 0 56px; }
+    .hx-h1 { font-size: 40px; }
+    .hx-preview { display: none; }
   }
   @media (max-width: 560px) {
     #intro-hero { margin: 0 -12px 28px; padding: 0 12px; }
-    .hx-body { padding: 36px 0 32px; gap: 24px; }
-    .hx-h1-sm { font-size: 17px; }
-    .hx-h1-lg { font-size: 38px; }
-    .hx-lead { font-size: 13.5px; margin-bottom: 24px; }
+    .hx-inner { padding: 52px 0 44px; }
+    .hx-h1 { font-size: 32px; }
+    .hx-lead { font-size: 13.5px; margin-bottom: 32px; }
     .hx-btn { width: 100%; justify-content: center; }
-    .hx-stat-n { font-size: 24px; }
-    .hx-topbar-note { display: none; }
   }
 
   /* ── PROGRESS BAR ───────────────────────── */
   .progress-wrap {
-    background: white;
-    border: 1px solid var(--border-light);
-    border-radius: 12px;
-    padding: 16px 24px;
-    margin-bottom: 14px;
-    box-shadow: 0 1px 3px rgba(0,20,60,0.05);
+    display: none;
   }
   .progress-bar-steps {
     display: flex;
@@ -2222,41 +2234,51 @@
 
 <!-- INTRO HERO -->
 <div id="intro-hero">
-  <div class="hx-wrap">
+  <div class="hx-inner">
 
-    <div class="hx-topbar">
-      <span class="hx-topbar-name">補助金・助成金 無料診断</span>
-      <span class="hx-topbar-note">国・都道府県・市区町村　45制度対応</span>
+    <div class="hx-left">
+      <p class="hx-eyebrow">補助金・助成金 無料診断</p>
+      <h1 class="hx-h1">御社が申請できる<br>補助金・助成金を<br>診断します。</h1>
+      <p class="hx-lead">会社の業種・規模・経営状況をお聞きするだけ。申請可能な補助金・助成金をまとめてご案内します。</p>
+      <button class="hx-btn" id="btn-start-diagnosis">無料診断を開始する<span class="hx-btn-arrow">→</span></button>
+      <p class="hx-meta">無料　·　登録不要　·　約5分</p>
     </div>
 
-    <div class="hx-body">
-      <h1 class="hx-h1">
-        <span class="hx-h1-sm">御社に使える補助金を、</span>
-        <span class="hx-h1-lg">全部、<br>見つける。</span>
-      </h1>
-      <div class="hx-action">
-        <p class="hx-lead">業種・従業員数・経営状況を入力するだけ。<br>45の制度から受給可能な補助金・助成金をすべて洗い出します。</p>
-        <button class="hx-btn" id="btn-start-diagnosis">無料で診断する<span class="hx-btn-arrow">→</span></button>
-        <p class="hx-trust">✓ 約5分　　✓ 登録不要　　✓ 完全無料</p>
-      </div>
-    </div>
-
-    <div class="hx-statbar">
-      <div class="hx-stat">
-        <span class="hx-stat-n">¥1,250万</span>
-        <span class="hx-stat-l">最大受給額目安</span>
-      </div>
-      <div class="hx-stat">
-        <span class="hx-stat-n">45</span>
-        <span class="hx-stat-l">対応制度数</span>
-      </div>
-      <div class="hx-stat">
-        <span class="hx-stat-n">5分</span>
-        <span class="hx-stat-l">診断所要時間</span>
-      </div>
-      <div class="hx-stat">
-        <span class="hx-stat-n">無料</span>
-        <span class="hx-stat-l">登録・費用不要</span>
+    <div class="hx-right">
+      <div class="hx-preview">
+        <div class="hx-preview-head">
+          <span class="hx-preview-head-label">診断結果イメージ</span>
+          <span class="hx-preview-head-tag">申請可能</span>
+        </div>
+        <div class="hx-preview-item">
+          <div class="hx-preview-check">✓</div>
+          <div>
+            <div class="hx-preview-name">キャリアアップ助成金</div>
+            <div class="hx-preview-sub">厚生労働省　·　雇用支援</div>
+          </div>
+        </div>
+        <div class="hx-preview-item">
+          <div class="hx-preview-check">✓</div>
+          <div>
+            <div class="hx-preview-name">ものづくり・商業・サービス補助金</div>
+            <div class="hx-preview-sub">経済産業省　·　設備投資</div>
+          </div>
+        </div>
+        <div class="hx-preview-item">
+          <div class="hx-preview-check">✓</div>
+          <div>
+            <div class="hx-preview-name">IT導入補助金</div>
+            <div class="hx-preview-sub">経済産業省　·　IT化支援</div>
+          </div>
+        </div>
+        <div class="hx-preview-item">
+          <div class="hx-preview-check">✓</div>
+          <div>
+            <div class="hx-preview-name">業務改善助成金</div>
+            <div class="hx-preview-sub">厚生労働省　·　最低賃金引上げ支援</div>
+          </div>
+        </div>
+        <div class="hx-preview-more">＋ 御社の条件に応じてさらに案内します</div>
       </div>
     </div>
 

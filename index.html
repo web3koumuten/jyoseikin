@@ -6915,6 +6915,28 @@ function renderResults(scored, combos, conflicts, meta) {
     return out;
   };
 
+  // ══════════════════════════════════════════════════════
+  // ③ 比較表（ヘッダー直後・カード一覧の前）
+  // ══════════════════════════════════════════════════════
+  if (scored.length >= 2) {
+    html += `
+    <div class="compact-panel">
+      <div class="compact-panel-toggle" onclick="toggleCompact('compare-panel', this)">全件を一覧で見る <span>▼</span></div>
+      <div class="compact-panel-body" id="compare-panel">
+        <div class="compare-wrap"><table>
+          <thead><tr><th>名称</th><th>最大受給額</th><th>難易度</th><th>準備期間</th><th>申請タイミング</th></tr></thead>
+          <tbody>${scored.map(s=>`<tr>
+            <td style="font-weight:600;font-size:12px">${s.name}</td>
+            <td style="font-weight:700;color:var(--primary)">${fmt(s.max_amount)}</td>
+            <td class="${['','d1c','d2c','d3c'][s.difficulty]}">${['','易','中','難'][s.difficulty]}</td>
+            <td>約${s.lead_time_months}ヶ月</td>
+            <td style="font-size:11px">${timingLbl(s.timing)}</td>
+          </tr>`).join('')}</tbody>
+        </table></div>
+      </div>
+    </div>`;
+  }
+
   // グループ別表示
   if (scored.length > 0) {
     html += `<div class="result-rows">`;
@@ -6972,27 +6994,6 @@ function renderResults(scored, combos, conflicts, meta) {
     </div>`;
   }
 
-  // ══════════════════════════════════════════════════════
-  // ⑧ 比較表（コンパクト）
-  // ══════════════════════════════════════════════════════
-  if (scored.length >= 2) {
-    html += `
-    <div class="compact-panel">
-      <div class="compact-panel-toggle" onclick="toggleCompact('compare-panel', this)">全件を比較する <span>▼</span></div>
-      <div class="compact-panel-body" id="compare-panel">
-        <div class="compare-wrap"><table>
-          <thead><tr><th>名称</th><th>最大受給額</th><th>難易度</th><th>準備期間</th><th>申請タイミング</th></tr></thead>
-          <tbody>${scored.map(s=>`<tr>
-            <td style="font-weight:600;font-size:12px">${s.name}</td>
-            <td style="font-weight:700;color:var(--primary)">${fmt(s.max_amount)}</td>
-            <td class="${['','d1c','d2c','d3c'][s.difficulty]}">${['','易','中','難'][s.difficulty]}</td>
-            <td>約${s.lead_time_months}ヶ月</td>
-            <td style="font-size:11px">${timingLbl(s.timing)}</td>
-          </tr>`).join('')}</tbody>
-        </table></div>
-      </div>
-    </div>`;
-  }
 
   // ══════════════════════════════════════════════════════
   // ⑨ 加点ロードマップ（コンパクト・折りたたみ）

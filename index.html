@@ -2224,27 +2224,120 @@
 
   /* ── スマホ対応 ── */
   @media (max-width: 640px) {
-    .container { padding: 16px 16px 48px; }
-    .inline-fields { grid-template-columns: 1fr; gap: 0; }
-    .section-body { padding: 16px; }
-    .section-header { padding: 14px 16px 12px; }
-    .results-header { padding: 20px 20px; }
-    .results-header .count { font-size: 18px; }
-    .total-badge { font-size: 16px; padding: 5px 16px; }
-    .hero-result-body { padding: 16px; }
-    .hero-result-name { font-size: 15px; }
-    .hero-result-amount { font-size: 22px; }
-    .roadmap-steps { flex-direction: column; }
-    .portfolio-proposals { flex-direction: column; }
-    .sub-result-header { padding: 12px 14px; gap: 8px; }
-    .detail-grid { grid-template-columns: 1fr; }
-    table { font-size: 11px; }
-    th, td { padding: 7px 8px; }
-    .progress-bar-steps { gap: 0; }
+    /* ── 全体 ── */
+    .container { padding: 12px 12px 48px; }
+
+    /* ── ナビ ── */
+    .site-nav-inner { padding: 0 16px; height: 52px; }
+    .site-logo { font-size: 13px; }
+    .site-logo-mark { width: 28px; height: 28px; font-size: 12px; }
+
+    /* ── プログレスバー ── */
+    .progress-wrap { padding: 14px 16px; border-radius: 12px; margin-bottom: 12px; }
     .ps-label { font-size: 10px; }
     .ps-line { min-width: 12px; }
-    .q14-icon.q14-tag { min-width: 36px; font-size: 10px; }
-    .site-nav-inner { padding: 0 16px; height: 52px; }
+
+    /* ── フォームセクション ── */
+    .section { border-radius: 12px; margin-bottom: 10px; }
+    .section-header {
+      grid-template-columns: 48px 1fr;
+    }
+    .section-header::before {
+      font-size: 20px;
+    }
+    .section-header h2 {
+      font-size: 14px;
+      padding: 14px 16px 3px;
+    }
+    .section-header p {
+      font-size: 12px;
+      padding: 0 16px 13px;
+    }
+    .section-body { padding: 16px 14px 20px; }
+
+    /* ── フィールド ── */
+    .inline-fields { grid-template-columns: 1fr; gap: 0; }
+    .field { margin-bottom: 20px; }
+    .field-label { font-size: 13px; }
+    .choice-row { padding: 11px 13px; }
+    .choice-row span { font-size: 13.5px; }
+    input[type="text"], input[type="number"], textarea {
+      padding: 11px 13px;
+      font-size: 14px;
+    }
+
+    /* ── 送信ボタン ── */
+    .btn-submit { padding: 15px 40px; font-size: 15px; width: 100%; border-radius: 10px; }
+    .submit-area { margin: 24px 0 16px; }
+
+    /* ── 結果ヘッダー ── */
+    .results-back-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .results-header-title { font-size: 20px; }
+    .results-header-eyebrow { font-size: 10px; }
+    .results-summary { grid-template-columns: 1fr; border-radius: 10px; }
+    .results-summary-cell { padding: 16px 18px; }
+    .results-summary-cell + .results-summary-cell::before {
+      left: 18px; right: 18px; top: 0;
+      bottom: auto; width: auto; height: 1px;
+    }
+    .results-summary-num { font-size: 24px; }
+
+    /* ── 結果グループ ── */
+    .result-group { margin-bottom: 32px; }
+    .result-group-label { font-size: 16px; }
+    .result-group-desc { font-size: 12px; margin-left: 8px; }
+
+    /* ── シリーズラベル ── */
+    .result-series-label { font-size: 13px; padding: 8px 4px; }
+    .result-series-block { padding: 6px 6px 2px; }
+
+    /* ── 結果カード ── */
+    .result-row { border-radius: 10px; }
+    .result-row-head {
+      padding: 14px 14px 12px;
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "cat"
+        "title"
+        "amount"
+        "foot";
+      gap: 0;
+    }
+    .result-row-cat-line { margin-bottom: 4px; }
+    .result-row-title { font-size: 15px; margin-bottom: 8px; }
+    .result-row-amount {
+      grid-area: amount;
+      text-align: left;
+      align-self: auto;
+      padding: 10px 0 8px;
+      border-top: 1px solid #f0f2f5;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .result-row-amount-label { margin-bottom: 0; }
+    .result-row-amount-val > span:first-child { font-size: 22px; }
+    .result-row-foot { padding-top: 4px; }
+    .result-row-cta { padding: 9px 14px; }
+    .result-row-detail-inner { padding: 18px 14px 22px; }
+
+    /* ── 詳細エリア ── */
+    .detail-amount-panel { padding: 18px 16px; }
+    .detail-amount-value { font-size: 34px; }
+    .detail-block-body { padding: 14px 16px; }
+    .detail-step { padding: 12px 14px; grid-template-columns: 28px 1fr; gap: 12px; }
+    .detail-step::before { width: 26px; height: 26px; font-size: 11px; }
+    .detail-grid { grid-template-columns: 1fr; }
+    .detail-official-row { gap: 8px; }
+    .btn-lp-detail, .btn-official-page { font-size: 12px; padding: 8px 13px; }
+
+    /* ── 比較表 ── */
+    table { font-size: 11px; }
+    th, td { padding: 7px 8px; }
+
+    /* ── Hero ── */
+    .roadmap-steps { flex-direction: column; }
+    .portfolio-proposals { flex-direction: column; }
   }
 </style>
 </head>

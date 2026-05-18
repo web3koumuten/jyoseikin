@@ -1859,6 +1859,127 @@
     .hx-btn { font-size: 16px; padding: 18px 32px; }
   }
 
+  /* ── SUMMARY CHARTS ───────────────────────── */
+  .summary-charts {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .sc-header {
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 14px 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .sc-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: #0d1720;
+    letter-spacing: -0.01em;
+  }
+  .sc-note {
+    font-size: 11px;
+    color: #94a3b8;
+  }
+  .sc-body {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0;
+  }
+  .sc-pie-area {
+    padding: 20px 16px;
+    border-right: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .sc-pie-legend {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .sc-legend-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #374151;
+    line-height: 1.4;
+  }
+  .sc-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .sc-legend-row strong { font-size: 14px; font-weight: 800; color: #0d1720; display: block; }
+  .sc-legend-total {
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 600;
+  }
+  .sc-bar-area {
+    padding: 18px 20px;
+  }
+  .sc-bar-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .sc-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .sc-bar-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+    width: 110px;
+    flex-shrink: 0;
+  }
+  .sc-bar-track {
+    flex: 1;
+    height: 16px;
+    background: #f1f5f9;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .sc-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+  .sc-bar-amt {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0d1720;
+    white-space: nowrap;
+    width: 90px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  @media (max-width: 640px) {
+    .sc-body { grid-template-columns: 1fr; }
+    .sc-pie-area { border-right: none; border-bottom: 1px solid #e2e8f0; }
+    .sc-bar-label { width: 90px; font-size: 11px; }
+    .sc-bar-amt { width: 70px; font-size: 11px; }
+  }
+
   /* ── PROGRESS BAR ───────────────────────── */
   .progress-wrap {
     display: none;
@@ -6445,6 +6566,111 @@ const LP_URLS = {
   'trial-shogaisha-tanjikan':        './lp.html#tokutei',
 };
 
+// ── 診断結果サマリーチャート（円グラフ＋棒グラフ） ─────────────────
+function buildSummaryCharts(scored) {
+  // 国の補助金のみ（chiiki を除く）
+  const nationScored = scored.filter(s => getCategory(s.id).key !== 'chiiki');
+  if (nationScored.length === 0) return '';
+
+  const nationTotal = nationScored.reduce((sum, s) => sum + s.max_amount, 0);
+  if (nationTotal === 0) return '';
+
+  const selfPay   = Math.round(nationTotal * 0.3);
+  const totalCost = nationTotal + selfPay;
+
+  const fmt = (n) => (n >= 100000000)
+    ? (n / 100000000).toFixed(1).replace(/\.0$/, '') + '億円'
+    : Math.floor(n / 10000).toLocaleString('ja-JP') + '万円';
+
+  // チャートカテゴリ → 既存グループのマッピング
+  const CHART_CATS = [
+    { key: '人材・賃上げ',   groups: ['employ','shogaisha','hr','wage'], color: '#1854a5' },
+    { key: '設備(ハード)',   groups: ['invest'],                          color: '#2e7d32' },
+    { key: '設備(IT)',       groups: ['it'],                              color: '#0097a7' },
+    { key: 'マーケティング', groups: ['hanbai'],                          color: '#f57c00' },
+    { key: 'その他',         groups: ['other'],                           color: '#9e9e9e' },
+  ];
+
+  // カテゴリ別合計
+  const catTotals = {};
+  for (const s of nationScored) {
+    const grpKey = getCategory(s.id).key;
+    const cat = CHART_CATS.find(c => c.groups.includes(grpKey));
+    const label = cat ? cat.key : 'その他';
+    catTotals[label] = (catTotals[label] || 0) + s.max_amount;
+  }
+
+  // ── 円グラフ SVG ──
+  const cx = 75, cy = 75, R = 65, ri = 38;
+  const subsidyAngle = (nationTotal / totalCost) * 360;
+
+  function polarXY(cx, cy, r, deg) {
+    const rad = (deg - 90) * Math.PI / 180;
+    return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)];
+  }
+  function donutSlice(startDeg, endDeg, color) {
+    const d = endDeg - startDeg;
+    if (d <= 0) return '';
+    const eff = Math.min(d, 359.99);
+    const [ox, oy] = polarXY(cx, cy, R, startDeg);
+    const [ix, iy] = polarXY(cx, cy, ri, startDeg);
+    const [ox2, oy2] = polarXY(cx, cy, R, startDeg + eff);
+    const [ix2, iy2] = polarXY(cx, cy, ri, startDeg + eff);
+    const lg = eff > 180 ? 1 : 0;
+    return `<path d="M${ix.toFixed(1)},${iy.toFixed(1)} L${ox.toFixed(1)},${oy.toFixed(1)} A${R},${R},0,${lg},1,${ox2.toFixed(1)},${oy2.toFixed(1)} L${ix2.toFixed(1)},${iy2.toFixed(1)} A${ri},${ri},0,${lg},0,${ix.toFixed(1)},${iy.toFixed(1)} Z" fill="${color}"/>`;
+  }
+
+  const pct = Math.round((nationTotal / totalCost) * 100);
+  const pieSVG = `<svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+    ${donutSlice(0, subsidyAngle, '#1854a5')}
+    ${donutSlice(subsidyAngle, 360, '#e2e8f0')}
+    <text x="${cx}" y="${cy - 8}" text-anchor="middle" font-size="18" font-weight="900" fill="#1854a5" font-family="sans-serif">${pct}%</text>
+    <text x="${cx}" y="${cy + 10}" text-anchor="middle" font-size="10" fill="#64748b" font-family="sans-serif">補助金割合</text>
+  </svg>`;
+
+  // ── 棒グラフ HTML ──
+  const activeCAts = CHART_CATS.filter(c => catTotals[c.key] > 0);
+  const maxAmt = Math.max(...activeCAts.map(c => catTotals[c.key] || 0));
+
+  const barsHtml = activeCAts.map(c => {
+    const amt = catTotals[c.key] || 0;
+    const pctBar = Math.round((amt / maxAmt) * 100);
+    return `<div class="sc-bar-row">
+      <div class="sc-bar-label">${c.key}</div>
+      <div class="sc-bar-track"><div class="sc-bar-fill" style="width:${pctBar}%;background:${c.color}"></div></div>
+      <div class="sc-bar-amt">${fmt(amt)}</div>
+    </div>`;
+  }).join('');
+
+  return `
+  <div class="summary-charts">
+    <div class="sc-header">
+      <span class="sc-title">国の補助金・助成金 受給シミュレーション</span>
+      <span class="sc-note">※最大受給額ベースの試算 / 手出し比率30%と仮定</span>
+    </div>
+    <div class="sc-body">
+      <div class="sc-pie-area">
+        ${pieSVG}
+        <div class="sc-pie-legend">
+          <div class="sc-legend-row">
+            <span class="sc-legend-dot" style="background:#1854a5"></span>
+            <span>補助金額<strong>${fmt(nationTotal)}</strong></span>
+          </div>
+          <div class="sc-legend-row">
+            <span class="sc-legend-dot" style="background:#e2e8f0;border:1px solid #cbd5e1"></span>
+            <span>手出し（自己負担）<strong>${fmt(selfPay)}</strong></span>
+          </div>
+          <div class="sc-legend-total">総投資想定額　${fmt(totalCost)}</div>
+        </div>
+      </div>
+      <div class="sc-bar-area">
+        <div class="sc-bar-title">カテゴリ別 最大受給額</div>
+        ${barsHtml}
+      </div>
+    </div>
+  </div>`;
+}
+
 function renderResults(scored, combos, conflicts, meta) {
   document.getElementById('form-area').style.display = 'none';
   const el = document.getElementById('results');
@@ -6620,7 +6846,12 @@ function renderResults(scored, combos, conflicts, meta) {
   `;
 
   // ══════════════════════════════════════════════════════
-  // ② gBizID — 通知カード
+  // ② サマリーチャート（国の補助金のみ）
+  // ══════════════════════════════════════════════════════
+  html += buildSummaryCharts(scored);
+
+  // ══════════════════════════════════════════════════════
+  // ③ gBizID — 通知カード
   // ══════════════════════════════════════════════════════
   if (!hasGbiz) {
     html += `
@@ -6641,7 +6872,7 @@ function renderResults(scored, combos, conflicts, meta) {
   }
 
   // ══════════════════════════════════════════════════════
-  // ③ レンダラー（Hero + Row の2段構成）
+  // ④ レンダラー（Hero + Row の2段構成）
   // ══════════════════════════════════════════════════════
   // 共通ユーティリティ
   const timingMap = {

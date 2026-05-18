@@ -1959,7 +1959,7 @@
   }
   .sc-bar-track {
     flex: 1;
-    height: 16px;
+    height: 22px;
     background: #f1f5f9;
     border-radius: 3px;
     overflow: hidden;
@@ -1967,14 +1967,15 @@
   .sc-bar-fill {
     height: 100%;
     border-radius: 3px;
-    transition: width 0.4s ease;
+    transition: width 0.6s ease;
+    min-width: 4px;
   }
   .sc-bar-amt {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     color: #0d1720;
     white-space: nowrap;
-    width: 90px;
+    width: 100px;
     text-align: right;
     flex-shrink: 0;
   }
@@ -6622,7 +6623,7 @@ const SUBSIDY_RATE_MAP = {
 // ── 診断結果サマリーチャート（円グラフ＋棒グラフ） ─────────────────
 function buildSummaryCharts(scored) {
   // 国の補助金のみ（chiiki を除く）
-  const nationScored = scored.filter(s => getCategory(s.id).key !== 'chiiki');
+  const nationScored = scored.filter(s => (RESULT_GROUP_MAP[s.id] || 'sonota') !== 'chiiki');
   if (nationScored.length === 0) return '';
 
   // チャート用計算（カードの表示額とは別）
@@ -6665,14 +6666,14 @@ function buildSummaryCharts(scored) {
       ? 0.70
       : (SUBSIDY_RATE_MAP[s.id] ?? 0.667);
     const subsidyAmt = Math.round(eff * rate);
-    const grpKey = getCategory(s.id).key;
+    const grpKey = RESULT_GROUP_MAP[s.id] || 'sonota';  // 正しいグループキーを使用
     const cat = CHART_CATS.find(c => c.groups.includes(grpKey));
-    const label = cat ? cat.key : 'その他';
+    const label = cat ? cat.key : 'その他（社会課題）';
     catTotals[label] = (catTotals[label] || 0) + subsidyAmt;
   }
 
   // ── 円グラフ SVG ──
-  const cx = 75, cy = 75, R = 65, ri = 38;
+  const cx = 110, cy = 110, R = 95, ri = 58;
   const subsidyAngle = (nationSubsidy / totalCost) * 360;
 
   function polarXY(cx, cy, r, deg) {
@@ -6692,11 +6693,11 @@ function buildSummaryCharts(scored) {
   }
 
   const pct = Math.round((nationSubsidy / totalCost) * 100);
-  const pieSVG = `<svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+  const pieSVG = `<svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
     ${donutSlice(0, subsidyAngle, '#1854a5')}
     ${donutSlice(subsidyAngle, 360, '#e2e8f0')}
-    <text x="${cx}" y="${cy - 8}" text-anchor="middle" font-size="18" font-weight="900" fill="#1854a5" font-family="sans-serif">${pct}%</text>
-    <text x="${cx}" y="${cy + 10}" text-anchor="middle" font-size="10" fill="#64748b" font-family="sans-serif">補助金割合</text>
+    <text x="${cx}" y="${cy - 10}" text-anchor="middle" font-size="26" font-weight="900" fill="#1854a5" font-family="sans-serif">${pct}%</text>
+    <text x="${cx}" y="${cy + 14}" text-anchor="middle" font-size="12" fill="#64748b" font-family="sans-serif">補助金割合</text>
   </svg>`;
 
   // ── 棒グラフ HTML ──

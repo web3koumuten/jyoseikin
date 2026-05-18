@@ -6632,9 +6632,8 @@ function buildSummaryCharts(scored) {
   let totalCost = 0;
   for (const s of nationScored) {
     const eff  = s.max_amount >= THRESHOLD ? CAP : s.max_amount; // キャップ適用
-    const rate = s.max_amount >= THRESHOLD
-      ? 0.70
-      : (SUBSIDY_RATE_MAP[s.id] ?? 0.667);
+    // 補助率：マップに個別レートがあればそれを優先、なければ規模別デフォルト
+    const rate = SUBSIDY_RATE_MAP[s.id] ?? (s.max_amount >= THRESHOLD ? 0.70 : 0.667);
     nationSubsidy += Math.round(eff * rate);
     selfPay       += Math.round(eff * (1 - rate));
     totalCost     += eff;

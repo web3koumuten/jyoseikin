@@ -1733,44 +1733,88 @@
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
     margin: 0 -24px 40px;
-    padding: 0 24px;
-    background: #fff;
-  }
-  .hx-inner {
-    max-width: 960px;
-    margin: 0 auto;
+    padding: 0;
     display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 0;
-    border-bottom: 1px solid #dce4ef;
+    grid-template-columns: 272px 1fr;
   }
-  .hx-left {
-    padding: 80px 60px 72px 0;
-    border-right: 1px solid #dce4ef;
+
+  /* ─── 左：ネイビーパネル ─── */
+  .hx-panel-l {
+    background: #0e1f3a;
+    padding: 52px 36px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    min-height: 440px;
+  }
+  .hx-panel-l::after {
+    content: '補';
+    position: absolute;
+    bottom: -28px;
+    right: -20px;
+    font-size: 210px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.05em;
+  }
+  .hx-panel-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: rgba(255,255,255,0.38);
+    text-transform: uppercase;
+    line-height: 2;
+  }
+  .hx-panel-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.35);
+    border: 1px solid rgba(255,255,255,0.14);
+    padding: 5px 10px;
+    text-transform: uppercase;
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+
+  /* ─── 右：コンテンツパネル ─── */
+  .hx-panel-r {
+    background: #fff;
+    padding: 60px 48px 56px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid #dce4ef;
   }
   .hx-eyebrow {
     font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     color: #8096b0;
     text-transform: uppercase;
-    margin-bottom: 28px;
+    margin-bottom: 22px;
     display: block;
   }
   .hx-h1 {
-    font-size: 58px;
+    font-size: 46px;
     font-weight: 900;
     color: #0f1923;
     letter-spacing: -0.045em;
-    line-height: 1.14;
-    margin: 0 0 28px;
+    line-height: 1.18;
+    margin: 0 0 22px;
   }
   .hx-lead {
     font-size: 14px;
-    line-height: 1.95;
+    line-height: 1.9;
     color: #5a6e84;
-    margin-bottom: 40px;
-    max-width: 460px;
+    margin-bottom: 36px;
+    max-width: 480px;
   }
   .hx-btn {
     display: inline-flex;
@@ -1788,6 +1832,7 @@
     letter-spacing: -0.01em;
     transition: background 0.12s, transform 0.1s;
     margin-bottom: 18px;
+    align-self: flex-start;
   }
   .hx-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
   .hx-btn:active { transform: none; }
@@ -1798,45 +1843,6 @@
     letter-spacing: 0.06em;
     margin: 0;
   }
-  /* ─── 右：ご利用の流れ ─── */
-  .hx-right {
-    padding: 80px 0 72px 48px;
-  }
-  .hx-flow-title {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    color: #aaa;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-  .hx-flow-item {
-    display: flex;
-    gap: 16px;
-    padding: 18px 0;
-    border-top: 1px solid #eef1f7;
-  }
-  .hx-flow-num {
-    font-size: 12px;
-    font-weight: 700;
-    color: #c8d4e4;
-    letter-spacing: 0.04em;
-    padding-top: 1px;
-    flex-shrink: 0;
-    font-feature-settings: "tnum" 1;
-  }
-  .hx-flow-label {
-    font-size: 14px;
-    font-weight: 700;
-    color: #1e2c3d;
-    margin-bottom: 3px;
-    letter-spacing: -0.01em;
-  }
-  .hx-flow-sub {
-    font-size: 12px;
-    color: #8096b0;
-    line-height: 1.6;
-  }
 
   /* 旧クラス非表示 */
   .hero-layout, .hero-panel, .hero-stats-strip, .hero-points, .hero-features,
@@ -1845,18 +1851,27 @@
   .hero-h1, .hero-accent, .btn-hero-group, .btn-hero-sub { display: none !important; }
   .btn-hero { display: none !important; }
 
-  @media (max-width: 860px) {
-    .hx-inner { grid-template-columns: 1fr; }
-    .hx-left { border-right: none; padding: 60px 0 40px; }
-    .hx-h1 { font-size: 42px; }
-    .hx-right { padding: 32px 0 52px; border-top: 1px solid #dce4ef; }
+  @media (max-width: 800px) {
+    #intro-hero { grid-template-columns: 1fr; }
+    .hx-panel-l {
+      min-height: auto;
+      padding: 28px 24px;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+    .hx-panel-l::after { display: none; }
+    .hx-panel-badge { margin-top: 0; }
+    .hx-panel-r { padding: 48px 24px 52px; }
+    .hx-h1 { font-size: 38px; }
   }
   @media (max-width: 560px) {
-    #intro-hero { margin: 0 -12px 28px; padding: 0 12px; }
-    .hx-left { padding: 48px 0 36px; }
-    .hx-h1 { font-size: 34px; }
-    .hx-lead { font-size: 13.5px; margin-bottom: 32px; }
-    .hx-btn { width: 100%; justify-content: center; }
+    #intro-hero { margin: 0 -12px 28px; }
+    .hx-panel-l { padding: 22px 16px; }
+    .hx-panel-r { padding: 40px 12px 44px; }
+    .hx-h1 { font-size: 30px; }
+    .hx-lead { font-size: 13.5px; margin-bottom: 28px; }
+    .hx-btn { align-self: stretch; justify-content: center; }
   }
 
   /* ── PROGRESS BAR ───────────────────────── */
@@ -2193,49 +2208,23 @@
 
 <!-- INTRO HERO -->
 <div id="intro-hero">
-  <div class="hx-inner">
 
-    <div class="hx-left">
-      <p class="hx-eyebrow">補助金・助成金 無料診断</p>
-      <h1 class="hx-h1">補助金・助成金の<br>取りこぼしを、<br>なくす。</h1>
-      <p class="hx-lead">受け取れるはずの補助金・助成金を見落としている中小企業は少なくありません。業種・従業員数・経営状況を入力するだけで、申請可能な制度をまとめてご案内します。</p>
-      <button class="hx-btn" id="btn-start-diagnosis">無料診断を開始する <span class="hx-btn-arrow">→</span></button>
-      <p class="hx-meta">登録不要　·　無料　·　約5分</p>
+  <div class="hx-panel-l">
+    <div>
+      <div class="hx-panel-label">補助金・助成金<br>無料診断ツール</div>
+      <div class="hx-panel-badge">Free &amp; No Registration</div>
     </div>
-
-    <div class="hx-right">
-      <p class="hx-flow-title">ご利用の流れ</p>
-      <div class="hx-flow-item">
-        <span class="hx-flow-num">01</span>
-        <div>
-          <div class="hx-flow-label">会社情報を入力</div>
-          <div class="hx-flow-sub">業種・従業員数・設立年数</div>
-        </div>
-      </div>
-      <div class="hx-flow-item">
-        <span class="hx-flow-num">02</span>
-        <div>
-          <div class="hx-flow-label">経営状況を確認</div>
-          <div class="hx-flow-sub">課題・設備投資・雇用計画など</div>
-        </div>
-      </div>
-      <div class="hx-flow-item">
-        <span class="hx-flow-num">03</span>
-        <div>
-          <div class="hx-flow-label">補助金一覧を確認</div>
-          <div class="hx-flow-sub">申請可能な制度を一覧で表示</div>
-        </div>
-      </div>
-      <div class="hx-flow-item">
-        <span class="hx-flow-num">04</span>
-        <div>
-          <div class="hx-flow-label">専門家に相談（任意）</div>
-          <div class="hx-flow-sub">申請サポートのご案内</div>
-        </div>
-      </div>
-    </div>
-
+    <div></div>
   </div>
+
+  <div class="hx-panel-r">
+    <p class="hx-eyebrow">For Small &amp; Medium Business</p>
+    <h1 class="hx-h1">補助金・助成金の<br>取りこぼしを、<br>なくす。</h1>
+    <p class="hx-lead">受け取れるはずの補助金・助成金を見落としている中小企業は少なくありません。業種・従業員数・経営状況を入力するだけで、申請可能な制度をご案内します。</p>
+    <button class="hx-btn" id="btn-start-diagnosis">無料診断を開始する <span class="hx-btn-arrow">→</span></button>
+    <p class="hx-meta">登録不要　·　無料　·　約5分</p>
+  </div>
+
 </div>
 
 <!-- HEARING FORM -->

@@ -6622,22 +6622,22 @@ function buildSummaryCharts(scored) {
   const nationScored = scored.filter(s => getCategory(s.id).key !== 'chiiki');
   if (nationScored.length === 0) return '';
 
-  const nationTotal = nationScored.reduce((sum, s) => sum + s.max_amount, 0);
-  if (nationTotal === 0) return '';
-
-  // 手出し計算：件ごとに補助率で逆算
-  //   >= 1000万 → max × 0.3（大型補助金は30%ルール）
-  //   < 1000万  → max × (1/rate - 1)（補助率から総コスト逆算、率=1.0なら0）
+  // 総コスト = max_amount の合計（最大支給額 = 総プロジェクトコストとして扱う）
+  // 受給額  = max_amount × 補助率
+  // 手出し  = max_amount × (1 − 補助率)
+  // >= 1000万の場合: 補助率 = 0.7（手出し30%）
   const THRESHOLD = 10000000;
-  const selfPay = nationScored.reduce((sum, s) => {
-    if (s.max_amount >= THRESHOLD) {
-      return sum + Math.round(s.max_amount * 0.3);
-    }
-    const rate = SUBSIDY_RATE_MAP[s.id] ?? 0.667; // デフォルト2/3
-    if (rate >= 1.0) return sum; // 全額助成 = 手出し0
-    return sum + Math.round(s.max_amount * (1 / rate - 1));
-  }, 0);
-  const totalCost = nationTotal + selfPay;
+  let nationSubsidy = 0;
+  let selfPay = 0;
+  for (const s of nationScored) {
+    const rate = s.max_amount >= THRESHOLD
+      ? 0.70
+      : (SUBSIDY_RATE_MAP[s.id] ?? 0.667);
+    nationSubsidy += Math.round(s.max_amount * rate);
+    selfPay       += Math.round(s.max_amount * (1 - rate));
+  }
+  const nationTotal = nationScored.reduce((sum, s) => sum + s.max_amount, 0);
+  const totalCost = nationTotal; // = nationSubsidy + selfPay
 
   const fmt = (n) => (n >= 100000000)
     ? (n / 100000000).toFixed(1).replace(/\.0$/, '') + '億円'
@@ -6652,18 +6652,22 @@ function buildSummaryCharts(scored) {
     { key: 'その他',         groups: ['other'],                           color: '#9e9e9e' },
   ];
 
-  // カテゴリ別合計
+  // カテゴリ別受給額合計（max_amount × 補助率）
   const catTotals = {};
   for (const s of nationScored) {
+    const rate = s.max_amount >= THRESHOLD
+      ? 0.70
+      : (SUBSIDY_RATE_MAP[s.id] ?? 0.667);
+    const subsidyAmt = Math.round(s.max_amount * rate);
     const grpKey = getCategory(s.id).key;
     const cat = CHART_CATS.find(c => c.groups.includes(grpKey));
     const label = cat ? cat.key : 'その他';
-    catTotals[label] = (catTotals[label] || 0) + s.max_amount;
+    catTotals[label] = (catTotals[label] || 0) + subsidyAmt;
   }
 
   // ── 円グラフ SVG ──
   const cx = 75, cy = 75, R = 65, ri = 38;
-  const subsidyAngle = (nationTotal / totalCost) * 360;
+  const subsidyAngle = (nationSubsidy / totalCost) * 360;
 
   function polarXY(cx, cy, r, deg) {
     const rad = (deg - 90) * Math.PI / 180;
@@ -6681,7 +6685,7 @@ function buildSummaryCharts(scored) {
     return `<path d="M${ix.toFixed(1)},${iy.toFixed(1)} L${ox.toFixed(1)},${oy.toFixed(1)} A${R},${R},0,${lg},1,${ox2.toFixed(1)},${oy2.toFixed(1)} L${ix2.toFixed(1)},${iy2.toFixed(1)} A${ri},${ri},0,${lg},0,${ix.toFixed(1)},${iy.toFixed(1)} Z" fill="${color}"/>`;
   }
 
-  const pct = Math.round((nationTotal / totalCost) * 100);
+  const pct = Math.round((nationSubsidy / totalCost) * 100);
   const pieSVG = `<svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
     ${donutSlice(0, subsidyAngle, '#1854a5')}
     ${donutSlice(subsidyAngle, 360, '#e2e8f0')}
@@ -6707,7 +6711,7 @@ function buildSummaryCharts(scored) {
   <div class="summary-charts">
     <div class="sc-header">
       <span class="sc-title">国の補助金・助成金 受給シミュレーション</span>
-      <span class="sc-note">※最大受給額ベースの試算 / 手出し比率30%と仮定</span>
+      <span class="sc-note">※総コスト＝最大支給額、受給額＝最大支給額×補助率で試算</span>
     </div>
     <div class="sc-body">
       <div class="sc-pie-area">
@@ -6715,7 +6719,7 @@ function buildSummaryCharts(scored) {
         <div class="sc-pie-legend">
           <div class="sc-legend-row">
             <span class="sc-legend-dot" style="background:#1854a5"></span>
-            <span>補助金額<strong>${fmt(nationTotal)}</strong></span>
+            <span>受給額<strong>${fmt(nationSubsidy)}</strong></span>
           </div>
           <div class="sc-legend-row">
             <span class="sc-legend-dot" style="background:#e2e8f0;border:1px solid #cbd5e1"></span>

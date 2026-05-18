@@ -1732,11 +1732,14 @@
 
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
-    margin: 0 -24px 40px;
+    margin: 0 -24px 0;
     padding: 0 24px;
     background: #1854a5;
     position: relative;
     overflow: hidden;
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
   }
   #intro-hero::before {
     content: '';
@@ -1763,11 +1766,12 @@
   .hx-inner {
     max-width: 960px;
     margin: 0 auto;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 300px;
     gap: 48px;
     align-items: center;
-    padding: 64px 0 60px;
+    padding: 60px 0;
     position: relative;
     z-index: 1;
   }

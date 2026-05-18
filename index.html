@@ -6575,7 +6575,13 @@ function buildSummaryCharts(scored) {
   const nationTotal = nationScored.reduce((sum, s) => sum + s.max_amount, 0);
   if (nationTotal === 0) return '';
 
-  const selfPay   = Math.round(nationTotal * 0.3);
+  // 手出し計算：件ごとに判定
+  //   最大受給額 >= 1000万 → その件の30%を手出しに加算
+  //   最大受給額 < 1000万  → 手出し0（小規模給付はそのまま受給額を計上）
+  const THRESHOLD = 10000000; // 1000万円
+  const selfPay = nationScored.reduce((sum, s) => {
+    return sum + (s.max_amount >= THRESHOLD ? Math.round(s.max_amount * 0.3) : 0);
+  }, 0);
   const totalCost = nationTotal + selfPay;
 
   const fmt = (n) => (n >= 100000000)

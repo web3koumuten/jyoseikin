@@ -857,7 +857,13 @@
   .result-group-head.grp-shogaisha,
   .result-group-head.grp-hr,
   .result-group-head.grp-wage,
-  .result-group-head.grp-chiiki { border: none; background: none; }
+  .result-group-head.grp-chiiki,
+  .result-group-head.grp-jinzai,
+  .result-group-head.grp-setsubiH,
+  .result-group-head.grp-setsubiS,
+  .result-group-head.grp-shohin,
+  .result-group-head.grp-marketing,
+  .result-group-head.grp-sonota { border: none; background: none; }
   .result-group-icon { display: none; }
   .result-group-label {
     font-size: 18px;
@@ -1887,17 +1893,16 @@
     color: #94a3b8;
   }
   .sc-body {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 0;
-  }
-  .sc-pie-area {
-    padding: 20px 16px;
-    border-right: 1px solid #e2e8f0;
     display: flex;
     flex-direction: column;
+  }
+  .sc-pie-area {
+    padding: 20px 24px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 12px;
+    gap: 24px;
   }
   .sc-pie-legend {
     width: 100%;
@@ -1973,10 +1978,9 @@
     text-align: right;
     flex-shrink: 0;
   }
-  @media (max-width: 640px) {
-    .sc-body { grid-template-columns: 1fr; }
-    .sc-pie-area { border-right: none; border-bottom: 1px solid #e2e8f0; }
-    .sc-bar-label { width: 90px; font-size: 11px; }
+  @media (max-width: 560px) {
+    .sc-pie-area { flex-direction: column; align-items: flex-start; }
+    .sc-bar-label { width: 110px; font-size: 11px; }
     .sc-bar-amt { width: 70px; font-size: 11px; }
   }
 
@@ -6039,64 +6043,63 @@ const RESULT_GROUP_MAP = {
   'morioka-digital-jissho':  'chiiki',
   'morioka-jinzai-ikusei':   'chiiki',
   'morioka-nosanbutsu-kasseika': 'chiiki',
-  // 設備投資補助金
-  'monozukuri-hojyokin':   'invest',
-  'shooryoka':             'invest',
-  'jigyo-shinsyutsu':      'invest',
-  'seichokasoku':          'invest',
-  // IT・デジタル補助金
-  'it-donyu':              'it',
-  'it-security':           'it',
-  // 販路・省エネ補助金
-  'shoene':                'hanbai',
-  'jizokuka-hojyokin':     'hanbai',
-  // 一般雇用
-  'trial-ippan':                 'employ',
-  'tokutei-shushokukonnansha':   'shogaisha',
-  'career-up-seishainuka':       'employ',
-  'career-up-chingin-kaitei':    'employ',
-  'career-up-chingin-kyotsu':    'employ',
-  'career-up-shoyo-taishokukin': 'employ',
-  'career-up-tanjikan-enchyo':   'employ',
-  'koyo-chosei':                 'employ',
-  'sangyo-koyo-antei-shukko':    'employ',
-  'sangyo-koyo-skillup':         'employ',
-  'jinzai-kakuho-koyokanri':     'employ',
-  // 障害者雇用
-  'career-up-shogaisha-seishainuka': 'shogaisha',
-  'trial-shogaisha':                 'shogaisha',
-  'trial-shogaisha-tanjikan':        'shogaisha',
-  'shogaisha-shisetsu-setchino':     'shogaisha',
-  // 人材育成
-  'jinzai-ikusei-shien':    'hr',
-  'jinzai-hito-investment': 'hr',
-  'jinzai-reskilling':      'hr',
-  'jinzai-kyuka-fuyo':      'hr',
-  'jinzai-kensetsu-gino':   'hr',
-  'jinzai-kensetsu-nintei': 'hr',
-  // 賃上げ・働き方改革
-  'ryoritsu-papa-shien':    'wage',
-  'ryoritsu-ikukyu-shien':  'wage',
-  'ryoritsu-kaigo-boushi':  'wage',
-  'ryoritsu-funin-shien':   'wage',
-  'ryoritsu-ikukyu-kouhyo': 'wage',
-  'ryoritsu-gyomu-daigae':  'wage',
-  'ryoritsu-sanka':         'wage',
-  'kosodate-ninshin-mamonaku': 'wage',
-  'gyomu-kaizen':           'wage',
-  'hatarakikata-jikangai':  'wage',
-  'hatarakikata-interval':  'wage',
-  'tokutei-shinkibo':       'wage',
+  // ── 設備投資（ハード・機械系）
+  'monozukuri-hojyokin':   'setsubiH',
+  'shooryoka':             'setsubiH',
+  'jigyo-shinsyutsu':      'setsubiH',
+  'shoene':                'setsubiH',
+  // ── 設備・IT（ソフト・クラウド・AI）
+  'it-donyu':              'setsubiS',
+  'it-security':           'setsubiS',
+  // ── 商品開発
+  'seichokasoku':          'shohin',
+  // ── マーケティング・販路（WebサイトSNS・持続化）
+  'jizokuka-hojyokin':     'marketing',
+  // ── 人材・賃上げ・働き方（人材育成・キャリアアップ・両立支援）
+  'trial-ippan':                    'jinzai',
+  'tokutei-shushokukonnansha':      'jinzai',
+  'career-up-seishainuka':          'jinzai',
+  'career-up-shogaisha-seishainuka':'jinzai',
+  'career-up-chingin-kaitei':       'jinzai',
+  'career-up-chingin-kyotsu':       'jinzai',
+  'career-up-shoyo-taishokukin':    'jinzai',
+  'career-up-tanjikan-enchyo':      'jinzai',
+  'koyo-chosei':                    'jinzai',
+  'sangyo-koyo-antei-shukko':       'jinzai',
+  'sangyo-koyo-skillup':            'jinzai',
+  'jinzai-kakuho-koyokanri':        'jinzai',
+  'trial-shogaisha':                'jinzai',
+  'trial-shogaisha-tanjikan':       'jinzai',
+  'konenreisha-koyosuishin':        'jinzai',
+  'jinzai-ikusei-shien':            'jinzai',
+  'jinzai-hito-investment':         'jinzai',
+  'jinzai-reskilling':              'jinzai',
+  'jinzai-kyuka-fuyo':              'jinzai',
+  'jinzai-kensetsu-gino':           'jinzai',
+  'jinzai-kensetsu-nintei':         'jinzai',
+  'ryoritsu-papa-shien':            'jinzai',
+  'ryoritsu-ikukyu-shien':          'jinzai',
+  'ryoritsu-kaigo-boushi':          'jinzai',
+  'ryoritsu-funin-shien':           'jinzai',
+  'ryoritsu-ikukyu-kouhyo':         'jinzai',
+  'ryoritsu-gyomu-daigae':          'jinzai',
+  'ryoritsu-sanka':                 'jinzai',
+  'kosodate-ninshin-mamonaku':      'jinzai',
+  'gyomu-kaizen':                   'jinzai',
+  'hatarakikata-jikangai':          'jinzai',
+  'hatarakikata-interval':          'jinzai',
+  'tokutei-shinkibo':               'jinzai',
+  // ── その他（社会課題解消）
+  'judokyuen-boushi':               'sonota',
+  'shogaisha-shisetsu-setchino':    'sonota',
 };
 const RESULT_GROUPS = [
-  { key: 'invest',    icon: '', label: '設備投資補助金',     cls: 'grp-invest',    desc: 'ものづくり・省力化・事業再構築・成長加速' },
-  { key: 'it',        icon: '', label: 'IT・デジタル補助金', cls: 'grp-it',        desc: 'IT導入・セキュリティ対策' },
-  { key: 'hanbai',    icon: '', label: '販路・省エネ補助金', cls: 'grp-hanbai',    desc: '販路開拓・持続化・省エネ設備' },
-  { key: 'employ',    icon: '', label: '一般雇用',           cls: 'grp-employ',    desc: '採用・雇用維持・正社員化' },
-  { key: 'shogaisha', icon: '', label: '特定求職者向け雇用',  cls: 'grp-shogaisha', desc: '障害者・高齢者・母子家庭の母等の採用・定着支援' },
-  { key: 'hr',        icon: '', label: '人材育成',           cls: 'grp-hr',        desc: '研修・スキルアップ・資格取得' },
-  { key: 'wage',      icon: '', label: '賃上げ・働き方改革', cls: 'grp-wage',      desc: '賃金引上げ・両立支援・残業削減' },
-  { key: 'other',     icon: '', label: 'その他',             cls: 'grp-invest',    desc: '' },
+  { key: 'jinzai',    icon: '', label: '人材・賃上げ・働き方',       cls: 'grp-jinzai',    desc: '人材育成・キャリアアップ・賃上げ・両立支援・雇用' },
+  { key: 'setsubiH',  icon: '', label: '設備投資（ハード・機械）',   cls: 'grp-setsubiH',  desc: 'ものづくり・省力化・事業再構築・省エネ設備' },
+  { key: 'setsubiS',  icon: '', label: '設備・IT（ソフト・クラウド）',cls: 'grp-setsubiS',  desc: 'IT導入・AI・EC・クラウド・セキュリティ' },
+  { key: 'shohin',    icon: '', label: '商品開発',                   cls: 'grp-shohin',    desc: '新商品・新サービス・成長加速' },
+  { key: 'marketing', icon: '', label: 'マーケティング・販路',       cls: 'grp-marketing', desc: 'Webサイト・SNS・販路開拓・持続化' },
+  { key: 'sonota',    icon: '', label: 'その他（社会課題解消）',     cls: 'grp-sonota',    desc: '受動喫煙対策・障害者施設設備など' },
   { key: 'chiiki',    icon: '', label: '岩手県・盛岡市 独自支援制度', cls: 'grp-chiiki',    desc: '国の補助金とは別に使える地域独自の制度' },
 ];
 function getResultGroup(id) {
@@ -6644,13 +6647,14 @@ function buildSummaryCharts(scored) {
     ? (n / 100000000).toFixed(1).replace(/\.0$/, '') + '億円'
     : Math.floor(n / 10000).toLocaleString('ja-JP') + '万円';
 
-  // チャートカテゴリ → 既存グループのマッピング
+  // チャートカテゴリ → 結果グループキーのマッピング
   const CHART_CATS = [
-    { key: '人材・賃上げ',   groups: ['employ','shogaisha','hr','wage'], color: '#1854a5' },
-    { key: '設備(ハード)',   groups: ['invest'],                          color: '#2e7d32' },
-    { key: '設備(IT)',       groups: ['it'],                              color: '#0097a7' },
-    { key: 'マーケティング', groups: ['hanbai'],                          color: '#f57c00' },
-    { key: 'その他',         groups: ['other'],                           color: '#9e9e9e' },
+    { key: '人材・賃上げ・働き方',       groups: ['jinzai'],    color: '#1854a5' },
+    { key: '設備(ハード・機械)',         groups: ['setsubiH'],  color: '#2e7d32' },
+    { key: '設備(IT・クラウド)',         groups: ['setsubiS'],  color: '#0097a7' },
+    { key: '商品開発',                   groups: ['shohin'],    color: '#7b3fa9' },
+    { key: 'マーケティング・販路',       groups: ['marketing'], color: '#f57c00' },
+    { key: 'その他（社会課題）',         groups: ['sonota'],    color: '#9e9e9e' },
   ];
 
   // カテゴリ別受給額合計（1000万以上はキャップ後に補助率適用）

@@ -137,27 +137,27 @@ body {
 .content { max-width: 1100px; margin: 0 auto; padding: 0 40px 100px; }
 
 /* SECTION */
-.section { padding-top: 80px; }
-.sec-divider { margin-top: 80px; padding-top: 80px; border-top: 1px solid var(--border); }
+.section { padding-top: 88px; }
+.sec-divider { margin-top: 88px; padding-top: 88px; border-top: 1px solid var(--border); }
 
 .section-header {
   display: flex; align-items: flex-start;
-  gap: 22px; padding-bottom: 36px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 36px;
+  gap: 24px; padding-bottom: 40px;
+  border-bottom: 2px solid var(--black);
+  margin-bottom: 40px;
 }
 .section-index {
-  font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--white);
-  background: var(--black); padding: 5px 11px;
-  border-radius: 5px; flex-shrink: 0; margin-top: 5px;
+  background: var(--black); padding: 7px 13px;
+  border-radius: 6px; flex-shrink: 0; margin-top: 6px;
 }
 .section-title {
-  font-size: clamp(22px, 2.8vw, 30px);
+  font-size: clamp(22px, 2.8vw, 32px);
   font-weight: 900; letter-spacing: -0.02em;
-  color: var(--black); line-height: 1.3; margin-bottom: 8px;
+  color: var(--black); line-height: 1.25; margin-bottom: 10px;
 }
-.section-desc { font-size: 15px; color: var(--muted); line-height: 1.75; }
+.section-desc { font-size: 15px; color: var(--muted); line-height: 1.8; max-width: 640px; }
 
 /* OVERVIEW */
 .overview {
@@ -170,26 +170,26 @@ body {
 
 /* DIAGRAM */
 .diagram {
-  margin: 28px 0;
+  margin: 36px 0;
   overflow-x: auto;
 }
 .diagram svg { display: block; max-width: 100%; height: auto; }
 
 /* COURSE ACCORDION */
-.courses { display: flex; flex-direction: column; gap: 10px; }
+.courses { display: flex; flex-direction: column; gap: 8px; }
 
 .course {
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  transition: border-color .15s;
+  transition: border-color .15s, box-shadow .15s;
 }
-.course:hover { border-color: #cbd5e1; }
-.course.open { border-color: var(--ink); }
+.course:hover { border-color: #cbd5e1; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+.course.open { border-color: var(--ink); box-shadow: 0 2px 12px rgba(0,0,0,.07); }
 
 .course-trigger {
   width: 100%; display: flex; align-items: center;
-  padding: 20px 24px; cursor: pointer; gap: 16px;
+  padding: 22px 28px; cursor: pointer; gap: 18px;
   background: var(--white); border: none; text-align: left;
   transition: background .12s;
 }
@@ -197,21 +197,25 @@ body {
 .course.open .course-trigger { background: var(--bg); }
 
 .course-chip {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
   text-transform: uppercase; color: var(--muted);
-  background: var(--border); padding: 4px 10px;
+  background: var(--border); padding: 4px 11px;
   border-radius: 5px; white-space: nowrap; flex-shrink: 0;
 }
 .course-name {
-  font-size: 15px; font-weight: 700; color: var(--ink);
-  flex: 1; line-height: 1.45;
+  font-size: 15px; font-weight: 600; color: var(--ink);
+  flex: 1; line-height: 1.5;
 }
-.course-meta { text-align: right; flex-shrink: 0; }
+.course-meta {
+  text-align: right; flex-shrink: 0;
+  border-left: 1px solid var(--border);
+  padding-left: 24px; margin-left: 8px;
+}
 .course-amount {
-  font-size: 22px; font-weight: 900; color: var(--black);
-  letter-spacing: -0.02em; line-height: 1;
+  font-size: 26px; font-weight: 900; color: var(--black);
+  letter-spacing: -0.03em; line-height: 1;
 }
-.course-unit { font-size: 11px; color: var(--faint); font-weight: 500; margin-top: 2px; }
+.course-unit { font-size: 11px; color: var(--faint); font-weight: 500; margin-top: 3px; }
 .chevron {
   width: 18px; height: 18px; flex-shrink: 0; color: var(--faint);
   transition: transform .2s; display: flex; align-items: center; justify-content: center;
@@ -311,7 +315,7 @@ body {
 .flow-item::before {
   content: ''; position: absolute;
   left: 13px; top: 28px; bottom: 0;
-  width: 1px; background: var(--border);
+  width: 1px; background: #cbd5e1;
 }
 .flow-item:last-child::before { display: none; }
 .flow-n {
@@ -332,30 +336,32 @@ body {
 
 /* CALLOUT */
 .callout {
-  border-left: 3px solid var(--ink);
+  border-left: 4px solid var(--ink);
   background: var(--bg);
-  border-radius: 0 10px 10px 0;
-  padding: 18px 22px;
-  margin-top: 18px;
+  border-radius: 0 12px 12px 0;
+  padding: 20px 24px;
+  margin-top: 20px;
   font-size: 14px;
-  line-height: 1.85;
+  line-height: 1.9;
   color: var(--ink);
 }
 .callout-head {
-  font-size: 11px; font-weight: 800; letter-spacing: 0.06em;
-  text-transform: uppercase; color: var(--ink); margin-bottom: 8px;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--black); margin-bottom: 10px;
 }
 .callout strong { font-weight: 700; }
 
 /* NOTICE */
 .notice {
-  display: flex; gap: 14px; align-items: flex-start;
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: 10px; padding: 16px 20px;
-  font-size: 14px; color: var(--ink); line-height: 1.8;
-  margin-top: 20px;
+  display: flex; gap: 0; align-items: stretch;
+  background: var(--bg);
+  border-left: 4px solid var(--ink);
+  border-radius: 0 12px 12px 0;
+  padding: 16px 22px;
+  font-size: 14px; color: var(--ink); line-height: 1.85;
+  margin-top: 24px;
 }
-.notice-i { font-size: 16px; flex-shrink: 0; }
+.notice-i { font-size: 16px; flex-shrink: 0; margin-right: 14px; }
 .notice strong { font-weight: 700; }
 
 /* BACK CTA */
@@ -461,34 +467,37 @@ body {
 
   <!-- SVG: コース組み合わせシミュレーション -->
   <div class="diagram">
-    <svg viewBox="0 0 640 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;height:auto;font-family:'Noto Sans JP',sans-serif">
-      <rect x="0" y="14" width="124" height="102" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-      <text x="62" y="42" text-anchor="middle" font-size="10" fill="#94a3b8" font-weight="600" letter-spacing="0.04em">対象者 1名</text>
-      <text x="62" y="68" text-anchor="middle" font-size="17" fill="#0a0f1e" font-weight="900">パート</text>
-      <text x="62" y="88" text-anchor="middle" font-size="11" fill="#64748b">有期 → 正社員</text>
-      <text x="62" y="105" text-anchor="middle" font-size="10" fill="#94a3b8">賃金3%以上UP</text>
-      <line x1="132" y1="65" x2="154" y2="65" stroke="#e2e8f0" stroke-width="1.5"/>
-      <polygon points="154,60 167,65 154,70" fill="#e2e8f0"/>
-      <!-- Course 1 -->
-      <rect x="170" y="14" width="234" height="30" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-      <text x="186" y="33" font-size="12" fill="#1e293b" font-weight="700">正社員化コース</text>
-      <text x="396" y="33" text-anchor="end" font-size="14" fill="#0a0f1e" font-weight="900">80万円</text>
-      <!-- Course 2 -->
-      <rect x="170" y="50" width="234" height="30" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-      <text x="186" y="69" font-size="12" fill="#1e293b" font-weight="700">賃金規定等改定コース</text>
-      <text x="396" y="69" text-anchor="end" font-size="14" fill="#0a0f1e" font-weight="900">50万円</text>
-      <!-- Course 3 -->
-      <rect x="170" y="86" width="234" height="30" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-      <text x="186" y="105" font-size="12" fill="#1e293b" font-weight="700">賞与・退職金コース</text>
-      <text x="396" y="105" text-anchor="end" font-size="14" fill="#0a0f1e" font-weight="900">50万円</text>
-      <line x1="412" y1="65" x2="434" y2="65" stroke="#e2e8f0" stroke-width="1.5"/>
-      <polygon points="434,60 447,65 434,70" fill="#e2e8f0"/>
-      <!-- Total -->
-      <rect x="450" y="14" width="180" height="102" rx="8" fill="#0a0f1e"/>
-      <text x="540" y="46" text-anchor="middle" font-size="10" fill="#94a3b8" letter-spacing="0.05em" font-weight="700">3コース同時申請</text>
-      <text x="540" y="80" text-anchor="middle" font-size="28" fill="white" font-weight="900">180万円</text>
-      <text x="540" y="100" text-anchor="middle" font-size="10" fill="#64748b">1名の転換あたり</text>
-      <text x="540" y="114" text-anchor="middle" font-size="10" fill="#64748b">雇入れ3年以上・中小企業</text>
+    <svg viewBox="0 0 720 176" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;height:auto;font-family:'Noto Sans JP',sans-serif">
+      <!-- 左：対象者ボックス -->
+      <rect x="0" y="14" width="150" height="148" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+      <text x="75" y="44" text-anchor="middle" font-size="10" fill="#94a3b8" font-weight="700" letter-spacing="0.08em">対象者 1名</text>
+      <text x="75" y="80" text-anchor="middle" font-size="24" fill="#0a0f1e" font-weight="900">パート</text>
+      <text x="75" y="105" text-anchor="middle" font-size="12" fill="#64748b">有期 → 正社員</text>
+      <text x="75" y="126" text-anchor="middle" font-size="11" fill="#94a3b8">賃金 3% 以上UP</text>
+      <!-- 矢印1 -->
+      <line x1="158" y1="88" x2="180" y2="88" stroke="#cbd5e1" stroke-width="2"/>
+      <polygon points="180,82 196,88 180,94" fill="#cbd5e1"/>
+      <!-- コース1 -->
+      <rect x="200" y="14" width="260" height="44" rx="7" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+      <text x="222" y="41" font-size="13" fill="#1e293b" font-weight="700">正社員化コース</text>
+      <text x="452" y="41" text-anchor="end" font-size="17" fill="#0a0f1e" font-weight="900">80万円</text>
+      <!-- コース2 -->
+      <rect x="200" y="65" width="260" height="44" rx="7" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+      <text x="222" y="92" font-size="13" fill="#1e293b" font-weight="700">賃金規定等改定コース</text>
+      <text x="452" y="92" text-anchor="end" font-size="17" fill="#0a0f1e" font-weight="900">50万円</text>
+      <!-- コース3 -->
+      <rect x="200" y="116" width="260" height="44" rx="7" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+      <text x="222" y="143" font-size="13" fill="#1e293b" font-weight="700">賞与・退職金コース</text>
+      <text x="452" y="143" text-anchor="end" font-size="17" fill="#0a0f1e" font-weight="900">50万円</text>
+      <!-- 矢印2 -->
+      <line x1="468" y1="88" x2="490" y2="88" stroke="#cbd5e1" stroke-width="2"/>
+      <polygon points="490,82 506,88 490,94" fill="#cbd5e1"/>
+      <!-- 右：合計ボックス -->
+      <rect x="510" y="14" width="210" height="148" rx="10" fill="#0a0f1e"/>
+      <text x="615" y="50" text-anchor="middle" font-size="10" fill="#64748b" font-weight="700" letter-spacing="0.1em">3コース同時申請</text>
+      <text x="615" y="102" text-anchor="middle" font-size="40" fill="white" font-weight="900">180万円</text>
+      <text x="615" y="128" text-anchor="middle" font-size="11" fill="#64748b">1名の転換あたり</text>
+      <text x="615" y="148" text-anchor="middle" font-size="10" fill="#475569">雇入れ3年以上・中小企業</text>
     </svg>
   </div>
 
@@ -785,38 +794,40 @@ body {
 
   <!-- SVG: 申請タイムライン -->
   <div class="diagram">
-    <svg viewBox="0 0 700 118" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;height:auto;font-family:'Noto Sans JP',sans-serif">
-      <line x1="44" y1="54" x2="656" y2="54" stroke="#e2e8f0" stroke-width="1.5"/>
+    <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;height:auto;font-family:'Noto Sans JP',sans-serif">
+      <line x1="36" y1="58" x2="684" y2="58" stroke="#e2e8f0" stroke-width="2"/>
       <!-- Node 1 -->
-      <circle cx="44" cy="54" r="7" fill="#0a0f1e"/>
-      <text x="44" y="30" text-anchor="middle" font-size="9" fill="#94a3b8">今すぐ</text>
-      <text x="44" y="76" text-anchor="middle" font-size="10" fill="#1e293b" font-weight="700">gBizID申請</text>
-      <text x="44" y="91" text-anchor="middle" font-size="8.5" fill="#94a3b8">SECURITY ACTION</text>
-      <text x="44" y="103" text-anchor="middle" font-size="8.5" fill="#94a3b8">宣言も同時に</text>
+      <circle cx="36" cy="58" r="8" fill="#0a0f1e"/>
+      <text x="36" y="28" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="600">今すぐ</text>
+      <text x="36" y="82" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">gBizID申請</text>
+      <text x="36" y="98" text-anchor="middle" font-size="10" fill="#94a3b8">SECURITY ACTION</text>
+      <text x="36" y="112" text-anchor="middle" font-size="10" fill="#94a3b8">宣言も同時に</text>
       <!-- Node 2 -->
-      <circle cx="196" cy="54" r="7" fill="#0a0f1e"/>
-      <text x="196" y="30" text-anchor="middle" font-size="9" fill="#94a3b8">〜2週間後</text>
-      <text x="196" y="76" text-anchor="middle" font-size="10" fill="#1e293b" font-weight="700">gBizID取得完了</text>
-      <text x="196" y="91" text-anchor="middle" font-size="8.5" fill="#94a3b8">ベンダー選定・</text>
-      <text x="196" y="103" text-anchor="middle" font-size="8.5" fill="#94a3b8">相談開始</text>
+      <circle cx="216" cy="58" r="8" fill="#0a0f1e"/>
+      <text x="216" y="28" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="600">〜2週間後</text>
+      <text x="216" y="82" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">gBizID取得完了</text>
+      <text x="216" y="98" text-anchor="middle" font-size="10" fill="#94a3b8">ベンダー選定・</text>
+      <text x="216" y="112" text-anchor="middle" font-size="10" fill="#94a3b8">相談開始</text>
       <!-- Node 3 -->
-      <circle cx="348" cy="54" r="7" fill="#0a0f1e"/>
-      <text x="348" y="30" text-anchor="middle" font-size="9" fill="#94a3b8">公募期間中</text>
-      <text x="348" y="76" text-anchor="middle" font-size="10" fill="#1e293b" font-weight="700">申請書提出</text>
-      <text x="348" y="91" text-anchor="middle" font-size="8.5" fill="#94a3b8">ベンダーと</text>
-      <text x="348" y="103" text-anchor="middle" font-size="8.5" fill="#94a3b8">共同で作成</text>
-      <!-- Node 4: IMPORTANT -->
-      <circle cx="500" cy="54" r="9" fill="#0a0f1e"/>
-      <text x="500" y="28" text-anchor="middle" font-size="9" fill="#0a0f1e" font-weight="800">採択後</text>
-      <text x="500" y="76" text-anchor="middle" font-size="10" fill="#1e293b" font-weight="700">交付決定通知</text>
-      <text x="500" y="91" text-anchor="middle" font-size="8.5" fill="#0a0f1e" font-weight="700">ここから契約・発注OK</text>
-      <text x="500" y="104" text-anchor="middle" font-size="8.5" fill="#94a3b8">前払いは絶対に禁止</text>
+      <circle cx="396" cy="58" r="8" fill="#0a0f1e"/>
+      <text x="396" y="28" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="600">公募期間中</text>
+      <text x="396" y="82" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">申請書提出</text>
+      <text x="396" y="98" text-anchor="middle" font-size="10" fill="#94a3b8">ベンダーと</text>
+      <text x="396" y="112" text-anchor="middle" font-size="10" fill="#94a3b8">共同で作成</text>
+      <!-- Node 4: IMPORTANT (larger, outlined label) -->
+      <rect x="527" y="10" width="118" height="22" rx="4" fill="#0a0f1e"/>
+      <text x="586" y="25" text-anchor="middle" font-size="9" fill="white" font-weight="800" letter-spacing="0.06em">ここから契約・発注OK</text>
+      <circle cx="576" cy="58" r="11" fill="#0a0f1e"/>
+      <circle cx="576" cy="58" r="7" fill="white"/>
+      <text x="576" y="85" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">交付決定通知</text>
+      <text x="576" y="100" text-anchor="middle" font-size="10" fill="#94a3b8">採択後に届く</text>
+      <text x="576" y="114" text-anchor="middle" font-size="10" fill="#94a3b8">前払い禁止</text>
       <!-- Node 5 -->
-      <circle cx="656" cy="54" r="7" fill="#0a0f1e"/>
-      <text x="656" y="30" text-anchor="middle" font-size="9" fill="#94a3b8">実績確認後</text>
-      <text x="656" y="76" text-anchor="middle" font-size="10" fill="#1e293b" font-weight="700">補助金入金</text>
-      <text x="656" y="91" text-anchor="middle" font-size="8.5" fill="#94a3b8">実績報告・</text>
-      <text x="656" y="103" text-anchor="middle" font-size="8.5" fill="#94a3b8">審査後に振込</text>
+      <circle cx="684" cy="58" r="8" fill="#0a0f1e"/>
+      <text x="684" y="28" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="600">実績確認後</text>
+      <text x="684" y="82" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">補助金入金</text>
+      <text x="684" y="98" text-anchor="middle" font-size="10" fill="#94a3b8">実績報告 →</text>
+      <text x="684" y="112" text-anchor="middle" font-size="10" fill="#94a3b8">審査後に振込</text>
     </svg>
   </div>
 
@@ -1005,42 +1016,42 @@ body {
 
   <!-- SVG: 3段階活用図 -->
   <div class="diagram">
-    <svg viewBox="0 0 730 196" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:730px;height:auto;font-family:'Noto Sans JP',sans-serif">
-      <text x="365" y="18" text-anchor="middle" font-size="10" fill="#94a3b8" font-weight="700" letter-spacing="0.08em">障害者採用 — 3段階活用パターン（受給額最大化の例）</text>
+    <svg viewBox="0 0 720 205" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;height:auto;font-family:'Noto Sans JP',sans-serif">
+      <text x="360" y="16" text-anchor="middle" font-size="10" fill="#94a3b8" font-weight="700" letter-spacing="0.09em">障害者採用 — 3段階活用パターン（受給額最大化の例）</text>
       <!-- Step 1 -->
-      <rect x="0" y="28" width="196" height="126" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-      <text x="98" y="54" text-anchor="middle" font-size="10" fill="#94a3b8" font-weight="700" letter-spacing="0.07em">STEP 1</text>
-      <text x="98" y="75" text-anchor="middle" font-size="13" fill="#0a0f1e" font-weight="800">トライアル雇用</text>
-      <text x="98" y="94" text-anchor="middle" font-size="11" fill="#64748b">採用前の適性確認</text>
-      <line x1="18" y1="108" x2="178" y2="108" stroke="#e2e8f0" stroke-width="0.5"/>
-      <text x="98" y="128" text-anchor="middle" font-size="22" fill="#0a0f1e" font-weight="900">+24万円</text>
-      <text x="98" y="146" text-anchor="middle" font-size="10" fill="#94a3b8">月8万円 × 3ヶ月</text>
+      <rect x="0" y="26" width="206" height="134" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+      <text x="103" y="54" text-anchor="middle" font-size="10" fill="#94a3b8" font-weight="700" letter-spacing="0.09em">STEP 1</text>
+      <text x="103" y="80" text-anchor="middle" font-size="15" fill="#0a0f1e" font-weight="800">トライアル雇用</text>
+      <text x="103" y="100" text-anchor="middle" font-size="11" fill="#64748b">採用前の適性確認</text>
+      <line x1="20" y1="115" x2="186" y2="115" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="103" y="138" text-anchor="middle" font-size="26" fill="#0a0f1e" font-weight="900">+24万円</text>
+      <text x="103" y="155" text-anchor="middle" font-size="10" fill="#94a3b8">月8万円 × 3ヶ月</text>
       <!-- Arrow 1 -->
-      <line x1="204" y1="91" x2="232" y2="91" stroke="#cbd5e1" stroke-width="1.5"/>
-      <polygon points="232,86 246,91 232,96" fill="#cbd5e1"/>
+      <line x1="213" y1="93" x2="237" y2="93" stroke="#cbd5e1" stroke-width="2"/>
+      <polygon points="237,87 253,93 237,99" fill="#cbd5e1"/>
       <!-- Step 2 -->
-      <rect x="248" y="28" width="196" height="126" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-      <text x="346" y="54" text-anchor="middle" font-size="10" fill="#94a3b8" font-weight="700" letter-spacing="0.07em">STEP 2</text>
-      <text x="346" y="75" text-anchor="middle" font-size="13" fill="#0a0f1e" font-weight="800">本採用・助成金申請</text>
-      <text x="346" y="94" text-anchor="middle" font-size="11" fill="#64748b">採用後2週間以内に手続き</text>
-      <line x1="266" y1="108" x2="426" y2="108" stroke="#e2e8f0" stroke-width="0.5"/>
-      <text x="346" y="128" text-anchor="middle" font-size="22" fill="#0a0f1e" font-weight="900">+240万円</text>
-      <text x="346" y="146" text-anchor="middle" font-size="10" fill="#94a3b8">重度障害者・中小・2年間</text>
+      <rect x="257" y="26" width="206" height="134" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+      <text x="360" y="54" text-anchor="middle" font-size="10" fill="#94a3b8" font-weight="700" letter-spacing="0.09em">STEP 2</text>
+      <text x="360" y="80" text-anchor="middle" font-size="15" fill="#0a0f1e" font-weight="800">本採用・助成金申請</text>
+      <text x="360" y="100" text-anchor="middle" font-size="11" fill="#64748b">採用後2週間以内に申請</text>
+      <line x1="277" y1="115" x2="443" y2="115" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="360" y="138" text-anchor="middle" font-size="26" fill="#0a0f1e" font-weight="900">+240万円</text>
+      <text x="360" y="155" text-anchor="middle" font-size="10" fill="#94a3b8">重度障害者・中小・2年間</text>
       <!-- Arrow 2 -->
-      <line x1="452" y1="91" x2="480" y2="91" stroke="#cbd5e1" stroke-width="1.5"/>
-      <polygon points="480,86 494,91 480,96" fill="#cbd5e1"/>
-      <!-- Step 3 -->
-      <rect x="496" y="28" width="196" height="126" rx="8" fill="#f8fafc" stroke="#1e293b" stroke-width="1.5"/>
-      <text x="594" y="54" text-anchor="middle" font-size="10" fill="#1e293b" font-weight="700" letter-spacing="0.07em">STEP 3</text>
-      <text x="594" y="75" text-anchor="middle" font-size="13" fill="#0a0f1e" font-weight="800">正社員化</text>
-      <text x="594" y="94" text-anchor="middle" font-size="11" fill="#64748b">キャリアアップ助成金</text>
-      <line x1="514" y1="108" x2="674" y2="108" stroke="#e2e8f0" stroke-width="0.5"/>
-      <text x="594" y="128" text-anchor="middle" font-size="22" fill="#0a0f1e" font-weight="900">+140万円</text>
-      <text x="594" y="146" text-anchor="middle" font-size="10" fill="#94a3b8">障害者正社員化コース</text>
-      <!-- 合計 -->
-      <line x1="0" y1="168" x2="730" y2="168" stroke="#e2e8f0" stroke-width="0.5"/>
-      <text x="380" y="186" text-anchor="middle" font-size="12" fill="#64748b">3段階の合計受給額（最大）</text>
-      <text x="650" y="186" text-anchor="end" font-size="18" fill="#0a0f1e" font-weight="900">404万円以上</text>
+      <line x1="470" y1="93" x2="494" y2="93" stroke="#cbd5e1" stroke-width="2"/>
+      <polygon points="494,87 510,93 494,99" fill="#cbd5e1"/>
+      <!-- Step 3 (dark box) -->
+      <rect x="514" y="26" width="206" height="134" rx="10" fill="#0a0f1e"/>
+      <text x="617" y="54" text-anchor="middle" font-size="10" fill="#64748b" font-weight="700" letter-spacing="0.09em">STEP 3</text>
+      <text x="617" y="80" text-anchor="middle" font-size="15" fill="white" font-weight="800">正社員化</text>
+      <text x="617" y="100" text-anchor="middle" font-size="11" fill="#64748b">キャリアアップ助成金</text>
+      <line x1="534" y1="115" x2="700" y2="115" stroke="#1e293b" stroke-width="1"/>
+      <text x="617" y="138" text-anchor="middle" font-size="26" fill="white" font-weight="900">+140万円</text>
+      <text x="617" y="155" text-anchor="middle" font-size="10" fill="#64748b">障害者正社員化コース</text>
+      <!-- 合計ライン -->
+      <line x1="0" y1="176" x2="720" y2="176" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="12" y="196" font-size="12" fill="#64748b">3段階の合計受給額（最大）</text>
+      <text x="708" y="196" text-anchor="end" font-size="20" fill="#0a0f1e" font-weight="900">404万円以上</text>
     </svg>
   </div>
 

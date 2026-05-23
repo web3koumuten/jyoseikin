@@ -66,14 +66,14 @@ body {
 
 /* HERO */
 .hero {
-  padding: 96px 40px 80px;
+  padding: 72px 40px 60px;
   border-bottom: 2px solid var(--black);
 }
 .hero-inner { max-width: 1100px; margin: 0 auto; }
 .hero-label {
   font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--faint);
-  margin-bottom: 28px;
+  margin-bottom: 22px;
   display: flex; align-items: center; gap: 14px;
 }
 .hero-label::before {
@@ -81,18 +81,18 @@ body {
   width: 28px; height: 1px; background: var(--faint);
 }
 .hero h1 {
-  font-size: clamp(52px, 7.5vw, 88px);
-  font-weight: 900; letter-spacing: -0.04em;
-  color: var(--black); line-height: 1.0; margin-bottom: 28px;
+  font-size: clamp(36px, 4.5vw, 58px);
+  font-weight: 900; letter-spacing: -0.03em;
+  color: var(--black); line-height: 1.1; margin-bottom: 20px;
 }
 .hero-lead {
-  font-size: 15px; color: var(--muted);
-  max-width: 520px; line-height: 1.85; margin-bottom: 64px;
+  font-size: 14px; color: var(--muted);
+  max-width: 560px; line-height: 1.8; margin-bottom: 44px;
 }
 .hero-metrics {
   display: grid; grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid var(--border);
-  padding-top: 40px; gap: 0;
+  padding-top: 32px; gap: 0;
 }
 .metric {
   padding: 0 40px 0 0;
@@ -100,18 +100,18 @@ body {
 .metric:last-child { padding-right: 0; }
 .metric-tag {
   font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--faint); margin-bottom: 14px;
+  text-transform: uppercase; color: var(--faint); margin-bottom: 10px;
 }
 .metric-label {
-  font-size: 14px; font-weight: 600; color: var(--ink);
-  margin-bottom: 14px; line-height: 1.4;
+  font-size: 13px; font-weight: 600; color: var(--ink);
+  margin-bottom: 10px; line-height: 1.4;
 }
 .metric-value {
-  font-size: 48px; font-weight: 900;
+  font-size: 38px; font-weight: 900;
   letter-spacing: -0.04em; color: var(--black); line-height: 1;
 }
-.metric-value sup { font-size: 18px; font-weight: 700; vertical-align: super; }
-.metric-note { font-size: 11px; color: var(--faint); margin-top: 8px; }
+.metric-value sup { font-size: 15px; font-weight: 700; vertical-align: super; }
+.metric-note { font-size: 11px; color: var(--faint); margin-top: 6px; }
 
 /* STICKY SUBNAV */
 .subnav {
@@ -458,11 +458,6 @@ body {
     </div>
   </div>
 
-  <div class="overview">
-    <strong>なぜ今、この助成金なのか。</strong>最低賃金の引き上げが続く中、どうせ賃金を上げるなら助成金をもらいながら行うべきです。正社員化コース（最大80万円/人）に賃金改定コース（50万円）と賞与・退職金コース（50万円）を組み合わせると、<strong>1人の転換で最大180万円近く</strong>になります。非正規スタッフが多い会社ほど受給総額が大きくなります。<br>
-    <strong>全コース共通の大原則：</strong>キャリアアップ計画書を転換・制度導入より前に労働局へ提出することが必須です。提出が転換後になった場合は一切受給できません。
-  </div>
-
   <!-- SVG: コース組み合わせシミュレーション -->
   <div class="diagram">
     <svg viewBox="0 0 640 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:640px;height:auto;font-family:'Noto Sans JP',sans-serif">
@@ -513,7 +508,7 @@ body {
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
-            <p class="body-text">有期雇用労働者（パート・アルバイト・契約社員）を正社員に転換した事業主に支給されます。<strong>2025年4月改正により、雇入れから3年以上の方を転換すると80万円、3年未満は40万円</strong>（いずれも中小企業）。転換後6ヶ月の雇用継続と、転換時の賃金3%以上アップが必須条件です。非正規社員を正社員にするたびに何人でも繰り返し申請できます。</p>
+            <p class="body-text">パート・契約社員など有期雇用者を正社員に転換した事業主が対象。<strong>雇入れ3年以上で80万円、3年未満で40万円</strong>（中小企業）。転換するたびに何人でも繰り返し申請可。</p>
           </div>
           <div class="body-block">
             <div class="block-head">支給額の比較（中小企業 vs 大企業）</div>
@@ -537,40 +532,13 @@ body {
             </ul>
           </div>
           <div class="body-block span2">
-            <div class="block-head">よくある落とし穴</div>
-            <table class="tbl">
-              <thead><tr><th>失敗パターン</th><th>対策</th></tr></thead>
-              <tbody>
-                <tr><td>計画書を転換後に提出してしまった</td><td>必ず転換の前日までに提出する。当日でも要注意</td></tr>
-                <tr><td>就業規則に転換規定がない</td><td>計画書提出前に社労士に就業規則を整備してもらう</td></tr>
-                <tr><td>賃金3%アップを達成できていなかった</td><td>転換日の賃金台帳で確認。1円単位で計算する</td></tr>
-                <tr><td>申請期限（6ヶ月経過後2ヶ月以内）を過ぎた</td><td>転換日を記録し、カレンダーに申請期限をセットする</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="body-block span2">
-            <div class="block-head">必要書類</div>
-            <table class="tbl">
-              <thead><tr><th>書類名</th><th>タイミング・備考</th></tr></thead>
-              <tbody>
-                <tr><td>キャリアアップ計画書<span class="tag">転換前に提出</span></td><td>都道府県労働局へ。転換後の提出は受給不可</td></tr>
-                <tr><td>就業規則（転換規定が明記されたもの）</td><td>計画書提出前に整備しておくこと</td></tr>
-                <tr><td>雇用契約書（転換前・転換後の両方）</td><td>日付・賃金額の確認に使用</td></tr>
-                <tr><td>賃金台帳（転換前後6ヶ月分）</td><td>3%以上の賃金増加を数字で証明</td></tr>
-                <tr><td>出勤簿・タイムカード（転換後6ヶ月分）</td><td></td></tr>
-                <tr><td>雇用保険被保険者証（対象者分）</td><td></td></tr>
-                <tr><td>登記簿謄本または開業届</td><td></td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="body-block span2">
             <div class="block-head">申請の流れ</div>
             <div class="flow">
-              <div class="flow-item"><div class="flow-n">1</div><div class="flow-c"><div class="flow-title">キャリアアップ計画書を労働局へ提出<span class="flow-warn">転換前に必須</span></div><div class="flow-desc">「この人を6ヶ月以内に正社員にする」という計画書。転換後に出しても受給できません。ハローワークでも受け付けている場合があります。</div></div></div>
-              <div class="flow-item"><div class="flow-n">2</div><div class="flow-c"><div class="flow-title">就業規則に転換規定を整備（社労士推奨）</div><div class="flow-desc">「一定の条件を満たした有期雇用労働者を正社員に転換できる」旨を明記します。計画書提出前に整備されている必要があります。</div></div></div>
-              <div class="flow-item"><div class="flow-n">3</div><div class="flow-c"><div class="flow-title">正社員に転換（賃金3%以上アップ）</div><div class="flow-desc">転換辞令・雇用契約書を取り交わします。転換日から賃金を確実に3%以上増やしてください。</div></div></div>
-              <div class="flow-item"><div class="flow-n">4</div><div class="flow-c"><div class="flow-title">転換後6ヶ月間の雇用継続</div><div class="flow-desc">賃金台帳・出勤簿を保管しておきます。途中で退職した場合は受給できません。</div></div></div>
-              <div class="flow-item"><div class="flow-n">5</div><div class="flow-c"><div class="flow-title">支給申請（6ヶ月経過後2ヶ月以内）</div><div class="flow-desc">書類一式を都道府県労働局またはハローワークへ提出。1〜3ヶ月程度で振り込まれます。</div></div></div>
+              <div class="flow-item"><div class="flow-n">1</div><div class="flow-c"><div class="flow-title">キャリアアップ計画書を労働局へ提出<span class="flow-warn">転換前に必須</span></div><div class="flow-desc">転換前日までに都道府県労働局へ。転換後の提出は受給不可。</div></div></div>
+              <div class="flow-item"><div class="flow-n">2</div><div class="flow-c"><div class="flow-title">就業規則に転換規定を整備（社労士推奨）</div><div class="flow-desc">計画書提出前に整備が必要。</div></div></div>
+              <div class="flow-item"><div class="flow-n">3</div><div class="flow-c"><div class="flow-title">正社員に転換（賃金3%以上アップ）</div><div class="flow-desc">辞令・雇用契約書を締結。賃金台帳で3%増を確認。</div></div></div>
+              <div class="flow-item"><div class="flow-n">4</div><div class="flow-c"><div class="flow-title">転換後6ヶ月間の雇用継続</div><div class="flow-desc">途中退職は受給不可。賃金台帳・出勤簿を保管。</div></div></div>
+              <div class="flow-item"><div class="flow-n">5</div><div class="flow-c"><div class="flow-title">支給申請（6ヶ月経過後2ヶ月以内）</div><div class="flow-desc">労働局またはハローワークへ提出。1〜3ヶ月で振込。</div></div></div>
             </div>
           </div>
           <div class="body-block span2">
@@ -598,7 +566,7 @@ body {
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
-            <p class="body-text">有期雇用の障害者を正社員に転換した事業主に<strong>120〜140万円/人</strong>が支給されます。通常の正社員化コース（40〜80万円）より大幅に高額です。特定求職者雇用開発助成金・障害者トライアル雇用と組み合わせることで、1人の採用で<strong>合計404万円以上の受給</strong>が可能になります。精神障害者も重度障害者と同様に140万円の対象です。</p>
+            <p class="body-text">有期雇用の障害者を正社員に転換した事業主に<strong>120〜140万円/人</strong>。精神障害者も重度障害者と同額の140万円。特定求職者・トライアル雇用と組み合わせると<strong>合計404万円以上</strong>の受給が可能。</p>
           </div>
           <div class="body-block">
             <div class="block-head">支給額（中小企業）</div>
@@ -644,7 +612,7 @@ body {
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
-            <p class="body-text">中小企業が有期雇用労働者の賃金を<strong>3%以上引き上げ</strong>、就業規則の賃金規定に明記した場合に最大50万円が支給されます。<strong>中小企業のみ対象（大企業は不可）</strong>です。どうせ最低賃金引き上げに対応して賃上げするなら、就業規則に書いておくだけで助成金がもらえる、コストパフォーマンスが高いコースです。正社員化コースと同時申請することで受給額を積み増しできます。</p>
+            <p class="body-text">有期雇用労働者の賃金を<strong>3%以上引き上げ</strong>て就業規則に明記した中小企業に最大50万円。最低賃金対応の賃上げと同時に申請すれば、実質的なコスト回収になる。</p>
           </div>
           <div class="body-block">
             <div class="block-head">支給額・対象</div>
@@ -690,7 +658,7 @@ body {
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
-            <p class="body-text">正規・非正規社員の賃金規定を<strong>共通化（同一労働同一賃金）</strong>した事業主に1事業所あたり72万円が支給されます。共通化後6ヶ月分の賃金支払い実績が必要です。「同一労働同一賃金」のルールに対応しながら助成金も受け取れる制度ですが、<strong>就業規則の書き方が要件を大きく左右するため、必ず社労士と連携</strong>してください。</p>
+            <p class="body-text">正規・非正規の賃金規定を共通化した事業主に1事業所72万円。同一労働同一賃金対応と組み合わせて活用。<strong>就業規則の書き方が要件を大きく左右するため社労士と連携</strong>が必須。</p>
           </div>
           <div class="body-block">
             <div class="block-head">主な要件</div>
@@ -729,7 +697,7 @@ body {
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
-            <p class="body-text">有期雇用労働者に新たに賞与または退職金制度を設け、<strong>実際に支給した</strong>事業主に最大50万円が支給されます。「就業規則に制度を作るだけ」ではなく、<strong>実際に賞与や退職金を支払った実績</strong>が条件です。金額は少額でも問題ありません。正社員化コース・賃金改定コースとの組み合わせ申請が可能で、1人の転換で受給額を大幅に増やせます。</p>
+            <p class="body-text">有期雇用者に賞与または退職金制度を新設して<strong>実際に支給した</strong>事業主に最大50万円。制度を作るだけでは不可、支給実績が必須。少額でもOK。正社員化コースとの同時申請が効果的。</p>
           </div>
           <div class="body-block">
             <div class="block-head">支給額の目安</div>
@@ -769,7 +737,7 @@ body {
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
-            <p class="body-text">週20時間未満で働くパートの労働時間を延長して社会保険に加入させた事業主に<strong>1人あたり25.5万円</strong>を支給します。いわゆる「106万円・130万円の壁」を超える際の、会社側の保険料負担を補助する制度です。人手不足でシフトを増やしたいスタッフがいる場合、会社の保険料負担を助成金で一部カバーできます。延長後6ヶ月の雇用継続が条件です。</p>
+            <p class="body-text">週20時間未満のパートを週20時間以上に延長して社会保険加入させた事業主に<strong>25.5万円/人</strong>。「106万・130万円の壁」超過時の会社負担増を一部補填。延長後6ヶ月継続が条件。</p>
           </div>
           <div class="body-block">
             <div class="block-head">主な要件</div>
@@ -812,11 +780,6 @@ body {
       <div class="section-title">デジタル化・AI導入補助金 2026<br>（IT導入補助金）</div>
       <div class="section-desc">会計・勤怠・受発注・AI活用など幅広いITツールの導入費用を国が2/3補助する制度です。2026年3月30日より申請受付開始。認定されたITベンダーと共同で申請します。</div>
     </div>
-  </div>
-
-  <div class="overview">
-    <strong>なぜ今、この補助金なのか。</strong>生産性向上や人手不足対応の手段として、ITツール・AIシステムの導入が現実的な選択肢になっています。300万円のシステムを入れるなら、200万円を国が負担します。自己負担は100万円です。<strong>認定されたベンダー経由での申請が必要</strong>なので、導入したいシステムのベンダーに「補助金に対応しているか」を最初に確認してください。<br>
-    <strong>最重要：交付決定前の契約・支払いは補助対象外です。</strong>採択・交付決定通知を受けてから発注・契約してください。これを知らずに先に進めてしまうケースが非常に多いです。
   </div>
 
   <!-- SVG: 申請タイムライン -->
@@ -873,7 +836,7 @@ body {
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
-            <p class="body-text">業務プロセスを効率化するITツールの導入費用の<strong>2/3を補助</strong>します（小規模事業者は3/4）。対象となる「プロセス数」によって補助上限が変わります。1プロセス以上の効率化で最大150万円、<strong>4プロセス以上なら最大450万円</strong>まで申請可能です。SaaS（月額課金型）の複数年分をまとめて申請することもできます。まず「導入したいシステムが認定ベンダーのものか」を確認することが最初のステップです。</p>
+            <p class="body-text">ITツール導入費の<strong>2/3を補助</strong>（小規模事業者3/4）。対象プロセス数で上限が変動。まず「導入したいシステムが認定ベンダーのものか」を確認するところから。</p>
           </div>
           <div class="body-block">
             <div class="block-head">補助額の区分</div>
@@ -912,17 +875,6 @@ body {
             </table>
           </div>
           <div class="body-block span2">
-            <div class="block-head">費用と補助金のシミュレーション例</div>
-            <table class="tbl">
-              <thead><tr><th>導入コスト（総額）</th><th>補助金額（2/3）</th><th>自己負担（1/3）</th><th>効果のポイント</th></tr></thead>
-              <tbody>
-                <tr><td>150万円</td><td class="val">100万円</td><td>50万円</td><td>会計＋勤怠の2システム導入</td></tr>
-                <tr><td>300万円</td><td class="val">200万円</td><td>100万円</td><td>基幹システム全体の更新</td></tr>
-                <tr><td>675万円</td><td class="val">450万円</td><td>225万円</td><td>4プロセス以上・上限申請</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="body-block span2">
             <div class="block-head">補助対象外のコスト（注意）</div>
             <ul class="ul">
               <li>交付決定前に支払った費用（いかなる理由でも対象外）</li>
@@ -935,27 +887,13 @@ body {
           <div class="body-block span2">
             <div class="block-head">申請の流れ</div>
             <div class="flow">
-              <div class="flow-item"><div class="flow-n">1</div><div class="flow-c"><div class="flow-title">gBizIDプライムを取得<span class="flow-warn">申請前に必須</span></div><div class="flow-desc">郵送確認で取得まで約2週間かかります。今すぐ手続きを始めてください。法人はGビズIDプライム、個人事業主はgBizIDメンバーでも可（申請種別を確認のこと）。</div></div></div>
-              <div class="flow-item"><div class="flow-n">2</div><div class="flow-c"><div class="flow-title">SECURITY ACTION（★1以上）を宣言</div><div class="flow-desc">IPA（情報処理推進機構）のサイトでオンライン5分で完結。自社のセキュリティ対策を宣言する制度で、申請の前提条件です。★1は「情報セキュリティ5か条」に取り組むだけでOK。</div></div></div>
-              <div class="flow-item"><div class="flow-n">3</div><div class="flow-c"><div class="flow-title">認定IT導入支援事業者（ベンダー）に相談</div><div class="flow-desc">この補助金は必ず認定ベンダー経由で申請します。導入したいシステムのベンダーに「補助金対応しているか」を確認してください。対応していないベンダーのツールは補助対象外です。</div></div></div>
-              <div class="flow-item"><div class="flow-n">4</div><div class="flow-c"><div class="flow-title">ベンダーと共同で申請書類を作成・提出</div><div class="flow-desc">公募期間（2026年3月30日〜）内に提出。ベンダーが申請システム（IT導入補助金事務局のポータル）への入力をサポートします。事業計画書の記載内容が採択に影響するため、ベンダーと丁寧に準備してください。</div></div></div>
-              <div class="flow-item"><div class="flow-n">5</div><div class="flow-c"><div class="flow-title">交付決定後にITツールを導入・支払い<span class="flow-warn">順番厳守</span></div><div class="flow-desc">交付決定前の契約・支払いは補助対象外。必ず決定通知を受けてから進めてください。</div></div></div>
-              <div class="flow-item"><div class="flow-n">6</div><div class="flow-c"><div class="flow-title">実績報告 → 補助金入金</div><div class="flow-desc">導入完了後に実績報告書を提出。事務局の確認審査（数ヶ月）を経て補助金が振り込まれます。導入から入金まで半年〜1年程度かかることを見込んでおいてください。</div></div></div>
+              <div class="flow-item"><div class="flow-n">1</div><div class="flow-c"><div class="flow-title">gBizIDプライムを取得<span class="flow-warn">申請前に必須</span></div><div class="flow-desc">取得に約2週間。今すぐ手続きを。</div></div></div>
+              <div class="flow-item"><div class="flow-n">2</div><div class="flow-c"><div class="flow-title">SECURITY ACTION（★1以上）を宣言</div><div class="flow-desc">IPAサイトでオンライン完結。★1でOK。</div></div></div>
+              <div class="flow-item"><div class="flow-n">3</div><div class="flow-c"><div class="flow-title">認定ベンダーに相談・確認</div><div class="flow-desc">非認定ベンダーのツールは補助対象外。</div></div></div>
+              <div class="flow-item"><div class="flow-n">4</div><div class="flow-c"><div class="flow-title">ベンダーと共同で申請書類を作成・提出</div><div class="flow-desc">2026年3月30日〜公募中。ベンダーがポータル入力をサポート。</div></div></div>
+              <div class="flow-item"><div class="flow-n">5</div><div class="flow-c"><div class="flow-title">交付決定後にITツールを導入・支払い<span class="flow-warn">順番厳守</span></div><div class="flow-desc">交付決定前の契約・支払いは補助対象外。</div></div></div>
+              <div class="flow-item"><div class="flow-n">6</div><div class="flow-c"><div class="flow-title">実績報告 → 補助金入金</div><div class="flow-desc">審査後に振込。導入から入金まで半年〜1年程度。</div></div></div>
             </div>
-          </div>
-          <div class="body-block span2">
-            <div class="block-head">必要書類</div>
-            <table class="tbl">
-              <thead><tr><th>書類名</th><th>タイミング・備考</th></tr></thead>
-              <tbody>
-                <tr><td>gBizIDプライムのアカウント<span class="tag">事前取得</span></td><td>取得に約2週間。今すぐ申請を</td></tr>
-                <tr><td>SECURITY ACTION宣言<span class="tag">事前</span></td><td>IPAサイトでオンライン完結（★1でOK）</td></tr>
-                <tr><td>IT導入支援事業者との申請書類（共同作成）</td><td>ベンダーがポータル入力をサポート</td></tr>
-                <tr><td>見積書・契約書（ITツール）</td><td><strong>交付決定後に締結すること</strong></td></tr>
-                <tr><td>確定申告書または決算書（直近1期分）</td><td></td></tr>
-                <tr><td>登記簿謄本または開業届</td><td></td></tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
@@ -976,7 +914,7 @@ body {
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
-            <p class="body-text">インボイス制度に対応した会計ソフト・受発注システム・決済ツールなどの導入費用を補助します。最大350万円・補助率2/3。インボイス未登録の免税事業者向けの特例枠もあります。すでに通常の会計ソフトを使っている場合でも、インボイス対応版へのバージョンアップや乗り換えで申請できるケースがあります。電子帳簿保存法への対応と合わせて活用されるケースが多い枠です。</p>
+            <p class="body-text">インボイス対応の会計・受発注・決済ツール導入費を補助。最大350万円・補助率2/3。免税事業者向け特例枠あり。電子帳簿保存法対応との組み合わせが多い。</p>
           </div>
           <div class="body-block">
             <div class="block-head">対象ツールの例</div>
@@ -1017,7 +955,7 @@ body {
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
-            <p class="body-text">ウイルス対策ソフト・セキュリティ監視ツール等の導入費用の<strong>1/2を補助</strong>します。補助率は通常枠（2/3）より低いですが、中小企業のサイバー攻撃対策を支援する重要な枠です。IPA承認の「サービス・ツールリスト」に掲載されたもののみが対象であり、事前確認が必須です。通常枠との組み合わせ申請は申請内容によっては可能なため、ベンダーに相談してください。</p>
+            <p class="body-text">セキュリティツール導入費の<strong>1/2を補助</strong>。IPA承認の「サービス・ツールリスト」掲載品のみ対象のため事前確認が必須。通常枠との組み合わせ申請はベンダーに相談。</p>
           </div>
           <div class="body-block">
             <div class="block-head">対象ツールの例</div>
@@ -1062,11 +1000,6 @@ body {
       <div class="section-title">特定求職者雇用開発助成金</div>
       <div class="section-desc">障害者・高齢者・母子家庭の母・就職氷河期世代など、就職が難しいとされる方をハローワーク経由で採用した事業主への助成金。採用した日から2週間以内の申請が必須で、これを過ぎると一切受給できません。</div>
     </div>
-  </div>
-
-  <div class="overview">
-    <strong>なぜ今、この助成金なのか。</strong>人手不足が深刻な中、採用ターゲットを広げることが急務です。障害者・高齢者・母子家庭の方などを採用するとハローワーク経由であることを条件に助成金が支給されます。さらに採用後にキャリアアップ助成金と組み合わせることで、<strong>1人の採用で合計400万円以上</strong>の受給が可能です。<br>
-    <strong>全コース共通の大原則：雇い入れ後2週間以内の受給資格確認申請が必須です。</strong>採用が決まった翌営業日にはハローワークに連絡することを習慣にしてください。
   </div>
 
   <!-- SVG: 3段階活用図 -->
@@ -1127,7 +1060,7 @@ body {
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
-            <p class="body-text">障害者・60歳以上の高齢者・母子家庭の母・生活保護受給者などをハローワーク等の紹介で採用した場合、最長2年間にわたって賃金の一部が助成されます。助成額は対象者の属性によって異なり、<strong>重度障害者・精神障害者の場合は中小企業で最大240万円</strong>と非常に高額です。支給は6ヶ月ごとに分割で行われます（重度障害者等は最大4回＝2年分）。</p>
+            <p class="body-text">障害者・高齢者・母子家庭の母などをハローワーク経由で採用した事業主が対象。<strong>重度障害者・精神障害者は中小で最大240万円</strong>。6ヶ月ごと分割支給（重度は最大4回＝2年）。</p>
           </div>
 
           <div class="body-block span2">
@@ -1155,20 +1088,6 @@ body {
               <li>過去3年間に不当解雇等の法令違反がないこと</li>
             </ul>
           </div>
-          <div class="body-block">
-            <div class="block-head">必要書類</div>
-            <ul class="ul">
-              <li><strong>ハローワーク等の紹介状</strong>（採用時に保管必須）</li>
-              <li><strong>受給資格確認申請書</strong>（採用後2週間以内に提出）</li>
-              <li>雇用保険被保険者資格取得届（写し）</li>
-              <li>雇用契約書（対象者分）</li>
-              <li>障害者手帳等の写し（障害者のみ）</li>
-              <li>母子（父子）家庭の証明書類（該当者のみ）</li>
-              <li>賃金台帳・出勤簿（支給対象期ごと）</li>
-              <li>登記簿謄本または開業届</li>
-            </ul>
-          </div>
-
           <div class="body-block span2">
             <div class="block-head">採用ルート — ハローワーク経由の仕組み</div>
             <table class="tbl">
@@ -1186,10 +1105,10 @@ body {
           <div class="body-block span2">
             <div class="block-head">申請の流れ</div>
             <div class="flow">
-              <div class="flow-item"><div class="flow-n">1</div><div class="flow-c"><div class="flow-title">ハローワークに求人票を登録</div><div class="flow-desc">「障害者歓迎」「高齢者歓迎」などの条件を明示しておくと対象者の紹介を受けやすくなります。障害者担当の窓口が別にある場合は、そちらに相談するのが早道です。</div></div></div>
-              <div class="flow-item"><div class="flow-n">2</div><div class="flow-c"><div class="flow-title">紹介状を持った対象者と面接・採用</div><div class="flow-desc">紹介状は申請時に必要です。採用時に必ず受け取り、大切に保管してください。紹介状がないと受給できません。</div></div></div>
-              <div class="flow-item"><div class="flow-n">3</div><div class="flow-c"><div class="flow-title">雇い入れ後2週間以内に受給資格確認申請<span class="flow-warn">最重要・最多失敗</span></div><div class="flow-desc">管轄のハローワークへ「受給資格確認申請書」を提出します。採用当日か翌営業日に動くことを推奨します。この期限を過ぎると一切受給できません。</div></div></div>
-              <div class="flow-item"><div class="flow-n">4</div><div class="flow-c"><div class="flow-title">支給対象期ごとに支給申請（6ヶ月ごと）</div><div class="flow-desc">6ヶ月ごとに賃金台帳・出勤簿等を添付して支給申請を行います。重度障害者等は最大4回（2年分＝最大240万円）申請できます。</div></div></div>
+              <div class="flow-item"><div class="flow-n">1</div><div class="flow-c"><div class="flow-title">ハローワークに求人票を登録</div><div class="flow-desc">障害者担当窓口に相談すると紹介が早い。</div></div></div>
+              <div class="flow-item"><div class="flow-n">2</div><div class="flow-c"><div class="flow-title">紹介状を持った対象者と面接・採用</div><div class="flow-desc">紹介状は申請時に必須。必ず保管。</div></div></div>
+              <div class="flow-item"><div class="flow-n">3</div><div class="flow-c"><div class="flow-title">雇い入れ後2週間以内に受給資格確認申請<span class="flow-warn">最重要・最多失敗</span></div><div class="flow-desc">採用翌営業日に動くことを推奨。この期限を過ぎると一切受給不可。</div></div></div>
+              <div class="flow-item"><div class="flow-n">4</div><div class="flow-c"><div class="flow-title">支給対象期ごとに支給申請（6ヶ月ごと）</div><div class="flow-desc">重度障害者等は最大4回（2年＝最大240万円）。</div></div></div>
             </div>
           </div>
 
@@ -1218,7 +1137,7 @@ body {
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
-            <p class="body-text">バブル崩壊・ITバブル崩壊後の1990年代〜2000年代前半に就職難の時期を経験した方々（現在おおむね45〜56歳前後）を、ハローワーク等の紹介経由で<strong>正規雇用（正社員）として採用した事業主</strong>に60万円が支給されます。豊富な社会経験・専門知識を持ちながら、雇用機会に恵まれなかった人材を採用する支援制度です。<strong>パートや契約社員では対象外で、正社員雇用が条件</strong>です。</p>
+            <p class="body-text">現在45〜56歳前後の就職氷河期世代をハローワーク経由で<strong>正社員として採用</strong>した事業主に60万円。パート・契約社員は対象外。</p>
           </div>
           <div class="body-block">
             <div class="block-head">支給額</div>
@@ -1265,7 +1184,7 @@ body {
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
-            <p class="body-text"><strong>65歳以上</strong>の方をハローワーク等の紹介経由で採用した事業主に助成金が支給されます。週の所定労働時間によって支給額が異なり、<strong>週30時間以上なら最大70万円、20時間以上30時間未満なら35万円</strong>です。深刻な人手不足が続く中、シニア人材の活用を促進するための制度です。70歳雇用促進の流れの中でこのコースの活用が増えています。</p>
+            <p class="body-text"><strong>65歳以上</strong>をハローワーク経由で採用した事業主が対象。<strong>週30h以上で最大70万円、20〜30h未満で35万円</strong>。70歳雇用促進の流れで活用が増加中。</p>
           </div>
           <div class="body-block">
             <div class="block-head">支給額（中小企業）</div>

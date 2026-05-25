@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>助成金 詳細診断 Step 2 | 取りこぼし助成金チェック</title>
+<title>助成金 詳細診断 Step 2 | 受給可能性チェック</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -215,7 +215,7 @@
   }
   .results-sub { font-size: 13px; color: var(--gray-600); line-height: 1.6; margin-bottom: 20px; }
 
-  /* 取りこぼしサマリーカード */
+  /* 受給可能性サマリーカード */
   .miss-summary {
     background: #fffbeb; border: 2px solid #fcd34d;
     border-radius: 14px; padding: 28px 32px; margin-bottom: 24px;
@@ -232,7 +232,7 @@
   .miss-summary-amount .unit { font-size: 20px; font-weight: 700; }
   .miss-summary-note { font-size: 12px; color: #a16207; margin-top: 8px; line-height: 1.6; }
 
-  /* 取りこぼし一覧 */
+  /* 受給可能性一覧 */
   .miss-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
   .miss-item {
     background: white; border: 1px solid var(--gray-200);
@@ -331,7 +331,7 @@
     <span class="step-arrow">›</span>
     <div class="step-item active">
       <div class="step-num">2</div>
-      取りこぼしチェック
+      受給可能性チェック
     </div>
     <span class="step-arrow">›</span>
     <div class="step-item">
@@ -360,7 +360,7 @@
     <div class="section">
       <div class="section-header">
         <h2>過去3年間の採用・雇用実績</h2>
-        <p>取りこぼしの可能性がある助成金を特定するために、過去の採用状況を教えてください。</p>
+        <p>受給できる可能性のある助成金を特定するために、過去の採用状況を教えてください。</p>
       </div>
       <div class="section-body">
 
@@ -381,7 +381,7 @@
           <div class="choices" id="q2">
             <label class="choice-row"><input type="radio" name="q2" value="none"> <span>いない</span></label>
             <label class="choice-row"><input type="radio" name="q2" value="done"> <span>いる（助成金を申請・受給した）<span class="ok-badge">申請済み</span></span></label>
-            <label class="choice-row"><input type="radio" name="q2" value="missed"> <span>いる（助成金は申請していない）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+            <label class="choice-row"><input type="radio" name="q2" value="missed"> <span>いる（助成金は申請していない）<span class="miss-badge">受給できる可能性あり</span></span></label>
           </div>
         </div>
 
@@ -402,7 +402,7 @@
     <div class="section">
       <div class="section-header">
         <h2>特定対象者（障害者・高齢者・母子家庭等）の採用</h2>
-        <p>特定求職者雇用開発助成金（特開金）の取りこぼしを確認します。</p>
+        <p>特定求職者雇用開発助成金（特開金）の受給可能性を確認します。</p>
       </div>
       <div class="section-body">
 
@@ -412,7 +412,7 @@
           <div class="choices" id="q4">
             <label class="choice-row"><input type="radio" name="q4" value="none"> <span>ない</span></label>
             <label class="choice-row"><input type="radio" name="q4" value="applied"> <span>ある（ハローワーク経由・助成金申請済み）<span class="ok-badge">申請済み</span></span></label>
-            <label class="choice-row"><input type="radio" name="q4" value="missed-hw"> <span>ある（ハローワーク経由・申請していない）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+            <label class="choice-row"><input type="radio" name="q4" value="missed-hw"> <span>ある（ハローワーク経由・申請していない）<span class="miss-badge">受給できる可能性あり</span></span></label>
             <label class="choice-row"><input type="radio" name="q4" value="not-hw"> <span>ある（ハローワーク以外での採用）</span></label>
           </div>
         </div>
@@ -423,7 +423,7 @@
           <div class="choices" id="q5">
             <label class="choice-row"><input type="radio" name="q5" value="none"> <span>ない</span></label>
             <label class="choice-row"><input type="radio" name="q5" value="applied"> <span>ある（助成金を申請・受給した）<span class="ok-badge">申請済み</span></span></label>
-            <label class="choice-row"><input type="radio" name="q5" value="missed"> <span>ある（助成金は申請していない）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+            <label class="choice-row"><input type="radio" name="q5" value="missed"> <span>ある（助成金は申請していない）<span class="miss-badge">受給できる可能性あり</span></span></label>
           </div>
         </div>
 
@@ -433,7 +433,7 @@
           <div class="choices" id="q6">
             <label class="choice-row"><input type="radio" name="q6" value="none"> <span>ない</span></label>
             <label class="choice-row"><input type="radio" name="q6" value="applied"> <span>ある（助成金を申請・受給した）<span class="ok-badge">申請済み</span></span></label>
-            <label class="choice-row"><input type="radio" name="q6" value="missed"> <span>ある（助成金は申請していない）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+            <label class="choice-row"><input type="radio" name="q6" value="missed"> <span>ある（助成金は申請していない）<span class="miss-badge">受給できる可能性あり</span></span></label>
           </div>
         </div>
 
@@ -454,8 +454,8 @@
           <div class="choices" id="q7">
             <label class="choice-row"><input type="radio" name="q7" value="none"> <span>ない</span></label>
             <label class="choice-row"><input type="radio" name="q7" value="done-rule"> <span>ある（就業規則の賃金規定も変更した・助成金申請済み）<span class="ok-badge">申請済み</span></span></label>
-            <label class="choice-row"><input type="radio" name="q7" value="done-no-rule"> <span>ある（就業規則は変更しなかった）<span class="miss-badge">取りこぼしの可能性</span></span></label>
-            <label class="choice-row"><input type="radio" name="q7" value="done-no-apply"> <span>ある（就業規則は変更したが申請していない）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+            <label class="choice-row"><input type="radio" name="q7" value="done-no-rule"> <span>ある（就業規則は変更しなかった）<span class="miss-badge">受給できる可能性あり</span></span></label>
+            <label class="choice-row"><input type="radio" name="q7" value="done-no-apply"> <span>ある（就業規則は変更したが申請していない）<span class="miss-badge">受給できる可能性あり</span></span></label>
           </div>
         </div>
 
@@ -465,7 +465,7 @@
           <div class="choices" id="q8">
             <label class="choice-row"><input type="radio" name="q8" value="none"> <span>ない</span></label>
             <label class="choice-row"><input type="radio" name="q8" value="applied"> <span>ある（実際に支給した・助成金申請済み）<span class="ok-badge">申請済み</span></span></label>
-            <label class="choice-row"><input type="radio" name="q8" value="missed"> <span>ある（実際に支給したが助成金は申請していない）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+            <label class="choice-row"><input type="radio" name="q8" value="missed"> <span>ある（実際に支給したが助成金は申請していない）<span class="miss-badge">受給できる可能性あり</span></span></label>
           </div>
         </div>
 
@@ -476,7 +476,7 @@
     <div class="section">
       <div class="section-header">
         <h2>ITツール・システムへの投資</h2>
-        <p>IT導入補助金の取りこぼしを確認します。</p>
+        <p>IT導入補助金の受給可能性を確認します。</p>
       </div>
       <div class="section-body">
 
@@ -486,7 +486,7 @@
           <div class="choices" id="q9">
             <label class="choice-row"><input type="radio" name="q9" value="none"> <span>していない</span></label>
             <label class="choice-row"><input type="radio" name="q9" value="applied"> <span>した（IT導入補助金を申請・受給した）<span class="ok-badge">申請済み</span></span></label>
-            <label class="choice-row"><input type="radio" name="q9" value="missed"> <span>した（補助金は申請しなかった）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+            <label class="choice-row"><input type="radio" name="q9" value="missed"> <span>した（補助金は申請しなかった）<span class="miss-badge">受給できる可能性あり</span></span></label>
             <label class="choice-row"><input type="radio" name="q9" value="plan"> <span>導入を検討中</span></label>
           </div>
         </div>
@@ -538,7 +538,7 @@
     </div>
 
     <div class="submit-area">
-      <button class="btn-submit" onclick="calcResults()">取りこぼし助成金を診断する →</button>
+      <button class="btn-submit" onclick="calcResults()">受給可能性を診断する →</button>
     </div>
 
   </div><!-- /form-area -->
@@ -548,14 +548,14 @@
 
     <div class="results-header">
       <div class="results-eyebrow">診断結果 — 詳細チェック完了</div>
-      <div class="results-title" id="results-title">過去の取りこぼし助成金が見つかりました</div>
+      <div class="results-title" id="results-title">受給できる可能性のある助成金が見つかりました</div>
       <div class="results-sub" id="results-sub"></div>
     </div>
 
-    <!-- 取りこぼしサマリー or ゼロ -->
+    <!-- 受給可能性サマリー or ゼロ -->
     <div id="miss-summary-wrap"></div>
 
-    <!-- 取りこぼし一覧 -->
+    <!-- 受給可能性一覧 -->
     <div id="miss-list-wrap"></div>
 
     <!-- 今後の提案 -->
@@ -564,7 +564,7 @@
     <!-- CTA -->
     <div class="cta-panel">
       <h3>この診断結果をもとに無料で相談する</h3>
-      <p>過去の取りこぼし助成金の回収方法と、今後の受給計画を詳しくご提案します。<br>まずはお気軽にご相談ください。</p>
+      <p>受給できる可能性のある助成金と、今後の受給計画を詳しくご提案します。<br>まずはお気軽にご相談ください。</p>
       <a href="#" class="btn-cta">無料相談を申し込む →</a>
     </div>
 
@@ -604,7 +604,7 @@
 // ② 質問ロジック（ここを編集するだけで質問内容を変更できます）
 // ================================================================
 
-// 取りこぼし判定ロジック
+// 受給可能性判定ロジック
 function getMissed(ans) {
   const missed = [];
 
@@ -760,11 +760,11 @@ function calcResults() {
   const sub         = document.getElementById('results-sub');
 
   if (totalMiss === 0 && missed.length === 0) {
-    title.textContent = '現時点での取りこぼし助成金は見つかりませんでした';
+    title.textContent = '現時点で該当する助成金は見つかりませんでした';
     sub.textContent   = '適切に助成金を活用されています。今後の採用・投資計画でさらに受給できる可能性があります。';
     summaryWrap.innerHTML = `
       <div class="no-miss">
-        <div class="no-miss-title">取りこぼしは見当たりません</div>
+        <div class="no-miss-title">現時点で該当する制度は見当たりません</div>
         <div class="no-miss-sub">今後の採用・投資計画でさらに受給を積み重ねることができます。<br>下記の今後の提案を参考にしてください。</div>
       </div>`;
     listWrap.innerHTML = '';
@@ -775,16 +775,16 @@ function calcResults() {
     // サマリーカード
     summaryWrap.innerHTML = `
       <div class="miss-summary">
-        <div class="miss-summary-label">過去の取りこぼし概算（目安）</div>
+        <div class="miss-summary-label">受給可能性の概算（目安）</div>
         <div class="miss-summary-amount">
           最大 <span class="unit">約</span>${totalMiss}<span class="unit">万円</span>
         </div>
         <div class="miss-summary-note">
-          ※ 過去の取りこぼし分は遡及申請ができないものがほとんどです。今後の採用・制度整備で同様の助成金を確実に受け取ることが重要です。
+          ※ 過去の未申請分は遡及申請ができないものがほとんどです。今後の採用・制度整備で同様の助成金を確実に受け取ることが重要です。
         </div>
       </div>`;
 
-    // 取りこぼし一覧
+    // 受給可能性一覧
     const items = missed.map(m => `
       <div class="miss-item">
         <div class="miss-item-left">

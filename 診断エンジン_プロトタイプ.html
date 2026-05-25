@@ -1565,9 +1565,11 @@
   .d2c { color: #2563eb; font-weight: 700; }
   .d3c { color: #dc2626; font-weight: 700; }
 
-  .reset-area { text-align: center; margin-top: 24px; }
+  .reset-area { text-align: center; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; align-items: center; }
   .btn-reset { background: none; border: 1px solid var(--gray-200); border-radius: 8px; padding: 10px 24px; color: var(--gray-600); cursor: pointer; font-family: inherit; font-size: 14px; }
   .btn-reset:hover { background: var(--gray-100); }
+  .btn-step2 { display: inline-flex; align-items: center; gap: 8px; background: #0066ff; color: #fff; border: none; border-radius: 8px; padding: 12px 28px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; text-decoration: none; letter-spacing: 0.01em; }
+  .btn-step2:hover { background: #0052cc; }
 
   .section-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-200); }
   .result-section { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
@@ -5219,6 +5221,18 @@ function renderResults(scored, combos, conflicts, meta) {
   const el = document.getElementById('results');
   el.style.display = 'block';
 
+  // ── Step1結果をsessionStorageに保存（Step2詳細診断で引き継ぐ）──
+  try {
+    const result1 = {
+      scored: scored.map(s => ({ id: s.id, name: s.name, max_amount: s.max_amount, score: s.score })),
+      meta: meta,
+      totalMax: scored.reduce((s, x) => s + (x.max_amount || 0), 0),
+      matchCount: scored.length,
+      savedAt: new Date().toISOString()
+    };
+    sessionStorage.setItem('shindan1_result', JSON.stringify(result1));
+  } catch(e) { /* sessionStorage unavailable — ignore */ }
+
   const totalMax = scored.reduce((s, x) => s + x.max_amount, 0);
   const budget = meta.q16 || 0;  // 投資予算（万円）
   const noAddPoints = meta.q20.length === 0 || (meta.q20.length === 1 && meta.q20.includes('なし'));
@@ -5617,7 +5631,11 @@ function renderResults(scored, combos, conflicts, meta) {
     html += `<div class="conflict-panel" style="font-size:12px"><strong>同時申請できない組み合わせ</strong>${conflicts.map(c=>`<div style="margin-top:4px">「${c.a.name}」と「${c.b.name}」は同一案件での併用不可</div>`).join('')}</div>`;
   }
 
-  html += `<div class="reset-area"><button class="btn-reset" onclick="location.reload()">最初からやり直す</button></div>`;
+  html += `
+  <div class="reset-area">
+    <button class="btn-reset" onclick="location.reload()">最初からやり直す</button>
+    <a href="shindan2.html" class="btn-step2">Step 2 取りこぼし助成金を詳しく診断 →</a>
+  </div>`;
   el.innerHTML = html;
   window.scrollTo(0, 0);
 }

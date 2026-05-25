@@ -58,8 +58,9 @@
 
   /* ── ステップ表示 ── */
   .step-bar {
+    background: #f8fafc;
     border-bottom: 1px solid var(--border);
-    padding: 12px 0;
+    padding: 13px 0;
   }
   .step-bar-inner {
     max-width: 860px; margin: 0 auto; padding: 0 40px;
@@ -67,9 +68,8 @@
   }
   .step-item {
     font-size: 13px; font-weight: 500; color: var(--faint);
-    letter-spacing: 0.01em;
   }
-  .step-item.done { color: var(--muted); text-decoration: line-through; }
+  .step-item.done { color: var(--muted); }
   .step-item.active { color: var(--black); font-weight: 700; }
   .step-num { display: none; }
   .step-arrow { margin: 0 10px; color: var(--faint); font-size: 12px; }
@@ -97,30 +97,31 @@
   .container { max-width: 860px; margin: 0 auto; padding: 40px 40px 100px; }
 
   /* ── セクション ── */
-  .section { margin-bottom: 52px; }
+  .section { margin-bottom: 48px; }
   .section-header {
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--black);
-    margin-bottom: 28px;
+    background: #f8fafc;
+    border-top: 2px solid var(--black);
+    padding: 14px 20px 12px;
+    margin-bottom: 4px;
   }
   .section-header h2 {
-    font-size: 14px; font-weight: 800; color: var(--black);
-    letter-spacing: 0.08em; text-transform: uppercase;
+    font-size: 15px; font-weight: 800; color: var(--black);
+    letter-spacing: -0.01em;
   }
   .section-header h2::before { display: none; }
   .section-header p {
-    font-size: 14px; color: var(--muted); margin-top: 6px;
+    font-size: 13px; color: var(--muted); margin-top: 4px;
     padding-left: 0; line-height: 1.6;
   }
-  .section-body { padding: 0; }
+  .section-body { padding: 0 0 0 20px; }
 
   /* ── フィールド ── */
   .field {
     margin-bottom: 0;
-    padding: 22px 0;
+    padding: 26px 0;
     border-bottom: 1px solid var(--border);
   }
-  .field:last-child { border-bottom: none; }
+  .field:last-child { border-bottom: none; padding-bottom: 8px; }
   .field-label {
     font-size: 17px; font-weight: 600; margin-bottom: 16px;
     color: var(--ink); display: flex; align-items: flex-start; gap: 10px;
@@ -139,15 +140,16 @@
   /* ── 選択肢 ── */
   .choices { display: flex; flex-direction: column; gap: 0; }
   .choice-row {
-    display: flex; align-items: center; gap: 10px; cursor: pointer;
-    padding: 9px 0;
-    border: none; border-bottom: 1px solid transparent;
+    display: flex; align-items: center; gap: 12px; cursor: pointer;
+    padding: 10px 12px;
+    border: none; border-bottom: 1px solid var(--border);
     border-radius: 0;
-    transition: border-color 0.1s;
+    transition: background 0.1s;
+    margin-left: -12px;
   }
   .choice-row:last-child { border-bottom: none; }
-  .choice-row:hover { border-bottom-color: var(--border); }
-  .choice-row input { accent-color: var(--black); width: 15px; height: 15px; flex-shrink: 0; cursor: pointer; }
+  .choice-row:hover { background: #f8fafc; }
+  .choice-row input { accent-color: var(--black); width: 16px; height: 16px; flex-shrink: 0; cursor: pointer; }
   .choice-row span { font-size: 16px; line-height: 1.55; color: var(--ink); }
   .choice-row .miss-badge {
     display: inline-block; font-size: 11px; font-weight: 700;
@@ -195,8 +197,8 @@
     margin-bottom: 36px;
   }
   .results-eyebrow {
-    font-size: 11px; font-weight: 700; color: var(--faint);
-    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;
+    font-size: 12px; font-weight: 600; color: var(--muted);
+    margin-bottom: 8px;
   }
   .results-title {
     font-size: 26px; font-weight: 800; color: var(--black);
@@ -211,8 +213,8 @@
     padding: 28px 0; margin-bottom: 32px;
   }
   .miss-summary-label {
-    font-size: 11px; font-weight: 700; color: var(--muted);
-    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;
+    font-size: 13px; font-weight: 600; color: var(--muted);
+    margin-bottom: 10px;
   }
   .miss-summary-amount {
     font-size: 52px; font-weight: 900; color: var(--black);
@@ -249,8 +251,7 @@
   /* 今後の提案 */
   .future-panel { margin-bottom: 36px; }
   .future-panel-title {
-    font-size: 12px; font-weight: 800; color: var(--black);
-    letter-spacing: 0.1em; text-transform: uppercase;
+    font-size: 15px; font-weight: 800; color: var(--black);
     padding-bottom: 10px; border-bottom: 2px solid var(--black);
     margin-bottom: 0;
   }

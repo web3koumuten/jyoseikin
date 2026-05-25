@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>助成金 詳細診断 Step 2 | 取りこぼし助成金チェック</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0066ff;
+    --primary-dark: #0052cc;
+    --primary-light: #eff6ff;
+    --accent: #0e9f6e;
+    --accent-light: #ecfdf5;
+    --gray-50: #f8f9fc;
+    --gray-100: #f1f3f8;
+    --gray-200: #e4e7f0;
+    --gray-400: #9aa3b8;
+    --gray-600: #5c6480;
+    --gray-700: #3d4461;
+    --gray-900: #1a1f36;
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow: 0 4px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: white;
+    color: var(--gray-900);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    border-top: 3px solid transparent;
+    border-image: linear-gradient(90deg, #0066ff 0%, #6366f1 50%, #06b6d4 100%) 1;
+  }
+
+  /* ── ナビ ── */
+  .site-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-200);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  }
+  .site-nav-inner {
+    max-width: 1040px; margin: 0 auto; padding: 0 32px;
+    height: 60px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-logo {
+    font-size: 15px; font-weight: 800; color: var(--gray-900);
+    letter-spacing: -0.03em; display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .site-logo-mark {
+    width: 32px; height: 32px; background: var(--primary);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 14px; font-weight: 900; flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,102,255,0.3);
+  }
+  .nav-tag {
+    font-size: 11px; font-weight: 700; color: var(--primary);
+    background: var(--primary-light); border-radius: 99px; padding: 4px 12px;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── ステップ表示 ── */
+  .step-bar {
+    background: var(--gray-50); border-bottom: 1px solid var(--gray-200);
+    padding: 14px 0;
+  }
+  .step-bar-inner {
+    max-width: 1040px; margin: 0 auto; padding: 0 32px;
+    display: flex; align-items: center; gap: 0;
+  }
+  .step-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600; color: var(--gray-400);
+  }
+  .step-item.done { color: var(--accent); }
+  .step-item.active { color: var(--primary); }
+  .step-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800;
+    background: var(--gray-200); color: var(--gray-600);
+    flex-shrink: 0;
+  }
+  .step-item.done .step-num { background: var(--accent); color: white; }
+  .step-item.active .step-num { background: var(--primary); color: white; }
+  .step-arrow {
+    margin: 0 12px; color: var(--gray-400); font-size: 14px;
+  }
+
+  /* ── 引き継ぎ情報バナー ── */
+  .inherited-banner {
+    max-width: 1040px; margin: 24px auto 0; padding: 0 32px;
+  }
+  .inherited-inner {
+    background: var(--primary-light);
+    border: 1px solid #bfdbfe;
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .inherited-icon {
+    width: 32px; height: 32px; background: var(--primary);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 14px; flex-shrink: 0;
+  }
+  .inherited-text { flex: 1; }
+  .inherited-label {
+    font-size: 11px; font-weight: 700; color: var(--primary);
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px;
+  }
+  .inherited-detail { font-size: 13px; color: var(--gray-700); }
+  .inherited-detail strong { font-weight: 700; color: var(--gray-900); }
+
+  /* ── コンテナ ── */
+  .container { max-width: 1040px; margin: 0 auto; padding: 24px 32px 80px; }
+
+  /* ── セクション ── */
+  .section {
+    background: white; border: 1px solid var(--gray-200);
+    border-radius: var(--radius); margin-bottom: 20px;
+    box-shadow: var(--shadow-sm); overflow: hidden;
+  }
+  .section-header { padding: 18px 24px 16px; border-bottom: 1px solid var(--gray-100); }
+  .section-header h2 {
+    font-size: 15px; font-weight: 700; color: var(--gray-900);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-header h2::before {
+    content: ''; display: block; width: 4px; height: 18px;
+    background: var(--primary); border-radius: 2px; flex-shrink: 0;
+  }
+  .section-header p { font-size: 13px; color: var(--gray-600); margin-top: 4px; padding-left: 14px; }
+  .section-body { padding: 24px; }
+
+  /* ── フィールド ── */
+  .field { margin-bottom: 28px; }
+  .field:last-child { margin-bottom: 0; }
+  .field-label {
+    font-size: 13px; font-weight: 700; margin-bottom: 10px;
+    color: var(--gray-700); display: flex; align-items: flex-start; gap: 8px;
+  }
+  .field-label .q {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; background: var(--primary);
+    color: white; font-size: 11px; font-weight: 700; border-radius: 6px;
+    flex-shrink: 0; letter-spacing: -0.03em; margin-top: 1px;
+  }
+  .field-label span { line-height: 1.5; }
+  .field-note { font-size: 12px; color: var(--gray-600); margin-bottom: 10px; line-height: 1.6; padding-left: 32px; }
+
+  /* ── 選択肢 ── */
+  .choices { display: flex; flex-direction: column; gap: 6px; }
+  .choice-row {
+    display: flex; align-items: center; gap: 10px; cursor: pointer;
+    padding: 11px 14px; border: 1px solid var(--gray-200); border-radius: 8px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .choice-row:hover { border-color: var(--primary); background: var(--primary-light); }
+  .choice-row input { accent-color: var(--primary); width: 16px; height: 16px; flex-shrink: 0; cursor: pointer; }
+  .choice-row span { font-size: 13px; line-height: 1.5; }
+  .choice-row .miss-badge {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    background: #fef3c7; color: #92400e;
+    border-radius: 4px; padding: 1px 7px; margin-left: 8px;
+  }
+  .choice-row .ok-badge {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    background: var(--accent-light); color: #065f46;
+    border-radius: 4px; padding: 1px 7px; margin-left: 8px;
+  }
+
+  /* ── 数値入力 ── */
+  .num-input-row { display: flex; align-items: center; gap: 12px; }
+  input[type="number"] {
+    width: 100px; border: 1px solid var(--gray-200); border-radius: 8px;
+    padding: 10px 12px; font-size: 15px; font-weight: 700;
+    font-family: inherit; color: var(--gray-900);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    text-align: right;
+  }
+  input[type="number"]:focus {
+    outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,102,255,0.1);
+  }
+  .num-unit { font-size: 13px; color: var(--gray-600); font-weight: 600; }
+
+  /* ── 診断ボタン ── */
+  .submit-area { text-align: center; margin: 36px 0 20px; }
+  .btn-submit {
+    background: var(--primary); color: white; border: none; border-radius: 10px;
+    padding: 18px 64px; font-size: 16px; font-weight: 700; cursor: pointer;
+    font-family: inherit; box-shadow: 0 4px 12px rgba(0,102,255,0.3);
+    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  }
+  .btn-submit:hover { background: var(--primary-dark); box-shadow: 0 6px 16px rgba(0,102,255,0.35); }
+  .btn-submit:active { transform: translateY(1px); }
+
+  /* ── 結果エリア ── */
+  #results { display: none; }
+
+  .results-header { margin-bottom: 24px; }
+  .results-eyebrow {
+    font-size: 11px; font-weight: 700; color: var(--gray-400);
+    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .results-title {
+    font-size: 26px; font-weight: 800; color: var(--gray-900);
+    letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 6px;
+  }
+  .results-sub { font-size: 13px; color: var(--gray-600); line-height: 1.6; margin-bottom: 20px; }
+
+  /* 取りこぼしサマリーカード */
+  .miss-summary {
+    background: #fffbeb; border: 2px solid #fcd34d;
+    border-radius: 14px; padding: 28px 32px; margin-bottom: 24px;
+  }
+  .miss-summary-label {
+    font-size: 11px; font-weight: 800; color: #92400e;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .miss-summary-amount {
+    font-size: 48px; font-weight: 900; color: #92400e;
+    letter-spacing: -0.04em; line-height: 1;
+    display: flex; align-items: baseline; gap: 4px;
+  }
+  .miss-summary-amount .unit { font-size: 20px; font-weight: 700; }
+  .miss-summary-note { font-size: 12px; color: #a16207; margin-top: 8px; line-height: 1.6; }
+
+  /* 取りこぼし一覧 */
+  .miss-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .miss-item {
+    background: white; border: 1px solid var(--gray-200);
+    border-radius: 12px; padding: 18px 22px;
+    display: flex; align-items: center; gap: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+  .miss-item-left { flex: 1; }
+  .miss-item-name { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+  .miss-item-reason { font-size: 12px; color: var(--gray-600); line-height: 1.6; }
+  .miss-item-amount {
+    text-align: right; flex-shrink: 0;
+    font-size: 22px; font-weight: 900; color: #92400e; letter-spacing: -0.02em;
+  }
+  .miss-item-amount small { font-size: 11px; font-weight: 600; color: var(--gray-400); display: block; margin-top: 2px; }
+
+  /* ゼロの場合 */
+  .no-miss {
+    background: var(--accent-light); border: 1.5px solid #6ee7b7;
+    border-radius: 14px; padding: 28px 32px; margin-bottom: 24px;
+    text-align: center;
+  }
+  .no-miss-title { font-size: 18px; font-weight: 800; color: #065f46; margin-bottom: 8px; }
+  .no-miss-sub { font-size: 13px; color: #047857; line-height: 1.7; }
+
+  /* 今後の提案 */
+  .future-panel {
+    background: white; border: 1.5px solid var(--primary);
+    border-radius: 14px; padding: 24px 28px; margin-bottom: 24px;
+  }
+  .future-panel-title {
+    font-size: 14px; font-weight: 800; color: var(--primary); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .future-list { display: flex; flex-direction: column; gap: 10px; }
+  .future-item {
+    background: var(--gray-50); border: 1px solid var(--gray-200);
+    border-radius: 10px; padding: 14px 18px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .future-item-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--primary-light); display: flex; align-items: center;
+    justify-content: center; font-size: 16px; flex-shrink: 0;
+  }
+  .future-item-text { flex: 1; }
+  .future-item-name { font-size: 13px; font-weight: 700; color: var(--gray-900); margin-bottom: 2px; }
+  .future-item-desc { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+  .future-item-amount { font-size: 17px; font-weight: 900; color: var(--primary); letter-spacing: -0.02em; flex-shrink: 0; }
+
+  /* CTA */
+  .cta-panel {
+    background: var(--gray-900); border-radius: 16px;
+    padding: 36px 40px; text-align: center; margin-bottom: 20px;
+  }
+  .cta-panel h3 { font-size: 20px; font-weight: 900; color: white; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .cta-panel p { font-size: 13px; color: #94a3b8; margin-bottom: 28px; line-height: 1.75; }
+  .cta-panel .btn-cta {
+    display: inline-block; background: white; color: var(--gray-900);
+    font-size: 14px; font-weight: 800; padding: 16px 48px;
+    border-radius: 10px; text-decoration: none;
+    transition: opacity 0.15s; letter-spacing: -0.01em;
+  }
+  .cta-panel .btn-cta:hover { opacity: 0.85; }
+
+  .caveat { font-size: 11px; color: var(--gray-400); text-align: center; line-height: 1.7; margin-top: 16px; }
+
+  /* ── レスポンシブ ── */
+  @media (max-width: 640px) {
+    .site-nav-inner, .container, .inherited-banner, .step-bar-inner { padding-left: 16px; padding-right: 16px; }
+    .miss-summary-amount { font-size: 36px; }
+    .miss-item-amount { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ナビ -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-logo">
+      <div class="site-logo-mark">補</div>
+      補助金・助成金 診断
+    </a>
+    <span class="nav-tag">Step 2 — 詳細診断</span>
+  </div>
+</nav>
+
+<!-- ステップ表示 -->
+<div class="step-bar">
+  <div class="step-bar-inner">
+    <div class="step-item done">
+      <div class="step-num">✓</div>
+      基本診断
+    </div>
+    <span class="step-arrow">›</span>
+    <div class="step-item active">
+      <div class="step-num">2</div>
+      取りこぼしチェック
+    </div>
+    <span class="step-arrow">›</span>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      相談・提案
+    </div>
+  </div>
+</div>
+
+<!-- Step1 引き継ぎバナー -->
+<div class="inherited-banner">
+  <div class="inherited-inner" id="inherited-banner">
+    <div class="inherited-icon">①</div>
+    <div class="inherited-text">
+      <div class="inherited-label">Step 1 から引き継ぎ</div>
+      <div class="inherited-detail" id="inherited-detail">基本診断の情報をもとに詳細チェックを行います。</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div id="form-area">
+
+    <!-- ─── SECTION A: 過去3年間の採用実績 ─── -->
+    <div class="section">
+      <div class="section-header">
+        <h2>過去3年間の採用・雇用実績</h2>
+        <p>取りこぼしの可能性がある助成金を特定するために、過去の採用状況を教えてください。</p>
+      </div>
+      <div class="section-body">
+
+        <!-- Q1 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q1</span><span>過去3年間に新たに採用した従業員は合計何名ですか？</span></div>
+          <div class="choices" id="q1">
+            <label class="choice-row"><input type="radio" name="q1" value="0"> <span>採用していない</span></label>
+            <label class="choice-row"><input type="radio" name="q1" value="1-3"> <span>1〜3名</span></label>
+            <label class="choice-row"><input type="radio" name="q1" value="4-10"> <span>4〜10名</span></label>
+            <label class="choice-row"><input type="radio" name="q1" value="11+"> <span>11名以上</span></label>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q2</span><span>パート・契約社員など有期雇用から正社員に転換した方はいますか？</span></div>
+          <div class="choices" id="q2">
+            <label class="choice-row"><input type="radio" name="q2" value="none"> <span>いない</span></label>
+            <label class="choice-row"><input type="radio" name="q2" value="done"> <span>いる（助成金を申請・受給した）<span class="ok-badge">申請済み</span></span></label>
+            <label class="choice-row"><input type="radio" name="q2" value="missed"> <span>いる（助成金は申請していない）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q3</span><span>転換した方が何名いるか教えてください（未申請・申請済みを合わせて）</span></div>
+          <div class="field-note">「Q2でいない」を選んだ場合は「0」のままでOKです。</div>
+          <div class="num-input-row">
+            <input type="number" id="q3" min="0" max="100" value="0">
+            <span class="num-unit">名</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─── SECTION B: 特定対象者の採用 ─── -->
+    <div class="section">
+      <div class="section-header">
+        <h2>特定対象者（障害者・高齢者・母子家庭等）の採用</h2>
+        <p>特定求職者雇用開発助成金（特開金）の取りこぼしを確認します。</p>
+      </div>
+      <div class="section-body">
+
+        <!-- Q4 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q4</span><span>障害者手帳を持つ方を採用したことがありますか？</span></div>
+          <div class="choices" id="q4">
+            <label class="choice-row"><input type="radio" name="q4" value="none"> <span>ない</span></label>
+            <label class="choice-row"><input type="radio" name="q4" value="applied"> <span>ある（ハローワーク経由・助成金申請済み）<span class="ok-badge">申請済み</span></span></label>
+            <label class="choice-row"><input type="radio" name="q4" value="missed-hw"> <span>ある（ハローワーク経由・申請していない）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+            <label class="choice-row"><input type="radio" name="q4" value="not-hw"> <span>ある（ハローワーク以外での採用）</span></label>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q5</span><span>60歳以上の高齢者をハローワーク経由で採用したことがありますか？</span></div>
+          <div class="choices" id="q5">
+            <label class="choice-row"><input type="radio" name="q5" value="none"> <span>ない</span></label>
+            <label class="choice-row"><input type="radio" name="q5" value="applied"> <span>ある（助成金を申請・受給した）<span class="ok-badge">申請済み</span></span></label>
+            <label class="choice-row"><input type="radio" name="q5" value="missed"> <span>ある（助成金は申請していない）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q6</span><span>母子・父子家庭の方、または生活保護受給者をハローワーク経由で採用したことがありますか？</span></div>
+          <div class="choices" id="q6">
+            <label class="choice-row"><input type="radio" name="q6" value="none"> <span>ない</span></label>
+            <label class="choice-row"><input type="radio" name="q6" value="applied"> <span>ある（助成金を申請・受給した）<span class="ok-badge">申請済み</span></span></label>
+            <label class="choice-row"><input type="radio" name="q6" value="missed"> <span>ある（助成金は申請していない）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─── SECTION C: 賃金・待遇改善 ─── -->
+    <div class="section">
+      <div class="section-header">
+        <h2>賃金・待遇改善の実施状況</h2>
+        <p>キャリアアップ助成金の各コースを取得できていたかを確認します。</p>
+      </div>
+      <div class="section-body">
+
+        <!-- Q7 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q7</span><span>過去3年間に非正規スタッフ（パート・契約社員）の賃金を3%以上引き上げたことがありますか？</span></div>
+          <div class="choices" id="q7">
+            <label class="choice-row"><input type="radio" name="q7" value="none"> <span>ない</span></label>
+            <label class="choice-row"><input type="radio" name="q7" value="done-rule"> <span>ある（就業規則の賃金規定も変更した・助成金申請済み）<span class="ok-badge">申請済み</span></span></label>
+            <label class="choice-row"><input type="radio" name="q7" value="done-no-rule"> <span>ある（就業規則は変更しなかった）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+            <label class="choice-row"><input type="radio" name="q7" value="done-no-apply"> <span>ある（就業規則は変更したが申請していない）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+          </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q8</span><span>非正規スタッフへのボーナス（賞与）や退職金制度を新たに設けたことがありますか？</span></div>
+          <div class="choices" id="q8">
+            <label class="choice-row"><input type="radio" name="q8" value="none"> <span>ない</span></label>
+            <label class="choice-row"><input type="radio" name="q8" value="applied"> <span>ある（実際に支給した・助成金申請済み）<span class="ok-badge">申請済み</span></span></label>
+            <label class="choice-row"><input type="radio" name="q8" value="missed"> <span>ある（実際に支給したが助成金は申請していない）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─── SECTION D: ITツール投資 ─── -->
+    <div class="section">
+      <div class="section-header">
+        <h2>ITツール・システムへの投資</h2>
+        <p>IT導入補助金の取りこぼしを確認します。</p>
+      </div>
+      <div class="section-body">
+
+        <!-- Q9 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q9</span><span>過去2年間に会計・勤怠・受発注・AIなどのITツールを新しく導入しましたか？</span></div>
+          <div class="choices" id="q9">
+            <label class="choice-row"><input type="radio" name="q9" value="none"> <span>していない</span></label>
+            <label class="choice-row"><input type="radio" name="q9" value="applied"> <span>した（IT導入補助金を申請・受給した）<span class="ok-badge">申請済み</span></span></label>
+            <label class="choice-row"><input type="radio" name="q9" value="missed"> <span>した（補助金は申請しなかった）<span class="miss-badge">取りこぼしの可能性</span></span></label>
+            <label class="choice-row"><input type="radio" name="q9" value="plan"> <span>導入を検討中</span></label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─── SECTION E: 今後の採用計画 ─── -->
+    <div class="section">
+      <div class="section-header">
+        <h2>今後の採用・投資計画</h2>
+        <p>これからの提案に使用します。</p>
+      </div>
+      <div class="section-body">
+
+        <!-- Q10 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q10</span><span>今後6ヶ月以内に新しく採用する予定はありますか？</span></div>
+          <div class="choices" id="q10">
+            <label class="choice-row"><input type="radio" name="q10" value="none"> <span>予定なし</span></label>
+            <label class="choice-row"><input type="radio" name="q10" value="1-3"> <span>1〜3名採用予定</span></label>
+            <label class="choice-row"><input type="radio" name="q10" value="4+"> <span>4名以上採用予定</span></label>
+            <label class="choice-row"><input type="radio" name="q10" value="maybe"> <span>未定・検討中</span></label>
+          </div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q11</span><span>採用する際、障害者・高齢者・母子家庭の方なども候補として検討できますか？</span></div>
+          <div class="choices" id="q11">
+            <label class="choice-row"><input type="radio" name="q11" value="yes"> <span>検討できる</span></label>
+            <label class="choice-row"><input type="radio" name="q11" value="maybe"> <span>業務内容によっては可能</span></label>
+            <label class="choice-row"><input type="radio" name="q11" value="no"> <span>難しい</span></label>
+          </div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q12</span><span>今後1年以内にITツール・システムへの投資を予定していますか？</span></div>
+          <div class="choices" id="q12">
+            <label class="choice-row"><input type="radio" name="q12" value="yes"> <span>予定あり（金額：100万円以上）</span></label>
+            <label class="choice-row"><input type="radio" name="q12" value="small"> <span>予定あり（金額：100万円未満）</span></label>
+            <label class="choice-row"><input type="radio" name="q12" value="maybe"> <span>検討中</span></label>
+            <label class="choice-row"><input type="radio" name="q12" value="no"> <span>予定なし</span></label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="submit-area">
+      <button class="btn-submit" onclick="calcResults()">取りこぼし助成金を診断する →</button>
+    </div>
+
+  </div><!-- /form-area -->
+
+  <!-- ─────────── 結果エリア ─────────── -->
+  <div id="results">
+
+    <div class="results-header">
+      <div class="results-eyebrow">診断結果 — 詳細チェック完了</div>
+      <div class="results-title" id="results-title">過去の取りこぼし助成金が見つかりました</div>
+      <div class="results-sub" id="results-sub"></div>
+    </div>
+
+    <!-- 取りこぼしサマリー or ゼロ -->
+    <div id="miss-summary-wrap"></div>
+
+    <!-- 取りこぼし一覧 -->
+    <div id="miss-list-wrap"></div>
+
+    <!-- 今後の提案 -->
+    <div id="future-wrap"></div>
+
+    <!-- CTA -->
+    <div class="cta-panel">
+      <h3>この診断結果をもとに無料で相談する</h3>
+      <p>過去の取りこぼし助成金の回収方法と、今後の受給計画を詳しくご提案します。<br>まずはお気軽にご相談ください。</p>
+      <a href="#" class="btn-cta">無料相談を申し込む →</a>
+    </div>
+
+    <div class="caveat">※ 本診断は概算であり、実際の受給額は要件・審査により異なります。受給を保証するものではありません。</div>
+
+    <div style="text-align:center; margin-top:24px;">
+      <button onclick="resetForm()" style="background:none;border:none;color:var(--gray-400);font-size:12px;cursor:pointer;text-decoration:underline;font-family:inherit;">
+        もう一度回答し直す
+      </button>
+    </div>
+
+  </div><!-- /results -->
+
+</div><!-- /container -->
+
+<script>
+// ================================================================
+// ① Step1 データの引き継ぎ
+// ================================================================
+(function loadInherited() {
+  try {
+    const raw = sessionStorage.getItem('shindan1_result');
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    const parts = [];
+    if (d.industry)  parts.push(d.industry);
+    if (d.employees) parts.push('従業員 ' + d.employees);
+    if (d.companyType) parts.push(d.companyType);
+    if (parts.length > 0) {
+      document.getElementById('inherited-detail').innerHTML =
+        '<strong>' + parts.join('　/　') + '</strong> の情報をもとに診断します。';
+    }
+  } catch(e) {}
+})();
+
+// ================================================================
+// ② 質問ロジック（ここを編集するだけで質問内容を変更できます）
+// ================================================================
+
+// 取りこぼし判定ロジック
+function getMissed(ans) {
+  const missed = [];
+
+  // 正社員化コース
+  if (ans.q2 === 'missed') {
+    const n = parseInt(ans.q3) || 1;
+    missed.push({
+      name: 'キャリアアップ助成金 — 正社員化コース',
+      reason: `有期雇用から正社員に転換した方がいましたが、助成金を申請していません。`,
+      amount: n * 40,
+      amountText: `最大 ${n * 40}万円〜${n * 80}万円`,
+      unit: `（${n}名 × 40〜80万円）`,
+    });
+  }
+
+  // 特開金 — 障害者
+  if (ans.q4 === 'missed-hw') {
+    missed.push({
+      name: '特定求職者雇用開発助成金 — 障害者採用',
+      reason: 'ハローワーク経由で障害者を採用しましたが、採用後2週間以内の申請が行われていません。',
+      amount: 120,
+      amountText: '最大 120〜240万円',
+      unit: '（障害の程度・雇用期間による）',
+    });
+  }
+
+  // 特開金 — 高齢者
+  if (ans.q5 === 'missed') {
+    missed.push({
+      name: '特定求職者雇用開発助成金 — 高齢者採用',
+      reason: 'ハローワーク経由で60歳以上の方を採用しましたが、助成金の申請がされていません。',
+      amount: 70,
+      amountText: '最大 70万円',
+      unit: '/ 人',
+    });
+  }
+
+  // 特開金 — 母子等
+  if (ans.q6 === 'missed') {
+    missed.push({
+      name: '特定求職者雇用開発助成金 — 母子家庭・生活保護等',
+      reason: 'ハローワーク経由で対象者を採用しましたが、助成金の申請がされていません。',
+      amount: 60,
+      amountText: '最大 60万円',
+      unit: '/ 人',
+    });
+  }
+
+  // 賃金改定コース
+  if (ans.q7 === 'done-no-apply' || ans.q7 === 'done-no-rule') {
+    missed.push({
+      name: 'キャリアアップ助成金 — 賃金規定等改定コース',
+      reason: '非正規スタッフの賃金を引き上げましたが、就業規則の整備・助成金申請が行われていません。',
+      amount: 50,
+      amountText: '最大 50万円',
+      unit: '/ 事業所',
+    });
+  }
+
+  // 賞与退職金コース
+  if (ans.q8 === 'missed') {
+    missed.push({
+      name: 'キャリアアップ助成金 — 賞与・退職金コース',
+      reason: '非正規スタッフへの賞与・退職金を支給しましたが、助成金の申請がされていません。',
+      amount: 50,
+      amountText: '最大 50万円',
+      unit: '/ 事業所',
+    });
+  }
+
+  // IT導入補助金
+  if (ans.q9 === 'missed') {
+    missed.push({
+      name: 'IT導入補助金',
+      reason: 'ITツールを新規導入しましたが、補助金の申請がされていません（過去分は対象外ですが、今後の導入計画に活用できます）。',
+      amount: 0, // 過去分は受給不可のため集計から除外
+      amountText: '次回導入時に最大 450万円',
+      unit: '（過去分は申請不可・今後の参考に）',
+      future: true,
+    });
+  }
+
+  return missed;
+}
+
+// 今後の提案ロジック
+function getFuture(ans) {
+  const future = [];
+
+  // 特開金 今後
+  if (ans.q10 !== 'none' && ans.q11 !== 'no') {
+    future.push({
+      icon: '👥',
+      name: '特定求職者雇用開発助成金（特開金）',
+      desc: '次の採用でハローワーク経由で障害者・高齢者等を採用すれば最大240万円。採用後2週間以内の申請が必須。',
+      amount: '最大 240万円',
+    });
+    if (ans.q11 === 'yes') {
+      future.push({
+        icon: '⬆️',
+        name: '特開金 ＋ キャリアアップ助成金 組み合わせ',
+        desc: '採用後に正社員化コース（障害者）を組み合わせることで、1名の採用で合計最大360万円以上の受給が可能。',
+        amount: '最大 360万円以上',
+      });
+    }
+  }
+
+  // キャリアアップ 今後
+  if (ans.q2 !== 'done') {
+    future.push({
+      icon: '📄',
+      name: 'キャリアアップ助成金 — 今後の転換申請',
+      desc: '今後の正社員転換前に「キャリアアップ計画書」を労働局へ提出することで申請が可能になります。',
+      amount: '最大 80万円/人',
+    });
+  }
+
+  // IT導入補助金 今後
+  if (ans.q12 === 'yes' || ans.q12 === 'maybe') {
+    future.push({
+      icon: '💻',
+      name: 'IT導入補助金（2026年度）',
+      desc: '会計・勤怠・AI等のITツール導入で費用の2/3を補助。まずgBizIDプライムの取得（約2週間）が必要。',
+      amount: '最大 450万円',
+    });
+  }
+
+  return future;
+}
+
+// ================================================================
+// ③ 結果を計算して表示
+// ================================================================
+function calcResults() {
+  const ans = {};
+  ['q1','q2','q4','q5','q6','q7','q8','q9','q10','q11','q12'].forEach(k => {
+    const el = document.querySelector(`[name="${k}"]:checked`);
+    ans[k] = el ? el.value : 'none';
+  });
+  ans.q3 = parseInt(document.getElementById('q3').value) || 0;
+
+  const missed = getMissed(ans);
+  const future = getFuture(ans);
+
+  // 集計（futureフラグのないものだけ合計）
+  const totalMiss = missed.filter(m => !m.future).reduce((s, m) => s + m.amount, 0);
+
+  // ── 表示 ──
+  const summaryWrap = document.getElementById('miss-summary-wrap');
+  const listWrap    = document.getElementById('miss-list-wrap');
+  const futureWrap  = document.getElementById('future-wrap');
+  const title       = document.getElementById('results-title');
+  const sub         = document.getElementById('results-sub');
+
+  if (totalMiss === 0 && missed.length === 0) {
+    title.textContent = '現時点での取りこぼし助成金は見つかりませんでした';
+    sub.textContent   = '適切に助成金を活用されています。今後の採用・投資計画でさらに受給できる可能性があります。';
+    summaryWrap.innerHTML = `
+      <div class="no-miss">
+        <div class="no-miss-title">取りこぼしは見当たりません</div>
+        <div class="no-miss-sub">今後の採用・投資計画でさらに受給を積み重ねることができます。<br>下記の今後の提案を参考にしてください。</div>
+      </div>`;
+    listWrap.innerHTML = '';
+  } else {
+    title.textContent = `過去に取得できた可能性のある助成金が見つかりました`;
+    sub.textContent   = `過去の実績を踏まえた概算です。今後の申請や今後の採用計画で回収できます。`;
+
+    // サマリーカード
+    summaryWrap.innerHTML = `
+      <div class="miss-summary">
+        <div class="miss-summary-label">過去の取りこぼし概算（目安）</div>
+        <div class="miss-summary-amount">
+          最大 <span class="unit">約</span>${totalMiss}<span class="unit">万円</span>
+        </div>
+        <div class="miss-summary-note">
+          ※ 過去の取りこぼし分は遡及申請ができないものがほとんどです。今後の採用・制度整備で同様の助成金を確実に受け取ることが重要です。
+        </div>
+      </div>`;
+
+    // 取りこぼし一覧
+    const items = missed.map(m => `
+      <div class="miss-item">
+        <div class="miss-item-left">
+          <div class="miss-item-name">${m.name}</div>
+          <div class="miss-item-reason">${m.reason}</div>
+        </div>
+        <div class="miss-item-amount">
+          ${m.amountText}
+          <small>${m.unit}</small>
+        </div>
+      </div>`).join('');
+    listWrap.innerHTML = `<div class="miss-list">${items}</div>`;
+  }
+
+  // 今後の提案
+  if (future.length > 0) {
+    const items = future.map(f => `
+      <div class="future-item">
+        <div class="future-item-icon">${f.icon}</div>
+        <div class="future-item-text">
+          <div class="future-item-name">${f.name}</div>
+          <div class="future-item-desc">${f.desc}</div>
+        </div>
+        <div class="future-item-amount">${f.amount}</div>
+      </div>`).join('');
+    futureWrap.innerHTML = `
+      <div class="future-panel">
+        <div class="future-panel-title">▶ 今後の受給チャンス</div>
+        <div class="future-list">${items}</div>
+      </div>`;
+  } else {
+    futureWrap.innerHTML = '';
+  }
+
+  // 表示切り替え
+  document.getElementById('form-area').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Step1 にも結果を保存（任意）
+  try {
+    sessionStorage.setItem('shindan2_result', JSON.stringify({ totalMiss, missed, future }));
+  } catch(e) {}
+}
+
+function resetForm() {
+  document.getElementById('form-area').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

@@ -9,10 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --primary: #1854a5;
-    --primary-dark: #1244891;
-    --primary-dark: #13428c;
-    --primary-light: #eaf1fb;
+    --primary: #0a0f1e;
+    --primary-dark: #000000;
+    --primary-dark: #2d3748;
+    --primary-light: #f4f5f7;
     --accent: #167a4c;
     --accent-light: #e7f5ee;
     --warning: #b45309;
@@ -554,26 +554,26 @@
 
   /* Phase 4: 加点ロードマップ */
   .roadmap-panel {
-    background: #eff6ff;
+    background: #f8fafc;
     border: 1.5px solid #93c5fd;
     border-radius: var(--radius);
     padding: 16px 20px;
     margin-bottom: 18px;
     font-size: 13px;
-    color: #1e3a8a;
+    color: #1e293b;
   }
   .roadmap-panel h3 { font-size: 14px; font-weight: 800; margin-bottom: 12px; }
   .roadmap-steps { display: flex; gap: 8px; flex-wrap: wrap; }
   .roadmap-step {
     flex: 1; min-width: 160px;
     background: white;
-    border: 1px solid #bfdbfe;
+    border: 1px solid #e2e8f0;
     border-radius: 8px;
     padding: 10px 12px;
   }
-  .roadmap-step .step-period { font-size: 11px; font-weight: 700; color: #2563eb; margin-bottom: 4px; }
+  .roadmap-step .step-period { font-size: 11px; font-weight: 700; color: #0a0f1e; margin-bottom: 4px; }
   .roadmap-step .step-title { font-weight: 700; font-size: 12px; margin-bottom: 4px; }
-  .roadmap-step .step-detail { font-size: 11px; color: #1e3a8a; line-height: 1.6; }
+  .roadmap-step .step-detail { font-size: 11px; color: #1e293b; line-height: 1.6; }
   .roadmap-step.done .step-period { color: #059669; }
 
   /* ══════════════════════════════════════════════════════
@@ -865,7 +865,7 @@
     background: #fafafa;
     border-left: 3px solid var(--primary);
   }
-  .result-hero-note.warn { border-left-color: #3b82f6; background: #eff6ff; color: #1e3a8a; }
+  .result-hero-note.warn { border-left-color: #475569; background: #f8fafc; color: #1e293b; }
 
   /* ══════════════════════════════════════════════════════
      結果カードリスト（ダッシュボード型）
@@ -1268,9 +1268,9 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: #ecf2ff;
+    background: #f8fafc;
     margin-top: 3px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 8L6.5 10.5L12 5' stroke='%230066ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 8L6.5 10.5L12 5' stroke='%230a0f1e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-size: 16px 16px;
     background-repeat: no-repeat;
   }
@@ -1340,7 +1340,7 @@
     font-weight: 600;
     text-decoration: none;
     padding: 6px 12px;
-    background: #ecf2ff;
+    background: #f8fafc;
     border-radius: 6px;
     transition: background 0.15s, color 0.15s;
   }
@@ -1382,11 +1382,11 @@
   .wf-alert-note {
     font-size: 12px;
     font-weight: 500;
-    color: #1e3a8a;
+    color: #1e293b;
     margin-bottom: 16px;
     padding: 9px 13px;
-    background: #eff6ff;
-    border-left: 3px solid #3b82f6;
+    background: #f8fafc;
+    border-left: 3px solid #475569;
     border-radius: 0 6px 6px 0;
     line-height: 1.6;
   }
@@ -1422,8 +1422,8 @@
     flex-shrink: 0;
   }
   .wf-step-v.is-warn .wf-num {
-    border-color: #3b82f6;
-    color: #2563eb;
+    border-color: #475569;
+    color: #0a0f1e;
   }
   .wf-step-v.is-final .wf-num {
     border-color: #6b7280;
@@ -1448,13 +1448,13 @@
     color: #111827;
     line-height: 1.4;
   }
-  .wf-step-v.is-warn .wf-step-v-label { color: #1e3a8a; }
+  .wf-step-v.is-warn .wf-step-v-label { color: #1e293b; }
   .wf-warn-inline {
     display: inline-block;
     font-size: 11px;
     font-weight: 700;
-    color: #1d4ed8;
-    background: #dbeafe;
+    color: #0a0f1e;
+    background: #f1f5f9;
     border-radius: 4px;
     padding: 2px 7px;
     margin-left: 8px;
@@ -1483,13 +1483,13 @@
   }
   .detail-note + .detail-note { margin-top: 8px; }
   .detail-note.warn {
-    background: #eff6ff;
-    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 0 0 1px #bfdbfe;
-    color: #1e3a8a;
+    background: #f8fafc;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 0 0 1px #e2e8f0;
+    color: #1e293b;
   }
   .detail-note.warn::before {
     content: '⚠';
-    color: #3b82f6;
+    color: #475569;
   }
 
   @media (max-width: 720px) {
@@ -1552,11 +1552,11 @@
   .gbiz-inline {
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 0 0 1px #bfdbfe;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 0 0 1px #e2e8f0;
     padding: 14px 18px;
     margin: 16px 0 8px;
     font-size: 12.5px;
-    color: #1e3a8a;
+    color: #1e293b;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -1565,11 +1565,11 @@
   .gbiz-inline::before {
     content: '⚠';
     font-size: 16px;
-    color: #3b82f6;
+    color: #475569;
     flex-shrink: 0;
   }
   .gbiz-inline-body { flex: 1; }
-  .gbiz-inline strong { color: #1e3a8a; }
+  .gbiz-inline strong { color: #1e293b; }
   .gbiz-inline a {
     display: inline-flex;
     align-items: center;
@@ -1585,7 +1585,7 @@
     flex-shrink: 0;
     transition: background 0.15s;
   }
-  .gbiz-inline a:hover { background: #2563eb; }
+  .gbiz-inline a:hover { background: #0a0f1e; }
 
   /* ── コンパクトパネル ───────────── */
   .compact-panel {
@@ -1622,7 +1622,7 @@
     letter-spacing: 0.02em;
   }
   .category-badge.cat-subsidy {
-    background: #dbeafe; color: #1e40af;
+    background: #f1f5f9; color: #334155;
   }
   .category-badge.cat-it {
     background: #ede9fe; color: #5b21b6;
@@ -1634,7 +1634,7 @@
     background: #dcfce7; color: #166534;
   }
   .category-badge.cat-wage {
-    background: #dbeafe; color: #1e3a8a;
+    background: #f1f5f9; color: #1e293b;
   }
   .category-badge.cat-other {
     background: #f3f4f6; color: #374151;
@@ -1674,7 +1674,7 @@
     font-size: 12px; font-weight: 700;
     flex-shrink: 0;
   }
-  .rsl-rank.top3 { background: #dbeafe; color: #1e3a8a; }
+  .rsl-rank.top3 { background: #f1f5f9; color: #1e293b; }
   .rsl-body { flex: 1; min-width: 0; }
   .rsl-name { font-size: 13px; font-weight: 700; color: var(--gray-900); }
   .rsl-meta { font-size: 11px; color: var(--gray-600); margin-top: 2px; }
@@ -1699,7 +1699,7 @@
     padding: 14px 18px;
     margin-bottom: 16px;
     font-size: 13px;
-    color: #1e3a8a;
+    color: #1e293b;
   }
   .conflict-panel strong { display: block; margin-bottom: 6px; }
 
@@ -1707,14 +1707,14 @@
   .subsidy-card { background: white; border: 1px solid var(--gray-200); border-radius: var(--radius); margin-bottom: 10px; }
   .subsidy-header { display: flex; align-items: center; padding: 15px 18px; gap: 14px; cursor: pointer; }
   .rank { width: 30px; height: 30px; border-radius: 50%; background: var(--primary-light); color: var(--primary); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .rank.gold { background: #dbeafe; color: #1e3a8a; }
+  .rank.gold { background: #f1f5f9; color: #1e293b; }
   .subsidy-info { flex: 1; min-width: 0; }
   .subsidy-name { font-size: 14px; font-weight: 700; line-height: 1.3; }
   .subsidy-tags { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
   .tag { font-size: 11px; padding: 2px 7px; border-radius: 99px; background: var(--gray-100); color: var(--gray-600); }
-  .tag.blue { background: var(--primary-light); color: #1e40af; }
+  .tag.blue { background: var(--primary-light); color: #334155; }
   .tag.green { background: var(--accent-light); color: #065f46; }
-  .tag.orange { background: #eff6ff; color: #1e40af; }
+  .tag.orange { background: #f8fafc; color: #334155; }
   .subsidy-amt { text-align: right; flex-shrink: 0; }
   .subsidy-amt .amt { font-size: 17px; font-weight: 700; color: var(--primary); }
   .subsidy-amt .lbl { font-size: 11px; color: var(--gray-600); }
@@ -1727,7 +1727,7 @@
   .match-box { background: var(--gray-50); border-radius: 7px; padding: 12px; margin-top: 12px; font-size: 12px; }
   .match-box strong { display: block; margin-bottom: 6px; color: var(--gray-700); font-size: 12px; }
   .mtag { display: inline-block; background: #d1fae5; color: #065f46; border-radius: 4px; padding: 2px 8px; margin: 2px; }
-  .ctag { display: inline-block; background: #dbeafe; color: #1e40af; border-radius: 4px; padding: 2px 8px; margin: 2px; font-size: 11px; }
+  .ctag { display: inline-block; background: #f1f5f9; color: #334155; border-radius: 4px; padding: 2px 8px; margin: 2px; font-size: 11px; }
 
   /* Compare table */
   .compare-wrap { overflow-x: auto; margin-top: 8px; }
@@ -1736,7 +1736,7 @@
   td { padding: 9px 12px; border-bottom: 1px solid var(--gray-100); }
   tr:last-child td { border-bottom: none; }
   .d1c { color: #059669; font-weight: 700; }
-  .d2c { color: #2563eb; font-weight: 700; }
+  .d2c { color: #0a0f1e; font-weight: 700; }
   .d3c { color: #dc2626; font-weight: 700; }
 
   .reset-area { text-align: center; margin-top: 24px; }
@@ -1744,8 +1744,8 @@
   .btn-reset:hover { background: var(--gray-100); }
 
   .detail-official-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #e5e7eb; }
-  .btn-lp-detail { display: inline-flex; align-items: center; gap: 4px; background: #eff6ff; color: #1d4ed8; border: 1.5px solid #bfdbfe; border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 700; text-decoration: none; transition: background 0.15s; }
-  .btn-lp-detail:hover { background: #dbeafe; }
+  .btn-lp-detail { display: inline-flex; align-items: center; gap: 4px; background: #f8fafc; color: #0a0f1e; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 700; text-decoration: none; transition: background 0.15s; }
+  .btn-lp-detail:hover { background: #f1f5f9; }
   .btn-official-page { display: inline-flex; align-items: center; gap: 4px; background: white; color: #374151; border: 1.5px solid #d1d5db; border-radius: 8px; padding: 9px 16px; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
   .btn-official-page:hover { background: #f9fafb; border-color: #9ca3af; }
 
@@ -1790,8 +1790,8 @@
   .next-step-link:hover { text-decoration: underline; }
   .next-step-badge {
     display: inline-block;
-    background: #dbeafe;
-    color: #1e3a8a;
+    background: #f1f5f9;
+    color: #1e293b;
     border-radius: 4px;
     padding: 1px 7px;
     font-size: 11px;
@@ -1820,7 +1820,7 @@
     position: absolute;
     right: -140px; top: -140px;
     width: 480px; height: 480px;
-    background: #1854a5;
+    background: #0a0f1e;
     border-radius: 50%;
     opacity: 0.08;
     pointer-events: none;
@@ -1831,7 +1831,7 @@
     position: absolute;
     left: -80px; bottom: -80px;
     width: 280px; height: 280px;
-    background: #1854a5;
+    background: #0a0f1e;
     border-radius: 50%;
     opacity: 0.06;
     pointer-events: none;
@@ -1848,7 +1848,7 @@
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.22em;
-    color: #1854a5;
+    color: #0a0f1e;
     text-transform: uppercase;
     margin-bottom: 28px;
   }
@@ -1863,7 +1863,7 @@
   .hx-bar {
     width: 52px;
     height: 5px;
-    background: #1854a5;
+    background: #0a0f1e;
     margin: 0 auto 28px;
   }
   .hx-sub {
@@ -1883,8 +1883,8 @@
   .hx-tag {
     font-size: 13px;
     font-weight: 600;
-    color: #1854a5;
-    border: 1.5px solid #1854a5;
+    color: #0a0f1e;
+    border: 1.5px solid #0a0f1e;
     padding: 6px 18px;
     letter-spacing: 0.04em;
   }
@@ -1892,7 +1892,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #1854a5;
+    background: #0a0f1e;
     color: #fff;
     border: none;
     padding: 22px 80px;
@@ -1903,7 +1903,7 @@
     letter-spacing: 0.06em;
     transition: background 0.12s;
   }
-  .hx-btn:hover { background: #123f8c; }
+  .hx-btn:hover { background: #2d3748; }
   .hx-btn:active { opacity: 0.9; }
 
   /* 旧クラス非表示 */
@@ -2001,7 +2001,7 @@
   }
   .sc-vbar-bar {
     width: 100%;
-    background: #1854a5;
+    background: #0a0f1e;
     border-radius: 4px 4px 0 0;
     min-height: 4px;
     transition: height 0.5s ease;
@@ -2113,15 +2113,15 @@
 
   /* ── TAG SUGGESTIONS ────────────────────── */
   .tag-suggestions {
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
     border-radius: 8px;
     padding: 10px 12px;
     margin-bottom: 8px;
   }
   .tag-suggest-label {
     font-size: 12px;
-    color: #1e3a8a;
+    color: #1e293b;
     margin-bottom: 8px;
     font-weight: 600;
   }
@@ -2136,26 +2136,26 @@
     border-radius: 99px;
     padding: 4px 12px;
     font-size: 12px;
-    color: #1d4ed8;
+    color: #0a0f1e;
     cursor: pointer;
     font-family: inherit;
     transition: background 0.1s;
   }
-  .tag-btn:hover { background: #dbeafe; }
-  .tag-btn.has-sub { border-color: #3b82f6; font-weight: 600; }
-  .tag-btn.selected { background: #1d4ed8; border-color: #1d4ed8; color: white; }
-  .tag-btn.selected:hover { background: #1e40af; }
-  .q15-sub-btn.selected { background: #dbeafe; border-color: #2563eb; font-weight: 700; }
+  .tag-btn:hover { background: #f1f5f9; }
+  .tag-btn.has-sub { border-color: #475569; font-weight: 600; }
+  .tag-btn.selected { background: #0a0f1e; border-color: #0a0f1e; color: white; }
+  .tag-btn.selected:hover { background: #334155; }
+  .q15-sub-btn.selected { background: #f1f5f9; border-color: #0a0f1e; font-weight: 700; }
   .q15-sonota-wrap { margin-top: 10px; width: 100%; }
   .q15-sonota-label { font-size: 12px; color: #374151; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
   .q15-sonota-input { width: 100%; border: 1px solid #d1d5db; border-radius: 8px; padding: 8px 12px; font-size: 13px; margin-top: 6px; font-family: inherit; box-sizing: border-box; }
-  .q15-sonota-input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
+  .q15-sonota-input:focus { outline: none; border-color: #475569; box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
   .q15-sub-panel {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    background: #eff6ff;
-    border: 1.5px solid #3b82f6;
+    background: #f8fafc;
+    border: 1.5px solid #475569;
     border-radius: 10px;
     padding: 12px 14px;
     margin: 8px 0 4px;
@@ -2165,7 +2165,7 @@
     width: 100%;
     font-size: 11px;
     font-weight: 700;
-    color: #1d4ed8;
+    color: #0a0f1e;
     margin-bottom: 4px;
     letter-spacing: 0.03em;
   }
@@ -2175,12 +2175,12 @@
     border-radius: 99px;
     padding: 5px 14px;
     font-size: 12px;
-    color: #1e40af;
+    color: #334155;
     cursor: pointer;
     font-family: inherit;
     transition: background 0.1s, border-color 0.1s;
   }
-  .q15-sub-btn:hover { background: #dbeafe; border-color: #3b82f6; }
+  .q15-sub-btn:hover { background: #f1f5f9; border-color: #475569; }
 
   /* ── INLINE FEEDBACK ────────────────────── */
   .inline-feedback {
@@ -2194,9 +2194,9 @@
     margin-top: 8px;
   }
   .inline-feedback.warn {
-    background: #eff6ff;
-    border-color: #bfdbfe;
-    color: #1e3a8a;
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #1e293b;
   }
   .help-note {
     background: #f0f9ff;
@@ -2354,7 +2354,7 @@
       <div class="site-logo-mark">補</div>
       補助金・助成金 診断
     </div>
-    <a href="list.html" style="font-size:13px;font-weight:700;color:#1d4ed8;text-decoration:none;border:1.5px solid #1d4ed8;border-radius:6px;padding:7px 16px;white-space:nowrap;letter-spacing:0.02em;">岩手・盛岡 助成金一覧</a>
+    <a href="list.html" style="font-size:13px;font-weight:700;color:#0a0f1e;text-decoration:none;border:1.5px solid #0a0f1e;border-radius:6px;padding:7px 16px;white-space:nowrap;letter-spacing:0.02em;">岩手・盛岡 助成金一覧</a>
   </div>
 </nav>
 
@@ -6699,12 +6699,12 @@ function buildSummaryCharts(scored) {
 
   // チャートカテゴリ → 結果グループキーのマッピング（全て青単色）
   const CHART_CATS = [
-    { key: '人材・賃上げ・働き方',       groups: ['jinzai'],    color: '#1854a5' },
-    { key: '設備(ハード・機械)',         groups: ['setsubiH'],  color: '#1854a5' },
-    { key: '設備(IT・クラウド)',         groups: ['setsubiS'],  color: '#1854a5' },
-    { key: '商品開発',                   groups: ['shohin'],    color: '#1854a5' },
-    { key: 'マーケティング・販路',       groups: ['marketing'], color: '#1854a5' },
-    { key: 'その他（社会課題）',         groups: ['sonota'],    color: '#1854a5' },
+    { key: '人材・賃上げ・働き方',       groups: ['jinzai'],    color: '#0a0f1e' },
+    { key: '設備(ハード・機械)',         groups: ['setsubiH'],  color: '#0a0f1e' },
+    { key: '設備(IT・クラウド)',         groups: ['setsubiS'],  color: '#0a0f1e' },
+    { key: '商品開発',                   groups: ['shohin'],    color: '#0a0f1e' },
+    { key: 'マーケティング・販路',       groups: ['marketing'], color: '#0a0f1e' },
+    { key: 'その他（社会課題）',         groups: ['sonota'],    color: '#0a0f1e' },
   ];
 
   // カテゴリ別受給額合計（SUBSIDY_RATE_MAPを個別に参照、1000万以上はキャップ後適用）
@@ -6741,9 +6741,9 @@ function buildSummaryCharts(scored) {
 
   const pct = Math.round((nationSubsidy / totalCost) * 100);
   const pieSVG = `<svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-    ${donutSlice(0, subsidyAngle, '#1854a5')}
+    ${donutSlice(0, subsidyAngle, '#0a0f1e')}
     ${donutSlice(subsidyAngle, 360, '#e2e8f0')}
-    <text x="${cx}" y="${cy - 10}" text-anchor="middle" font-size="26" font-weight="900" fill="#1854a5" font-family="sans-serif">${pct}%</text>
+    <text x="${cx}" y="${cy - 10}" text-anchor="middle" font-size="26" font-weight="900" fill="#0a0f1e" font-family="sans-serif">${pct}%</text>
     <text x="${cx}" y="${cy + 14}" text-anchor="middle" font-size="12" fill="#64748b" font-family="sans-serif">補助金割合</text>
   </svg>`;
 
@@ -6778,7 +6778,7 @@ function buildSummaryCharts(scored) {
       ${pieSVG}
       <div class="sc-pie-nums">
         <div class="sc-num-block">
-          <div class="sc-num-label"><span class="sc-num-dot" style="background:#1854a5"></span>最大受給額（合計）</div>
+          <div class="sc-num-label"><span class="sc-num-dot" style="background:#0a0f1e"></span>最大受給額（合計）</div>
           <div class="sc-num-val">${fmt(nationSubsidy)}</div>
         </div>
         <div class="sc-num-block">
@@ -7332,13 +7332,13 @@ function renderCard(s, i) {
         <div style="margin-top:14px;font-size:13px;font-weight:600;margin-bottom:4px">助成額の内訳</div>
         <div style="font-size:13px;color:var(--gray-700)">${s.amount_note}</div>
 
-        ${s.timingWarning ? `<div style="margin-top:10px;font-size:12px;color:#1e3a8a;background:#eff6ff;padding:8px 12px;border-radius:6px;border-left:3px solid #3b82f6">${s.timingWarning}</div>` : ''}
-        ${s.invoiceNote ? `<div style="margin-top:6px;font-size:12px;color:#1e40af;background:#dbeafe;padding:8px 12px;border-radius:6px">${s.invoiceNote}</div>` : ''}
+        ${s.timingWarning ? `<div style="margin-top:10px;font-size:12px;color:#1e293b;background:#f8fafc;padding:8px 12px;border-radius:6px;border-left:3px solid #475569">${s.timingWarning}</div>` : ''}
+        ${s.invoiceNote ? `<div style="margin-top:6px;font-size:12px;color:#334155;background:#f1f5f9;padding:8px 12px;border-radius:6px">${s.invoiceNote}</div>` : ''}
 
         <div class="match-box">
           <strong>この会社が対象になる理由</strong>
           ${s.reasons.map(r => `<span class="mtag">${r}</span>`).join('')}
-          ${s.bonusReasons.map(r => `<span class="mtag" style="background:#dbeafe;color:#1e3a8a">${r}</span>`).join('')}
+          ${s.bonusReasons.map(r => `<span class="mtag" style="background:#f1f5f9;color:#1e293b">${r}</span>`).join('')}
         </div>
 
         <div class="detail-grid">

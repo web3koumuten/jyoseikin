@@ -327,7 +327,7 @@
   <div id="form-area">
 
     <!-- ─── SECTION A: 過去3年間の採用実績 ─── -->
-    <div class="section">
+    <div class="section" id="section-a">
       <div class="section-header">
         <h2>過去3年間の採用・雇用実績</h2>
         <p>受給できる可能性のある助成金を特定するために、過去の採用状況を教えてください。</p>
@@ -369,7 +369,7 @@
     </div>
 
     <!-- ─── SECTION B: 特定対象者の採用 ─── -->
-    <div class="section">
+    <div class="section" id="section-b">
       <div class="section-header">
         <h2>特定対象者（障害者・高齢者・母子家庭等）の採用</h2>
         <p>特定求職者雇用開発助成金（特開金）の受給可能性を確認します。</p>
@@ -443,7 +443,7 @@
     </div>
 
     <!-- ─── SECTION D: ITツール投資 ─── -->
-    <div class="section">
+    <div class="section" id="section-d">
       <div class="section-header">
         <h2>ITツール・システムへの投資</h2>
         <p>IT導入補助金の受給可能性を確認します。</p>
@@ -554,21 +554,71 @@
 // ================================================================
 // ① Step1 データの引き継ぎ
 // ================================================================
+let s1meta   = {};
+let s1scored = [];
+
 (function loadInherited() {
   try {
     const raw = sessionStorage.getItem('shindan1_result');
     if (!raw) return;
     const d = JSON.parse(raw);
+    s1meta   = d.meta   || {};
+    s1scored = d.scored || [];
+
+    // ── バナー表示 ──
     const parts = [];
-    if (d.industry)  parts.push(d.industry);
-    if (d.employees) parts.push('従業員 ' + d.employees);
-    if (d.companyType) parts.push(d.companyType);
+    if (s1meta.q7)  parts.push(s1meta.q7);
+    if (s1meta.q8)  parts.push('従業員 ' + s1meta.q8 + '名');
+    if (s1meta.q6)  parts.push(s1meta.q6);
     if (parts.length > 0) {
       document.getElementById('inherited-detail').innerHTML =
-        '<strong>' + parts.join('　/　') + '</strong> の情報をもとに診断します。';
+        '<strong>' + parts.join('　/　') + '</strong> の情報を引き継いでいます。';
     }
+
+    // ── Q12 プリフィル（Step1でIT導入に関心あり）──
+    const itInterest = (s1meta.q14 || []).includes('it-donyu');
+    if (itInterest) {
+      const radio = document.querySelector('input[name="q12"][value="maybe"]');
+      if (radio) {
+        radio.checked = true;
+        addInheritedBadge(radio.closest('.field'), 'Step1でIT導入関心あり');
+      }
+    }
+
+    // ── セクション関連度ハイライト（Step1でヒットした助成金ベース）──
+    const ids = s1scored.map(s => s.id);
+    const hasSpecialHire = ids.some(id => /tokutei|trial-shogaisha/.test(id));
+    const hasCareerUp    = ids.some(id => /career-up/.test(id));
+    const hasIT          = ids.some(id => /it-donyu|digital|it-security/.test(id));
+
+    if (hasSpecialHire) highlightSection('section-b', 'Step1で特開金が該当');
+    if (hasCareerUp)    highlightSection('section-a', 'Step1でキャリアアップが該当');
+    if (hasIT)          highlightSection('section-d', 'Step1でIT補助金が該当');
+
   } catch(e) {}
 })();
+
+// 引き継ぎバッジを追加
+function addInheritedBadge(fieldEl, label) {
+  if (!fieldEl) return;
+  const badge = document.createElement('span');
+  badge.style.cssText = 'font-size:11px;font-weight:700;color:var(--muted);border:1px solid var(--border);padding:1px 7px;margin-left:10px;vertical-align:middle;';
+  badge.textContent = '↑ ' + (label || 'Step1引き継ぎ');
+  const labelEl = fieldEl.querySelector('.field-label');
+  if (labelEl) labelEl.appendChild(badge);
+}
+
+// セクションヘッダーに関連度ハイライト
+function highlightSection(sectionId, label) {
+  const sec = document.getElementById(sectionId);
+  if (!sec) return;
+  const h2 = sec.querySelector('.section-header h2');
+  if (!h2) return;
+  const badge = document.createElement('span');
+  badge.style.cssText = 'font-size:10px;font-weight:700;background:#0a0f1e;color:white;padding:2px 8px;margin-left:10px;vertical-align:middle;';
+  badge.textContent = '注目';
+  h2.appendChild(badge);
+}
 
 // ================================================================
 // ② 質問ロジック（ここを編集するだけで質問内容を変更できます）
@@ -578,82 +628,92 @@
 function getMissed(ans) {
   const missed = [];
 
-  // 正社員化コース
+  // Step1から引き継いだ従業員数で中小/大企業を判定
+  const emp = parseInt(s1meta.q8) || 0;
+  const isSmall = emp === 0 || emp <= 300; // 不明な場合は中小企業として計算
+
+  // 正社員化コース（中小：80万円、大：60万円）
   if (ans.q2 === 'missed') {
-    const n = parseInt(ans.q3) || 1;
+    const n    = parseInt(ans.q3) || 1;
+    const rate = isSmall ? 80 : 60;
     missed.push({
-      name: 'キャリアアップ助成金 — 正社員化コース',
-      reason: `有期雇用から正社員に転換した方がいましたが、助成金を申請していません。`,
-      amount: n * 40,
-      amountText: `最大 ${n * 40}万円〜${n * 80}万円`,
-      unit: `（${n}名 × 40〜80万円）`,
+      name:       'キャリアアップ助成金 — 正社員化コース',
+      reason:     `有期雇用から正社員に転換した方がいましたが、助成金を申請していません。`,
+      amount:     n * rate,
+      amountText: `最大 ${n * rate}万円`,
+      unit:       `（${n}名 × ${rate}万円${ emp > 0 ? '・' + (isSmall ? '中小企業' : '大企業') + '単価' : '' }）`,
     });
   }
 
-  // 特開金 — 障害者
+  // 特開金 — 障害者（中小：240万円、大：120万円）
   if (ans.q4 === 'missed-hw') {
+    const amount = isSmall ? 240 : 120;
     missed.push({
-      name: '特定求職者雇用開発助成金 — 障害者採用',
-      reason: 'ハローワーク経由で障害者を採用しましたが、採用後2週間以内の申請が行われていません。',
-      amount: 120,
-      amountText: '最大 120〜240万円',
-      unit: '（障害の程度・雇用期間による）',
+      name:       '特定求職者雇用開発助成金 — 障害者採用',
+      reason:     'ハローワーク経由で障害者を採用しましたが、採用後2週間以内の申請が行われていません。',
+      amount,
+      amountText: `最大 ${amount}万円`,
+      unit:       `（${isSmall ? '中小企業' : '大企業'}・3年間の合計）`,
     });
   }
 
-  // 特開金 — 高齢者
+  // 特開金 — 高齢者（中小：70万円、大：50万円）
   if (ans.q5 === 'missed') {
+    const amount = isSmall ? 70 : 50;
     missed.push({
-      name: '特定求職者雇用開発助成金 — 高齢者採用',
-      reason: 'ハローワーク経由で60歳以上の方を採用しましたが、助成金の申請がされていません。',
-      amount: 70,
-      amountText: '最大 70万円',
-      unit: '/ 人',
+      name:       '特定求職者雇用開発助成金 — 高齢者採用',
+      reason:     'ハローワーク経由で60歳以上の方を採用しましたが、助成金の申請がされていません。',
+      amount,
+      amountText: `最大 ${amount}万円`,
+      unit:       '/ 人',
     });
   }
 
-  // 特開金 — 母子等
+  // 特開金 — 母子等（中小：60万円、大：50万円）
   if (ans.q6 === 'missed') {
+    const amount = isSmall ? 60 : 50;
     missed.push({
-      name: '特定求職者雇用開発助成金 — 母子家庭・生活保護等',
-      reason: 'ハローワーク経由で対象者を採用しましたが、助成金の申請がされていません。',
-      amount: 60,
-      amountText: '最大 60万円',
-      unit: '/ 人',
+      name:       '特定求職者雇用開発助成金 — 母子家庭・生活保護等',
+      reason:     'ハローワーク経由で対象者を採用しましたが、助成金の申請がされていません。',
+      amount,
+      amountText: `最大 ${amount}万円`,
+      unit:       '/ 人',
     });
   }
 
-  // 賃金改定コース
+  // 賃金改定コース（中小：50万円、大：40万円）
   if (ans.q7 === 'done-no-apply' || ans.q7 === 'done-no-rule') {
+    const amount = isSmall ? 50 : 40;
     missed.push({
-      name: 'キャリアアップ助成金 — 賃金規定等改定コース',
-      reason: '非正規スタッフの賃金を引き上げましたが、就業規則の整備・助成金申請が行われていません。',
-      amount: 50,
-      amountText: '最大 50万円',
-      unit: '/ 事業所',
+      name:       'キャリアアップ助成金 — 賃金規定等改定コース',
+      reason:     '非正規スタッフの賃金を引き上げましたが、就業規則の整備・助成金申請が行われていません。',
+      amount,
+      amountText: `最大 ${amount}万円`,
+      unit:       '/ 事業所',
     });
   }
 
-  // 賞与退職金コース
+  // 賞与退職金コース（中小：50万円、大：40万円）
   if (ans.q8 === 'missed') {
+    const amount = isSmall ? 50 : 40;
     missed.push({
-      name: 'キャリアアップ助成金 — 賞与・退職金コース',
-      reason: '非正規スタッフへの賞与・退職金を支給しましたが、助成金の申請がされていません。',
-      amount: 50,
-      amountText: '最大 50万円',
-      unit: '/ 事業所',
+      name:       'キャリアアップ助成金 — 賞与・退職金コース',
+      reason:     '非正規スタッフへの賞与・退職金を支給しましたが、助成金の申請がされていません。',
+      amount,
+      amountText: `最大 ${amount}万円`,
+      unit:       '/ 事業所',
     });
   }
 
   // IT導入補助金
   if (ans.q9 === 'missed') {
     missed.push({
-      name: 'IT導入補助金',
-      reason: 'ITツールを新規導入しましたが、補助金の申請がされていません（過去分は対象外ですが、今後の導入計画に活用できます）。',
-      amount: 0, // 過去分は受給不可のため集計から除外
+      name:       'IT導入補助金',
+      reason:     'ITツールを新規導入しましたが、補助金の申請がされていません（過去分は対象外ですが、今後の導入計画に活用できます）。',
+      amount:     0,
       amountText: '次回導入時に最大 450万円',
-      unit: '（過去分は申請不可・今後の参考に）',
-      future: true,
+      unit:       '（過去分は申請不可・今後の参考に）',
+      future:     true,
     });
   }
 

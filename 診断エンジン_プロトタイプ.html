@@ -5603,6 +5603,21 @@ function renderResults(scored, combos, conflicts, meta) {
   };
   const diffLabelText = {1: 'やさしい', 2: '標準', 3: 'やや高い'};
 
+  // ── LP リンクマッピング ──────────────────
+  const LP_LINK_MAP = {
+    'career-up-seishainuka':           'lp.html#career-up',
+    'career-up-shogaisha-seishainuka': 'lp.html#career-up',
+    'career-up-chingin-kaitei':        'lp.html#career-up',
+    'career-up-chingin-kyotsu':        'lp.html#career-up',
+    'career-up-shoyo-taishokukin':     'lp.html#career-up',
+    'career-up-tanjikan':              'lp.html#career-up',
+    'it-donyu':                        'lp.html#it-donyu',
+    'it-security':                     'lp.html#it-donyu',
+    'tokutei-shushokukonnansha':        'lp.html#tokutei',
+    'trial-shogaisha':                 'lp.html#tokutei',
+    'trial-shogaisha-tanjikan':        'lp.html#tokutei',
+  };
+
   // ── Row（カード形式） ──────────────────
   const renderRow = (s) => {
     const cat = getCategory(s.id);
@@ -5646,7 +5661,8 @@ function renderResults(scored, combos, conflicts, meta) {
         </div>
       </div>
       <div class="result-row-cta">
-        <span class="result-row-cta-hint">詳細・申請ステップを見る</span>
+        ${LP_LINK_MAP[s.id] ? `<a href="${LP_LINK_MAP[s.id]}" target="_blank" style="font-size:11px;color:var(--gray-600);text-decoration:none;margin-right:16px;border-bottom:1px solid var(--gray-200);" onclick="event.stopPropagation()">制度の詳細を見る →</a>` : ''}
+        <span class="result-row-cta-hint">申請ステップを見る</span>
       </div>
       <div class="result-row-detail" id="${detailId}">
         <div class="result-row-detail-inner">
@@ -5852,14 +5868,14 @@ function renderResults(scored, combos, conflicts, meta) {
     <a href="shindan2.html" class="btn-step2">Step 2 さらに詳しく診断する →</a>
   </div>`;
   el.innerHTML = html;
-  // グラフバーアニメーション
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      el.querySelectorAll('.chart-row-bar[data-pct], .futan-bar-subsidy[data-pct], .futan-bar-futan[data-pct]').forEach(bar => {
-        bar.style.width = bar.dataset.pct + '%';
-      });
+  // グラフバーアニメーション（複数フォールバック付き）
+  function animateBars() {
+    el.querySelectorAll('.chart-row-bar[data-pct], .futan-bar-subsidy[data-pct], .futan-bar-futan[data-pct]').forEach(bar => {
+      bar.style.width = bar.dataset.pct + '%';
     });
-  });
+  }
+  requestAnimationFrame(() => requestAnimationFrame(animateBars));
+  setTimeout(animateBars, 100);
   window.scrollTo(0, 0);
 }
 

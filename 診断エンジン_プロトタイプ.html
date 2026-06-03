@@ -5510,37 +5510,60 @@ function renderResults(scored, combos, conflicts, meta) {
     // 実質負担額パネル（予算入力がある場合のみ）
     let futanHtml = '';
     if (budgetMan > 0) {
-      const subsidy_pct = Math.min(100, Math.round((totalMaxMan / budgetMan) * 100));
-      const futan_pct   = 100 - subsidy_pct;
-      const futanMan    = jitsuFutan.toLocaleString('ja-JP');
+      const subsidyRatio = Math.min(1, totalMaxMan / budgetMan);
+      const subsidy_pct  = Math.min(100, Math.round(subsidyRatio * 100));
+      const futan_pct    = 100 - subsidy_pct;
+      const futanMan     = jitsuFutan.toLocaleString('ja-JP');
       const budgetManFmt = budgetMan.toLocaleString('ja-JP');
       const totalMaxManFmt = totalMaxMan.toLocaleString('ja-JP');
+
+      // SVG 円グラフ（ドーナツ型）
+      const R = 70, CX = 90, CY = 90, STROKE = 22;
+      const circumference = 2 * Math.PI * R;
+      const subsidyDash = (circumference * subsidyRatio).toFixed(1);
+      const futanDash    = (circumference * (1 - subsidyRatio)).toFixed(1);
+      const subsidyOffset = 0;
+      const futanOffset   = -(circumference * subsidyRatio);
+      const pieSvg = `
+        <svg width="180" height="180" viewBox="0 0 180 180" style="display:block;flex-shrink:0">
+          <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="#f1f5f9" stroke-width="${STROKE}"/>
+          <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="#0a0f1e" stroke-width="${STROKE}"
+            stroke-dasharray="${subsidyDash} ${circumference}"
+            stroke-dashoffset="${circumference / 4}"
+            stroke-linecap="butt" transform="rotate(-90 ${CX} ${CY})"/>
+          <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="#cbd5e1" stroke-width="${STROKE}"
+            stroke-dasharray="${futanDash} ${circumference}"
+            stroke-dashoffset="${-(parseFloat(subsidyDash))}"
+            stroke-linecap="butt" transform="rotate(-90 ${CX} ${CY})"/>
+          <text x="${CX}" y="${CY - 6}" text-anchor="middle" font-size="22" font-weight="900" fill="#0a0f1e" font-family="inherit">${subsidy_pct}%</text>
+          <text x="${CX}" y="${CY + 14}" text-anchor="middle" font-size="11" fill="#64748b" font-family="inherit">助成カバー率</text>
+        </svg>`;
+
       futanHtml = `
       <div class="futan-panel">
-        <div class="futan-panel-title">投資予算 vs 受給可能額</div>
-        <div class="futan-bar-wrap">
-          <div class="futan-bar-subsidy" data-pct="${subsidy_pct}" style="width:0%" title="受給可能額">
-            <span class="futan-bar-label">受給 ${totalMaxManFmt}万円</span>
-          </div>
-          <div class="futan-bar-futan" data-pct="${futan_pct}" style="width:0%" title="実質負担額">
-            <span class="futan-bar-label">負担 ${futanMan}万円</span>
+        <div class="futan-panel-title">実質負担額シミュレーション</div>
+        <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
+          ${pieSvg}
+          <div style="flex:1;min-width:200px;">
+            <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="display:inline-block;width:12px;height:12px;background:#0a0f1e;border-radius:2px;flex-shrink:0"></span>
+                <span style="font-size:12px;color:var(--gray-600);">受給可能額（目安）</span>
+                <span style="margin-left:auto;font-size:17px;font-weight:900;color:#0a0f1e;letter-spacing:-0.02em;">${totalMaxManFmt}<small style="font-size:11px;font-weight:600;color:var(--gray-400);">万円</small></span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="display:inline-block;width:12px;height:12px;background:#cbd5e1;border-radius:2px;flex-shrink:0"></span>
+                <span style="font-size:12px;color:var(--gray-600);">実質負担額</span>
+                <span style="margin-left:auto;font-size:17px;font-weight:900;color:#0a0f1e;letter-spacing:-0.02em;">${futanMan}<small style="font-size:11px;font-weight:600;color:var(--gray-400);">万円</small></span>
+              </div>
+            </div>
+            <div style="border-top:1px solid var(--gray-200);padding-top:10px;display:flex;justify-content:space-between;align-items:baseline;">
+              <span style="font-size:11px;color:var(--gray-400);">投資予算合計</span>
+              <span style="font-size:20px;font-weight:900;color:#0a0f1e;letter-spacing:-0.03em;">${budgetManFmt}<small style="font-size:12px;font-weight:600;color:var(--gray-400);">万円</small></span>
+            </div>
           </div>
         </div>
-        <div class="futan-summary">
-          <div class="futan-cell">
-            <div class="futan-cell-label">投資予算</div>
-            <div class="futan-cell-val">${budgetManFmt}<span>万円</span></div>
-          </div>
-          <div class="futan-cell accent">
-            <div class="futan-cell-label">受給可能額（目安）</div>
-            <div class="futan-cell-val">▲ ${totalMaxManFmt}<span>万円</span></div>
-          </div>
-          <div class="futan-cell total">
-            <div class="futan-cell-label">実質負担額</div>
-            <div class="futan-cell-val">${futanMan}<span>万円</span></div>
-          </div>
-        </div>
-        <div class="futan-note">※ 受給可能額はすべて採択・受給された場合の目安です。実際の受給額は審査結果によります。</div>
+        <div class="futan-note" style="margin-top:12px;">※ 受給可能額はすべて採択・受給された場合の目安です。実際の受給額は審査結果によります。</div>
       </div>`;
     }
 

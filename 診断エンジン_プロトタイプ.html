@@ -1407,6 +1407,43 @@
   }
   .chart-total-amount small { font-size: 13px; font-weight: 700; }
 
+  /* ── サマリーチャート（円グラフ＋棒グラフ） ── */
+  .summary-charts {
+    background: white; border: 1px solid var(--gray-200);
+    border-radius: var(--radius); margin-bottom: 16px; overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .sc-header {
+    background: var(--gray-50); border-bottom: 1px solid var(--gray-200);
+    padding: 14px 20px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  }
+  .sc-title { font-size: 13px; font-weight: 800; color: var(--gray-900); display: flex; align-items: center; gap: 8px; }
+  .sc-title::before { content: ''; display: block; width: 3px; height: 14px; background: #0a0f1e; border-radius: 2px; }
+  .sc-note { font-size: 11px; color: var(--gray-400); }
+  .sc-body { display: grid; grid-template-columns: 210px 1fr; gap: 0; }
+  .sc-pie-area {
+    padding: 20px 16px; border-right: 1px solid var(--gray-200);
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+  }
+  .sc-pie-legend { width: 100%; display: flex; flex-direction: column; gap: 6px; }
+  .sc-legend-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--gray-700); line-height: 1.4; }
+  .sc-legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .sc-legend-row strong { font-size: 14px; font-weight: 800; color: var(--gray-900); display: block; }
+  .sc-legend-total { margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--gray-200); font-size: 12px; color: var(--gray-600); font-weight: 600; }
+  .sc-bar-area { padding: 18px 20px; }
+  .sc-bar-title { font-size: 11px; font-weight: 700; color: var(--gray-400); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 14px; }
+  .sc-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .sc-bar-label { font-size: 12px; font-weight: 600; color: var(--gray-700); width: 100px; flex-shrink: 0; }
+  .sc-bar-track { flex: 1; height: 14px; background: var(--gray-100); border-radius: 2px; overflow: hidden; }
+  .sc-bar-fill { height: 100%; border-radius: 2px; transition: width 0.5s ease; }
+  .sc-bar-amt { font-size: 12px; font-weight: 700; color: var(--gray-900); white-space: nowrap; width: 80px; text-align: right; flex-shrink: 0; }
+  @media (max-width: 640px) {
+    .sc-body { grid-template-columns: 1fr; }
+    .sc-pie-area { border-right: none; border-bottom: 1px solid var(--gray-200); }
+    .sc-bar-label { width: 80px; font-size: 11px; }
+    .sc-bar-amt { width: 66px; font-size: 11px; }
+  }
+
   /* ── 実質負担額パネル ── */
   .futan-panel {
     background: white; border: 1px solid var(--gray-200);
@@ -5333,6 +5370,102 @@ function showLoading(matchCount, callback) {
   runStep();
 }
 
+// ── 診断結果サマリーチャート（円グラフ＋棒グラフ） ──────────────
+function buildSummaryCharts(scored, budgetMan) {
+  const total = scored.reduce((s, x) => s + (x.max_amount || 0), 0);
+  if (total === 0) return '';
+
+  const totalMan    = Math.floor(total / 10000);
+  // 手出しは：予算入力あれば (予算-受給)、なければ受給額の30%想定
+  const selfPayMan  = budgetMan > 0 ? Math.max(0, budgetMan - totalMan) : Math.round(totalMan * 0.3);
+  const totalCostMan = totalMan + selfPayMan;
+
+  const fmt = (n) => n >= 10000 ? (n / 10000).toFixed(1).replace(/\.0$/, '') + '億円' : n.toLocaleString('ja-JP') + '万円';
+
+  // カテゴリ別集計
+  const CATS = [
+    { key: '人材・雇用',   groups: ['employ','shogaisha'],  color: '#0a0f1e' },
+    { key: 'キャリアアップ', groups: ['hr','wage'],          color: '#334155' },
+    { key: '設備投資',     groups: ['invest'],              color: '#475569' },
+    { key: 'IT・デジタル', groups: ['it'],                  color: '#64748b' },
+    { key: 'その他',       groups: ['hanbai','other'],      color: '#94a3b8' },
+  ];
+  const catTotals = {};
+  for (const s of scored) {
+    const grpKey = (getCategory(s.id).key || 'other');
+    const cat = CATS.find(c => c.groups.includes(grpKey)) || CATS[CATS.length - 1];
+    catTotals[cat.key] = (catTotals[cat.key] || 0) + Math.floor((s.max_amount || 0) / 10000);
+  }
+
+  // 円グラフ（ドーナツ）
+  const pct = Math.min(100, Math.round((totalMan / totalCostMan) * 100));
+  const cx = 75, cy = 75, R = 60, ri = 34;
+  const subsidyAngle = (totalMan / totalCostMan) * 360;
+  function polarXY(cx, cy, r, deg) {
+    const rad = (deg - 90) * Math.PI / 180;
+    return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)];
+  }
+  function donutSlice(startDeg, endDeg, color) {
+    const d = endDeg - startDeg;
+    if (d <= 0) return '';
+    const eff = Math.min(d, 359.99);
+    const [ox,oy]   = polarXY(cx,cy,R,startDeg);
+    const [ix,iy]   = polarXY(cx,cy,ri,startDeg);
+    const [ox2,oy2] = polarXY(cx,cy,R,startDeg+eff);
+    const [ix2,iy2] = polarXY(cx,cy,ri,startDeg+eff);
+    const lg = eff > 180 ? 1 : 0;
+    return `<path d="M${ix.toFixed(1)},${iy.toFixed(1)} L${ox.toFixed(1)},${oy.toFixed(1)} A${R},${R},0,${lg},1,${ox2.toFixed(1)},${oy2.toFixed(1)} L${ix2.toFixed(1)},${iy2.toFixed(1)} A${ri},${ri},0,${lg},0,${ix.toFixed(1)},${iy.toFixed(1)} Z" fill="${color}"/>`;
+  }
+  const pieSVG = `<svg width="150" height="150" viewBox="0 0 150 150">
+    ${donutSlice(0, subsidyAngle, '#0a0f1e')}
+    ${donutSlice(subsidyAngle, 360, '#e2e8f0')}
+    <text x="${cx}" y="${cy-7}" text-anchor="middle" font-size="20" font-weight="900" fill="#0a0f1e" font-family="inherit">${pct}%</text>
+    <text x="${cx}" y="${cy+11}" text-anchor="middle" font-size="10" fill="#64748b" font-family="inherit">助成カバー率</text>
+  </svg>`;
+
+  // 棒グラフ
+  const activeCats = CATS.filter(c => catTotals[c.key] > 0);
+  const maxAmt = Math.max(...activeCats.map(c => catTotals[c.key] || 0));
+  const barsHtml = activeCats.map(c => {
+    const pctBar = Math.round(((catTotals[c.key] || 0) / maxAmt) * 100);
+    return `<div class="sc-bar-row">
+      <div class="sc-bar-label">${c.key}</div>
+      <div class="sc-bar-track"><div class="sc-bar-fill" style="width:0%;background:${c.color}" data-w="${pctBar}"></div></div>
+      <div class="sc-bar-amt">${(catTotals[c.key]||0).toLocaleString()}万円</div>
+    </div>`;
+  }).join('');
+
+  const noteText = budgetMan > 0 ? '投資予算入力値をもとに算出' : '自己負担は受給額の30%と仮定した試算';
+
+  return `
+  <div class="summary-charts">
+    <div class="sc-header">
+      <span class="sc-title">受給シミュレーション</span>
+      <span class="sc-note">※${noteText}</span>
+    </div>
+    <div class="sc-body">
+      <div class="sc-pie-area">
+        ${pieSVG}
+        <div class="sc-pie-legend">
+          <div class="sc-legend-row">
+            <span class="sc-legend-dot" style="background:#0a0f1e"></span>
+            <span>受給可能額<strong>${totalMan.toLocaleString()}万円</strong></span>
+          </div>
+          <div class="sc-legend-row">
+            <span class="sc-legend-dot" style="background:#e2e8f0;border:1px solid #cbd5e1"></span>
+            <span>実質負担（目安）<strong>${selfPayMan.toLocaleString()}万円</strong></span>
+          </div>
+          <div class="sc-legend-total">総コスト想定　${totalCostMan.toLocaleString()}万円</div>
+        </div>
+      </div>
+      <div class="sc-bar-area">
+        <div class="sc-bar-title">カテゴリ別 最大受給額</div>
+        ${barsHtml}
+      </div>
+    </div>
+  </div>`;
+}
+
 function renderResults(scored, combos, conflicts, meta) {
   document.getElementById('form-area').style.display = 'none';
   const el = document.getElementById('results');
@@ -5459,7 +5592,12 @@ function renderResults(scored, combos, conflicts, meta) {
   `;
 
   // ══════════════════════════════════════════════════════
-  // ② 360万円コンビ強調パネル
+  // ② サマリーチャート（常時表示）
+  // ══════════════════════════════════════════════════════
+  html += buildSummaryCharts(scored, budget);
+
+  // ══════════════════════════════════════════════════════
+  // ③ 360万円コンビ強調パネル
   // ══════════════════════════════════════════════════════
   const hasTokkaikin = scored.some(s => s.id === 'tokutei-shushokukonnansha');
   const hasCareerUpShogaisha = scored.some(s => s.id === 'career-up-shogaisha-seishainuka');
@@ -5895,6 +6033,9 @@ function renderResults(scored, combos, conflicts, meta) {
   function animateBars() {
     el.querySelectorAll('.chart-row-bar[data-pct], .futan-bar-subsidy[data-pct], .futan-bar-futan[data-pct]').forEach(bar => {
       bar.style.width = bar.dataset.pct + '%';
+    });
+    el.querySelectorAll('.sc-bar-fill[data-w]').forEach(bar => {
+      bar.style.width = bar.dataset.w + '%';
     });
   }
   requestAnimationFrame(() => requestAnimationFrame(animateBars));

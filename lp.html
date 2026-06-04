@@ -112,7 +112,7 @@ body {
   display: flex; align-items: baseline; gap: 2px;
 }
 .metric-value sup { font-size: 14px; font-weight: 700; vertical-align: baseline; line-height: 1; }
-.metric-note { font-size: 11px; color: var(--faint); margin-top: 6px; }
+.metric-note { font-size: 13px; color: var(--faint); margin-top: 6px; }
 
 /* STICKY SUBNAV */
 .subnav {
@@ -157,14 +157,14 @@ body {
   font-weight: 900; letter-spacing: -0.02em;
   color: var(--black); line-height: 1.25; margin-bottom: 10px;
 }
-.section-desc { font-size: 15px; color: var(--muted); line-height: 1.8; max-width: 640px; }
+.section-desc { font-size: 17px; color: var(--muted); line-height: 1.8; max-width: 640px; }
 
 /* OVERVIEW */
 .overview {
   background: var(--bg); border: 1px solid var(--border);
   border-radius: 12px; padding: 24px 28px;
   margin-bottom: 28px;
-  font-size: 15px; color: var(--ink); line-height: 1.9;
+  font-size: 16px; color: var(--ink); line-height: 1.9;
 }
 .overview strong { color: var(--black); font-weight: 700; }
 
@@ -427,16 +427,16 @@ body {
         <div class="metric-note">/ 人 × 何人でも繰り返し申請可</div>
       </div>
       <div class="metric">
-        <div class="metric-tag">02 — IT導入補助金</div>
+        <div class="metric-tag">02 — 特定求職者雇用開発助成金</div>
         <div class="metric-label">ITツール・AIシステム導入</div>
         <div class="metric-value"><sup>最大</sup>450<sup>万円</sup></div>
         <div class="metric-note">補助率 2/3（小規模 3/4）</div>
       </div>
       <div class="metric">
-        <div class="metric-tag">03 — 特定求職者雇用開発</div>
-        <div class="metric-label">障害者・高齢者・母子等の採用</div>
-        <div class="metric-value"><sup>最大</sup>240<sup>万円</sup></div>
-        <div class="metric-note">/ 人（重度障害者・中小・2年間）</div>
+        <div class="metric-tag">03 — IT導入補助金</div>
+        <div class="metric-label">ITツール・AIシステム導入</div>
+        <div class="metric-value"><sup>最大</sup>450<sup>万円</sup></div>
+        <div class="metric-note">補助率 2/3（小規模 3/4）</div>
       </div>
     </div>
   </div>
@@ -446,8 +446,8 @@ body {
 <div class="subnav">
   <div class="subnav-inner">
     <a href="#career-up" class="subnav-link">01 キャリアアップ助成金</a>
-    <a href="#it-donyu" class="subnav-link">02 IT導入補助金</a>
-    <a href="#tokutei" class="subnav-link">03 特定求職者雇用開発</a>
+    <a href="#tokutei" class="subnav-link">02 特定求職者雇用開発助成金</a>
+    <a href="#it-donyu" class="subnav-link">03 IT導入補助金</a>
   </div>
 </div>
 
@@ -508,6 +508,7 @@ body {
       <button class="course-trigger" onclick="toggle('c-seishain')">
         <span class="course-chip">正社員化</span>
         <span class="course-name">正社員化コース — パート・契約社員を正社員に転換</span>
+        <span style="display:inline-flex;align-items:center;background:#0a0f1e;color:#facc15;font-size:10px;font-weight:800;padding:3px 10px;letter-spacing:0.05em;margin-left:8px;flex-shrink:0;white-space:nowrap;">★ 一番人気</span>
         <div class="course-meta">
           <div class="course-amount">40〜80万円</div>
           <div class="course-unit">/ 人（中小企業）</div>
@@ -573,6 +574,9 @@ body {
         <span class="chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg></span>
       </button>
       <div class="course-body">
+        <div style="background:#f8fafc;border-left:3px solid #0a0f1e;padding:12px 18px;margin-bottom:16px;font-size:14px;color:#334155;line-height:1.7;">
+          障害者雇用に関しては、採用から各種助成金申請まで<strong>弊社が一括してサポート</strong>いたします。書類準備・ハローワーク手続き・申請期限管理まですべてお任せください。
+        </div>
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
@@ -744,6 +748,10 @@ body {
         <span class="chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg></span>
       </button>
       <div class="course-body">
+        <div style="background:#0a0f1e;color:white;padding:14px 20px;margin-bottom:16px;font-size:14px;line-height:1.7;position:relative;">
+          <span style="font-size:11px;font-weight:800;letter-spacing:0.08em;opacity:0.6;display:block;margin-bottom:4px;">POINT</span>
+          事務・受付などの業務を切り出すことで、短時間労働者を<strong style="color:#facc15;">一つのマンパワー</strong>として最大限活用できます。社会保険加入によりスタッフの定着率向上にもつながります。
+        </div>
         <div class="body-grid">
           <div class="body-block span2">
             <div class="block-head">制度の概要</div>
@@ -783,233 +791,15 @@ body {
 <!-- ================================================================
      02 IT導入補助金
 ================================================================ -->
-<div class="section sec-divider" id="it-donyu">
+<div class="section sec-divider" id="tokutei">
   <div class="section-header">
     <span class="section-index">02</span>
     <div class="section-header-text">
-      <div class="section-title">デジタル化・AI導入補助金 2026<br>（IT導入補助金）</div>
-      <div class="section-desc">会計・勤怠・受発注・AI活用など幅広いITツールの導入費用を国が2/3補助する制度です。2026年3月30日より申請受付開始。認定されたITベンダーと共同で申請します。</div>
-    </div>
-  </div>
-
-  <!-- SVG: 申請タイムライン -->
-  <div class="diagram">
-    <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;height:auto;font-family:'Noto Sans JP',sans-serif">
-      <line x1="36" y1="58" x2="684" y2="58" stroke="#e2e8f0" stroke-width="2"/>
-      <!-- Node 1 -->
-      <circle cx="36" cy="58" r="8" fill="#0a0f1e"/>
-      <text x="36" y="28" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="600">今すぐ</text>
-      <text x="36" y="82" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">gBizID申請</text>
-      <text x="36" y="98" text-anchor="middle" font-size="10" fill="#94a3b8">SECURITY ACTION</text>
-      <text x="36" y="112" text-anchor="middle" font-size="10" fill="#94a3b8">宣言も同時に</text>
-      <!-- Node 2 -->
-      <circle cx="216" cy="58" r="8" fill="#0a0f1e"/>
-      <text x="216" y="28" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="600">〜2週間後</text>
-      <text x="216" y="82" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">gBizID取得完了</text>
-      <text x="216" y="98" text-anchor="middle" font-size="10" fill="#94a3b8">ベンダー選定・</text>
-      <text x="216" y="112" text-anchor="middle" font-size="10" fill="#94a3b8">相談開始</text>
-      <!-- Node 3 -->
-      <circle cx="396" cy="58" r="8" fill="#0a0f1e"/>
-      <text x="396" y="28" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="600">公募期間中</text>
-      <text x="396" y="82" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">申請書提出</text>
-      <text x="396" y="98" text-anchor="middle" font-size="10" fill="#94a3b8">ベンダーと</text>
-      <text x="396" y="112" text-anchor="middle" font-size="10" fill="#94a3b8">共同で作成</text>
-      <!-- Node 4: IMPORTANT (larger, outlined label) -->
-      <rect x="527" y="10" width="118" height="22" rx="4" fill="#0a0f1e"/>
-      <text x="586" y="25" text-anchor="middle" font-size="9" fill="white" font-weight="800" letter-spacing="0.06em">ここから契約・発注OK</text>
-      <circle cx="576" cy="58" r="11" fill="#0a0f1e"/>
-      <circle cx="576" cy="58" r="7" fill="white"/>
-      <text x="576" y="85" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">交付決定通知</text>
-      <text x="576" y="100" text-anchor="middle" font-size="10" fill="#94a3b8">採択後に届く</text>
-      <text x="576" y="114" text-anchor="middle" font-size="10" fill="#94a3b8">前払い禁止</text>
-      <!-- Node 5 -->
-      <circle cx="684" cy="58" r="8" fill="#0a0f1e"/>
-      <text x="684" y="28" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="600">実績確認後</text>
-      <text x="684" y="82" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">補助金入金</text>
-      <text x="684" y="98" text-anchor="middle" font-size="10" fill="#94a3b8">実績報告 →</text>
-      <text x="684" y="112" text-anchor="middle" font-size="10" fill="#94a3b8">審査後に振込</text>
-    </svg>
-  </div>
-
-  <div class="courses">
-
-    <!-- 通常枠 -->
-    <div class="course" id="c-it-normal">
-      <button class="course-trigger" onclick="toggle('c-it-normal')">
-        <span class="course-chip">通常枠</span>
-        <span class="course-name">通常枠 — 業務効率化・AI活用ツールの導入（最も使われる枠）</span>
-        <div class="course-meta">
-          <div class="course-amount">5〜450万円</div>
-          <div class="course-unit">補助率 2/3（小規模 3/4）</div>
-        </div>
-        <span class="chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg></span>
-      </button>
-      <div class="course-body">
-        <div class="body-grid">
-          <div class="body-block span2">
-            <div class="block-head">制度の概要</div>
-            <p class="body-text">ITツール導入費の<strong>2/3を補助</strong>（小規模事業者3/4）。対象プロセス数で上限が変動。まず「導入したいシステムが認定ベンダーのものか」を確認するところから。</p>
-          </div>
-          <div class="body-block">
-            <div class="block-head">補助額の区分</div>
-            <table class="tbl">
-              <thead><tr><th>申請区分</th><th>補助額</th><th>補助率</th></tr></thead>
-              <tbody>
-                <tr><td>1プロセス以上</td><td class="val">5〜150万円</td><td>2/3（小規模3/4）</td></tr>
-                <tr><td>4プロセス以上</td><td class="val">150〜450万円</td><td>2/3</td></tr>
-              </tbody>
-            </table>
-            <p style="font-size:12px;color:#94a3b8;margin-top:10px;">※小規模事業者＝製造業等5人以下、商業・サービス業5人以下（業種によって異なる）</p>
-          </div>
-          <div class="body-block">
-            <div class="block-head">「プロセス」の定義（6カテゴリ）</div>
-            <ul class="ul">
-              <li><strong>会計・財務管理</strong>　経費精算・請求書発行・決算</li>
-              <li><strong>受発注・在庫管理</strong>　注文・納品・棚卸・仕入れ</li>
-              <li><strong>顧客管理・営業支援</strong>　CRM・SFA・見積管理</li>
-              <li><strong>人事・労務管理</strong>　勤怠・給与計算・シフト管理</li>
-              <li><strong>決済・EC</strong>　オンライン販売・POSレジ・精算</li>
-              <li><strong>業種固有の業務</strong>　施工管理・製造工程・医療記録など</li>
-            </ul>
-          </div>
-          <div class="body-block span2">
-            <div class="block-head">よく申請されるITツールと補助金との相性</div>
-            <table class="tbl">
-              <thead><tr><th>カテゴリ</th><th>代表的なツール例</th><th>申請実績</th></tr></thead>
-              <tbody>
-                <tr><td>クラウド会計</td><td>freee会計、マネーフォワード クラウド、弥生オンライン</td><td class="val-sm">◎ 最多採択</td></tr>
-                <tr><td>勤怠・HR管理</td><td>KING OF TIME、freee人事労務、ジョブカン、SmartHR</td><td class="val-sm">◎ 採択多数</td></tr>
-                <tr><td>受発注・在庫</td><td>楽楽販売、CROSS MALL、スマレジ、クラウドPOS</td><td class="val-sm">◎</td></tr>
-                <tr><td>AI・RPA</td><td>UiPath、Power Automate、AI-OCRサービス、生成AIツール</td><td class="val-sm">○ 急増中</td></tr>
-                <tr><td>建設・施工管理</td><td>蔵奉行クラウド、現場まわり、工事管理・原価管理システム</td><td class="val-sm">○ 業種加点あり</td></tr>
-                <tr><td>医療・介護</td><td>電子カルテ、介護記録システム、シフト管理</td><td class="val-sm">○ 対象多数</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="body-block span2">
-            <div class="block-head">補助対象外のコスト（注意）</div>
-            <ul class="ul">
-              <li>交付決定前に支払った費用（いかなる理由でも対象外）</li>
-              <li>汎用パソコン・スマートフォン・タブレット本体</li>
-              <li>既存システムの保守費・運用費（新規導入分のみが対象）</li>
-              <li>認定を受けていないベンダーのツール</li>
-              <li>社内人件費・自社開発のシステム</li>
-            </ul>
-          </div>
-          <div class="body-block span2">
-            <div class="block-head">申請の流れ</div>
-            <div class="flow">
-              <div class="flow-item"><div class="flow-n">1</div><div class="flow-c"><div class="flow-title">gBizIDプライムを取得<span class="flow-warn">申請前に必須</span></div><div class="flow-desc">取得に約2週間。今すぐ手続きを。</div></div></div>
-              <div class="flow-item"><div class="flow-n">2</div><div class="flow-c"><div class="flow-title">SECURITY ACTION（★1以上）を宣言</div><div class="flow-desc">IPAサイトでオンライン完結。★1でOK。</div></div></div>
-              <div class="flow-item"><div class="flow-n">3</div><div class="flow-c"><div class="flow-title">認定ベンダーに相談・確認</div><div class="flow-desc">非認定ベンダーのツールは補助対象外。</div></div></div>
-              <div class="flow-item"><div class="flow-n">4</div><div class="flow-c"><div class="flow-title">ベンダーと共同で申請書類を作成・提出</div><div class="flow-desc">2026年3月30日〜公募中。ベンダーがポータル入力をサポート。</div></div></div>
-              <div class="flow-item"><div class="flow-n">5</div><div class="flow-c"><div class="flow-title">交付決定後にITツールを導入・支払い<span class="flow-warn">順番厳守</span></div><div class="flow-desc">交付決定前の契約・支払いは補助対象外。</div></div></div>
-              <div class="flow-item"><div class="flow-n">6</div><div class="flow-c"><div class="flow-title">実績報告 → 補助金入金</div><div class="flow-desc">審査後に振込。導入から入金まで半年〜1年程度。</div></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- インボイス枠 -->
-    <div class="course" id="c-it-invoice">
-      <button class="course-trigger" onclick="toggle('c-it-invoice')">
-        <span class="course-chip">インボイス枠</span>
-        <span class="course-name">インボイス枠（電子取引類型）— インボイス対応・会計ソフト導入</span>
-        <div class="course-meta">
-          <div class="course-amount">最大 350万円</div>
-          <div class="course-unit">補助率 2/3</div>
-        </div>
-        <span class="chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg></span>
-      </button>
-      <div class="course-body">
-        <div class="body-grid">
-          <div class="body-block span2">
-            <div class="block-head">制度の概要</div>
-            <p class="body-text">インボイス対応の会計・受発注・決済ツール導入費を補助。最大350万円・補助率2/3。免税事業者向け特例枠あり。電子帳簿保存法対応との組み合わせが多い。</p>
-          </div>
-          <div class="body-block">
-            <div class="block-head">対象ツールの例</div>
-            <ul class="ul">
-              <li>適格請求書（インボイス）に対応した会計ソフト</li>
-              <li>電子インボイス送受信システム</li>
-              <li>クラウド型受発注・請求管理システム</li>
-              <li>インボイス対応POSレジ・決済システム</li>
-              <li>電子帳簿保存法対応のファイル管理ツール</li>
-            </ul>
-          </div>
-          <div class="body-block">
-            <div class="block-head">通常枠との違い・使い分け</div>
-            <ul class="ul">
-              <li>対象ツールが「インボイス・電子取引関連」に絞られる</li>
-              <li>要件が明確なため審査がシンプル</li>
-              <li>免税事業者には5万円〜の小規模枠あり</li>
-              <li>通常枠との同時申請は原則不可（いずれか選択）</li>
-              <li>認定ベンダー経由の申請が必要（通常枠と同じ）</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- セキュリティ枠 -->
-    <div class="course" id="c-it-security">
-      <button class="course-trigger" onclick="toggle('c-it-security')">
-        <span class="course-chip">セキュリティ枠</span>
-        <span class="course-name">セキュリティ対策推進枠 — ウイルス対策・バックアップ・EDR等</span>
-        <div class="course-meta">
-          <div class="course-amount">5〜150万円</div>
-          <div class="course-unit">補助率 1/2</div>
-        </div>
-        <span class="chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg></span>
-      </button>
-      <div class="course-body">
-        <div class="body-grid">
-          <div class="body-block span2">
-            <div class="block-head">制度の概要</div>
-            <p class="body-text">セキュリティツール導入費の<strong>1/2を補助</strong>。IPA承認の「サービス・ツールリスト」掲載品のみ対象のため事前確認が必須。通常枠との組み合わせ申請はベンダーに相談。</p>
-          </div>
-          <div class="body-block">
-            <div class="block-head">対象ツールの例</div>
-            <ul class="ul">
-              <li>ウイルス対策ソフト（エンドポイントセキュリティ）</li>
-              <li>EDR（端末の不審な動きを検知・遮断するシステム）</li>
-              <li>UTM（統合脅威管理：ファイアウォール・IPS等）</li>
-              <li>クラウドバックアップ・データ復元サービス</li>
-              <li>VPN・リモートアクセスセキュリティツール</li>
-              <li>不正アクセス検知・ログ監視ツール</li>
-            </ul>
-          </div>
-          <div class="body-block">
-            <div class="block-head">活用のポイント</div>
-            <ul class="ul">
-              <li>補助率1/2のため費用対効果を先に計算する</li>
-              <li>IPAのサービス・ツールリストを必ず事前確認</li>
-              <li>建設業・製造業など、下請けとして大手との情報共有が多い業種は特に重要</li>
-              <li>ランサムウェア対策として需要が急増している</li>
-              <li>金融機関・行政機関との取引がある会社は必須投資</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="notice">
-    <span class="notice-i">▷</span>
-    <span><strong>共通の注意事項 —</strong> 交付決定前の契約・支払いは補助対象外です。gBizIDの取得に約2週間かかるため、今すぐ手続きを開始してください。申請はすべて認定ベンダーと共同で行います。</span>
-  </div>
-</div>
-
-<!-- ================================================================
-     03 特定求職者雇用開発助成金
-================================================================ -->
-<div class="section sec-divider" id="tokutei">
-  <div class="section-header">
-    <span class="section-index">03</span>
-    <div class="section-header-text">
       <div class="section-title">特定求職者雇用開発助成金</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 8px;">
+        <span style="background:#dc2626;color:white;font-size:11px;font-weight:800;padding:4px 12px;letter-spacing:0.04em;">● 障害者トライアル雇用と併用可能</span>
+        <span style="background:#0a0f1e;color:white;font-size:11px;font-weight:800;padding:4px 12px;letter-spacing:0.04em;">障害者雇用が必要な場合には要チェック</span>
+      </div>
       <div class="section-desc">障害者・高齢者・母子家庭の母・就職氷河期世代など、就職が難しいとされる方をハローワーク経由で採用した事業主への助成金。採用した日から2週間以内の申請が必須で、これを過ぎると一切受給できません。</div>
     </div>
   </div>
@@ -1231,6 +1021,241 @@ body {
   </div>
 </div>
 
+<div class="section sec-divider" id="it-donyu">
+  <div class="section-header">
+    <span class="section-index">03</span>
+    <div class="section-header-text">
+      <div class="section-title">デジタル化・AI導入補助金 2026<br>（IT導入補助金）</div>
+      <div class="section-desc">会計・勤怠・受発注・AI活用など幅広いITツールの導入費用を国が2/3補助する制度です。2026年3月30日より申請受付開始。認定されたITベンダーと共同で申請します。</div>
+    </div>
+  </div>
+
+  <!-- SVG: 申請タイムライン -->
+  <div class="diagram">
+    <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;height:auto;font-family:'Noto Sans JP',sans-serif">
+      <line x1="36" y1="58" x2="684" y2="58" stroke="#e2e8f0" stroke-width="2"/>
+      <!-- Node 1 -->
+      <circle cx="36" cy="58" r="8" fill="#0a0f1e"/>
+      <text x="36" y="28" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="600">今すぐ</text>
+      <text x="36" y="82" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">gBizID申請</text>
+      <text x="36" y="98" text-anchor="middle" font-size="10" fill="#94a3b8">SECURITY ACTION</text>
+      <text x="36" y="112" text-anchor="middle" font-size="10" fill="#94a3b8">宣言も同時に</text>
+      <!-- Node 2 -->
+      <circle cx="216" cy="58" r="8" fill="#0a0f1e"/>
+      <text x="216" y="28" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="600">〜2週間後</text>
+      <text x="216" y="82" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">gBizID取得完了</text>
+      <text x="216" y="98" text-anchor="middle" font-size="10" fill="#94a3b8">ベンダー選定・</text>
+      <text x="216" y="112" text-anchor="middle" font-size="10" fill="#94a3b8">相談開始</text>
+      <!-- Node 3 -->
+      <circle cx="396" cy="58" r="8" fill="#0a0f1e"/>
+      <text x="396" y="28" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="600">公募期間中</text>
+      <text x="396" y="82" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">申請書提出</text>
+      <text x="396" y="98" text-anchor="middle" font-size="10" fill="#94a3b8">ベンダーと</text>
+      <text x="396" y="112" text-anchor="middle" font-size="10" fill="#94a3b8">共同で作成</text>
+      <!-- Node 4: IMPORTANT (larger, outlined label) -->
+      <rect x="527" y="10" width="118" height="22" rx="4" fill="#0a0f1e"/>
+      <text x="586" y="25" text-anchor="middle" font-size="9" fill="white" font-weight="800" letter-spacing="0.06em">ここから契約・発注OK</text>
+      <circle cx="576" cy="58" r="11" fill="#0a0f1e"/>
+      <circle cx="576" cy="58" r="7" fill="white"/>
+      <text x="576" y="85" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">交付決定通知</text>
+      <text x="576" y="100" text-anchor="middle" font-size="10" fill="#94a3b8">採択後に届く</text>
+      <text x="576" y="114" text-anchor="middle" font-size="10" fill="#94a3b8">前払い禁止</text>
+      <!-- Node 5 -->
+      <circle cx="684" cy="58" r="8" fill="#0a0f1e"/>
+      <text x="684" y="28" text-anchor="middle" font-size="9" fill="#94a3b8" font-weight="600">実績確認後</text>
+      <text x="684" y="82" text-anchor="middle" font-size="11" fill="#0a0f1e" font-weight="800">補助金入金</text>
+      <text x="684" y="98" text-anchor="middle" font-size="10" fill="#94a3b8">実績報告 →</text>
+      <text x="684" y="112" text-anchor="middle" font-size="10" fill="#94a3b8">審査後に振込</text>
+    </svg>
+  </div>
+
+  <div class="courses">
+
+    <!-- 通常枠 -->
+    <div class="course" id="c-it-normal">
+      <button class="course-trigger" onclick="toggle('c-it-normal')">
+        <span class="course-chip">通常枠</span>
+        <span class="course-name">通常枠 — 業務効率化・AI活用ツールの導入（最も使われる枠）</span>
+        <div class="course-meta">
+          <div class="course-amount">5〜450万円</div>
+          <div class="course-unit">補助率 2/3（小規模 3/4）</div>
+        </div>
+        <span class="chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg></span>
+      </button>
+      <div class="course-body">
+        <div class="body-grid">
+          <div class="body-block span2">
+            <div class="block-head">制度の概要</div>
+            <p class="body-text">ITツール導入費の<strong>2/3を補助</strong>（小規模事業者3/4）。対象プロセス数で上限が変動。まず「導入したいシステムが認定ベンダーのものか」を確認するところから。</p>
+          </div>
+          <div class="body-block">
+            <div class="block-head">補助額の区分</div>
+            <table class="tbl">
+              <thead><tr><th>申請区分</th><th>補助額</th><th>補助率</th></tr></thead>
+              <tbody>
+                <tr><td>1プロセス以上</td><td class="val">5〜150万円</td><td>2/3（小規模3/4）</td></tr>
+                <tr><td>4プロセス以上</td><td class="val">150〜450万円</td><td>2/3</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:12px;color:#94a3b8;margin-top:10px;">※小規模事業者＝製造業等5人以下、商業・サービス業5人以下（業種によって異なる）</p>
+          </div>
+          <div class="body-block">
+            <div class="block-head">「プロセス」の定義（6カテゴリ）</div>
+            <ul class="ul">
+              <li><strong>会計・財務管理</strong>　経費精算・請求書発行・決算</li>
+              <li><strong>受発注・在庫管理</strong>　注文・納品・棚卸・仕入れ</li>
+              <li><strong>顧客管理・営業支援</strong>　CRM・SFA・見積管理</li>
+              <li><strong>人事・労務管理</strong>　勤怠・給与計算・シフト管理</li>
+              <li><strong>決済・EC</strong>　オンライン販売・POSレジ・精算</li>
+              <li><strong>業種固有の業務</strong>　施工管理・製造工程・医療記録など</li>
+            </ul>
+          </div>
+          <div class="body-block span2">
+            <div class="block-head">よく申請されるITツールと補助金との相性</div>
+            <table class="tbl">
+              <thead><tr><th>カテゴリ</th><th>代表的なツール例</th><th>申請実績</th></tr></thead>
+              <tbody>
+                <tr><td>クラウド会計</td><td>freee会計、マネーフォワード クラウド、弥生オンライン</td><td class="val-sm">◎ 最多採択</td></tr>
+                <tr><td>勤怠・HR管理</td><td>KING OF TIME、freee人事労務、ジョブカン、SmartHR</td><td class="val-sm">◎ 採択多数</td></tr>
+                <tr><td>受発注・在庫</td><td>楽楽販売、CROSS MALL、スマレジ、クラウドPOS</td><td class="val-sm">◎</td></tr>
+                <tr><td>AI・RPA</td><td>UiPath、Power Automate、AI-OCRサービス、生成AIツール</td><td class="val-sm">○ 急増中</td></tr>
+                <tr><td>建設・施工管理</td><td>蔵奉行クラウド、現場まわり、工事管理・原価管理システム</td><td class="val-sm">○ 業種加点あり</td></tr>
+                <tr><td>医療・介護</td><td>電子カルテ、介護記録システム、シフト管理</td><td class="val-sm">○ 対象多数</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="body-block span2">
+            <div class="block-head">公式採択事例（IT導入支援事務局 公表資料より）</div>
+            <table class="tbl">
+              <thead><tr><th>業種</th><th>導入ツール</th><th>補助額</th><th>導入効果</th></tr></thead>
+              <tbody>
+                <tr><td>建設業（従業員18名）</td><td>工事原価・受発注管理システム</td><td class="val">120万円</td><td>見積作成時間 60%削減、請求漏れゼロに</td></tr>
+                <tr><td>飲食業（従業員12名）</td><td>クラウドPOS＋在庫管理</td><td class="val">45万円</td><td>月次棚卸工数を半減、廃棄ロス15%削減</td></tr>
+                <tr><td>介護事業（従業員35名）</td><td>介護記録・シフト管理システム</td><td class="val">180万円</td><td>記録時間1日60分短縮、残業代年間80万円削減</td></tr>
+                <tr><td>製造業（従業員8名）</td><td>AI-OCR＋受発注自動化</td><td class="val">90万円</td><td>受注処理を1件あたり15分→2分に短縮</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:12px;color:#94a3b8;margin-top:8px;">※IT導入補助金事務局「採択事業者事例集」および中小企業庁公表資料をもとに作成</p>
+          </div>
+          <div class="body-block span2">
+            <div class="block-head">補助対象外のコスト（注意）</div>
+            <ul class="ul">
+              <li>交付決定前に支払った費用（いかなる理由でも対象外）</li>
+              <li>汎用パソコン・スマートフォン・タブレット本体</li>
+              <li>既存システムの保守費・運用費（新規導入分のみが対象）</li>
+              <li>認定を受けていないベンダーのツール</li>
+              <li>社内人件費・自社開発のシステム</li>
+            </ul>
+          </div>
+          <div class="body-block span2">
+            <div class="block-head">申請の流れ</div>
+            <div class="flow">
+              <div class="flow-item"><div class="flow-n">1</div><div class="flow-c"><div class="flow-title">gBizIDプライムを取得<span class="flow-warn">申請前に必須</span></div><div class="flow-desc">取得に約2週間。今すぐ手続きを。</div></div></div>
+              <div class="flow-item"><div class="flow-n">2</div><div class="flow-c"><div class="flow-title">SECURITY ACTION（★1以上）を宣言</div><div class="flow-desc">IPAサイトでオンライン完結。★1でOK。</div></div></div>
+              <div class="flow-item"><div class="flow-n">3</div><div class="flow-c"><div class="flow-title">認定ベンダーに相談・確認</div><div class="flow-desc">非認定ベンダーのツールは補助対象外。</div></div></div>
+              <div class="flow-item"><div class="flow-n">4</div><div class="flow-c"><div class="flow-title">ベンダーと共同で申請書類を作成・提出</div><div class="flow-desc">2026年3月30日〜公募中。ベンダーがポータル入力をサポート。</div></div></div>
+              <div class="flow-item"><div class="flow-n">5</div><div class="flow-c"><div class="flow-title">交付決定後にITツールを導入・支払い<span class="flow-warn">順番厳守</span></div><div class="flow-desc">交付決定前の契約・支払いは補助対象外。</div></div></div>
+              <div class="flow-item"><div class="flow-n">6</div><div class="flow-c"><div class="flow-title">実績報告 → 補助金入金</div><div class="flow-desc">審査後に振込。導入から入金まで半年〜1年程度。</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- インボイス枠 -->
+    <div class="course" id="c-it-invoice">
+      <button class="course-trigger" onclick="toggle('c-it-invoice')">
+        <span class="course-chip">インボイス枠</span>
+        <span class="course-name">インボイス枠（電子取引類型）— インボイス対応・会計ソフト導入</span>
+        <div class="course-meta">
+          <div class="course-amount">最大 350万円</div>
+          <div class="course-unit">補助率 2/3</div>
+        </div>
+        <span class="chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg></span>
+      </button>
+      <div class="course-body">
+        <div class="body-grid">
+          <div class="body-block span2">
+            <div class="block-head">制度の概要</div>
+            <p class="body-text">インボイス対応の会計・受発注・決済ツール導入費を補助。最大350万円・補助率2/3。免税事業者向け特例枠あり。電子帳簿保存法対応との組み合わせが多い。</p>
+          </div>
+          <div class="body-block">
+            <div class="block-head">対象ツールの例</div>
+            <ul class="ul">
+              <li>適格請求書（インボイス）に対応した会計ソフト</li>
+              <li>電子インボイス送受信システム</li>
+              <li>クラウド型受発注・請求管理システム</li>
+              <li>インボイス対応POSレジ・決済システム</li>
+              <li>電子帳簿保存法対応のファイル管理ツール</li>
+            </ul>
+          </div>
+          <div class="body-block">
+            <div class="block-head">通常枠との違い・使い分け</div>
+            <ul class="ul">
+              <li>対象ツールが「インボイス・電子取引関連」に絞られる</li>
+              <li>要件が明確なため審査がシンプル</li>
+              <li>免税事業者には5万円〜の小規模枠あり</li>
+              <li>通常枠との同時申請は原則不可（いずれか選択）</li>
+              <li>認定ベンダー経由の申請が必要（通常枠と同じ）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- セキュリティ枠 -->
+    <div class="course" id="c-it-security">
+      <button class="course-trigger" onclick="toggle('c-it-security')">
+        <span class="course-chip">セキュリティ枠</span>
+        <span class="course-name">セキュリティ対策推進枠 — ウイルス対策・バックアップ・EDR等</span>
+        <div class="course-meta">
+          <div class="course-amount">5〜150万円</div>
+          <div class="course-unit">補助率 1/2</div>
+        </div>
+        <span class="chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg></span>
+      </button>
+      <div class="course-body">
+        <div class="body-grid">
+          <div class="body-block span2">
+            <div class="block-head">制度の概要</div>
+            <p class="body-text">セキュリティツール導入費の<strong>1/2を補助</strong>。IPA承認の「サービス・ツールリスト」掲載品のみ対象のため事前確認が必須。通常枠との組み合わせ申請はベンダーに相談。</p>
+          </div>
+          <div class="body-block">
+            <div class="block-head">対象ツールの例</div>
+            <ul class="ul">
+              <li>ウイルス対策ソフト（エンドポイントセキュリティ）</li>
+              <li>EDR（端末の不審な動きを検知・遮断するシステム）</li>
+              <li>UTM（統合脅威管理：ファイアウォール・IPS等）</li>
+              <li>クラウドバックアップ・データ復元サービス</li>
+              <li>VPN・リモートアクセスセキュリティツール</li>
+              <li>不正アクセス検知・ログ監視ツール</li>
+            </ul>
+          </div>
+          <div class="body-block">
+            <div class="block-head">活用のポイント</div>
+            <ul class="ul">
+              <li>補助率1/2のため費用対効果を先に計算する</li>
+              <li>IPAのサービス・ツールリストを必ず事前確認</li>
+              <li>建設業・製造業など、下請けとして大手との情報共有が多い業種は特に重要</li>
+              <li>ランサムウェア対策として需要が急増している</li>
+              <li>金融機関・行政機関との取引がある会社は必須投資</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="notice">
+    <span class="notice-i">▷</span>
+    <span><strong>共通の注意事項 —</strong> 交付決定前の契約・支払いは補助対象外です。gBizIDの取得に約2週間かかるため、今すぐ手続きを開始してください。申請はすべて認定ベンダーと共同で行います。</span>
+  </div>
+</div>
+
+<!-- ================================================================
+     03 特定求職者雇用開発助成金
+================================================================ -->
 <!-- BACK CTA -->
 <div class="back-cta">
   <h3>自社に合う助成金を診断する</h3>
@@ -1246,7 +1271,7 @@ function toggle(id) {
   if (el) el.classList.toggle('open');
 }
 
-const sections = ['career-up','it-donyu','tokutei'];
+const sections = ['career-up','tokutei','it-donyu'];
 const links = document.querySelectorAll('.subnav-link');
 window.addEventListener('scroll', () => {
   let current = '';

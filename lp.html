@@ -163,24 +163,26 @@ body {
 .callout-popular {
   display: inline-block;
   position: relative;
-  background: #0a0f1e;
-  color: #facc15;
+  background: white;
+  color: var(--black);
   font-size: 13px;
   font-weight: 900;
-  padding: 8px 22px;
-  letter-spacing: 0.06em;
+  padding: 8px 20px;
+  letter-spacing: 0.04em;
   margin-bottom: 12px;
   line-height: 1;
+  border: 2px solid var(--black);
+  box-shadow: 3px 3px 0 var(--black);
 }
 .callout-popular::after {
   content: '';
   position: absolute;
-  bottom: -9px;
-  left: 28px;
+  bottom: -12px;
+  left: 24px;
   width: 0; height: 0;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-top: 9px solid #0a0f1e;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 10px solid var(--black);
 }
 .callout-point {
   background: #f8fafc;

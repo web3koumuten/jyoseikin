@@ -53,16 +53,16 @@ body {
 }
 .nav-badge {
   width: 26px; height: 26px; background: var(--black);
-  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   color: white; font-size: 12px; font-weight: 900;
 }
 .nav-right { display: flex; align-items: center; gap: 6px; }
 .nav-tab {
   font-size: 13px; font-weight: 500; color: var(--muted);
-  text-decoration: none; padding: 6px 14px; border-radius: 6px;
-  transition: background .15s, color .15s;
+  text-decoration: none; padding: 6px 14px;
+  transition: color .15s; border-bottom: 1px solid transparent;
 }
-.nav-tab:hover { background: var(--bg); color: var(--ink); }
+.nav-tab:hover { color: var(--ink); border-bottom-color: var(--border); }
 
 /* HERO */
 .hero {
@@ -127,11 +127,12 @@ body {
 }
 .subnav-link {
   font-size: 13px; font-weight: 600; color: var(--muted);
-  text-decoration: none; padding: 7px 18px; border-radius: 6px;
-  transition: background .15s, color .15s; white-space: nowrap;
+  text-decoration: none; padding: 7px 18px;
+  transition: color .15s; white-space: nowrap;
+  border-bottom: 2px solid transparent; margin-bottom: -2px;
 }
-.subnav-link:hover { background: var(--bg); color: var(--ink); }
-.subnav-link.active { background: var(--bg); color: var(--ink); font-weight: 700; }
+.subnav-link:hover { color: var(--ink); }
+.subnav-link.active { color: var(--black); font-weight: 700; border-bottom-color: var(--black); }
 
 /* LAYOUT */
 .content { max-width: 1100px; margin: 0 auto; padding: 0 40px 100px; }
@@ -147,10 +148,9 @@ body {
   margin-bottom: 40px;
 }
 .section-index {
-  font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--white);
-  background: var(--black); padding: 7px 13px;
-  border-radius: 6px; flex-shrink: 0; margin-top: 6px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+  color: var(--faint); flex-shrink: 0; margin-top: 8px;
+  font-variant-numeric: tabular-nums;
 }
 .section-title {
   font-size: clamp(22px, 2.8vw, 32px);
@@ -208,8 +208,8 @@ body {
 
 /* OVERVIEW */
 .overview {
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: 12px; padding: 24px 28px;
+  border-left: 3px solid var(--border);
+  padding: 16px 24px;
   margin-bottom: 28px;
   font-size: 16px; color: var(--ink); line-height: 1.9;
 }
@@ -226,31 +226,30 @@ body {
 .courses { display: flex; flex-direction: column; gap: 8px; }
 
 .course {
-  border: 1px solid var(--border);
-  border-radius: 14px;
+  border: none;
+  border-bottom: 1px solid var(--border);
   overflow: hidden;
-  transition: border-color .15s, box-shadow .15s;
+  transition: background .12s;
 }
-.course:hover { border-color: #cbd5e1; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
-.course.open { border-color: var(--ink); box-shadow: 0 2px 12px rgba(0,0,0,.07); }
+.course:last-child { border-bottom: none; }
+.course:hover { background: var(--bg); }
+.course.open { background: var(--bg); }
 
 .course-trigger {
   width: 100%; display: flex; align-items: center;
-  padding: 22px 28px; cursor: pointer; gap: 18px;
-  background: var(--white); border: none; text-align: left;
-  transition: background .12s;
+  padding: 20px 0; cursor: pointer; gap: 18px;
+  background: transparent; border: none; text-align: left;
 }
-.course-trigger:hover { background: var(--bg); }
-.course.open .course-trigger { background: var(--bg); }
+.course-trigger:hover { background: transparent; }
+.course.open .course-trigger { background: transparent; }
 
 .course-chip {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
-  text-transform: uppercase; color: var(--muted);
-  background: var(--border); padding: 4px 11px;
-  border-radius: 5px; white-space: nowrap; flex-shrink: 0;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--faint); white-space: nowrap; flex-shrink: 0;
+  width: 80px;
 }
 .course-name {
-  font-size: 15px; font-weight: 600; color: var(--ink);
+  font-size: 16px; font-weight: 600; color: var(--ink);
   flex: 1; line-height: 1.5;
 }
 .course-meta {
@@ -272,9 +271,9 @@ body {
 
 .course-body {
   display: none;
-  padding: 28px 24px;
+  padding: 24px 0 32px;
   border-top: 1px solid var(--border);
-  background: var(--white);
+  background: transparent;
 }
 .course.open .course-body { display: block; }
 
@@ -286,12 +285,11 @@ body {
 .body-block.span2 { grid-column: 1/-1; }
 
 .block-head {
-  font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--faint);
-  padding-bottom: 10px; margin-bottom: 14px;
+  font-size: 12px; font-weight: 800; color: var(--ink);
+  padding-bottom: 8px; margin-bottom: 14px;
   border-bottom: 1px solid var(--border);
 }
-.body-text { font-size: 14px; color: var(--muted); line-height: 1.9; }
+.body-text { font-size: 15px; color: var(--muted); line-height: 1.9; }
 .body-text strong { color: var(--ink); font-weight: 700; }
 
 /* HIGHLIGHT ROW */
@@ -300,12 +298,11 @@ body {
   gap: 12px; margin-bottom: 20px;
 }
 .hl-card {
-  border: 1px solid var(--border); border-radius: 10px;
-  padding: 18px 20px;
+  border-top: 2px solid var(--black);
+  padding: 18px 0;
 }
 .hl-label {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.07em;
-  text-transform: uppercase; color: var(--faint); margin-bottom: 8px;
+  font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 8px;
 }
 .hl-value {
   font-size: 22px; font-weight: 900; color: var(--black);
@@ -343,7 +340,7 @@ body {
 /* LIST */
 .ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
 .ul li {
-  font-size: 13px; color: var(--muted); padding-left: 18px;
+  font-size: 14px; color: var(--muted); padding-left: 18px;
   position: relative; line-height: 1.75;
 }
 .ul li::before {
@@ -366,15 +363,15 @@ body {
 }
 .flow-item:last-child::before { display: none; }
 .flow-n {
-  width: 28px; height: 28px; border-radius: 50%;
+  width: 28px; height: 28px;
   background: var(--black); color: white;
   font-size: 11px; font-weight: 800;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; z-index: 1; position: relative;
 }
 .flow-c { flex: 1; }
-.flow-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 5px; line-height: 1.4; }
-.flow-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
+.flow-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 5px; line-height: 1.4; }
+.flow-desc { font-size: 14px; color: var(--muted); line-height: 1.75; }
 .flow-warn {
   display: inline-block; background: var(--ink); color: white;
   font-size: 10px; font-weight: 800; padding: 2px 7px;
@@ -383,18 +380,16 @@ body {
 
 /* CALLOUT */
 .callout {
-  border-left: 4px solid var(--ink);
+  border-left: 3px solid var(--ink);
   background: var(--bg);
-  border-radius: 0 12px 12px 0;
-  padding: 20px 24px;
+  padding: 18px 22px;
   margin-top: 20px;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.9;
   color: var(--ink);
 }
 .callout-head {
-  font-size: 10px; font-weight: 800; letter-spacing: 0.09em;
-  text-transform: uppercase; color: var(--black); margin-bottom: 10px;
+  font-size: 11px; font-weight: 800; color: var(--black); margin-bottom: 8px;
 }
 .callout strong { font-weight: 700; }
 
@@ -402,8 +397,7 @@ body {
 .notice {
   display: flex; gap: 0; align-items: stretch;
   background: var(--bg);
-  border-left: 4px solid var(--ink);
-  border-radius: 0 12px 12px 0;
+  border-left: 3px solid var(--ink);
   padding: 16px 22px;
   font-size: 14px; color: var(--ink); line-height: 1.85;
   margin-top: 24px;
@@ -414,7 +408,7 @@ body {
 /* BACK CTA */
 .back-cta {
   margin-top: 80px; padding: 56px;
-  background: var(--black); border-radius: 18px;
+  background: var(--black);
   text-align: center; color: white;
 }
 .back-cta h3 {
@@ -426,7 +420,7 @@ body {
   display: inline-flex; align-items: center; gap: 8px;
   background: white; color: var(--black);
   font-size: 14px; font-weight: 700; padding: 14px 32px;
-  border-radius: 9px; text-decoration: none;
+  text-decoration: none;
   transition: opacity .15s;
 }
 .btn:hover { opacity: 0.85; }

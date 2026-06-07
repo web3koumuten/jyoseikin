@@ -275,11 +275,17 @@
     margin-bottom: 20px;
   }
   .results-header-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
     font-size: 11px;
     font-weight: 700;
     color: var(--gray-600);
-    letter-spacing: 0.08em;
-    margin-bottom: 8px;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .results-header-eyebrow::before {
+    content: ''; width: 22px; height: 2px; background: var(--primary);
   }
   .results-header-title {
     font-size: 26px;
@@ -301,53 +307,60 @@
     gap: 0;
     background: #fff;
     border-radius: 0;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(10,20,50,0.04), 0 14px 36px -22px rgba(10,20,50,0.18);
     overflow: hidden;
   }
   .results-summary-cell {
-    padding: 24px 28px;
+    padding: 26px 28px;
     position: relative;
   }
   .results-summary-cell + .results-summary-cell::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 16px;
-    bottom: 16px;
+    top: 18px;
+    bottom: 18px;
     width: 1px;
-    background: #f3f4f6;
+    background: var(--border-light);
   }
   .results-summary-label {
     font-size: 11.5px;
-    font-weight: 600;
+    font-weight: 700;
     color: #667085;
     letter-spacing: 0.04em;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
   .results-summary-value {
     display: flex;
     align-items: baseline;
     gap: 4px;
-    color: #101828;
+    color: var(--primary);
     font-feature-settings: "tnum" 1, "lnum" 1;
   }
   .results-summary-num {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
     line-height: 1;
   }
   .results-summary-unit {
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     color: #475467;
   }
-  .results-summary-accent .results-summary-num { color: #334155; }
+  /* 強調セル（ネイビー） */
+  .results-summary-cell.is-primary { background: var(--primary); }
+  .results-summary-cell.is-primary::before { display: none; }
+  .results-summary-cell.is-primary .results-summary-label { color: rgba(255,255,255,0.65); }
+  .results-summary-cell.is-primary .results-summary-value { color: #fff; }
+  .results-summary-cell.is-primary .results-summary-unit { color: rgba(255,255,255,0.8); }
+  .results-summary-cell.is-primary .results-summary-note { color: rgba(255,255,255,0.6); }
+  .results-summary-accent .results-summary-num { color: var(--primary); }
   .results-summary-note {
     font-size: 11.5px;
     color: #667085;
-    margin-top: 6px;
+    margin-top: 7px;
     line-height: 1.5;
   }
 
@@ -7000,6 +7013,8 @@ function renderResults(scored, combos, conflicts, meta) {
   // ① 結果ヘッダー（ダッシュボード型サマリー）
   // ══════════════════════════════════════════════════════
   const amountManTotal = Math.floor((totalMax || 0) / 10000).toLocaleString('ja-JP');
+  const topMax = scored.length ? Math.max(...scored.map(s => s.max_amount || 0)) : 0;
+  const topMaxMan = Math.floor(topMax / 10000).toLocaleString('ja-JP');
   const leadTimes = scored.map(s => s.lead_time_months).filter(x => typeof x === 'number' && x > 0);
   const minLead = leadTimes.length > 0 ? Math.min(...leadTimes) : null;
   html += `
@@ -7012,12 +7027,21 @@ function renderResults(scored, combos, conflicts, meta) {
       <h2 class="results-header-title">${scored.length}件の制度が該当しました</h2>
       <p class="results-header-sub">事業内容・従業員規模・今後の計画から、最適な補助金・助成金を抽出しています。</p>
       <div class="results-summary">
+        <div class="results-summary-cell is-primary">
+          <div class="results-summary-label">最大受給額の目安</div>
+          <div class="results-summary-value">
+            <span class="results-summary-num">${topMaxMan}</span>
+            <span class="results-summary-unit">万円</span>
+          </div>
+          <div class="results-summary-note">該当制度のうち最も大きい上限額</div>
+        </div>
         <div class="results-summary-cell">
           <div class="results-summary-label">該当件数</div>
           <div class="results-summary-value">
             <span class="results-summary-num">${scored.length}</span>
             <span class="results-summary-unit">件</span>
           </div>
+          <div class="results-summary-note">国・県・市の制度から抽出</div>
         </div>
         <div class="results-summary-cell">
           <div class="results-summary-label">最短準備期間</div>

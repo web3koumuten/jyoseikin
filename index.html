@@ -1728,13 +1728,14 @@
     background: #fff;
     height: calc(100vh - 56px);
     display: grid;
-    grid-template-columns: 1fr 340px;
+    grid-template-columns: 1fr 420px;
     overflow: hidden;
+    border-top: 2px solid #0a0f1e;
   }
 
-  /* 左：白エリア */
-  .hx-white-area {
-    padding: 48px 64px;
+  /* 左：テキストエリア */
+  .hx-left-area {
+    padding: 56px 64px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1744,82 +1745,140 @@
     letter-spacing: 0.12em; text-transform: uppercase;
   }
   .hx-h1 {
-    flex: 1; display: flex; flex-direction: column;
-    justify-content: center; margin: 0;
-  }
-  .hx-line-outline {
-    font-size: clamp(48px, 6.5vw, 96px);
-    font-weight: 900; letter-spacing: -0.04em; line-height: 1.05;
-    color: transparent; -webkit-text-stroke: 1.5px #0a0f1e;
-    display: block; white-space: nowrap;
-  }
-  .hx-line-solid {
-    font-size: clamp(48px, 6.5vw, 96px);
-    font-weight: 900; letter-spacing: -0.04em; line-height: 1.05;
-    color: #0a0f1e; display: block; white-space: nowrap;
+    font-size: clamp(48px, 6.5vw, 92px);
+    font-weight: 900; color: #0a0f1e;
+    letter-spacing: -0.04em; line-height: 1.05; margin: 0;
   }
   .hx-bar { display: none; }
-  .hx-bottom-row {
-    display: flex; align-items: flex-end;
-    justify-content: space-between; gap: 32px;
+  .hx-cta-group {
+    display: flex; flex-direction: column; gap: 14px;
   }
   .hx-sub {
-    font-size: 13px; color: #64748b; line-height: 1.8;
-    max-width: 320px; margin: 0; flex: 1;
+    font-size: 14px; color: #64748b; line-height: 1.8;
+    max-width: 380px; margin: 0;
   }
-  .hx-btn-wrap {
-    display: flex; flex-direction: column;
-    align-items: flex-end; gap: 10px; flex-shrink: 0;
+  .hx-actions {
+    display: flex; align-items: center; gap: 24px;
   }
-  .hx-trust { font-size: 11px; color: #94a3b8; }
   .hx-btn {
     display: inline-block; background: #0a0f1e; color: #fff; border: none;
     padding: 15px 44px; font-size: 14px; font-weight: 700;
     cursor: pointer; font-family: inherit; letter-spacing: 0.04em;
-    transition: opacity 0.15s; white-space: nowrap;
+    transition: opacity 0.15s;
   }
   .hx-btn:hover { opacity: 0.72; }
+  .hx-trust { font-size: 12px; color: #94a3b8; }
 
-  /* 右：ネイビーエリア */
-  .hx-dark-area {
+  /* 右：スキャンアニメーションエリア */
+  .hx-scan-area {
     background: #0a0f1e;
-    display: flex; flex-direction: column;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    padding: 48px 40px;
+    padding: 40px 36px;
+    overflow: hidden;
+    position: relative;
   }
-  .hx-dark-label {
-    font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.3);
-    letter-spacing: 0.14em; text-transform: uppercase;
+  .hx-scan-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
-  .hx-dark-center {
-    display: flex; flex-direction: column; gap: 8px;
+  .hx-scan-title {
+    font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.3);
+    letter-spacing: 0.12em; text-transform: uppercase;
   }
-  .hx-dark-num {
-    font-size: clamp(72px, 8vw, 120px);
-    font-weight: 900; color: white;
-    letter-spacing: -0.06em; line-height: 1;
-  }
-  .hx-dark-unit {
-    font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.5);
-    letter-spacing: 0.04em;
-  }
-  .hx-dark-desc {
-    font-size: 12px; color: rgba(255,255,255,0.35);
-    line-height: 1.7; margin-top: 16px;
-  }
-  .hx-dark-bottom {
+  .hx-scan-status {
     font-size: 11px; color: rgba(255,255,255,0.2);
-    letter-spacing: 0.06em;
+    display: flex; align-items: center; gap: 6px;
   }
+  .hx-scan-dot {
+    width: 6px; height: 6px; background: #22c55e;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .hx-scan-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .hx-scan-list::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    background: linear-gradient(to bottom, #0a0f1e, transparent);
+    z-index: 2;
+  }
+  .hx-scan-list::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: linear-gradient(to top, #0a0f1e, transparent);
+    z-index: 2;
+  }
+  .hx-scan-track {
+    animation: scrollUp 16s linear infinite;
+  }
+  @keyframes scrollUp {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+  .hx-scan-item {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hx-scan-item.match {
+    opacity: 1;
+  }
+  .hx-scan-item.other {
+    opacity: 0.2;
+  }
+  .hx-scan-indicator {
+    width: 6px; height: 6px; flex-shrink: 0;
+  }
+  .hx-scan-item.match .hx-scan-indicator { background: #22c55e; }
+  .hx-scan-item.other .hx-scan-indicator { background: rgba(255,255,255,0.2); }
+  .hx-scan-name {
+    font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.7);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .hx-scan-item.other .hx-scan-name { color: rgba(255,255,255,0.2); }
+  .hx-scan-footer {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 16px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .hx-scan-footer-label { font-size: 11px; color: rgba(255,255,255,0.3); }
+  .hx-scan-count {
+    font-size: 32px; font-weight: 900; color: white;
+    letter-spacing: -0.04em; line-height: 1;
+  }
+  .hx-scan-count span { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.4); margin-left: 4px; }
 
   /* 旧クラス非表示 */
+  .hx-white-area, .hx-dark-area, .hx-dark-label, .hx-dark-center,
+  .hx-dark-num, .hx-dark-unit, .hx-dark-desc, .hx-dark-bottom,
   .hx-tags, .hx-tag, .hx-stats, .hx-stat, .hx-wrap, .hx-left,
   .hx-result-preview, .hx-numbers, .hx-number, .hx-inner, .hx-main,
   .hx-left-panel, .hx-right-panel, .hx-bottom-bar, .hx-cta-area,
   .hx-body, .hx-footer, .hx-top, .hx-mid, .hx-bottom, .hx-bottom-right,
   .hx-topbar, .hx-center, .hx-statusbar, .hx-bg-num, .hx-giant-num,
   .hx-mid-text, .hx-tag-list, .hx-制度-label, .hx-chart-panel,
-  .hx-top-row, .hx-footer-row, .hx-right-cta,
+  .hx-top-row, .hx-footer-row, .hx-right-cta, .hx-line-outline, .hx-line-solid,
   .hero-layout, .hero-panel, .hero-stats-strip, .hero-points, .hero-features,
   .hero-visual, .hero-graphic, .hero-content, .hero-overline,
   .hero-inner, .hero-kicker, .hero-btn-row,
@@ -1828,6 +1887,14 @@
   .hx-visual, .hx-vis-card, .hx-vis-tag, .hx-vis-row, .hx-vis-name, .hx-vis-amt
   { display: none !important; }
   .btn-hero { display: none !important; }
+
+  @media (max-width: 900px) {
+    #intro-hero { grid-template-columns: 1fr; }
+    .hx-scan-area { display: none; }
+    .hx-left-area { padding: 40px 24px; }
+    .hx-h1 { font-size: 48px; }
+    .hx-btn { width: 100%; text-align: center; display: block; }
+  }
 
   @media (max-width: 860px) {
     #intro-hero { grid-template-columns: 1fr; }
@@ -2295,30 +2362,155 @@
 
 <!-- INTRO HERO -->
 <div id="intro-hero">
-  <!-- 左：白エリア -->
-  <div class="hx-white-area">
-    <div class="hx-eyebrow">補助金・助成金 無料診断 — 2026年度版</div>
-    <h1 class="hx-h1">
-      <span class="hx-line-outline">使える助成金を、</span>
-      <span class="hx-line-solid">全部調べる。</span>
-    </h1>
-    <div class="hx-bottom-row">
+  <!-- 左 -->
+  <div class="hx-left-area">
+    <div class="hx-eyebrow">補助金・助成金 診断ツール</div>
+    <h1 class="hx-h1">使える助成金を、<br>全部調べる。</h1>
+    <div class="hx-cta-group">
       <p class="hx-sub">業種・従業員数・経営状況を入力するだけ。国・県・市の80制度から、受給できる可能性のある補助金・助成金を5分でリストアップします。</p>
-      <div class="hx-btn-wrap">
-        <div class="hx-trust">登録不要 · 完全無料 · 約5分</div>
+      <div class="hx-actions">
         <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
+        <div class="hx-trust">登録不要 · 完全無料 · 約5分</div>
       </div>
     </div>
   </div>
-  <!-- 右：ネイビーエリア -->
-  <div class="hx-dark-area">
-    <div class="hx-dark-label">対応制度数</div>
-    <div class="hx-dark-center">
-      <div class="hx-dark-num">80</div>
-      <div class="hx-dark-unit">制度</div>
-      <div class="hx-dark-desc">国・都道府県・市区町村の補助金・助成金に対応。業種・規模・経営状況から自動で絞り込みます。</div>
+  <!-- 右：スキャンアニメーション -->
+  <div class="hx-scan-area">
+    <div class="hx-scan-header">
+      <div class="hx-scan-title">制度データベース</div>
+      <div class="hx-scan-status">
+        <div class="hx-scan-dot"></div>
+        <span>診断中</span>
+      </div>
     </div>
-    <div class="hx-dark-bottom">登録不要 · 完全無料 · 約5分</div>
+    <div class="hx-scan-list">
+      <div class="hx-scan-track">
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">キャリアアップ助成金 正社員化コース</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">IT導入補助金 通常枠</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">特定求職者雇用開発助成金</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">業務改善助成金</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">両立支援等助成金</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">小規模事業者持続化補助金</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">雇用調整助成金</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">人材開発支援助成金</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">キャリアアップ助成金 賃金改定コース</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">デジタル化推進補助金</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">ものづくり補助金</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">特開金 高齢者コース</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">就職氷河期世代安定雇用コース</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">トライアル雇用助成金</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">社会保険適用促進助成金</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">キャリアアップ助成金 正社員化コース</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">IT導入補助金 通常枠</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">特定求職者雇用開発助成金</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">業務改善助成金</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">両立支援等助成金</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">小規模事業者持続化補助金</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">雇用調整助成金</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">人材開発支援助成金</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">キャリアアップ助成金 賃金改定コース</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">デジタル化推進補助金</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">ものづくり補助金</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">特開金 高齢者コース</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">就職氷河期世代安定雇用コース</div>
+      </div>
+      <div class="hx-scan-item match">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">トライアル雇用助成金</div>
+      </div>
+      <div class="hx-scan-item other">
+        <div class="hx-scan-indicator"></div>
+        <div class="hx-scan-name">社会保険適用促進助成金</div>
+      </div>
+      </div>
+    </div>
+    <div class="hx-scan-footer">
+      <div class="hx-scan-footer-label">対応制度数</div>
+      <div class="hx-scan-count">80<span>制度</span></div>
+    </div>
   </div>
 </div>
 <!-- HEARING FORM -->

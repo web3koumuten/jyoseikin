@@ -46,18 +46,21 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: #faf9f6;
-    border-bottom: 1px solid #e8e5e0;
+    background: #0c0f18;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
   }
   .site-nav-inner {
-    max-width: 860px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 48px;
     height: 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+  .site-logo { color: rgba(255,255,255,0.9) !important; }
+  .site-logo-mark { background: rgba(255,255,255,0.1) !important; color: white !important; }
+  .site-nav-tag, .nav-tab { color: rgba(255,255,255,0.4) !important; }
   .site-logo {
     font-size: 15px;
     font-weight: 800;
@@ -1724,96 +1727,108 @@
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
     margin: 0 -24px;
-    padding: 0 40px;
-    background: #faf9f6;
-    min-height: calc(100vh - 56px);
+    padding: 0;
+    background: #0c0f18;
+    height: calc(100vh - 56px);
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* 背景に大きな数字 */
+  #intro-hero::after {
+    content: '450';
+    position: absolute;
+    right: -40px;
+    bottom: -60px;
+    font-size: 54vw;
+    font-weight: 900;
+    line-height: 0.85;
+    color: rgba(255,255,255,0.03);
+    letter-spacing: -0.06em;
+    pointer-events: none;
+    user-select: none;
+  }
+  /* 右側の縦ライン */
+  #intro-hero::before {
+    content: '';
+    position: absolute;
+    right: 15%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(255,255,255,0.06);
+    pointer-events: none;
   }
   .hx-inner {
-    max-width: 860px;
+    max-width: 1000px;
     margin: 0 auto;
     width: 100%;
-    padding: 100px 0 60px;
+    padding: 0 48px;
+    position: relative;
+    z-index: 1;
   }
   .hx-eyebrow {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
-    color: #999;
-    margin-bottom: 36px;
-    letter-spacing: 0.02em;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 40px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .hx-eyebrow::after {
+    content: '';
+    display: block;
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
   }
   .hx-h1 {
-    font-size: clamp(48px, 7vw, 88px);
+    font-size: clamp(52px, 7.5vw, 100px);
     font-weight: 900;
-    color: #111;
-    letter-spacing: -0.04em;
-    line-height: 1.05;
-    margin: 0 0 36px;
+    color: #ffffff;
+    letter-spacing: -0.05em;
+    line-height: 1.0;
+    margin: 0 0 44px;
+    max-width: 700px;
   }
   .hx-bar { display: none; }
   .hx-sub {
-    font-size: 17px;
-    color: #666;
-    line-height: 1.85;
-    margin-bottom: 52px;
+    font-size: 16px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.8;
+    margin-bottom: 56px;
     font-weight: 400;
-    max-width: 520px;
+    max-width: 460px;
   }
   .hx-btn {
     display: inline-block;
-    background: #111;
-    color: #fff;
+    background: #ffffff;
+    color: #0c0f18;
     border: none;
-    padding: 17px 48px;
-    font-size: 16px;
-    font-weight: 700;
+    padding: 18px 52px;
+    font-size: 15px;
+    font-weight: 800;
     cursor: pointer;
     font-family: inherit;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.04em;
     transition: opacity 0.15s;
   }
-  .hx-btn:hover { opacity: 0.78; }
+  .hx-btn:hover { opacity: 0.85; }
   .hx-trust {
-    margin-top: 18px;
-    font-size: 13px;
-    color: #aaa;
-    letter-spacing: 0.02em;
-  }
-  .hx-numbers {
-    display: flex;
-    gap: 0;
-    border-top: 1px solid #e0ddd8;
-    margin-top: 80px;
-    padding-top: 40px;
-    max-width: 860px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .hx-number {
-    flex: 1;
-    padding-right: 48px;
-  }
-  .hx-number:not(:first-child) {
-    padding-left: 48px;
-    border-left: 1px solid #e0ddd8;
-  }
-  .hx-number-val {
-    font-size: 32px;
-    font-weight: 900;
-    color: #111;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .hx-number-label {
-    font-size: 13px;
-    color: #999;
+    margin-top: 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.06em;
   }
 
   /* 旧クラス非表示 */
   .hx-tags, .hx-tag, .hx-left, .hx-preview, .hx-stats, .hx-stat,
+  .hx-numbers, .hx-number,
   .hero-layout, .hero-panel, .hero-stats-strip, .hero-points, .hero-features,
   .hero-visual, .hero-graphic, .hero-content, .hero-overline,
   .hero-inner, .hero-kicker, .hero-btn-row,
@@ -1824,12 +1839,9 @@
   .btn-hero { display: none !important; }
 
   @media (max-width: 700px) {
-    #intro-hero { padding: 0 20px; }
-    .hx-h1 { font-size: 44px; }
-    .hx-btn { width: 100%; text-align: center; }
-    .hx-numbers { flex-direction: column; gap: 28px; border-top: none; margin-top: 60px; padding-top: 0; border-top: 1px solid #e0ddd8; padding-top: 40px; }
-    .hx-number { padding: 0; border-left: none !important; padding-bottom: 28px; border-bottom: 1px solid #e0ddd8; }
-    .hx-number:last-child { border-bottom: none; padding-bottom: 0; }
+    .hx-inner { padding: 0 24px; }
+    .hx-h1 { font-size: 48px; }
+    .hx-btn { width: 100%; text-align: center; display: block; }
   }
 
   /* ── SUMMARY CHARTS ───────────────────────── */
@@ -2271,20 +2283,6 @@
     <p class="hx-sub">業種・従業員数・経営状況を入力するだけ。国・県・市の80制度から、受給できる可能性のある補助金・助成金を5分でリストアップします。</p>
     <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
     <div class="hx-trust">登録不要 &nbsp;·&nbsp; 完全無料 &nbsp;·&nbsp; 約5分</div>
-  </div>
-  <div class="hx-numbers">
-    <div class="hx-number">
-      <div class="hx-number-val">最大 450万円</div>
-      <div class="hx-number-label">受給可能額の目安（上限）</div>
-    </div>
-    <div class="hx-number">
-      <div class="hx-number-val">80制度</div>
-      <div class="hx-number-label">国・都道府県・市区町村に対応</div>
-    </div>
-    <div class="hx-number">
-      <div class="hx-number-val">約5分</div>
-      <div class="hx-number-label">登録不要・完全無料</div>
-    </div>
   </div>
 </div>
 

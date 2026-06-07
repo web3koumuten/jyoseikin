@@ -1724,112 +1724,121 @@
   .next-step-badge.green { background: #f1f5f9; color: #475569; }
 
   /* ── INTRO HERO ─────────────────────────── */
-  /* ── HERO ── */
   #intro-hero {
     margin: 0 -24px 0;
     padding: 0 24px;
-    background: #ffffff;
+    background: #0a0f1e;
     position: relative;
     overflow: hidden;
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 56px);
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    text-align: center;
   }
-  /* 右上の大きな青い塊 */
   #intro-hero::before {
     content: '';
     position: absolute;
-    right: -140px; top: -140px;
-    width: 480px; height: 480px;
-    background: #0a0f1e;
-    border-radius: 0;
-    opacity: 0.08;
-    pointer-events: none;
-  }
-  /* 左下の小さな青い塊 */
-  #intro-hero::after {
-    content: '';
-    position: absolute;
-    left: -80px; bottom: -80px;
-    width: 280px; height: 280px;
-    background: #0a0f1e;
-    border-radius: 0;
-    opacity: 0.06;
+    right: 0; top: 0;
+    width: 40%; height: 100%;
+    background: #111827;
     pointer-events: none;
   }
   .hx-inner {
-    max-width: 720px;
+    max-width: 960px;
     margin: 0 auto;
     width: 100%;
-    padding: 60px 0;
+    padding: 80px 0 0;
     position: relative;
     z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .hx-eyebrow {
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.22em;
-    color: #334155;
+    letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.45);
     text-transform: uppercase;
     margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hx-eyebrow::before {
+    content: ''; display: block;
+    width: 24px; height: 1px;
+    background: rgba(255,255,255,0.3);
   }
   .hx-h1 {
-    font-size: 58px;
+    font-size: clamp(44px, 6vw, 76px);
     font-weight: 900;
-    color: #0d1720;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-    margin: 0 0 24px;
+    color: #ffffff;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin: 0 0 32px;
+    max-width: 620px;
   }
-  .hx-bar {
-    width: 52px;
-    height: 5px;
-    background: #0a0f1e;
-    margin: 0 auto 28px;
-  }
+  .hx-bar { display: none; }
   .hx-sub {
     font-size: 17px;
-    color: #4a5568;
+    color: rgba(255,255,255,0.55);
     line-height: 1.85;
-    margin-bottom: 36px;
-    font-weight: 400;
-  }
-  .hx-tags {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    flex-wrap: wrap;
     margin-bottom: 48px;
-  }
-  .hx-tag {
-    font-size: 13px;
-    font-weight: 600;
-    color: #334155;
-    border: 1.5px solid #0a0f1e;
-    padding: 6px 18px;
-    letter-spacing: 0.04em;
+    font-weight: 400;
+    max-width: 480px;
   }
   .hx-btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    background: #0a0f1e;
-    color: #fff;
+    gap: 10px;
+    background: #ffffff;
+    color: #0a0f1e;
     border: none;
-    padding: 22px 80px;
-    font-size: 20px;
+    padding: 20px 52px;
+    font-size: 17px;
     font-weight: 900;
     cursor: pointer;
     font-family: inherit;
-    letter-spacing: 0.06em;
-    transition: background 0.12s;
+    letter-spacing: 0.02em;
+    transition: opacity 0.15s;
+    align-self: flex-start;
   }
-  .hx-btn:hover { background: #2d3748; }
-  .hx-btn:active { opacity: 0.9; }
+  .hx-btn:hover { opacity: 0.88; }
+  .hx-btn:active { opacity: 0.75; }
+
+  /* 統計バー */
+  .hx-stats {
+    display: flex;
+    margin-top: 72px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 36px 0;
+  }
+  .hx-stat {
+    flex: 1;
+    padding-right: 40px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    margin-right: 40px;
+  }
+  .hx-stat:last-child {
+    border-right: none; margin-right: 0; padding-right: 0;
+  }
+  .hx-stat-num {
+    font-size: 13px; color: rgba(255,255,255,0.4);
+    margin-bottom: 6px; font-weight: 600;
+  }
+  .hx-stat-num span {
+    font-size: 40px; font-weight: 900; color: white;
+    letter-spacing: -0.04em; line-height: 1;
+    display: block; margin-bottom: 2px;
+  }
+  .hx-stat-label {
+    font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 500;
+  }
 
   /* 旧クラス非表示 */
+  .hx-tags, .hx-tag,
   .hero-layout, .hero-panel, .hero-stats-strip, .hero-points, .hero-features,
   .hero-visual, .hero-graphic, .hero-content, .hero-overline,
   .hero-inner, .hero-kicker, .hero-sub, .hero-trust, .hero-btn-row,
@@ -1840,16 +1849,15 @@
   .btn-hero { display: none !important; }
 
   @media (max-width: 700px) {
-    .hx-h1 { font-size: 36px; }
-    .hx-btn { padding: 20px 40px; font-size: 18px; width: 100%; }
-    .hx-sub { font-size: 15px; }
+    #intro-hero::before { display: none; }
+    .hx-stats { flex-direction: column; gap: 24px; }
+    .hx-stat { border-right: none; margin-right: 0; padding-right: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 24px; }
+    .hx-stat:last-child { border-bottom: none; padding-bottom: 0; }
+    .hx-btn { width: 100%; justify-content: center; }
   }
   @media (max-width: 560px) {
     #intro-hero { margin: 0 -12px; padding: 0 12px; }
-    .hx-h1 { font-size: 28px; }
-    .hx-eyebrow { font-size: 11px; }
-    .hx-sub { font-size: 14px; }
-    .hx-btn { font-size: 16px; padding: 18px 32px; }
   }
 
   /* ── SUMMARY CHARTS ───────────────────────── */
@@ -2286,11 +2294,27 @@
 <!-- INTRO HERO -->
 <div id="intro-hero">
   <div class="hx-inner">
-    <div class="hx-eyebrow">補助金・助成金 診断ツール</div>
-    <h1 class="hx-h1">あなたの会社が受けられる<br>補助金・助成金を確認する</h1>
-    <div class="hx-bar"></div>
-    <p class="hx-sub">業種・従業員数・経営状況を入力するだけ。<br>最大80制度の中から、あなたの会社に合った補助金・助成金を絞り込みます。</p>
-    <button class="hx-btn" id="btn-start-diagnosis">診断スタート ▶</button>
+    <div class="hx-eyebrow">補助金・助成金 無料診断</div>
+    <h1 class="hx-h1">あなたの会社が<br>受け取れる助成金を<br>5分で調べる</h1>
+    <p class="hx-sub">業種・従業員数・経営状況を入力するだけ。国・県・市の80制度から受給可能な補助金・助成金を自動で絞り込みます。</p>
+    <button class="hx-btn" id="btn-start-diagnosis">無料で診断する →</button>
+    <div class="hx-stats">
+      <div class="hx-stat">
+        <div class="hx-stat-num">最大</div>
+        <span style="font-size:40px;font-weight:900;color:white;letter-spacing:-0.04em;line-height:1;display:block;margin-bottom:6px;">450万円</span>
+        <div class="hx-stat-label">1社あたりの受給可能額の上限</div>
+      </div>
+      <div class="hx-stat">
+        <div class="hx-stat-num">対応制度数</div>
+        <span style="font-size:40px;font-weight:900;color:white;letter-spacing:-0.04em;line-height:1;display:block;margin-bottom:6px;">80制度</span>
+        <div class="hx-stat-label">国・都道府県・市区町村の制度</div>
+      </div>
+      <div class="hx-stat">
+        <div class="hx-stat-num">所要時間</div>
+        <span style="font-size:40px;font-weight:900;color:white;letter-spacing:-0.04em;line-height:1;display:block;margin-bottom:6px;">約5分</span>
+        <div class="hx-stat-label">登録不要・完全無料</div>
+      </div>
+    </div>
   </div>
 </div>
 

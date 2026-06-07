@@ -548,6 +548,19 @@ body {
   .subnav-link { white-space: nowrap; flex: none; }
 }
 
+/* ── 公式ページリンク ── */
+.section-official {
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-top: 14px; font-size: 12.5px; font-weight: 700;
+  color: var(--black); text-decoration: none;
+  border: 1px solid var(--border); padding: 8px 15px;
+  transition: border-color .15s, background .15s;
+}
+.section-official:hover { border-color: var(--black); background: #f8fafc; }
+.section-official::after { content: '↗'; font-size: 12px; color: #64748b; }
+.src-link { color: #64748b; text-decoration: underline; text-underline-offset: 2px; }
+.src-link:hover { color: var(--black); }
+
 /* ── 採択事例カード ── */
 .case-grid {
   display: grid;
@@ -1403,7 +1416,7 @@ body {
                 <div class="case-effect">受注処理を1件あたり15分→2分に短縮</div>
               </div>
             </div>
-            <p style="font-size:12px;color:#94a3b8;margin-top:8px;">※IT導入補助金事務局「採択事業者事例集」および中小企業庁公表資料をもとに作成</p>
+            <p style="font-size:12px;color:#94a3b8;margin-top:10px;line-height:1.7;">※IT導入補助金事務局「採択事業者事例集」および中小企業庁公表資料をもとに作成<br>出典： <a class="src-link" href="https://www.it-hojo.jp/" target="_blank" rel="noopener">IT導入補助金 公式サイト（it-hojo.jp）↗</a></p>
           </div>
           <div class="body-block span2">
             <div class="block-head">補助対象外のコスト（注意）</div>

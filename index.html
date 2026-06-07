@@ -46,24 +46,17 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: #0d0d0d;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
   }
   .site-nav-inner {
-    max-width: 1200px;
+    max-width: 1160px;
     margin: 0 auto;
-    padding: 0 56px;
+    padding: 0 48px;
     height: 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  .site-logo { color: rgba(255,255,255,0.85) !important; }
-  .site-logo-mark { background: #F0A500 !important; color: #0d0d0d !important; font-weight: 900; }
-  a.nav-tab, a[href="list.html"] {
-    color: rgba(255,255,255,0.4) !important;
-    border-color: rgba(255,255,255,0.15) !important;
-    font-size: 13px;
   }
   .site-logo {
     font-size: 15px;
@@ -1731,146 +1724,110 @@
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
     margin: 0 -24px;
-    padding: 0;
-    background: #0d0d0d;
+    padding: 0 48px;
+    background: #fff;
     height: calc(100vh - 56px);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* 上部：ラベルバー */
-  .hx-topbar {
-    display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 28px 56px 0;
-    position: relative;
-    z-index: 2;
+    overflow: hidden;
+    border-top: 3px solid #0a0f1e;
   }
-  .hx-topbar-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-  .hx-topbar-tags {
-    display: flex;
-    gap: 20px;
-  }
-  .hx-topbar-tag {
-    font-size: 11px;
-    color: rgba(255,255,255,0.25);
-    letter-spacing: 0.06em;
-  }
-  .hx-topbar-tag span {
-    color: #F0A500;
-    font-weight: 700;
-    font-size: 13px;
-    margin-right: 4px;
+  .hx-wrap {
+    max-width: 1160px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 460px;
+    gap: 80px;
+    align-items: center;
   }
 
-  /* 中央：メインコンテンツ */
-  .hx-center {
-    padding: 0 56px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-    position: relative;
-    z-index: 2;
+  /* 左：テキスト */
+  .hx-left { display: flex; flex-direction: column; }
+  .hx-eyebrow {
+    font-size: 12px; font-weight: 600; color: #94a3b8;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 28px;
   }
-  .hx-eyebrow { display: none; }
   .hx-bar { display: none; }
   .hx-h1 {
-    font-size: clamp(52px, 7.5vw, 104px);
-    font-weight: 900;
-    color: #ffffff;
-    letter-spacing: -0.05em;
-    line-height: 1.0;
-    margin: 0 0 40px;
-    max-width: 800px;
+    font-size: clamp(44px, 5.5vw, 72px);
+    font-weight: 900; color: #0a0f1e;
+    letter-spacing: -0.04em; line-height: 1.08;
+    margin: 0 0 28px;
   }
   .hx-sub {
-    font-size: 15px;
-    color: rgba(255,255,255,0.4);
-    line-height: 1.75;
-    max-width: 460px;
-    margin: 0 0 44px;
+    font-size: 15px; color: #64748b;
+    line-height: 1.8; margin: 0 0 40px;
+    max-width: 400px;
   }
   .hx-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: #F0A500;
-    color: #0d0d0d;
-    border: none;
-    padding: 18px 48px;
-    font-size: 15px;
-    font-weight: 900;
-    cursor: pointer;
-    font-family: inherit;
-    letter-spacing: 0.04em;
-    transition: opacity 0.15s;
-    align-self: flex-start;
+    display: inline-block;
+    background: #0a0f1e; color: #fff; border: none;
+    padding: 16px 44px; font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: inherit; letter-spacing: 0.04em;
+    transition: opacity 0.15s; align-self: flex-start;
   }
-  .hx-btn:hover { opacity: 0.85; }
-  .hx-trust { display: none; }
-
-  /* 右下に大きな数字（装飾） */
-  .hx-bg-num {
-    position: absolute;
-    right: -20px;
-    bottom: 60px;
-    font-size: 28vw;
-    font-weight: 900;
-    line-height: 0.85;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(240,165,0,0.12);
-    letter-spacing: -0.06em;
-    pointer-events: none;
-    user-select: none;
-    z-index: 1;
+  .hx-btn:hover { opacity: 0.75; }
+  .hx-trust {
+    margin-top: 16px; font-size: 12px; color: #94a3b8;
   }
 
-  /* 下部：ステータスバー */
-  .hx-statusbar {
-    display: flex;
-    align-items: stretch;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    position: relative;
-    z-index: 2;
+  /* 右：診断結果プレビュー（実際の出力と同じスタイル） */
+  .hx-result-preview {
+    border-top: 2px solid #0a0f1e;
   }
-  .hx-status-item {
-    flex: 1;
-    padding: 20px 32px;
-    border-right: 1px solid rgba(255,255,255,0.08);
-    display: flex;
-    align-items: center;
-    gap: 14px;
+  .hx-rp-header {
+    display: flex; justify-content: space-between;
+    align-items: baseline;
+    padding: 16px 0 14px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 0;
   }
-  .hx-status-item:last-child { border-right: none; }
-  .hx-status-num {
-    font-size: 24px;
-    font-weight: 900;
-    color: #F0A500;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    flex-shrink: 0;
+  .hx-rp-title {
+    font-size: 12px; font-weight: 700; color: #94a3b8;
+    letter-spacing: 0.06em; text-transform: uppercase;
   }
-  .hx-status-text {
-    font-size: 12px;
-    color: rgba(255,255,255,0.35);
-    line-height: 1.5;
+  .hx-rp-count {
+    font-size: 13px; font-weight: 600; color: #64748b;
+  }
+  .hx-rp-item {
+    display: flex; justify-content: space-between;
+    align-items: baseline; padding: 16px 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .hx-rp-item:last-of-type { border-bottom: none; }
+  .hx-rp-name {
+    font-size: 14px; font-weight: 600; color: #1e293b;
+  }
+  .hx-rp-cat {
+    font-size: 11px; color: #94a3b8; margin-top: 3px;
+  }
+  .hx-rp-amt {
+    font-size: 22px; font-weight: 900; color: #0a0f1e;
+    letter-spacing: -0.03em; white-space: nowrap;
+  }
+  .hx-rp-more {
+    padding: 14px 0 0;
+    font-size: 13px; color: #94a3b8;
+    font-style: italic;
+  }
+  .hx-rp-footer {
+    display: flex; justify-content: space-between;
+    align-items: baseline; margin-top: 20px;
+    padding-top: 16px; border-top: 2px solid #0a0f1e;
+  }
+  .hx-rp-footer-label { font-size: 13px; color: #64748b; }
+  .hx-rp-footer-total {
+    font-size: 32px; font-weight: 900; color: #0a0f1e;
+    letter-spacing: -0.04em;
   }
 
   /* 旧クラス非表示 */
-  .hx-tags, .hx-tag, .hx-preview, .hx-stats, .hx-stat,
+  .hx-tags, .hx-tag, .hx-stats, .hx-stat,
   .hx-numbers, .hx-number, .hx-inner, .hx-main, .hx-left-panel,
   .hx-right-panel, .hx-bottom-bar, .hx-cta-area, .hx-body, .hx-footer,
+  .hx-topbar, .hx-center, .hx-statusbar, .hx-bg-num,
   .hero-layout, .hero-panel, .hero-stats-strip, .hero-points, .hero-features,
   .hero-visual, .hero-graphic, .hero-content, .hero-overline,
   .hero-inner, .hero-kicker, .hero-btn-row,
@@ -1880,14 +1837,12 @@
   { display: none !important; }
   .btn-hero { display: none !important; }
 
-  @media (max-width: 700px) {
-    .hx-topbar { padding: 20px 24px 0; }
-    .hx-topbar-tags { display: none; }
-    .hx-center { padding: 0 24px; }
-    .hx-h1 { font-size: 48px; }
-    .hx-btn { width: 100%; justify-content: center; }
-    .hx-statusbar { flex-direction: column; }
-    .hx-status-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 16px 24px; }
+  @media (max-width: 860px) {
+    #intro-hero { padding: 0 24px; }
+    .hx-wrap { grid-template-columns: 1fr; gap: 40px; }
+    .hx-result-preview { display: none; }
+    .hx-h1 { font-size: 44px; }
+    .hx-btn { width: 100%; text-align: center; display: block; }
   }
 
   /* ── SUMMARY CHARTS ───────────────────────── */
@@ -2323,39 +2278,47 @@
 
 <!-- INTRO HERO -->
 <div id="intro-hero">
-  <!-- 上部ラベルバー -->
-  <div class="hx-topbar">
-    <div class="hx-topbar-label">補助金・助成金 診断ツール &nbsp;—&nbsp; 2026年度版</div>
-    <div class="hx-topbar-tags">
-      <div class="hx-topbar-tag"><span>80</span>制度対応</div>
-      <div class="hx-topbar-tag"><span>5</span>分で診断</div>
-      <div class="hx-topbar-tag">完全無料</div>
+  <div class="hx-wrap">
+    <!-- 左：テキスト＋CTA -->
+    <div class="hx-left">
+      <div class="hx-eyebrow">補助金・助成金 無料診断</div>
+      <h1 class="hx-h1">使える助成金を、<br>全部調べる。</h1>
+      <p class="hx-sub">業種・従業員数・経営状況を入力するだけ。国・県・市の80制度から、受給できる可能性のある補助金・助成金を自動でリストアップします。</p>
+      <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
+      <div class="hx-trust">登録不要 &nbsp;·&nbsp; 完全無料 &nbsp;·&nbsp; 約5分</div>
     </div>
-  </div>
-
-  <!-- 背景装飾数字 -->
-  <div class="hx-bg-num">450</div>
-
-  <!-- メインコンテンツ -->
-  <div class="hx-center">
-    <h1 class="hx-h1">使える助成金を、<br>全部調べる。</h1>
-    <p class="hx-sub">業種・従業員数・経営状況を入力するだけ。国・県・市の80制度から、受給できる可能性のある補助金・助成金を自動でリストアップします。</p>
-    <button class="hx-btn" id="btn-start-diagnosis">無料で診断する →</button>
-  </div>
-
-  <!-- 下部ステータスバー -->
-  <div class="hx-statusbar">
-    <div class="hx-status-item">
-      <div class="hx-status-num">最大450万円</div>
-      <div class="hx-status-text">受給可能額の目安<br>組み合わせ次第でさらに積み上げ可能</div>
-    </div>
-    <div class="hx-status-item">
-      <div class="hx-status-num">80制度</div>
-      <div class="hx-status-text">国・都道府県・市区町村<br>の制度に対応</div>
-    </div>
-    <div class="hx-status-item">
-      <div class="hx-status-num">約5分</div>
-      <div class="hx-status-text">登録不要・完全無料<br>2026年度最新情報に対応</div>
+    <!-- 右：診断結果プレビュー（実際の出力スタイル） -->
+    <div class="hx-result-preview">
+      <div class="hx-rp-header">
+        <span class="hx-rp-title">診断結果 — サンプル</span>
+        <span class="hx-rp-count">7件が該当</span>
+      </div>
+      <div class="hx-rp-item">
+        <div>
+          <div class="hx-rp-name">キャリアアップ助成金</div>
+          <div class="hx-rp-cat">雇用 · 正社員化コース</div>
+        </div>
+        <div class="hx-rp-amt">80万円</div>
+      </div>
+      <div class="hx-rp-item">
+        <div>
+          <div class="hx-rp-name">デジタル化・AI導入補助金</div>
+          <div class="hx-rp-cat">IT · 通常枠</div>
+        </div>
+        <div class="hx-rp-amt">150万円</div>
+      </div>
+      <div class="hx-rp-item">
+        <div>
+          <div class="hx-rp-name">特定求職者雇用開発助成金</div>
+          <div class="hx-rp-cat">雇用 · 特定就職困難者コース</div>
+        </div>
+        <div class="hx-rp-amt">240万円</div>
+      </div>
+      <div class="hx-rp-more">他4件を表示...</div>
+      <div class="hx-rp-footer">
+        <span class="hx-rp-footer-label">受給可能額（目安）</span>
+        <span class="hx-rp-footer-total">628万円</span>
+      </div>
     </div>
   </div>
 </div>

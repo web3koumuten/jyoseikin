@@ -1728,7 +1728,7 @@
     background: #fff;
     min-height: calc(100vh - 56px);
     display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: 1.28fr 0.72fr;
     overflow: hidden;
     border-top: 1px solid var(--border-light);
   }
@@ -1771,29 +1771,30 @@
     padding-top: 16px; border-top: 1px solid var(--border-light); width: 100%; max-width: 30em;
   }
 
-  /* 右：診断分野（結果ページと同一のフラット・角なしスタイル） */
+  /* 右：助成金イメージ・イラスト */
   .hx-scan-area {
     background: #f8fafc;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 8vh 7% 8vh 6%;
+    align-items: center;
+    gap: 24px;
+    padding: 6vh 10%;
     overflow: hidden;
     position: relative;
   }
-  .hx-cov-head {
-    display: flex; align-items: baseline; justify-content: space-between;
-    padding: 0 4px 14px; border-bottom: 1px solid var(--border);
+  .hx-illust { width: 100%; max-width: 318px; }
+  .hx-illust svg { width: 100%; height: auto; display: block; }
+  .hx-illust-cap {
+    text-align: center;
   }
-  .hx-cov-title { font-size: 13px; font-weight: 700; color: #101828; letter-spacing: 0.01em; }
-  .hx-cov-meta { font-size: 11.5px; color: #667085; }
-  .hx-cov-list { list-style: none; margin: 0; padding: 0; }
-  .hx-cov-list li {
-    display: flex; align-items: center; gap: 12px;
-    padding: 15px 4px; border-bottom: 1px solid var(--border-light);
-    font-size: 15px; font-weight: 600; color: var(--gray-900); letter-spacing: -0.01em;
+  .hx-illust-cap .t {
+    display: block; font-size: 15px; font-weight: 700; color: var(--gray-900);
+    letter-spacing: -0.01em; line-height: 1.5;
   }
-  .hx-cov-list li::before { content: ''; width: 6px; height: 6px; background: var(--accent); flex: none; }
+  .hx-illust-cap .s {
+    display: block; font-size: 12.5px; color: var(--gray-600); margin-top: 6px;
+  }
 
   /* 旧クラス非表示 */
   .hx-white-area, .hx-dark-area, .hx-dark-label, .hx-dark-center,
@@ -1824,7 +1825,7 @@
 
   @media (max-width: 480px) {
     .hx-h1 { font-size: 30px; }
-    .hx-cov-list li { font-size: 14px; }
+    .hx-illust { max-width: 260px; }
   }
 
   /* ── SUMMARY CHARTS ───────────────────────── */
@@ -2270,22 +2271,47 @@
       <div class="hx-trust-line">登録不要　・　完全無料　・　所要約5分</div>
     </div>
   </div>
-  <!-- 右：診断でカバーする分野 -->
+  <!-- 右：助成金イメージ・イラスト -->
   <div class="hx-scan-area">
-    <div class="hx-cov-head">
-      <span class="hx-cov-title">診断でカバーする分野</span>
-      <span class="hx-cov-meta">国・県・市 80制度</span>
+    <div class="hx-illust">
+      <svg viewBox="0 0 320 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="助成金の申請から受給までのイメージ">
+        <circle cx="158" cy="150" r="128" fill="#eef4ff"/>
+        <!-- 申請書類 -->
+        <g transform="rotate(-7 150 150)">
+          <rect x="62" y="44" width="150" height="188" fill="#0a0f1e" opacity="0.07"/>
+          <rect x="56" y="38" width="150" height="188" fill="#ffffff" stroke="#0a0f1e" stroke-width="2.5"/>
+          <rect x="74" y="58" width="62" height="12" fill="#0066ff"/>
+          <rect x="74" y="86" width="114" height="7" fill="#d7deea"/>
+          <rect x="74" y="102" width="114" height="7" fill="#d7deea"/>
+          <rect x="74" y="118" width="78" height="7" fill="#d7deea"/>
+          <rect x="74" y="146" width="114" height="7" fill="#eef1f7"/>
+          <rect x="74" y="162" width="92" height="7" fill="#eef1f7"/>
+          <g transform="rotate(7 178 70)">
+            <circle cx="178" cy="66" r="20" fill="none" stroke="#0066ff" stroke-width="2.5"/>
+            <path d="M170 66l6 6 11-13" stroke="#0066ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </g>
+        <!-- 受給（コイン） -->
+        <g transform="translate(212 198)">
+          <ellipse cx="0" cy="7" rx="56" ry="56" fill="#0a0f1e"/>
+          <circle r="56" fill="url(#coinG)"/>
+          <circle r="45" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="2.5"/>
+          <text x="0" y="19" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="54" font-weight="800" fill="#ffffff">¥</text>
+        </g>
+        <!-- 装飾 -->
+        <path d="M64 92 l3.2 9.6 9.6 3.2 -9.6 3.2 -3.2 9.6 -3.2 -9.6 -9.6 -3.2 9.6 -3.2z" fill="#3d82ff"/>
+        <g stroke="#a9c7ff" stroke-width="3" stroke-linecap="round"><path d="M50 170h13M56.5 163.5v13"/></g>
+        <defs>
+          <linearGradient id="coinG" x1="0" y1="-56" x2="0" y2="56" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#3d82ff"/><stop offset="1" stop-color="#0066ff"/>
+          </linearGradient>
+        </defs>
+      </svg>
     </div>
-    <ul class="hx-cov-list">
-      <li>雇用・正社員化</li>
-      <li>賃上げ・最低賃金の引き上げ</li>
-      <li>設備投資・省力化</li>
-      <li>IT・DX・AI導入</li>
-      <li>販路開拓・展示会出展</li>
-      <li>省エネ・脱炭素</li>
-      <li>人材育成・リスキリング</li>
-      <li>創業・事業承継</li>
-    </ul>
+    <div class="hx-illust-cap">
+      <span class="t">申請から受給まで、まるごと診断。</span>
+      <span class="s">国・県・市の助成金を、まとめてチェック。</span>
+    </div>
   </div>
 </div>
 <!-- HEARING FORM -->

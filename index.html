@@ -7034,6 +7034,19 @@ function renderResults(scored, combos, conflicts, meta) {
     </div>
   `;
 
+  // ── STEP2（詳細診断）誘導 — 最上部に配置 ──
+  if (scored.length > 0) {
+    html += `
+    <div class="step2-cta">
+      <div class="step2-cta-body">
+        <span class="step2-cta-label">次のステップ</span>
+        <div class="step2-cta-title">受給できるか、もっと詳しく診断する</div>
+        <div class="step2-cta-sub">投資計画や過去の申請状況をもとに、受給の可能性をさらに精密にチェックします（約5分）。</div>
+      </div>
+      <a class="step2-cta-btn" href="./shindan2.html">詳細診断（STEP2）へ進む →</a>
+    </div>`;
+  }
+
   // ══════════════════════════════════════════════════════
   // ② 猫コメント
   // ══════════════════════════════════════════════════════
@@ -7063,19 +7076,6 @@ function renderResults(scored, combos, conflicts, meta) {
   // ③ サマリーチャート（国の補助金のみ）
   // ══════════════════════════════════════════════════════
   html += buildSummaryCharts(scored);
-
-  // ── STEP2（詳細診断）誘導 — 上部に配置 ──
-  if (scored.length > 0) {
-    html += `
-    <div class="step2-cta">
-      <div class="step2-cta-body">
-        <span class="step2-cta-label">次のステップ</span>
-        <div class="step2-cta-title">受給できるか、もっと詳しく診断する</div>
-        <div class="step2-cta-sub">投資計画や過去の申請状況をもとに、受給の可能性をさらに精密にチェックします（約5分）。</div>
-      </div>
-      <a class="step2-cta-btn" href="./shindan2.html">詳細診断（STEP2）へ進む →</a>
-    </div>`;
-  }
 
   // ══════════════════════════════════════════════════════
   // ③ gBizID — 通知カード

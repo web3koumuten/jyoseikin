@@ -940,15 +940,15 @@
   .result-row:hover { border-color: var(--primary); border-left-color: var(--primary); box-shadow: 0 6px 20px -10px rgba(10,20,50,0.22); }
   .result-row.is-open { border-color: var(--primary); border-left-color: var(--primary); box-shadow: 0 6px 20px -10px rgba(10,20,50,0.18); }
   .result-row-head {
-    padding: 20px 24px 16px;
+    padding: 22px 26px;
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: auto auto auto;
     grid-template-areas:
       "cat   amount"
       "title amount"
-      "foot  foot";
-    gap: 0 20px;
+      "foot  amount";
+    gap: 0 24px;
     align-items: start;
   }
   .result-row-icon { display: none; }
@@ -1036,7 +1036,9 @@
     grid-area: amount;
     text-align: right;
     align-self: center;
-    padding-bottom: 12px;
+    padding: 10px 0 10px 24px;
+    border-left: 1px solid var(--border-light);
+    min-width: 116px;
   }
   .result-row-amount-label {
     font-size: 11px;

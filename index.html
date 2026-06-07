@@ -1091,6 +1091,13 @@
   .result-row:hover .result-row-cta-hint::after { transform: translateX(2px); }
   .result-row.is-open .result-row-cta-hint::after { content: '›'; transform: rotate(90deg); }
   .result-row-cta-reasons { display: none; }
+  .result-row-cta-lp {
+    flex: none;
+    font-size: 12.5px; font-weight: 700; color: #fff; background: var(--primary);
+    padding: 8px 16px; text-decoration: none; white-space: nowrap; letter-spacing: 0.02em;
+    transition: background 0.15s;
+  }
+  .result-row-cta-lp:hover { background: var(--accent); }
   /* 詳細エリア */
   .result-row-detail {
     display: none;
@@ -1618,15 +1625,30 @@
 
   /* Conflict */
   .conflict-panel {
-    background: var(--warning-light);
-    border: 1px solid #93c5fd;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--primary);
     border-radius: 0;
-    padding: 14px 18px;
+    padding: 20px 24px;
     margin-bottom: 16px;
-    font-size: 13px;
-    color: #1e293b;
+    font-size: 13.5px;
+    color: #334155;
+    line-height: 1.7;
   }
-  .conflict-panel strong { display: block; margin-bottom: 6px; }
+  .conflict-panel strong {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 12px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 14px; font-weight: 800; color: var(--primary);
+  }
+  .conflict-panel strong::before {
+    content: '⚠'; font-size: 13px; color: var(--gray-600);
+  }
+  .conflict-panel > div { padding: 5px 0 5px 18px; position: relative; color: #475569; }
+  .conflict-panel > div::before {
+    content: ''; position: absolute; left: 0; top: 12px;
+    width: 6px; height: 6px; background: #cbd5e1;
+  }
 
   /* Subsidy card */
   .subsidy-card { background: white; border: 1px solid var(--gray-200); border-radius: 0; margin-bottom: 10px; }
@@ -7097,6 +7119,7 @@ function renderResults(scored, combos, conflicts, meta) {
       </div>
       <div class="result-row-cta">
         <span class="result-row-cta-hint">詳細・申請ステップを見る</span>
+        ${LP_URLS[s.id] ? `<a href="${LP_URLS[s.id]}" class="result-row-cta-lp" onclick="event.stopPropagation()">活用ガイドを見る →</a>` : ''}
       </div>
       <div class="result-row-detail" id="${detailId}">
         <div class="result-row-detail-inner">
@@ -7299,7 +7322,7 @@ function renderResults(scored, combos, conflicts, meta) {
   }
 
   if (conflicts.length > 0) {
-    html += `<div class="conflict-panel" style="font-size:12px"><strong>同時申請できない組み合わせ</strong>${conflicts.map(c=>`<div style="margin-top:4px">「${c.a.name}」と「${c.b.name}」は同一案件での併用不可</div>`).join('')}</div>`;
+    html += `<div class="conflict-panel"><strong>同時申請できない組み合わせ</strong>${conflicts.map(c=>`<div>「${c.a.name}」と「${c.b.name}」は同一案件での併用不可</div>`).join('')}</div>`;
   }
 
   html += `

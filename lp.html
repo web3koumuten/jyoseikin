@@ -14,8 +14,8 @@ html { scroll-behavior: smooth; }
 :root {
   --black:   #0a0f1e;
   --ink:     #1e293b;
-  --muted:   #64748b;
-  --faint:   #94a3b8;
+  --muted:   #475569;
+  --faint:   #6b7787;
   --border:  #e2e8f0;
   --bg:      #f8fafc;
   --white:   #ffffff;
@@ -321,8 +321,9 @@ body {
 }
 .tbl tbody td {
   padding: 14px 16px; border-bottom: 1px solid var(--border);
-  color: var(--muted); vertical-align: top; line-height: 1.7;
+  color: #334155; vertical-align: top; line-height: 1.7;
 }
+.tbl thead th { color: #475569; }
 .tbl tbody tr:nth-child(even) td { background: #fafbfd; }
 .tbl tbody tr:hover td { background: #f3f7fc; }
 .tbl tbody tr:last-child td { border-bottom: none; }
@@ -346,10 +347,10 @@ body {
   position: relative; line-height: 1.75;
 }
 .ul li::before {
-  content: ''; position: absolute; left: 4px; top: 10px;
-  width: 5px; height: 5px; border-radius: 50%; background: var(--border);
+  content: ''; position: absolute; left: 3px; top: 9px;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--black);
 }
-.ul li strong { color: var(--ink); font-weight: 700; }
+.ul li strong { color: var(--black); font-weight: 700; }
 
 /* FLOW */
 .flow { display: flex; flex-direction: column; gap: 0; }

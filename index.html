@@ -1769,6 +1769,28 @@
   .hx-btn:hover { opacity: 0.72; }
   .hx-trust { font-size: 12px; color: #94a3b8; }
 
+  /* 左：信頼バッジ／トラスト行 */
+  .hx-eyebrow-badge {
+    display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+    background: #e7f5ee; color: #167a4c;
+    font-size: 13px; font-weight: 700;
+    padding: 7px 14px; border-radius: 999px;
+  }
+  .hx-eyebrow-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  .hx-trust-row { display: flex; gap: 18px; flex-wrap: wrap; }
+  .hx-trust-item {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 700; color: #2d3f52;
+  }
+  .hx-check {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #e7f5ee; color: #167a4c;
+    display: grid; place-items: center; font-size: 11px; font-weight: 900;
+  }
+
   /* 右：スキャンアニメーションエリア */
   .hx-scan-area {
     background: #0a0f1e;
@@ -1868,6 +1890,42 @@
     letter-spacing: -0.04em; line-height: 1;
   }
   .hx-scan-count span { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.4); margin-left: 4px; }
+
+  /* 右：診断結果プレビュー */
+  .hx-pv-lead {
+    font-size: 19px; font-weight: 900; color: #fff; line-height: 1.5;
+    margin: 18px 0 18px;
+  }
+  .hx-pv-lead b { font-weight: 900; }
+  .hx-pv-hit { color: #22c55e; }
+  .hx-pv-list { display: flex; flex-direction: column; gap: 10px; }
+  .hx-pv-card {
+    background: #16263a; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 14px 16px;
+    display: flex; align-items: center; gap: 13px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .hx-pv-card:hover { border-color: #22c55e; transform: translateX(3px); }
+  .hx-pv-match {
+    flex: none; width: 50px; height: 50px; border-radius: 10px;
+    display: grid; place-items: center;
+    font-size: 17px; font-weight: 900; line-height: 1;
+    background: rgba(34,197,94,0.14); color: #22c55e;
+    border: 1px solid rgba(34,197,94,0.35);
+  }
+  .hx-pv-match.b {
+    background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.75);
+    border-color: rgba(255,255,255,0.18);
+  }
+  .hx-pv-match span { display: block; font-size: 8px; font-weight: 700; margin-top: 2px; letter-spacing: 0; }
+  .hx-pv-body { flex: 1; min-width: 0; }
+  .hx-pv-name { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.35; }
+  .hx-pv-meta { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+  .hx-pv-amt { flex: none; text-align: right; }
+  .hx-pv-amt b { display: block; font-size: 17px; font-weight: 900; color: #fff; }
+  .hx-pv-amt span { font-size: 11px; color: rgba(255,255,255,0.45); }
+  .hx-pv-more { font-size: 12px; color: rgba(255,255,255,0.45); }
+  .hx-pv-more b { color: #fff; font-weight: 700; }
 
   /* 旧クラス非表示 */
   .hx-white-area, .hx-dark-area, .hx-dark-label, .hx-dark-center,
@@ -2364,152 +2422,62 @@
 <div id="intro-hero">
   <!-- 左 -->
   <div class="hx-left-area">
-    <div class="hx-eyebrow">補助金・助成金 診断ツール</div>
+    <div class="hx-eyebrow-badge"><span class="hx-eyebrow-dot"></span>国・県・市あわせて 80 制度に対応</div>
     <h1 class="hx-h1">使える助成金を、<br>全部調べる。</h1>
     <div class="hx-cta-group">
-      <p class="hx-sub">業種・従業員数・経営状況を入力するだけ。国・県・市の80制度から、受給できる可能性のある補助金・助成金を5分でリストアップします。</p>
+      <p class="hx-sub">業種・従業員数・経営状況を選ぶだけ。岩手・盛岡の事業者が受給できる可能性のある補助金・助成金を、金額の目安つきで5分でリストアップします。</p>
       <div class="hx-actions">
-        <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
-        <div class="hx-trust">登録不要 · 完全無料 · 約5分</div>
+        <button class="hx-btn" id="btn-start-diagnosis">無料で診断する →</button>
+        <div class="hx-trust-row">
+          <span class="hx-trust-item"><span class="hx-check">✓</span>登録不要</span>
+          <span class="hx-trust-item"><span class="hx-check">✓</span>完全無料</span>
+          <span class="hx-trust-item"><span class="hx-check">✓</span>約5分</span>
+        </div>
       </div>
     </div>
   </div>
-  <!-- 右：スキャンアニメーション -->
+  <!-- 右：診断結果プレビュー -->
   <div class="hx-scan-area">
     <div class="hx-scan-header">
-      <div class="hx-scan-title">制度データベース</div>
+      <div class="hx-scan-title">診断結果プレビュー</div>
       <div class="hx-scan-status">
         <div class="hx-scan-dot"></div>
-        <span>診断中</span>
+        <span>こう表示されます</span>
       </div>
     </div>
-    <div class="hx-scan-list">
-      <div class="hx-scan-track">
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">キャリアアップ助成金 正社員化コース</div>
+
+    <div class="hx-pv-lead">例：<b>製造業・従業員12名</b>なら<br><b class="hx-pv-hit">該当7制度</b>がヒット</div>
+
+    <div class="hx-pv-list">
+      <div class="hx-pv-card">
+        <div class="hx-pv-match">A<span>マッチ</span></div>
+        <div class="hx-pv-body">
+          <div class="hx-pv-name">業務改善助成金</div>
+          <div class="hx-pv-meta">賃上げ＋設備投資をした事業者向け</div>
+        </div>
+        <div class="hx-pv-amt"><b>最大600万</b><span>円</span></div>
       </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">IT導入補助金 通常枠</div>
+      <div class="hx-pv-card">
+        <div class="hx-pv-match">A<span>マッチ</span></div>
+        <div class="hx-pv-body">
+          <div class="hx-pv-name">岩手県 物価高騰対策賃上げ支援金</div>
+          <div class="hx-pv-meta">県内事業所・時給60円以上の賃上げ</div>
+        </div>
+        <div class="hx-pv-amt"><b>最大400万</b><span>円</span></div>
       </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">特定求職者雇用開発助成金</div>
-      </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">業務改善助成金</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">両立支援等助成金</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">小規模事業者持続化補助金</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">雇用調整助成金</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">人材開発支援助成金</div>
-      </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">キャリアアップ助成金 賃金改定コース</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">デジタル化推進補助金</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">ものづくり補助金</div>
-      </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">特開金 高齢者コース</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">就職氷河期世代安定雇用コース</div>
-      </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">トライアル雇用助成金</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">社会保険適用促進助成金</div>
-      </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">キャリアアップ助成金 正社員化コース</div>
-      </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">IT導入補助金 通常枠</div>
-      </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">特定求職者雇用開発助成金</div>
-      </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">業務改善助成金</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">両立支援等助成金</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">小規模事業者持続化補助金</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">雇用調整助成金</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">人材開発支援助成金</div>
-      </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">キャリアアップ助成金 賃金改定コース</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">デジタル化推進補助金</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">ものづくり補助金</div>
-      </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">特開金 高齢者コース</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">就職氷河期世代安定雇用コース</div>
-      </div>
-      <div class="hx-scan-item match">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">トライアル雇用助成金</div>
-      </div>
-      <div class="hx-scan-item other">
-        <div class="hx-scan-indicator"></div>
-        <div class="hx-scan-name">社会保険適用促進助成金</div>
-      </div>
+      <div class="hx-pv-card">
+        <div class="hx-pv-match b">B<span>マッチ</span></div>
+        <div class="hx-pv-body">
+          <div class="hx-pv-name">キャリアアップ助成金 正社員化コース</div>
+          <div class="hx-pv-meta">有期→正社員に転換した事業者向け</div>
+        </div>
+        <div class="hx-pv-amt"><b>最大80万</b><span>円</span></div>
       </div>
     </div>
+
     <div class="hx-scan-footer">
-      <div class="hx-scan-footer-label">対応制度数</div>
-      <div class="hx-scan-count">80<span>制度</span></div>
+      <div class="hx-pv-more">ほか <b>＋4制度</b> を結果画面で表示</div>
+      <div class="hx-scan-count">80<span>制度収録</span></div>
     </div>
   </div>
 </div>

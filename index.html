@@ -1724,144 +1724,75 @@
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
     margin: 0 -24px;
-    padding: 0;
+    padding: 0 64px;
     background: #fff;
     height: calc(100vh - 56px);
-    display: grid;
-    grid-template-rows: 1fr auto;
-    overflow: hidden;
-    position: relative;
-  }
-
-  /* メインエリア（上2/3） */
-  .hx-main {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-bottom: 1px solid #e8e8e8;
-  }
-
-  /* 左：ヘッドライン */
-  .hx-left-panel {
-    padding: 64px 56px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    border-right: 1px solid #e8e8e8;
+    justify-content: center;
+    position: relative;
+  }
+  #intro-hero::before {
+    content: '';
+    position: absolute;
+    left: 64px; right: 64px;
+    bottom: 0;
+    height: 1px;
+    background: #e8e8e8;
+  }
+  .hx-body {
+    max-width: 900px;
   }
   .hx-eyebrow {
-    font-size: 11px;
-    font-weight: 600;
-    color: #aaa;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 0.08em;
+    margin-bottom: 48px;
   }
   .hx-h1 {
-    font-size: clamp(40px, 4.5vw, 68px);
+    font-size: clamp(56px, 8vw, 108px);
     font-weight: 900;
-    color: #0d0d0d;
-    letter-spacing: -0.04em;
-    line-height: 1.1;
-    margin: 0;
+    color: #111;
+    letter-spacing: -0.05em;
+    line-height: 1.0;
+    margin: 0 0 52px;
   }
   .hx-bar { display: none; }
-  .hx-cta-area { display: flex; flex-direction: column; gap: 12px; }
-  .hx-sub {
-    font-size: 14px;
-    color: #888;
-    line-height: 1.75;
-    font-weight: 400;
-    margin: 0;
+  .hx-footer {
+    display: flex;
+    align-items: center;
+    gap: 48px;
   }
   .hx-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: #0d0d0d;
+    display: inline-block;
+    background: #111;
     color: #fff;
     border: none;
-    padding: 15px 36px;
-    font-size: 14px;
+    padding: 16px 44px;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     font-family: inherit;
     letter-spacing: 0.04em;
     transition: opacity 0.15s;
-    align-self: flex-start;
+    flex-shrink: 0;
   }
-  .hx-btn:hover { opacity: 0.75; }
-  .hx-trust {
-    font-size: 11px;
-    color: #bbb;
-    letter-spacing: 0.04em;
+  .hx-btn:hover { opacity: 0.72; }
+  .hx-sub {
+    font-size: 15px;
+    color: #777;
+    line-height: 1.7;
+    font-weight: 400;
     margin: 0;
+    max-width: 420px;
   }
-
-  /* 右：数字インフォパネル */
-  .hx-right-panel {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-  }
-  .hx-info-block {
-    padding: 40px 48px;
-    border-bottom: 1px solid #e8e8e8;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .hx-info-block:last-child { border-bottom: none; }
-  .hx-info-block.dark {
-    background: #0d0d0d;
-    color: white;
-  }
-  .hx-info-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: #aaa;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .hx-info-block.dark .hx-info-label { color: rgba(255,255,255,0.4); }
-  .hx-info-num {
-    font-size: clamp(42px, 5vw, 72px);
-    font-weight: 900;
-    color: #0d0d0d;
-    letter-spacing: -0.05em;
-    line-height: 1;
-  }
-  .hx-info-block.dark .hx-info-num { color: white; }
-  .hx-info-desc {
-    font-size: 13px;
-    color: #aaa;
-    line-height: 1.5;
-  }
-  .hx-info-block.dark .hx-info-desc { color: rgba(255,255,255,0.4); }
-
-  /* 下部バー */
-  .hx-bottom-bar {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    height: 72px;
-  }
-  .hx-bottom-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 600;
-    color: #555;
-    border-right: 1px solid #e8e8e8;
-    gap: 8px;
-  }
-  .hx-bottom-item:last-child { border-right: none; }
-  .hx-bottom-dot {
-    width: 6px; height: 6px;
-    background: #0d0d0d;
-  }
+  .hx-trust { display: none; }
 
   /* 旧クラス非表示 */
   .hx-tags, .hx-tag, .hx-preview, .hx-stats, .hx-stat,
-  .hx-numbers, .hx-number, .hx-inner,
+  .hx-numbers, .hx-number, .hx-inner, .hx-main, .hx-left-panel,
+  .hx-right-panel, .hx-bottom-bar, .hx-cta-area,
   .hero-layout, .hero-panel, .hero-stats-strip, .hero-points, .hero-features,
   .hero-visual, .hero-graphic, .hero-content, .hero-overline,
   .hero-inner, .hero-kicker, .hero-btn-row,
@@ -1871,13 +1802,11 @@
   { display: none !important; }
   .btn-hero { display: none !important; }
 
-  @media (max-width: 820px) {
-    .hx-main { grid-template-columns: 1fr; }
-    .hx-right-panel { display: none; }
-    .hx-left-panel { padding: 40px 24px; border-right: none; }
-    .hx-bottom-bar { grid-template-columns: 1fr; height: auto; }
-    .hx-bottom-item { padding: 16px 24px; justify-content: flex-start; border-right: none; border-bottom: 1px solid #e8e8e8; }
-    .hx-bottom-item:last-child { border-bottom: none; }
+  @media (max-width: 700px) {
+    #intro-hero { padding: 0 24px; }
+    .hx-h1 { font-size: 52px; margin-bottom: 36px; }
+    .hx-footer { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .hx-btn { width: 100%; text-align: center; }
   }
 
   /* ── SUMMARY CHARTS ───────────────────────── */
@@ -2313,36 +2242,13 @@
 
 <!-- INTRO HERO -->
 <div id="intro-hero">
-  <div class="hx-main">
-    <!-- 左：ヘッドライン + CTA -->
-    <div class="hx-left-panel">
-      <div class="hx-eyebrow">補助金・助成金 無料診断</div>
-      <h1 class="hx-h1">使える助成金を、<br>全部調べる。</h1>
-      <div class="hx-cta-area">
-        <p class="hx-sub">業種・従業員数・経営状況から、国・県・市の80制度を自動診断。受給できる可能性のある助成金を5分でリストアップします。</p>
-        <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
-        <div class="hx-trust">登録不要 · 完全無料 · 約5分</div>
-      </div>
+  <div class="hx-body">
+    <div class="hx-eyebrow">補助金・助成金 無料診断</div>
+    <h1 class="hx-h1">使える助成金を、<br>全部調べる。</h1>
+    <div class="hx-footer">
+      <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
+      <p class="hx-sub">業種・従業員数を入力するだけ。国・県・市の80制度から受給できる可能性のある補助金・助成金を5分でリストアップします。</p>
     </div>
-    <!-- 右：インフォパネル -->
-    <div class="hx-right-panel">
-      <div class="hx-info-block">
-        <div class="hx-info-label">対応制度数</div>
-        <div class="hx-info-num">80<span style="font-size:0.4em;font-weight:700;letter-spacing:0;margin-left:4px;">制度</span></div>
-        <div class="hx-info-desc">国・都道府県・市区町村の補助金・助成金に対応</div>
-      </div>
-      <div class="hx-info-block dark">
-        <div class="hx-info-label">受給可能額の上限</div>
-        <div class="hx-info-num">450<span style="font-size:0.35em;font-weight:700;letter-spacing:0;margin-left:4px;">万円</span></div>
-        <div class="hx-info-desc">組み合わせ次第でさらに積み上げ可能</div>
-      </div>
-    </div>
-  </div>
-  <!-- 下部バー -->
-  <div class="hx-bottom-bar">
-    <div class="hx-bottom-item"><span class="hx-bottom-dot"></span>登録不要・完全無料</div>
-    <div class="hx-bottom-item"><span class="hx-bottom-dot"></span>診断所要時間 約5分</div>
-    <div class="hx-bottom-item"><span class="hx-bottom-dot"></span>2026年度最新制度に対応</div>
   </div>
 </div>
 

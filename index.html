@@ -1686,6 +1686,42 @@
   .d2c { color: #334155; font-weight: 700; }
   .d3c { color: #dc2626; font-weight: 700; }
 
+  /* STEP2（詳細診断）誘導CTA — 主要アクション */
+  .step2-cta {
+    margin: 28px 0 12px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    border-radius: 0;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    box-shadow: 0 12px 34px -18px rgba(10,20,50,0.28);
+  }
+  .step2-cta-label {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--accent); margin-bottom: 8px;
+  }
+  .step2-cta-title { font-size: 20px; font-weight: 800; color: var(--primary); letter-spacing: -0.02em; line-height: 1.4; }
+  .step2-cta-sub { font-size: 13px; color: var(--gray-600); margin-top: 8px; line-height: 1.65; max-width: 34em; }
+  .step2-cta-btn {
+    flex: none;
+    background: var(--accent); color: #fff;
+    font-size: 15px; font-weight: 800; letter-spacing: 0.02em;
+    padding: 17px 30px; text-decoration: none; white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .step2-cta-btn:hover { background: #0052cc; }
+  @media (max-width: 640px) {
+    .step2-cta { padding: 22px 20px; flex-direction: column; align-items: flex-start; }
+    .step2-cta-btn { width: 100%; text-align: center; }
+    .step2-cta-title { font-size: 17px; }
+  }
+
   /* LP誘導CTA（結果ページ） */
   .lp-cta {
     margin: 28px 0 8px;
@@ -7324,6 +7360,16 @@ function renderResults(scored, combos, conflicts, meta) {
   if (conflicts.length > 0) {
     html += `<div class="conflict-panel"><strong>同時申請できない組み合わせ</strong>${conflicts.map(c=>`<div>「${c.a.name}」と「${c.b.name}」は同一案件での併用不可</div>`).join('')}</div>`;
   }
+
+  html += `
+  <div class="step2-cta">
+    <div class="step2-cta-body">
+      <span class="step2-cta-label">次のステップ</span>
+      <div class="step2-cta-title">受給できるか、もっと詳しく診断する</div>
+      <div class="step2-cta-sub">投資計画や過去の申請状況をもとに、受給の可能性をさらに精密にチェックします（約5分）。</div>
+    </div>
+    <a class="step2-cta-btn" href="./shindan2.html">詳細診断（STEP2）へ進む →</a>
+  </div>`;
 
   html += `
   <div class="lp-cta">

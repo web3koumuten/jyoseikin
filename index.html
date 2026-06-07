@@ -13,8 +13,8 @@
     --primary-dark: #000000;
     --primary-dark: #2d3748;
     --primary-light: #f4f5f7;
-    --accent: #167a4c;
-    --accent-light: #e7f5ee;
+    --accent: #0066ff;
+    --accent-light: #eff6ff;
     --warning: #b45309;
     --warning-light: #fef3c7;
     --gray-50: #f8f9fc;
@@ -412,7 +412,7 @@
   .stack-combo:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
   .stack-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
   .stack-item { background: white; border: 1px solid #e2e8f0; border-radius: 0; padding: 5px 12px; font-size: 12px; font-weight: 600; color: #475569; }
-  .stack-arrow { color: #059669; font-size: 16px; }
+  .stack-arrow { color: #0066ff; font-size: 16px; }
   .stack-total { font-size: 14px; font-weight: 700; color: #475569; }
   .stack-note { font-size: 11px; color: #047857; margin-top: 2px; }
 
@@ -443,7 +443,7 @@
   /* Phase 2: 赤字→特例枠 opportunity panel */
   .opportunity-panel {
     background: #f8fafc;
-    border: 1.5px solid #6ee7b7;
+    border: 1.5px solid #9dc3ff;
     border-radius: 0;
     padding: 16px 20px;
     margin-bottom: 18px;
@@ -500,7 +500,7 @@
   .roadmap-step .step-period { font-size: 11px; font-weight: 700; color: #334155; margin-bottom: 4px; }
   .roadmap-step .step-title { font-weight: 700; font-size: 12px; margin-bottom: 4px; }
   .roadmap-step .step-detail { font-size: 11px; color: #1e293b; line-height: 1.6; }
-  .roadmap-step.done .step-period { color: #059669; }
+  .roadmap-step.done .step-period { color: #0066ff; }
 
   /* ══════════════════════════════════════════════════════
      ランク1：Hero（特集記事級の扱い）
@@ -746,7 +746,7 @@
     line-height: 1;
   }
   .result-hero-step.done .result-hero-step-num {
-    color: #10b981;
+    color: #0066ff;
   }
   .result-hero-step-body {
     font-size: 14px;
@@ -1552,7 +1552,7 @@
     background: #fee2e2; color: #991b1b;
   }
   .category-badge.cat-hr {
-    background: #dcfce7; color: #166534;
+    background: #eff6ff; color: #0052cc;
   }
   .category-badge.cat-wage {
     background: #f1f5f9; color: #1e293b;
@@ -1656,7 +1656,7 @@
   th { background: var(--gray-100); padding: 9px 12px; text-align: left; font-weight: 600; border-bottom: 2px solid var(--gray-200); white-space: nowrap; }
   td { padding: 9px 12px; border-bottom: 1px solid var(--gray-100); }
   tr:last-child td { border-bottom: none; }
-  .d1c { color: #059669; font-weight: 700; }
+  .d1c { color: #0066ff; font-weight: 700; }
   .d2c { color: #334155; font-weight: 700; }
   .d3c { color: #dc2626; font-weight: 700; }
 
@@ -1745,9 +1745,9 @@
     letter-spacing: 0.12em; text-transform: uppercase;
   }
   .hx-h1 {
-    font-size: clamp(48px, 6.5vw, 92px);
+    font-size: clamp(38px, 4.2vw, 58px);
     font-weight: 900; color: #0a0f1e;
-    letter-spacing: -0.04em; line-height: 1.05; margin: 0;
+    letter-spacing: -0.03em; line-height: 1.12; margin: 0;
   }
   .hx-bar { display: none; }
   .hx-cta-group {
@@ -1772,12 +1772,12 @@
   /* 左：信頼バッジ／トラスト行 */
   .hx-eyebrow-badge {
     display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
-    background: #e7f5ee; color: #167a4c;
+    background: #eff6ff; color: #0066ff;
     font-size: 13px; font-weight: 700;
     padding: 7px 14px; border-radius: 999px;
   }
   .hx-eyebrow-dot {
-    width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
+    width: 8px; height: 8px; border-radius: 50%; background: #0066ff;
     animation: pulse 2s ease-in-out infinite;
   }
   .hx-trust-row { display: flex; gap: 18px; flex-wrap: wrap; }
@@ -1787,7 +1787,7 @@
   }
   .hx-check {
     width: 18px; height: 18px; border-radius: 50%;
-    background: #e7f5ee; color: #167a4c;
+    background: #eff6ff; color: #0066ff;
     display: grid; place-items: center; font-size: 11px; font-weight: 900;
   }
 
@@ -1815,7 +1815,7 @@
     display: flex; align-items: center; gap: 6px;
   }
   .hx-scan-dot {
-    width: 6px; height: 6px; background: #22c55e;
+    width: 6px; height: 6px; background: #4d8bff;
     animation: pulse 2s ease-in-out infinite;
   }
   @keyframes pulse {
@@ -1870,7 +1870,7 @@
   .hx-scan-indicator {
     width: 6px; height: 6px; flex-shrink: 0;
   }
-  .hx-scan-item.match .hx-scan-indicator { background: #22c55e; }
+  .hx-scan-item.match .hx-scan-indicator { background: #4d8bff; }
   .hx-scan-item.other .hx-scan-indicator { background: rgba(255,255,255,0.2); }
   .hx-scan-name {
     font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.7);
@@ -1897,7 +1897,7 @@
     margin: 18px 0 18px;
   }
   .hx-pv-lead b { font-weight: 900; }
-  .hx-pv-hit { color: #22c55e; }
+  .hx-pv-hit { color: #4d8bff; }
   .hx-pv-list { display: flex; flex-direction: column; gap: 10px; }
   .hx-pv-card {
     background: #16263a; border: 1px solid rgba(255,255,255,0.08);
@@ -1905,13 +1905,13 @@
     display: flex; align-items: center; gap: 13px;
     transition: border-color 0.2s, transform 0.2s;
   }
-  .hx-pv-card:hover { border-color: #22c55e; transform: translateX(3px); }
+  .hx-pv-card:hover { border-color: #4d8bff; transform: translateX(3px); }
   .hx-pv-match {
     flex: none; width: 50px; height: 50px; border-radius: 10px;
     display: grid; place-items: center;
     font-size: 17px; font-weight: 900; line-height: 1;
-    background: rgba(34,197,94,0.14); color: #22c55e;
-    border: 1px solid rgba(34,197,94,0.35);
+    background: rgba(77,139,255,0.16); color: #4d8bff;
+    border: 1px solid rgba(77,139,255,0.4);
   }
   .hx-pv-match.b {
     background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.75);
@@ -2242,8 +2242,8 @@
 
   /* ── INLINE FEEDBACK ────────────────────── */
   .inline-feedback {
-    background: #f0fdf4;
-    border: 1px solid #86efac;
+    background: #eff6ff;
+    border: 1px solid #9dc3ff;
     border-radius: 0;
     padding: 10px 14px;
     font-size: 12px;
@@ -2594,7 +2594,7 @@
         <div class="field-label"><span class="q">Q10</span>直近の決算はどうでしたか？</div>
         <div class="choices">
           <label class="choice-row"><input type="radio" name="q10" value="黒字" onchange="onQ10Change(this.value)"><span>黒字</span></label>
-          <label class="choice-row"><input type="radio" name="q10" value="赤字" onchange="onQ10Change(this.value)"><span>赤字 <span class="badge" style="background:#dcfce7;color:#166534">補助率が上がる特例あり</span></span></label>
+          <label class="choice-row"><input type="radio" name="q10" value="赤字" onchange="onQ10Change(this.value)"><span>赤字 <span class="badge" style="background:#eff6ff;color:#0052cc">補助率が上がる特例あり</span></span></label>
         </div>
         <div id="q10-feedback" class="inline-feedback" style="display:none"></div>
       </div>

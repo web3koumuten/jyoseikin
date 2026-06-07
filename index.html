@@ -916,16 +916,16 @@
   .result-row {
     background: #fff;
     border-radius: 0;
-    border: none;
-    border-bottom: 1px solid var(--border-light);
-    margin-bottom: 0;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border);
+    margin-bottom: 10px;
     cursor: pointer;
-    transition: background 0.1s;
+    transition: border-color 0.12s, box-shadow 0.12s;
     overflow: hidden;
   }
-  .result-row:last-child { border-bottom: none; }
-  .result-row:hover { background: #f8fafc; }
-  .result-row.is-open { background: #f8fafc; }
+  .result-row:last-child { border-bottom: 1px solid var(--border); }
+  .result-row:hover { border-color: var(--primary); border-left-color: var(--primary); box-shadow: 0 6px 20px -10px rgba(10,20,50,0.22); }
+  .result-row.is-open { border-color: var(--primary); border-left-color: var(--primary); box-shadow: 0 6px 20px -10px rgba(10,20,50,0.18); }
   .result-row-head {
     padding: 20px 24px 16px;
     display: grid;
@@ -948,9 +948,9 @@
     margin-bottom: 6px;
   }
   .result-row-cat {
-    font-size: 11px;
-    color: var(--gray-600);
-    font-weight: 500;
+    font-size: 12px;
+    color: #475569;
+    font-weight: 600;
     letter-spacing: 0.02em;
     white-space: nowrap;
   }
@@ -970,7 +970,7 @@
   .result-row-diff-dots { display: inline-flex; gap: 2px; }
   .result-row-title {
     grid-area: title;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--gray-900);
     line-height: 1.45;
@@ -998,9 +998,9 @@
     padding: 0;
     background: none;
     border: none;
-    color: var(--gray-400);
-    font-size: 12px;
-    font-weight: 400;
+    color: #64748b;
+    font-size: 12.5px;
+    font-weight: 500;
   }
   .result-row-chip + .result-row-chip::before {
     content: '·';
@@ -1026,11 +1026,11 @@
     padding-bottom: 12px;
   }
   .result-row-amount-label {
-    font-size: 10px;
-    color: var(--gray-400);
-    font-weight: 500;
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 600;
     letter-spacing: 0.04em;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
     text-align: right;
   }
   .result-row-amount-val {
@@ -1041,10 +1041,10 @@
     font-feature-settings: "tnum" 1, "lnum" 1;
   }
   .result-row-amount-val > span:first-child {
-    font-size: 24px;
-    font-weight: 700;
-    color: #334155;
-    letter-spacing: -0.025em;
+    font-size: 27px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.03em;
     line-height: 1;
   }
   .result-row-amount-unit {
@@ -1663,6 +1663,41 @@
   .d1c { color: #0066ff; font-weight: 700; }
   .d2c { color: #334155; font-weight: 700; }
   .d3c { color: #dc2626; font-weight: 700; }
+
+  /* LP誘導CTA（結果ページ） */
+  .lp-cta {
+    margin: 28px 0 8px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 0;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    box-shadow: 0 16px 40px -20px rgba(10,20,50,0.45);
+  }
+  .lp-cta-label {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    color: #a9c7ff; margin-bottom: 8px;
+  }
+  .lp-cta-title { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.4; }
+  .lp-cta-sub { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px; line-height: 1.6; }
+  .lp-cta-btn {
+    flex: none;
+    background: #fff; color: var(--primary);
+    font-size: 15px; font-weight: 800; letter-spacing: 0.02em;
+    padding: 16px 28px; text-decoration: none; white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .lp-cta-btn:hover { background: #e6eeff; }
+  @media (max-width: 640px) {
+    .lp-cta { padding: 22px 20px; flex-direction: column; align-items: flex-start; }
+    .lp-cta-btn { width: 100%; text-align: center; }
+    .lp-cta-title { font-size: 17px; }
+  }
 
   .reset-area { text-align: center; margin-top: 24px; }
   .btn-reset { background: none; border: 1px solid var(--gray-200); border-radius: 0; padding: 10px 24px; color: var(--gray-600); cursor: pointer; font-family: inherit; font-size: 14px; }
@@ -7266,6 +7301,16 @@ function renderResults(scored, combos, conflicts, meta) {
   if (conflicts.length > 0) {
     html += `<div class="conflict-panel" style="font-size:12px"><strong>同時申請できない組み合わせ</strong>${conflicts.map(c=>`<div style="margin-top:4px">「${c.a.name}」と「${c.b.name}」は同一案件での併用不可</div>`).join('')}</div>`;
   }
+
+  html += `
+  <div class="lp-cta">
+    <div class="lp-cta-body">
+      <span class="lp-cta-label">もっとくわしく</span>
+      <div class="lp-cta-title">主要な助成金の申請ステップを、ガイドで確認</div>
+      <div class="lp-cta-sub">キャリアアップ・IT導入・特定求職者雇用開発助成金の概要から必要書類・申請の流れまで。</div>
+    </div>
+    <a class="lp-cta-btn" href="./lp.html">助成金 活用ガイドを見る →</a>
+  </div>`;
 
   html += `
   <div class="results-back-bottom">

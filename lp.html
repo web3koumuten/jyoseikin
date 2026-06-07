@@ -184,6 +184,19 @@ body {
   border-right: 8px solid transparent;
   border-top: 10px solid var(--black);
 }
+.callout-recommend {
+  display: inline-block; position: relative;
+  background: var(--blue); color: #fff;
+  font-size: 13px; font-weight: 900; padding: 8px 20px;
+  letter-spacing: 0.04em; margin-bottom: 12px; line-height: 1;
+  border: 2px solid var(--blue); box-shadow: 3px 3px 0 #1e3a8a;
+}
+.callout-recommend::after {
+  content: ''; position: absolute; bottom: -12px; left: 24px;
+  width: 0; height: 0;
+  border-left: 8px solid transparent; border-right: 8px solid transparent;
+  border-top: 10px solid var(--blue);
+}
 .callout-point {
   background: #f8fafc;
   border: 1.5px solid #e2e8f0;
@@ -998,6 +1011,7 @@ body {
 
     <!-- 短時間延長 -->
     <div class="course" id="c-tanjikan">
+      <div class="callout-recommend">★ あわせて使いたいおすすめコース</div>
       <button class="course-trigger" onclick="toggle('c-tanjikan')">
         <span class="course-chip">短時間延長</span>
         <span class="course-name">短時間労働者労働時間延長コース — 週20時間未満のパートを社会保険加入へ</span>

@@ -420,12 +420,11 @@
 
         <!-- Q7 -->
         <div class="field">
-          <div class="field-label"><span class="q">Q7</span><span>過去3年間に非正規スタッフ（パート・契約社員）の賃金を3%以上引き上げたことがありますか？</span></div>
+          <div class="field-label"><span class="q">Q7</span><span>社内でいちばん低い時給を、過去に30円以上引き上げたことはありますか？</span></div>
           <div class="choices" id="q7">
             <label class="choice-row"><input type="radio" name="q7" value="none"> <span>ない</span></label>
-            <label class="choice-row"><input type="radio" name="q7" value="done-rule"> <span>ある（就業規則の賃金規定も変更した・助成金申請済み）<span class="ok-badge">申請済み</span></span></label>
-            <label class="choice-row"><input type="radio" name="q7" value="done-no-rule"> <span>ある（就業規則は変更しなかった）<span class="miss-badge">受給できる可能性あり</span></span></label>
-            <label class="choice-row"><input type="radio" name="q7" value="done-no-apply"> <span>ある（就業規則は変更したが申請していない）<span class="miss-badge">受給できる可能性あり</span></span></label>
+            <label class="choice-row"><input type="radio" name="q7" value="invest"> <span>ある（設備投資もあわせて行った）<span class="miss-badge">業務改善助成金の有力候補</span></span></label>
+            <label class="choice-row"><input type="radio" name="q7" value="wage-only"> <span>ある（賃上げのみ・設備投資はしていない）</span></label>
           </div>
         </div>
 
@@ -501,6 +500,16 @@
             <label class="choice-row"><input type="radio" name="q12" value="small"> <span>予定あり（金額：100万円未満）</span></label>
             <label class="choice-row"><input type="radio" name="q12" value="maybe"> <span>検討中</span></label>
             <label class="choice-row"><input type="radio" name="q12" value="no"> <span>予定なし</span></label>
+          </div>
+        </div>
+
+        <!-- Q13 -->
+        <div class="field">
+          <div class="field-label"><span class="q">Q13</span><span>今後、販路開拓・集客（チラシ・ホームページ・ECサイト・展示会出展など）に取り組む予定はありますか？</span></div>
+          <div class="choices" id="q13">
+            <label class="choice-row"><input type="radio" name="q13" value="yes"> <span>予定あり</span></label>
+            <label class="choice-row"><input type="radio" name="q13" value="maybe"> <span>検討中</span></label>
+            <label class="choice-row"><input type="radio" name="q13" value="no"> <span>予定なし</span></label>
           </div>
         </div>
 
@@ -681,15 +690,15 @@ function getMissed(ans) {
     });
   }
 
-  // 賃金改定コース（中小：50万円、大：40万円）
-  if (ans.q7 === 'done-no-apply' || ans.q7 === 'done-no-rule') {
-    const amount = isSmall ? 50 : 40;
+  // 業務改善助成金（最大600万円）— 最低時給引上げ＋設備投資
+  if (ans.q7 === 'invest') {
     missed.push({
-      name:       'キャリアアップ助成金 — 賃金規定等改定コース',
-      reason:     '非正規スタッフの賃金を引き上げましたが、就業規則の整備・助成金申請が行われていません。',
-      amount,
-      amountText: `最大 ${amount}万円`,
-      unit:       '/ 事業所',
+      name:       '業務改善助成金',
+      reason:     '最低時給の引き上げと設備投資の実績があり、業務改善助成金の有力候補です。交付決定前の発注が条件のため、次回の設備投資の前にご相談を。',
+      amount:     0,
+      amountText: '次回の設備投資で最大 600万円',
+      unit:       '（設備投資費の最大4/5・交付決定後に発注）',
+      future:     true,
     });
   }
 
@@ -762,6 +771,16 @@ function getFuture(ans) {
     });
   }
 
+  // 小規模事業者持続化補助金 今後（販路開拓）
+  if (ans.q13 === 'yes' || ans.q13 === 'maybe') {
+    future.push({
+      icon: '📣',
+      name: '小規模事業者持続化補助金',
+      desc: '販路開拓・集客（チラシ・HP・ECサイト・展示会出展等）の費用の2/3を補助。商工会議所・商工会の支援を受けて経営計画書を作成し申請します。',
+      amount: '最大 250万円',
+    });
+  }
+
   return future;
 }
 
@@ -770,7 +789,7 @@ function getFuture(ans) {
 // ================================================================
 function calcResults() {
   const ans = {};
-  ['q1','q2','q4','q5','q6','q7','q8','q9','q10','q11','q12'].forEach(k => {
+  ['q1','q2','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13'].forEach(k => {
     const el = document.querySelector(`[name="${k}"]:checked`);
     ans[k] = el ? el.value : 'none';
   });

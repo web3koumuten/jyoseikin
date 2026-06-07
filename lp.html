@@ -542,6 +542,50 @@ body {
   .body-grid { grid-template-columns: 1fr; }
   .highlight-row { grid-template-columns: 1fr 1fr; }
   .back-cta { padding: 36px 24px; }
+  .subnav-inner { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .subnav-link { white-space: nowrap; flex: none; }
+}
+
+/* ── スマホ最適化 ── */
+@media (max-width: 560px) {
+  .nav-inner { height: 52px; padding-left: 16px; padding-right: 16px; }
+  .nav-logo { font-size: 13px; gap: 8px; }
+  .nav-badge { width: 26px; height: 26px; font-size: 13px; }
+  .nav-right { gap: 4px; }
+  .nav-tab { font-size: 11px; padding: 5px 9px; }
+
+  .subnav { top: 52px; }
+  .subnav-inner { padding: 0 16px; gap: 2px; height: 46px; flex-wrap: nowrap; }
+  .subnav-link { font-size: 12px; padding: 8px 12px; }
+
+  .hero { padding: 34px 18px 30px; }
+  .hero-label { font-size: 11px; }
+  .hero h1 { font-size: 30px; line-height: 1.25; }
+  .hero-lead { font-size: 14px; line-height: 1.8; }
+  .hero-metrics { margin-top: 28px; }
+  .metric { padding: 16px 0; }
+  .metric-value { font-size: 40px; }
+
+  .content { padding: 0 18px 72px; }
+  .section { margin-top: 48px; }
+  .section-title { font-size: 22px; line-height: 1.4; }
+  .section-lead { font-size: 14px; }
+
+  .highlight-row { grid-template-columns: 1fr; }
+  .tl-steps { grid-template-columns: 1fr; }
+  .tl-step { border-right: none !important; }
+
+  .body-block { padding: 16px 16px; }
+  .block-head { font-size: 13px; }
+  .body-text { font-size: 14px; }
+
+  .tbl { font-size: 12px; }
+  .tbl thead th, .tbl tbody td { padding: 8px 8px; }
+
+  .back-cta { margin-top: 56px; padding: 32px 18px; }
+  .back-cta h3 { font-size: 21px; }
+  .back-cta p { font-size: 14px; }
+  .btn { width: 100%; justify-content: center; }
 }
 </style>
 </head>

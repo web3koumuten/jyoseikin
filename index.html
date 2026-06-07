@@ -1724,96 +1724,66 @@
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
     margin: 0 -24px;
-    padding: 0;
+    padding: 0 64px;
     background: #fff;
     height: calc(100vh - 56px);
-    display: grid;
-    grid-template-columns: 480px 1fr;
-    overflow: hidden;
-  }
-
-  /* 左パネル */
-  .hx-left-panel {
-    padding: 56px 52px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-right: 1px solid #e2e8f0;
+    overflow: hidden;
+    border-top: 2px solid #0a0f1e;
   }
   .hx-eyebrow {
-    font-size: 11px; font-weight: 600; color: #94a3b8;
-    letter-spacing: 0.1em; text-transform: uppercase;
+    padding-top: 36px;
+    font-size: 11px; font-weight: 500; color: #94a3b8;
+    letter-spacing: 0.14em; text-transform: uppercase;
   }
-  .hx-bar { display: none; }
   .hx-h1 {
-    font-size: clamp(36px, 4vw, 54px);
-    font-weight: 900; color: #0a0f1e;
-    letter-spacing: -0.04em; line-height: 1.1; margin: 0;
-  }
-  .hx-sub {
-    font-size: 14px; color: #64748b; line-height: 1.8;
-    margin: 0; max-width: 340px;
-  }
-  .hx-btn {
-    display: inline-block;
-    background: #0a0f1e; color: #fff; border: none;
-    padding: 16px 44px; font-size: 15px; font-weight: 700;
-    cursor: pointer; font-family: inherit; letter-spacing: 0.04em;
-    transition: opacity 0.15s; align-self: flex-start;
-  }
-  .hx-btn:hover { opacity: 0.72; }
-  .hx-trust { font-size: 12px; color: #94a3b8; margin-top: 12px; }
-
-  /* 右パネル：ドットマトリクス */
-  .hx-chart-panel {
-    padding: 52px;
+    font-size: clamp(72px, 11vw, 148px);
+    font-weight: 900;
+    color: #0a0f1e;
+    letter-spacing: -0.05em;
+    line-height: 0.95;
+    margin: 0;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: #f8fafc;
   }
-  .hx-chart-title {
-    font-size: 11px; font-weight: 700; color: #94a3b8;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    margin-bottom: 36px;
+  .hx-bar { display: none; }
+  .hx-footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    padding-top: 28px;
+    border-top: 1px solid #e2e8f0;
+    gap: 48px;
   }
-  .hx-dot-grid {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 12px;
-    margin-bottom: 32px;
+  .hx-sub {
+    font-size: 14px; color: #64748b; line-height: 1.75;
+    max-width: 380px; margin: 0; flex: 1;
   }
-  .hx-dot {
-    width: 100%;
-    aspect-ratio: 1;
-    background: #e2e8f0;
-    transition: background 0.3s;
+  .hx-right-cta {
+    display: flex; align-items: center; gap: 28px; flex-shrink: 0;
   }
-  .hx-dot.active { background: #0a0f1e; }
-  .hx-dot.semi { background: #94a3b8; }
-  .hx-dot-legend {
-    display: flex; gap: 24px;
+  .hx-trust { font-size: 12px; color: #94a3b8; white-space: nowrap; }
+  .hx-btn {
+    display: inline-block;
+    background: #0a0f1e; color: #fff; border: none;
+    padding: 16px 48px; font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: inherit; letter-spacing: 0.04em;
+    transition: opacity 0.15s; white-space: nowrap;
   }
-  .hx-legend-item {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 12px; color: #64748b;
-  }
-  .hx-legend-dot {
-    width: 10px; height: 10px; flex-shrink: 0;
-  }
-  .hx-legend-dot.active { background: #0a0f1e; }
-  .hx-legend-dot.inactive { background: #e2e8f0; }
-  .hx-chart-sub {
-    font-size: 13px; color: #94a3b8; margin-top: 20px; line-height: 1.6;
-  }
+  .hx-btn:hover { opacity: 0.72; }
 
   /* 旧クラス非表示 */
   .hx-tags, .hx-tag, .hx-stats, .hx-stat, .hx-wrap, .hx-left,
   .hx-result-preview, .hx-numbers, .hx-number, .hx-inner, .hx-main,
-  .hx-right-panel, .hx-bottom-bar, .hx-cta-area,
+  .hx-left-panel, .hx-right-panel, .hx-bottom-bar, .hx-cta-area,
   .hx-body, .hx-footer, .hx-top, .hx-mid, .hx-bottom, .hx-bottom-right,
   .hx-topbar, .hx-center, .hx-statusbar, .hx-bg-num, .hx-giant-num,
-  .hx-mid-text, .hx-tag-list, .hx-制度-label,
+  .hx-mid-text, .hx-tag-list, .hx-制度-label, .hx-chart-panel,
   .hero-layout, .hero-panel, .hero-stats-strip, .hero-points, .hero-features,
   .hero-visual, .hero-graphic, .hero-content, .hero-overline,
   .hero-inner, .hero-kicker, .hero-btn-row,
@@ -1822,6 +1792,14 @@
   .hx-visual, .hx-vis-card, .hx-vis-tag, .hx-vis-row, .hx-vis-name, .hx-vis-amt
   { display: none !important; }
   .btn-hero { display: none !important; }
+
+  @media (max-width: 700px) {
+    #intro-hero { padding: 0 24px; }
+    .hx-h1 { font-size: 64px; }
+    .hx-footer-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .hx-right-cta { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .hx-btn { width: 100%; text-align: center; display: block; }
+  }
 
   @media (max-width: 860px) {
     #intro-hero { grid-template-columns: 1fr; height: auto; }
@@ -2264,57 +2242,22 @@
 
 <!-- INTRO HERO -->
 <div id="intro-hero">
-  <!-- 左パネル -->
-  <div class="hx-left-panel">
-    <div class="hx-eyebrow">補助金・助成金 無料診断</div>
-    <h1 class="hx-h1">使える助成金を、<br>全部調べる。</h1>
+  <div class="hx-eyebrow">補助金・助成金 無料診断</div>
+  <h1 class="hx-h1">
+    <span>使える</span>
+    <span>助成金を、</span>
+    <span>全部調べる。</span>
+  </h1>
+  <div class="hx-footer-row">
     <p class="hx-sub">業種・従業員数・経営状況を入力するだけ。国・県・市の80制度から、受給できる可能性のある補助金・助成金を5分でリストアップします。</p>
-    <div>
-      <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
+    <div class="hx-right-cta">
       <div class="hx-trust">登録不要 · 完全無料 · 約5分</div>
+      <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
     </div>
-  </div>
-
-  <!-- 右パネル：ドットマトリクス -->
-  <div class="hx-chart-panel">
-    <div class="hx-chart-title">80制度 — 診断対象一覧</div>
-    <div class="hx-dot-grid" id="dot-grid"></div>
-    <div class="hx-dot-legend">
-      <div class="hx-legend-item">
-        <div class="hx-legend-dot active"></div>
-        <span>あなたの会社に該当する可能性</span>
-      </div>
-      <div class="hx-legend-item">
-        <div class="hx-legend-dot inactive"></div>
-        <span>その他の制度</span>
-      </div>
-    </div>
-    <div class="hx-chart-sub">業種・従業員数を入力すると、<br>該当制度が自動でハイライトされます。</div>
   </div>
 </div>
 
-<script>
-(function() {
-  var grid = document.getElementById("dot-grid");
-  if (!grid) return;
-  var total = 80, active = 24, semi = 8;
-  var states = [];
-  for (var i = 0; i < total; i++) {
-    if (i < active) states.push("active");
-    else if (i < active + semi) states.push("semi");
-    else states.push("");
-  }
-  for (var i = states.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var tmp = states[i]; states[i] = states[j]; states[j] = tmp;
-  }
-  states.forEach(function(cls) {
-    var dot = document.createElement("div");
-    dot.className = "hx-dot" + (cls ? " " + cls : "");
-    grid.appendChild(dot);
-  });
-})();
-</script>
+
 
 <!-- HEARING FORM -->
 <div id="form-area" style="display:none">

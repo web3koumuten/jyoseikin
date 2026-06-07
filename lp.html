@@ -588,27 +588,33 @@ body {
   background: var(--black); padding: 3px 11px; letter-spacing: .02em;
 }
 .case-size { font-size: 12px; font-weight: 600; color: #64748b; }
-.case-amount { display: flex; align-items: baseline; gap: 3px; }
-.case-amount-pre { font-size: 11px; font-weight: 700; color: #94a3b8; margin-right: 6px; letter-spacing: .06em; }
-.case-amount b { font-size: 40px; font-weight: 900; color: var(--black); letter-spacing: -.04em; line-height: 1; font-feature-settings: "tnum" 1, "lnum" 1; }
-.case-amount-unit { font-size: 15px; font-weight: 800; color: var(--black); }
-.case-tool { font-size: 13.5px; font-weight: 700; color: var(--ink); line-height: 1.5; }
-.case-effect {
-  font-size: 13px; color: #475569; line-height: 1.75;
-  padding-top: 12px; border-top: 1px solid var(--border);
-  position: relative;
+.case-result {
+  font-size: 18px; font-weight: 900; color: var(--black);
+  letter-spacing: -.02em; line-height: 1.45;
 }
-.case-effect::before {
-  content: '効果'; display: inline-block;
+.case-result .em { color: #1d4ed8; }
+.case-tool {
+  font-size: 13px; color: #475569; line-height: 1.7;
+  padding-top: 12px; border-top: 1px solid var(--border); position: relative;
+}
+.case-tool::before {
+  content: '導入ツール'; display: inline-block;
   font-size: 10px; font-weight: 800; color: #fff; background: #64748b;
   padding: 1px 6px; margin-right: 8px; letter-spacing: .04em; vertical-align: 1px;
 }
+.case-src {
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 2px;
+  font-size: 12px; font-weight: 700; color: var(--black); text-decoration: none;
+  border-bottom: 1px solid #cbd5e1; padding-bottom: 1px; align-self: flex-start;
+}
+.case-src::after { content: '↗'; font-size: 11px; color: #64748b; }
+.case-src:hover { border-bottom-color: var(--black); }
 
 /* ── スマホ最適化 ── */
 @media (max-width: 560px) {
   .case-grid { grid-template-columns: 1fr; gap: 12px; }
   .case-card { padding: 18px 18px; }
-  .case-amount b { font-size: 36px; }
+  .case-result { font-size: 16px; }
   .nav-inner { height: 52px; padding-left: 16px; padding-right: 16px; }
   .nav-logo { font-size: 13px; gap: 8px; }
   .nav-badge { width: 26px; height: 26px; font-size: 13px; }
@@ -1389,34 +1395,34 @@ body {
             </table>
           </div>
           <div class="body-block span2">
-            <div class="block-head">公式採択事例（IT導入支援事務局 公表資料より）</div>
+            <div class="block-head">公式採択事例（中小機構「IT導入補助金 活用事例」より）</div>
             <div class="case-grid">
               <div class="case-card">
-                <div class="case-card-top"><span class="case-industry">建設業</span><span class="case-size">従業員18名</span></div>
-                <div class="case-amount"><span class="case-amount-pre">補助額</span><b>120</b><span class="case-amount-unit">万円</span></div>
-                <div class="case-tool">工事原価・受発注管理システム</div>
-                <div class="case-effect">見積作成時間を60%削減、請求漏れゼロに</div>
+                <div class="case-card-top"><span class="case-industry">建設・土木業</span><span class="case-size">小幡建設工業（青森県）</span></div>
+                <div class="case-result">残業時間を<span class="em">約1/3に削減</span>、勤怠業務は2日→1日に</div>
+                <div class="case-tool">勤怠・労務管理ソフト「就業大臣」</div>
+                <a class="case-src" href="https://it-case.smrj.go.jp/2020/obatakensetsu" target="_blank" rel="noopener">公式事例を見る</a>
               </div>
               <div class="case-card">
-                <div class="case-card-top"><span class="case-industry">飲食業</span><span class="case-size">従業員12名</span></div>
-                <div class="case-amount"><span class="case-amount-pre">補助額</span><b>45</b><span class="case-amount-unit">万円</span></div>
-                <div class="case-tool">クラウドPOS＋在庫管理</div>
-                <div class="case-effect">月次棚卸の工数を半減、廃棄ロス15%削減</div>
+                <div class="case-card-top"><span class="case-industry">飲食業</span><span class="case-size">杏亭グループ（和歌山市）</span></div>
+                <div class="case-result"><span class="em">会計ミス90%減・顧客単価20%増</span>、行列も解消</div>
+                <div class="case-tool">飲食店POSレジ＆オーダーシステム「テンポスエアー」</div>
+                <a class="case-src" href="https://it-case.smrj.go.jp/2020/anzutei" target="_blank" rel="noopener">公式事例を見る</a>
               </div>
               <div class="case-card">
-                <div class="case-card-top"><span class="case-industry">介護事業</span><span class="case-size">従業員35名</span></div>
-                <div class="case-amount"><span class="case-amount-pre">補助額</span><b>180</b><span class="case-amount-unit">万円</span></div>
-                <div class="case-tool">介護記録・シフト管理システム</div>
-                <div class="case-effect">記録時間を1日60分短縮、残業代を年間80万円削減</div>
+                <div class="case-card-top"><span class="case-industry">介護業</span><span class="case-size">ささや木（富山県）</span></div>
+                <div class="case-result">クラウド化で<span class="em">テレワークを実現</span>、人材定着と災害時のBCPにも</div>
+                <div class="case-tool">介護業務支援ソフト「ほのぼのNEXT」</div>
+                <a class="case-src" href="https://it-case.smrj.go.jp/2021/sasayaki/" target="_blank" rel="noopener">公式事例を見る</a>
               </div>
               <div class="case-card">
-                <div class="case-card-top"><span class="case-industry">製造業</span><span class="case-size">従業員8名</span></div>
-                <div class="case-amount"><span class="case-amount-pre">補助額</span><b>90</b><span class="case-amount-unit">万円</span></div>
-                <div class="case-tool">AI-OCR＋受発注自動化</div>
-                <div class="case-effect">受注処理を1件あたり15分→2分に短縮</div>
+                <div class="case-card-top"><span class="case-industry">製造業</span><span class="case-size">ケーズメタル（富山県）</span></div>
+                <div class="case-result"><span class="em">経理業務の負荷を軽減</span>、スピーディーな経営判断を実現</div>
+                <div class="case-tool">クラウド会計・財務ツール</div>
+                <a class="case-src" href="https://it-case.smrj.go.jp/2021/ks-metal/" target="_blank" rel="noopener">公式事例を見る</a>
               </div>
             </div>
-            <p style="font-size:12px;color:#94a3b8;margin-top:10px;line-height:1.7;">※IT導入補助金事務局「採択事業者事例集」および中小企業庁公表資料をもとに作成<br>出典： <a class="src-link" href="https://www.it-hojo.jp/" target="_blank" rel="noopener">IT導入補助金 公式サイト（it-hojo.jp）↗</a></p>
+            <p style="font-size:12px;color:#94a3b8;margin-top:10px;line-height:1.7;">※出典：中小機構「IT導入補助金 ITツール活用事例」 <a class="src-link" href="https://it-case.smrj.go.jp/" target="_blank" rel="noopener">it-case.smrj.go.jp ↗</a>（各カードのリンクから個別事例ページへ移動できます）</p>
           </div>
           <div class="body-block span2">
             <div class="block-head">補助対象外のコスト（注意）</div>

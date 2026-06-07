@@ -1726,206 +1726,74 @@
     margin: 0 -24px;
     padding: 0;
     background: #fff;
-    height: calc(100vh - 56px);
+    min-height: calc(100vh - 56px);
     display: grid;
-    grid-template-columns: 1fr 420px;
+    grid-template-columns: 1.05fr 0.95fr;
     overflow: hidden;
-    border-top: 2px solid #0a0f1e;
+    border-top: 1px solid var(--border-light);
   }
 
-  /* 左：テキストエリア */
+  /* 左：テキスト（結果ページと同じ白・フラット・角なし） */
   .hx-left-area {
-    padding: 56px 64px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .hx-eyebrow {
-    font-size: 11px; font-weight: 600; color: #94a3b8;
-    letter-spacing: 0.12em; text-transform: uppercase;
-  }
-  .hx-h1 {
-    font-size: clamp(38px, 4.2vw, 58px);
-    font-weight: 900; color: #0a0f1e;
-    letter-spacing: -0.03em; line-height: 1.12; margin: 0;
-  }
-  .hx-bar { display: none; }
-  .hx-cta-group {
-    display: flex; flex-direction: column; gap: 14px;
-  }
-  .hx-sub {
-    font-size: 14px; color: #64748b; line-height: 1.8;
-    max-width: 380px; margin: 0;
-  }
-  .hx-actions {
-    display: flex; align-items: center; gap: 24px;
-  }
-  .hx-btn {
-    display: inline-block; background: #0a0f1e; color: #fff; border: none;
-    padding: 15px 44px; font-size: 14px; font-weight: 700;
-    cursor: pointer; font-family: inherit; letter-spacing: 0.04em;
-    transition: opacity 0.15s;
-  }
-  .hx-btn:hover { opacity: 0.72; }
-  .hx-trust { font-size: 12px; color: #94a3b8; }
-
-  /* 左：信頼バッジ／トラスト行 */
-  .hx-eyebrow-badge {
-    display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
-    background: #eff6ff; color: #0066ff;
-    font-size: 13px; font-weight: 700;
-    padding: 7px 14px; border-radius: 999px;
-  }
-  .hx-eyebrow-dot {
-    width: 8px; height: 8px; border-radius: 50%; background: #0066ff;
-    animation: pulse 2s ease-in-out infinite;
-  }
-  .hx-trust-row { display: flex; gap: 18px; flex-wrap: wrap; }
-  .hx-trust-item {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 13px; font-weight: 700; color: #2d3f52;
-  }
-  .hx-check {
-    width: 18px; height: 18px; border-radius: 50%;
-    background: #eff6ff; color: #0066ff;
-    display: grid; place-items: center; font-size: 11px; font-weight: 900;
-  }
-
-  /* 右：スキャンアニメーションエリア */
-  .hx-scan-area {
-    background: #0a0f1e;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 40px 36px;
-    overflow: hidden;
-    position: relative;
-  }
-  .hx-scan-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .hx-scan-title {
-    font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.3);
-    letter-spacing: 0.12em; text-transform: uppercase;
-  }
-  .hx-scan-status {
-    font-size: 11px; color: rgba(255,255,255,0.2);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .hx-scan-dot {
-    width: 6px; height: 6px; background: #4d8bff;
-    animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-  .hx-scan-list {
-    flex: 1;
+    padding: 8vh 7% 8vh 8%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 0;
+    gap: 28px;
+    border-right: 1px solid var(--border-light);
+  }
+  .hx-kicker {
+    align-self: flex-start; display: flex; align-items: center; gap: 11px;
+    font-size: 12px; font-weight: 600; color: var(--gray-600); letter-spacing: 0.06em;
+  }
+  .hx-kicker::before { content: ''; width: 26px; height: 2px; background: var(--accent); }
+  .hx-h1 {
+    font-size: clamp(33px, 3.9vw, 54px);
+    font-weight: 800; color: var(--primary);
+    letter-spacing: -0.03em; line-height: 1.16; margin: 0;
+  }
+  .hx-cta-group {
+    display: flex; flex-direction: column; gap: 22px; align-items: flex-start;
+  }
+  .hx-sub {
+    font-size: 15px; color: var(--gray-600); line-height: 1.85;
+    max-width: 30em; margin: 0;
+  }
+  .hx-btn {
+    display: inline-block; background: var(--primary); color: #fff; border: none;
+    padding: 16px 46px; font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: inherit; letter-spacing: 0.04em;
+    border-radius: 0; transition: background 0.15s;
+  }
+  .hx-btn:hover { background: var(--accent); }
+  .hx-trust-line {
+    font-size: 13px; color: var(--gray-400); letter-spacing: 0.02em;
+    padding-top: 16px; border-top: 1px solid var(--border-light); width: 100%; max-width: 30em;
+  }
+
+  /* 右：診断分野（結果ページと同一のフラット・角なしスタイル） */
+  .hx-scan-area {
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8vh 7% 8vh 6%;
     overflow: hidden;
     position: relative;
   }
-  .hx-scan-list::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 60px;
-    background: linear-gradient(to bottom, #0a0f1e, transparent);
-    z-index: 2;
+  .hx-cov-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 0 4px 14px; border-bottom: 1px solid var(--border);
   }
-  .hx-scan-list::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 60px;
-    background: linear-gradient(to top, #0a0f1e, transparent);
-    z-index: 2;
+  .hx-cov-title { font-size: 13px; font-weight: 700; color: #101828; letter-spacing: 0.01em; }
+  .hx-cov-meta { font-size: 11.5px; color: #667085; }
+  .hx-cov-list { list-style: none; margin: 0; padding: 0; }
+  .hx-cov-list li {
+    display: flex; align-items: center; gap: 12px;
+    padding: 15px 4px; border-bottom: 1px solid var(--border-light);
+    font-size: 15px; font-weight: 600; color: var(--gray-900); letter-spacing: -0.01em;
   }
-  .hx-scan-track {
-    animation: scrollUp 16s linear infinite;
-  }
-  @keyframes scrollUp {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50%); }
-  }
-  .hx-scan-item {
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .hx-scan-item.match {
-    opacity: 1;
-  }
-  .hx-scan-item.other {
-    opacity: 0.2;
-  }
-  .hx-scan-indicator {
-    width: 6px; height: 6px; flex-shrink: 0;
-  }
-  .hx-scan-item.match .hx-scan-indicator { background: #4d8bff; }
-  .hx-scan-item.other .hx-scan-indicator { background: rgba(255,255,255,0.2); }
-  .hx-scan-name {
-    font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.7);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .hx-scan-item.other .hx-scan-name { color: rgba(255,255,255,0.2); }
-  .hx-scan-footer {
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 16px;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-  }
-  .hx-scan-footer-label { font-size: 11px; color: rgba(255,255,255,0.3); }
-  .hx-scan-count {
-    font-size: 32px; font-weight: 900; color: white;
-    letter-spacing: -0.04em; line-height: 1;
-  }
-  .hx-scan-count span { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.4); margin-left: 4px; }
-
-  /* 右：診断結果プレビュー */
-  .hx-pv-lead {
-    font-size: 19px; font-weight: 900; color: #fff; line-height: 1.5;
-    margin: 18px 0 18px;
-  }
-  .hx-pv-lead b { font-weight: 900; }
-  .hx-pv-hit { color: #4d8bff; }
-  .hx-pv-list { display: flex; flex-direction: column; gap: 10px; }
-  .hx-pv-card {
-    background: #16263a; border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px; padding: 14px 16px;
-    display: flex; align-items: center; gap: 13px;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .hx-pv-card:hover { border-color: #4d8bff; transform: translateX(3px); }
-  .hx-pv-match {
-    flex: none; width: 50px; height: 50px; border-radius: 10px;
-    display: grid; place-items: center;
-    font-size: 17px; font-weight: 900; line-height: 1;
-    background: rgba(77,139,255,0.16); color: #4d8bff;
-    border: 1px solid rgba(77,139,255,0.4);
-  }
-  .hx-pv-match.b {
-    background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.75);
-    border-color: rgba(255,255,255,0.18);
-  }
-  .hx-pv-match span { display: block; font-size: 8px; font-weight: 700; margin-top: 2px; letter-spacing: 0; }
-  .hx-pv-body { flex: 1; min-width: 0; }
-  .hx-pv-name { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.35; }
-  .hx-pv-meta { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
-  .hx-pv-amt { flex: none; text-align: right; }
-  .hx-pv-amt b { display: block; font-size: 17px; font-weight: 900; color: #fff; }
-  .hx-pv-amt span { font-size: 11px; color: rgba(255,255,255,0.45); }
-  .hx-pv-more { font-size: 12px; color: rgba(255,255,255,0.45); }
-  .hx-pv-more b { color: #fff; font-weight: 700; }
+  .hx-cov-list li::before { content: ''; width: 6px; height: 6px; background: var(--accent); flex: none; }
 
   /* 旧クラス非表示 */
   .hx-white-area, .hx-dark-area, .hx-dark-label, .hx-dark-center,
@@ -1947,44 +1815,16 @@
   .btn-hero { display: none !important; }
 
   @media (max-width: 900px) {
-    #intro-hero { grid-template-columns: 1fr; }
-    .hx-scan-area { display: none; }
-    .hx-left-area { padding: 40px 24px; }
-    .hx-h1 { font-size: 48px; }
+    #intro-hero { grid-template-columns: 1fr; min-height: 0; height: auto; }
+    .hx-left-area { padding: 48px 28px 36px; gap: 24px; border-right: none; }
+    .hx-h1 { font-size: clamp(30px, 7vw, 40px); }
     .hx-btn { width: 100%; text-align: center; display: block; }
+    .hx-scan-area { border-top: 1px solid var(--border); padding: 36px 28px 40px; }
   }
 
-  @media (max-width: 860px) {
-    #intro-hero { grid-template-columns: 1fr; }
-    .hx-dark-area { display: none; }
-    .hx-white-area { padding: 40px 24px; }
-    .hx-line-outline, .hx-line-solid { font-size: 48px; white-space: normal; }
-    .hx-bottom-row { flex-direction: column; align-items: flex-start; }
-    .hx-btn-wrap { align-items: flex-start; }
-  }
-
-  @media (max-width: 700px) {
-    #intro-hero { padding: 0 24px; }
-    .hx-line-outline, .hx-line-solid { font-size: 56px; }
-    .hx-bottom-row { flex-direction: column; align-items: flex-start; gap: 24px; }
-    .hx-btn-wrap { align-items: flex-start; }
-    .hx-btn { width: 100%; text-align: center; display: block; }
-  }
-
-  @media (max-width: 700px) {
-    #intro-hero { padding: 0 24px; }
-    .hx-h1 { font-size: 64px; }
-    .hx-footer-row { flex-direction: column; align-items: flex-start; gap: 20px; }
-    .hx-right-cta { flex-direction: column; align-items: flex-start; gap: 12px; }
-    .hx-btn { width: 100%; text-align: center; display: block; }
-  }
-
-  @media (max-width: 860px) {
-    #intro-hero { grid-template-columns: 1fr; height: auto; }
-    .hx-chart-panel { display: none; }
-    .hx-left-panel { border-right: none; min-height: calc(100vh - 56px); }
-    .hx-h1 { font-size: 40px; }
-    .hx-btn { width: 100%; text-align: center; display: block; }
+  @media (max-width: 480px) {
+    .hx-h1 { font-size: 30px; }
+    .hx-cov-list li { font-size: 14px; }
   }
 
   /* ── SUMMARY CHARTS ───────────────────────── */
@@ -2422,63 +2262,30 @@
 <div id="intro-hero">
   <!-- 左 -->
   <div class="hx-left-area">
-    <div class="hx-eyebrow-badge"><span class="hx-eyebrow-dot"></span>国・県・市あわせて 80 制度に対応</div>
+    <div class="hx-kicker">岩手・盛岡の事業者向け　補助金・助成金 診断</div>
     <h1 class="hx-h1">使える助成金を、<br>全部調べる。</h1>
     <div class="hx-cta-group">
-      <p class="hx-sub">業種・従業員数・経営状況を選ぶだけ。岩手・盛岡の事業者が受給できる可能性のある補助金・助成金を、金額の目安つきで5分でリストアップします。</p>
-      <div class="hx-actions">
-        <button class="hx-btn" id="btn-start-diagnosis">無料で診断する →</button>
-        <div class="hx-trust-row">
-          <span class="hx-trust-item"><span class="hx-check">✓</span>登録不要</span>
-          <span class="hx-trust-item"><span class="hx-check">✓</span>完全無料</span>
-          <span class="hx-trust-item"><span class="hx-check">✓</span>約5分</span>
-        </div>
-      </div>
+      <p class="hx-sub">業種・従業員数・経営状況を選ぶだけ。国・県・市あわせて80制度の中から、受給できる可能性のある制度を、金額の目安とともに5分でご案内します。</p>
+      <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
+      <div class="hx-trust-line">登録不要　・　完全無料　・　所要約5分</div>
     </div>
   </div>
-  <!-- 右：診断結果プレビュー -->
+  <!-- 右：診断でカバーする分野 -->
   <div class="hx-scan-area">
-    <div class="hx-scan-header">
-      <div class="hx-scan-title">診断結果プレビュー</div>
-      <div class="hx-scan-status">
-        <div class="hx-scan-dot"></div>
-        <span>こう表示されます</span>
-      </div>
+    <div class="hx-cov-head">
+      <span class="hx-cov-title">診断でカバーする分野</span>
+      <span class="hx-cov-meta">国・県・市 80制度</span>
     </div>
-
-    <div class="hx-pv-lead">例：<b>製造業・従業員12名</b>なら<br><b class="hx-pv-hit">該当7制度</b>がヒット</div>
-
-    <div class="hx-pv-list">
-      <div class="hx-pv-card">
-        <div class="hx-pv-match">A<span>マッチ</span></div>
-        <div class="hx-pv-body">
-          <div class="hx-pv-name">業務改善助成金</div>
-          <div class="hx-pv-meta">賃上げ＋設備投資をした事業者向け</div>
-        </div>
-        <div class="hx-pv-amt"><b>最大600万</b><span>円</span></div>
-      </div>
-      <div class="hx-pv-card">
-        <div class="hx-pv-match">A<span>マッチ</span></div>
-        <div class="hx-pv-body">
-          <div class="hx-pv-name">岩手県 物価高騰対策賃上げ支援金</div>
-          <div class="hx-pv-meta">県内事業所・時給60円以上の賃上げ</div>
-        </div>
-        <div class="hx-pv-amt"><b>最大400万</b><span>円</span></div>
-      </div>
-      <div class="hx-pv-card">
-        <div class="hx-pv-match b">B<span>マッチ</span></div>
-        <div class="hx-pv-body">
-          <div class="hx-pv-name">キャリアアップ助成金 正社員化コース</div>
-          <div class="hx-pv-meta">有期→正社員に転換した事業者向け</div>
-        </div>
-        <div class="hx-pv-amt"><b>最大80万</b><span>円</span></div>
-      </div>
-    </div>
-
-    <div class="hx-scan-footer">
-      <div class="hx-pv-more">ほか <b>＋4制度</b> を結果画面で表示</div>
-      <div class="hx-scan-count">80<span>制度収録</span></div>
-    </div>
+    <ul class="hx-cov-list">
+      <li>雇用・正社員化</li>
+      <li>賃上げ・最低賃金の引き上げ</li>
+      <li>設備投資・省力化</li>
+      <li>IT・DX・AI導入</li>
+      <li>販路開拓・展示会出展</li>
+      <li>省エネ・脱炭素</li>
+      <li>人材育成・リスキリング</li>
+      <li>創業・事業承継</li>
+    </ul>
   </div>
 </div>
 <!-- HEARING FORM -->

@@ -340,6 +340,15 @@ body {
 .tbl tbody tr:nth-child(even) td { background: #fafbfd; }
 .tbl tbody tr:hover td { background: #f3f7fc; }
 .tbl tbody tr:last-child td { border-bottom: none; }
+/* ツール相性テーブル */
+.tbl-compat td:first-child { font-weight: 700; color: var(--black); white-space: nowrap; }
+.tbl-compat td:nth-child(2) { color: #475569; }
+.compat-mark {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 800; padding: 5px 12px;
+  border: 1.5px solid #cbd5e1; color: #475569; white-space: nowrap; line-height: 1;
+}
+.compat-mark.strong { background: var(--black); color: #fff; border-color: var(--black); }
 .tbl .val {
   font-size: 17px; font-weight: 900; color: var(--black); letter-spacing: -0.02em;
 }
@@ -1397,15 +1406,15 @@ body {
           </div>
           <div class="body-block span2">
             <div class="block-head">よく申請されるITツールと補助金との相性</div>
-            <table class="tbl">
+            <table class="tbl tbl-compat">
               <thead><tr><th>カテゴリ</th><th>代表的なツール例</th><th>申請実績</th></tr></thead>
               <tbody>
-                <tr><td>クラウド会計</td><td>freee会計、マネーフォワード クラウド、弥生オンライン</td><td class="val-sm">◎ 最多採択</td></tr>
-                <tr><td>勤怠・HR管理</td><td>KING OF TIME、freee人事労務、ジョブカン、SmartHR</td><td class="val-sm">◎ 採択多数</td></tr>
-                <tr><td>受発注・在庫</td><td>楽楽販売、CROSS MALL、スマレジ、クラウドPOS</td><td class="val-sm">◎</td></tr>
-                <tr><td>AI・RPA</td><td>UiPath、Power Automate、AI-OCRサービス、生成AIツール</td><td class="val-sm">○ 急増中</td></tr>
-                <tr><td>建設・施工管理</td><td>蔵奉行クラウド、現場まわり、工事管理・原価管理システム</td><td class="val-sm">○ 業種加点あり</td></tr>
-                <tr><td>医療・介護</td><td>電子カルテ、介護記録システム、シフト管理</td><td class="val-sm">○ 対象多数</td></tr>
+                <tr><td>クラウド会計</td><td>freee会計、マネーフォワード クラウド、弥生オンライン</td><td><span class="compat-mark strong">◎ 最多採択</span></td></tr>
+                <tr><td>勤怠・HR管理</td><td>KING OF TIME、freee人事労務、ジョブカン、SmartHR</td><td><span class="compat-mark strong">◎ 採択多数</span></td></tr>
+                <tr><td>受発注・在庫</td><td>楽楽販売、CROSS MALL、スマレジ、クラウドPOS</td><td><span class="compat-mark strong">◎ 定番</span></td></tr>
+                <tr><td>AI・RPA</td><td>UiPath、Power Automate、AI-OCRサービス、生成AIツール</td><td><span class="compat-mark">○ 急増中</span></td></tr>
+                <tr><td>建設・施工管理</td><td>蔵奉行クラウド、現場まわり、工事管理・原価管理システム</td><td><span class="compat-mark">○ 業種加点あり</span></td></tr>
+                <tr><td>医療・介護</td><td>電子カルテ、介護記録システム、シフト管理</td><td><span class="compat-mark">○ 対象多数</span></td></tr>
               </tbody>
             </table>
           </div>

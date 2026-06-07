@@ -186,16 +186,16 @@ body {
 }
 .callout-recommend {
   display: inline-block; position: relative;
-  background: var(--blue); color: #fff;
-  font-size: 13px; font-weight: 900; padding: 8px 20px;
-  letter-spacing: 0.04em; margin-bottom: 12px; line-height: 1;
-  border: 2px solid var(--blue); box-shadow: 3px 3px 0 #1e3a8a;
+  background: #fff; color: var(--black);
+  font-size: 13px; font-weight: 900; padding: 9px 20px;
+  letter-spacing: 0.02em; margin: 14px 0 4px; line-height: 1.45;
+  border: 2px solid var(--black); box-shadow: 3px 3px 0 var(--black);
 }
 .callout-recommend::after {
-  content: ''; position: absolute; bottom: -12px; left: 24px;
+  content: ''; position: absolute; top: -12px; left: 24px;
   width: 0; height: 0;
   border-left: 8px solid transparent; border-right: 8px solid transparent;
-  border-top: 10px solid var(--blue);
+  border-bottom: 10px solid var(--black);
 }
 .callout-point {
   background: #f8fafc;
@@ -1011,7 +1011,6 @@ body {
 
     <!-- 短時間延長 -->
     <div class="course" id="c-tanjikan">
-      <div class="callout-recommend">★ あわせて使いたいおすすめコース</div>
       <button class="course-trigger" onclick="toggle('c-tanjikan')">
         <span class="course-chip">短時間延長</span>
         <span class="course-name">短時間労働者労働時間延長コース — 週20時間未満のパートを社会保険加入へ</span>
@@ -1021,6 +1020,7 @@ body {
         </div>
         <span class="chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg></span>
       </button>
+      <div class="callout-recommend">業務の切り出しを行うことで短時間労働者を一つのマンパワーへ！</div>
       <div class="course-body">
         <div class="callout-point">
           事務・受付などの業務を切り出すことで、短時間労働者を<strong>一つのマンパワー</strong>として最大限活用できます。社会保険加入によりスタッフの定着率向上にもつながります。

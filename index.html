@@ -1724,110 +1724,108 @@
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
     margin: 0 -24px;
-    padding: 0 48px;
+    padding: 0 56px;
     background: #fff;
     height: calc(100vh - 56px);
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
     overflow: hidden;
-    border-top: 3px solid #0a0f1e;
-  }
-  .hx-wrap {
-    max-width: 1160px;
-    margin: 0 auto;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 460px;
-    gap: 80px;
-    align-items: center;
+    position: relative;
   }
 
-  /* 左：テキスト */
-  .hx-left { display: flex; flex-direction: column; }
+  /* 上段 */
+  .hx-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 40px;
+  }
   .hx-eyebrow {
-    font-size: 12px; font-weight: 600; color: #94a3b8;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    margin-bottom: 28px;
+    font-size: 11px; font-weight: 600; color: #94a3b8;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .hx-tag-list {
+    display: flex; gap: 24px;
+    font-size: 12px; color: #94a3b8; font-weight: 500;
+  }
+
+  /* 中段：メインビジュアル */
+  .hx-mid {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    flex: 1;
+    padding-bottom: 20px;
+  }
+  /* 巨大な「80」 */
+  .hx-giant-num {
+    position: absolute;
+    left: -12px;
+    bottom: -20px;
+    font-size: clamp(200px, 28vw, 380px);
+    font-weight: 900;
+    color: #f1f5f9;
+    letter-spacing: -0.06em;
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hx-mid-text {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 660px;
+  }
+  .hx-制度-label {
+    font-size: 13px; font-weight: 700; color: #0a0f1e;
+    letter-spacing: 0.06em; display: flex; align-items: center; gap: 10px;
+  }
+  .hx-制度-label::before {
+    content: ''; width: 28px; height: 2px; background: #0a0f1e;
   }
   .hx-bar { display: none; }
   .hx-h1 {
-    font-size: clamp(44px, 5.5vw, 72px);
+    font-size: clamp(38px, 5vw, 68px);
     font-weight: 900; color: #0a0f1e;
-    letter-spacing: -0.04em; line-height: 1.08;
-    margin: 0 0 28px;
+    letter-spacing: -0.04em; line-height: 1.1; margin: 0;
+  }
+
+  /* 下段 */
+  .hx-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 24px;
+    gap: 40px;
   }
   .hx-sub {
-    font-size: 15px; color: #64748b;
-    line-height: 1.8; margin: 0 0 40px;
-    max-width: 400px;
+    font-size: 14px; color: #64748b; line-height: 1.75;
+    max-width: 400px; margin: 0; flex: 1;
   }
+  .hx-bottom-right {
+    display: flex; align-items: center; gap: 24px; flex-shrink: 0;
+  }
+  .hx-trust { font-size: 12px; color: #94a3b8; }
   .hx-btn {
     display: inline-block;
     background: #0a0f1e; color: #fff; border: none;
-    padding: 16px 44px; font-size: 15px; font-weight: 700;
+    padding: 15px 40px; font-size: 14px; font-weight: 700;
     cursor: pointer; font-family: inherit; letter-spacing: 0.04em;
-    transition: opacity 0.15s; align-self: flex-start;
+    transition: opacity 0.15s; white-space: nowrap;
   }
   .hx-btn:hover { opacity: 0.75; }
-  .hx-trust {
-    margin-top: 16px; font-size: 12px; color: #94a3b8;
-  }
-
-  /* 右：診断結果プレビュー（実際の出力と同じスタイル） */
-  .hx-result-preview {
-    border-top: 2px solid #0a0f1e;
-  }
-  .hx-rp-header {
-    display: flex; justify-content: space-between;
-    align-items: baseline;
-    padding: 16px 0 14px;
-    border-bottom: 1px solid #e2e8f0;
-    margin-bottom: 0;
-  }
-  .hx-rp-title {
-    font-size: 12px; font-weight: 700; color: #94a3b8;
-    letter-spacing: 0.06em; text-transform: uppercase;
-  }
-  .hx-rp-count {
-    font-size: 13px; font-weight: 600; color: #64748b;
-  }
-  .hx-rp-item {
-    display: flex; justify-content: space-between;
-    align-items: baseline; padding: 16px 0;
-    border-bottom: 1px solid #e2e8f0;
-  }
-  .hx-rp-item:last-of-type { border-bottom: none; }
-  .hx-rp-name {
-    font-size: 14px; font-weight: 600; color: #1e293b;
-  }
-  .hx-rp-cat {
-    font-size: 11px; color: #94a3b8; margin-top: 3px;
-  }
-  .hx-rp-amt {
-    font-size: 22px; font-weight: 900; color: #0a0f1e;
-    letter-spacing: -0.03em; white-space: nowrap;
-  }
-  .hx-rp-more {
-    padding: 14px 0 0;
-    font-size: 13px; color: #94a3b8;
-    font-style: italic;
-  }
-  .hx-rp-footer {
-    display: flex; justify-content: space-between;
-    align-items: baseline; margin-top: 20px;
-    padding-top: 16px; border-top: 2px solid #0a0f1e;
-  }
-  .hx-rp-footer-label { font-size: 13px; color: #64748b; }
-  .hx-rp-footer-total {
-    font-size: 32px; font-weight: 900; color: #0a0f1e;
-    letter-spacing: -0.04em;
-  }
 
   /* 旧クラス非表示 */
-  .hx-tags, .hx-tag, .hx-stats, .hx-stat,
-  .hx-numbers, .hx-number, .hx-inner, .hx-main, .hx-left-panel,
-  .hx-right-panel, .hx-bottom-bar, .hx-cta-area, .hx-body, .hx-footer,
-  .hx-topbar, .hx-center, .hx-statusbar, .hx-bg-num,
+  .hx-tags, .hx-tag, .hx-stats, .hx-stat, .hx-wrap, .hx-left,
+  .hx-result-preview, .hx-numbers, .hx-number, .hx-inner, .hx-main,
+  .hx-left-panel, .hx-right-panel, .hx-bottom-bar, .hx-cta-area,
+  .hx-body, .hx-footer, .hx-topbar, .hx-center, .hx-statusbar, .hx-bg-num,
   .hero-layout, .hero-panel, .hero-stats-strip, .hero-points, .hero-features,
   .hero-visual, .hero-graphic, .hero-content, .hero-overline,
   .hero-inner, .hero-kicker, .hero-btn-row,
@@ -1837,11 +1835,12 @@
   { display: none !important; }
   .btn-hero { display: none !important; }
 
-  @media (max-width: 860px) {
+  @media (max-width: 700px) {
     #intro-hero { padding: 0 24px; }
-    .hx-wrap { grid-template-columns: 1fr; gap: 40px; }
-    .hx-result-preview { display: none; }
-    .hx-h1 { font-size: 44px; }
+    .hx-tag-list { display: none; }
+    .hx-h1 { font-size: 38px; }
+    .hx-bottom { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .hx-bottom-right { flex-direction: column; align-items: flex-start; gap: 12px; }
     .hx-btn { width: 100%; text-align: center; display: block; }
   }
 
@@ -2278,47 +2277,31 @@
 
 <!-- INTRO HERO -->
 <div id="intro-hero">
-  <div class="hx-wrap">
-    <!-- 左：テキスト＋CTA -->
-    <div class="hx-left">
-      <div class="hx-eyebrow">補助金・助成金 無料診断</div>
-      <h1 class="hx-h1">使える助成金を、<br>全部調べる。</h1>
-      <p class="hx-sub">業種・従業員数・経営状況を入力するだけ。国・県・市の80制度から、受給できる可能性のある補助金・助成金を自動でリストアップします。</p>
-      <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
-      <div class="hx-trust">登録不要 &nbsp;·&nbsp; 完全無料 &nbsp;·&nbsp; 約5分</div>
+  <!-- 上段 -->
+  <div class="hx-top">
+    <div class="hx-eyebrow">補助金・助成金 無料診断 — 2026年度版</div>
+    <div class="hx-tag-list">
+      <span>国・県・市 対応</span>
+      <span>登録不要</span>
+      <span>約5分</span>
     </div>
-    <!-- 右：診断結果プレビュー（実際の出力スタイル） -->
-    <div class="hx-result-preview">
-      <div class="hx-rp-header">
-        <span class="hx-rp-title">診断結果 — サンプル</span>
-        <span class="hx-rp-count">7件が該当</span>
-      </div>
-      <div class="hx-rp-item">
-        <div>
-          <div class="hx-rp-name">キャリアアップ助成金</div>
-          <div class="hx-rp-cat">雇用 · 正社員化コース</div>
-        </div>
-        <div class="hx-rp-amt">80万円</div>
-      </div>
-      <div class="hx-rp-item">
-        <div>
-          <div class="hx-rp-name">デジタル化・AI導入補助金</div>
-          <div class="hx-rp-cat">IT · 通常枠</div>
-        </div>
-        <div class="hx-rp-amt">150万円</div>
-      </div>
-      <div class="hx-rp-item">
-        <div>
-          <div class="hx-rp-name">特定求職者雇用開発助成金</div>
-          <div class="hx-rp-cat">雇用 · 特定就職困難者コース</div>
-        </div>
-        <div class="hx-rp-amt">240万円</div>
-      </div>
-      <div class="hx-rp-more">他4件を表示...</div>
-      <div class="hx-rp-footer">
-        <span class="hx-rp-footer-label">受給可能額（目安）</span>
-        <span class="hx-rp-footer-total">628万円</span>
-      </div>
+  </div>
+
+  <!-- 中段：大きな数字 + 見出し -->
+  <div class="hx-mid">
+    <div class="hx-giant-num">80</div>
+    <div class="hx-mid-text">
+      <div class="hx-制度-label">80制度から自動診断</div>
+      <h1 class="hx-h1">あなたの会社が受け取れる<br>補助金・助成金を<br>5分で調べる。</h1>
+    </div>
+  </div>
+
+  <!-- 下段：説明 + CTA -->
+  <div class="hx-bottom">
+    <p class="hx-sub">業種・従業員数・経営状況を入力するだけ。国・都道府県・市区町村の80制度から、受給できる可能性のある補助金・助成金を自動でリストアップします。</p>
+    <div class="hx-bottom-right">
+      <div class="hx-trust">登録不要 · 完全無料</div>
+      <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
     </div>
   </div>
 </div>

@@ -1725,22 +1725,30 @@
   #intro-hero {
     margin: 0 -24px;
     padding: 0;
-    background: #fff;
+    background: linear-gradient(112deg, #ffffff 0%, #ffffff 46%, #f4f8ff 100%);
     min-height: calc(100vh - 56px);
     display: grid;
-    grid-template-columns: 1.28fr 0.72fr;
+    grid-template-columns: 1.3fr 0.7fr;
     overflow: hidden;
     border-top: 1px solid var(--border-light);
+    position: relative;
+  }
+  #intro-hero::after {
+    content: ''; position: absolute; top: -10%; right: -6%;
+    width: 620px; height: 620px; border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(0,102,255,0.07), rgba(0,102,255,0) 62%);
+    pointer-events: none; z-index: 0;
   }
 
   /* 左：テキスト（結果ページと同じ白・フラット・角なし） */
   .hx-left-area {
-    padding: 8vh 7% 8vh 8%;
+    padding: 8vh 6% 8vh 8%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 28px;
-    border-right: 1px solid var(--border-light);
+    position: relative;
+    z-index: 1;
   }
   .hx-kicker {
     align-self: flex-start; display: flex; align-items: center; gap: 11px;
@@ -1771,19 +1779,25 @@
     padding-top: 16px; border-top: 1px solid var(--border-light); width: 100%; max-width: 30em;
   }
 
-  /* 右：助成金イメージ・イラスト */
+  /* 右：助成金イメージ・イラスト（仕切りなし・背景と一体） */
   .hx-scan-area {
-    background: #f8fafc;
+    background: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 24px;
-    padding: 6vh 10%;
-    overflow: hidden;
+    gap: 26px;
+    padding: 6vh 9% 6vh 4%;
+    overflow: visible;
     position: relative;
+    z-index: 1;
   }
-  .hx-illust { width: 100%; max-width: 318px; }
+  .hx-scan-area::before {
+    content: ''; position: absolute; z-index: -1;
+    width: 460px; height: 460px; border-radius: 50%;
+    background: radial-gradient(circle at 50% 46%, #e6eeff 0%, rgba(230,238,255,0) 66%);
+  }
+  .hx-illust { width: 100%; max-width: 340px; position: relative; }
   .hx-illust svg { width: 100%; height: auto; display: block; }
   .hx-illust-cap {
     text-align: center;
@@ -1820,7 +1834,8 @@
     .hx-left-area { padding: 48px 28px 36px; gap: 24px; border-right: none; }
     .hx-h1 { font-size: clamp(30px, 7vw, 40px); }
     .hx-btn { width: 100%; text-align: center; display: block; }
-    .hx-scan-area { border-top: 1px solid var(--border); padding: 36px 28px 40px; }
+    .hx-scan-area { padding: 8px 28px 44px; }
+    .hx-scan-area::before { width: 320px; height: 320px; }
   }
 
   @media (max-width: 480px) {
@@ -2274,35 +2289,42 @@
   <!-- 右：助成金イメージ・イラスト -->
   <div class="hx-scan-area">
     <div class="hx-illust">
-      <svg viewBox="0 0 320 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="助成金の申請から受給までのイメージ">
-        <circle cx="158" cy="150" r="128" fill="#eef4ff"/>
+      <svg viewBox="0 0 330 310" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="助成金の申請から受給までのイメージ">
+        <!-- 接地シャドウ -->
+        <ellipse cx="170" cy="285" rx="118" ry="16" fill="#0a0f1e" opacity="0.05"/>
+        <!-- 上昇の示唆 -->
+        <path d="M44 196 L96 156 L132 178 L196 120" stroke="#cdddff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M178 116 h22 v22" stroke="#cdddff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
         <!-- 申請書類 -->
         <g transform="rotate(-7 150 150)">
-          <rect x="62" y="44" width="150" height="188" fill="#0a0f1e" opacity="0.07"/>
-          <rect x="56" y="38" width="150" height="188" fill="#ffffff" stroke="#0a0f1e" stroke-width="2.5"/>
-          <rect x="74" y="58" width="62" height="12" fill="#0066ff"/>
-          <rect x="74" y="86" width="114" height="7" fill="#d7deea"/>
-          <rect x="74" y="102" width="114" height="7" fill="#d7deea"/>
-          <rect x="74" y="118" width="78" height="7" fill="#d7deea"/>
-          <rect x="74" y="146" width="114" height="7" fill="#eef1f7"/>
-          <rect x="74" y="162" width="92" height="7" fill="#eef1f7"/>
-          <g transform="rotate(7 178 70)">
-            <circle cx="178" cy="66" r="20" fill="none" stroke="#0066ff" stroke-width="2.5"/>
-            <path d="M170 66l6 6 11-13" stroke="#0066ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="60" y="44" width="152" height="190" fill="#0a0f1e" opacity="0.08"/>
+          <rect x="54" y="38" width="152" height="190" fill="#ffffff" stroke="#0a0f1e" stroke-width="2.5"/>
+          <rect x="72" y="58" width="64" height="13" fill="#0066ff"/>
+          <rect x="72" y="88" width="116" height="7" fill="#d7deea"/>
+          <rect x="72" y="104" width="116" height="7" fill="#d7deea"/>
+          <rect x="72" y="120" width="80" height="7" fill="#d7deea"/>
+          <rect x="72" y="150" width="116" height="7" fill="#eef1f7"/>
+          <rect x="72" y="166" width="94" height="7" fill="#eef1f7"/>
+          <g transform="rotate(7 180 68)">
+            <circle cx="180" cy="66" r="21" fill="#ffffff"/>
+            <circle cx="180" cy="66" r="21" fill="none" stroke="#0066ff" stroke-width="2.5"/>
+            <path d="M171 66l6.5 6.5 12-14" stroke="#0066ff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
           </g>
         </g>
-        <!-- 受給（コイン） -->
-        <g transform="translate(212 198)">
-          <ellipse cx="0" cy="7" rx="56" ry="56" fill="#0a0f1e"/>
-          <circle r="56" fill="url(#coinG)"/>
-          <circle r="45" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="2.5"/>
-          <text x="0" y="19" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="54" font-weight="800" fill="#ffffff">¥</text>
+        <!-- 受給（厚みのあるコイン） -->
+        <g transform="translate(216 196)">
+          <ellipse cx="0" cy="40" rx="58" ry="17" fill="#063b8f"/>
+          <ellipse cx="0" cy="31" rx="58" ry="17" fill="#0a4aa8"/>
+          <ellipse cx="0" cy="22" rx="58" ry="17" fill="#1656c6"/>
+          <circle r="58" fill="url(#coinG)"/>
+          <circle r="46" fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="2.5"/>
+          <text x="0" y="20" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="56" font-weight="800" fill="#ffffff">¥</text>
         </g>
         <!-- 装飾 -->
-        <path d="M64 92 l3.2 9.6 9.6 3.2 -9.6 3.2 -3.2 9.6 -3.2 -9.6 -9.6 -3.2 9.6 -3.2z" fill="#3d82ff"/>
-        <g stroke="#a9c7ff" stroke-width="3" stroke-linecap="round"><path d="M50 170h13M56.5 163.5v13"/></g>
+        <path d="M250 96 l3.4 10 10 3.4 -10 3.4 -3.4 10 -3.4 -10 -10 -3.4 10 -3.4z" fill="#3d82ff"/>
+        <g stroke="#a9c7ff" stroke-width="3" stroke-linecap="round"><path d="M58 118h14M65 111v14"/></g>
         <defs>
-          <linearGradient id="coinG" x1="0" y1="-56" x2="0" y2="56" gradientUnits="userSpaceOnUse">
+          <linearGradient id="coinG" x1="0" y1="-58" x2="0" y2="58" gradientUnits="userSpaceOnUse">
             <stop stop-color="#3d82ff"/><stop offset="1" stop-color="#0066ff"/>
           </linearGradient>
         </defs>

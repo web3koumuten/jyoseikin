@@ -114,7 +114,7 @@
   }
   .section-header::before {
     content: ''; position: absolute; left: 0; top: 0;
-    width: 30px; height: 3px; background: var(--accent);
+    width: 30px; height: 3px; background: var(--primary);
   }
   /* 猫・吹き出し非表示 */
   .section-cat, .section-bubble::before, .section-bubble::after { display: none; }
@@ -178,8 +178,8 @@
     min-width: 32px;
     height: 22px;
     padding: 0 8px;
-    background: var(--accent-light);
-    color: var(--accent);
+    background: var(--primary);
+    color: #fff;
     font-size: 11px;
     font-weight: 800;
     border-radius: 0;
@@ -208,17 +208,17 @@
     transition: border-color 0.12s, background 0.12s, box-shadow 0.12s;
   }
   .choice-row:last-child { border-bottom: 1px solid var(--border); }
-  .choice-row:hover { background: #f7faff; border-color: #9ec0ff; }
-  .choice-row:has(input:checked) { border-color: var(--accent); background: var(--accent-light); box-shadow: inset 0 0 0 1px var(--accent); }
+  .choice-row:hover { background: #f8fafc; border-color: #94a3b8; }
+  .choice-row:has(input:checked) { border-color: var(--primary); background: #f3f5f8; box-shadow: inset 0 0 0 1px var(--primary); }
   .choice-row:has(input:checked) span { color: var(--primary); font-weight: 700; }
-  .choice-row input { accent-color: var(--accent); width: 18px; height: 18px; flex-shrink: 0; cursor: pointer; }
+  .choice-row input { accent-color: var(--primary); width: 18px; height: 18px; flex-shrink: 0; cursor: pointer; }
   .choice-row span { font-size: 15px; line-height: 1.5; color: #1e293b; }
   .choice-row span .badge {
     display: inline-block;
     font-size: 11px;
     background: #fff;
-    color: var(--accent);
-    border: 1px solid #bcd4ff;
+    color: var(--primary);
+    border: 1px solid #cbd5e1;
     border-radius: 0;
     padding: 1px 7px;
     margin-left: 8px;
@@ -243,9 +243,9 @@
   }
   input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
     outline: none;
-    border-color: var(--accent);
+    border-color: var(--primary);
     background: #fff;
-    box-shadow: 0 0 0 3px rgba(0,102,255,0.13);
+    box-shadow: 0 0 0 3px rgba(10,15,30,0.10);
   }
   textarea { resize: vertical; min-height: 88px; }
   .inline-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 32px; }
@@ -1977,7 +1977,7 @@
     transition: background 0.25s, color 0.25s;
   }
   .ps.active .ps-num { background: var(--primary); color: white; }
-  .ps.done .ps-num { background: var(--accent); color: white; }
+  .ps.done .ps-num { background: var(--primary); color: white; }
   .ps-label {
     font-size: 11px;
     color: var(--gray-400);
@@ -2453,7 +2453,7 @@
         <div class="field-label"><span class="q">Q10</span>直近の決算はどうでしたか？</div>
         <div class="choices">
           <label class="choice-row"><input type="radio" name="q10" value="黒字" onchange="onQ10Change(this.value)"><span>黒字</span></label>
-          <label class="choice-row"><input type="radio" name="q10" value="赤字" onchange="onQ10Change(this.value)"><span>赤字 <span class="badge" style="background:#eff6ff;color:#0052cc">補助率が上がる特例あり</span></span></label>
+          <label class="choice-row"><input type="radio" name="q10" value="赤字" onchange="onQ10Change(this.value)"><span>赤字 <span class="badge">補助率が上がる特例あり</span></span></label>
         </div>
         <div id="q10-feedback" class="inline-feedback" style="display:none"></div>
       </div>

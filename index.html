@@ -1724,82 +1724,93 @@
   /* ── INTRO HERO ─────────────────────────── */
   #intro-hero {
     margin: 0 -24px;
-    padding: 0 72px;
+    padding: 0;
     background: #fff;
     height: calc(100vh - 56px);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 340px;
     overflow: hidden;
   }
 
-  .hx-top-row {
+  /* 左：白エリア */
+  .hx-white-area {
+    padding: 48px 64px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    padding-top: 40px;
-    border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 20px;
   }
   .hx-eyebrow {
     font-size: 11px; font-weight: 600; color: #94a3b8;
     letter-spacing: 0.12em; text-transform: uppercase;
   }
-  .hx-top-meta {
-    font-size: 11px; color: #94a3b8; letter-spacing: 0.08em;
-  }
-
   .hx-h1 {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0;
-    gap: 0;
+    flex: 1; display: flex; flex-direction: column;
+    justify-content: center; margin: 0;
   }
   .hx-line-outline {
-    font-size: clamp(64px, 9.5vw, 134px);
-    font-weight: 900;
-    letter-spacing: -0.05em;
-    line-height: 0.95;
-    color: transparent;
-    -webkit-text-stroke: 2px #0a0f1e;
-    display: block;
+    font-size: clamp(48px, 6.5vw, 96px);
+    font-weight: 900; letter-spacing: -0.04em; line-height: 1.05;
+    color: transparent; -webkit-text-stroke: 1.5px #0a0f1e;
+    display: block; white-space: nowrap;
   }
   .hx-line-solid {
-    font-size: clamp(64px, 9.5vw, 134px);
-    font-weight: 900;
-    letter-spacing: -0.05em;
-    line-height: 0.95;
-    color: #0a0f1e;
-    display: block;
+    font-size: clamp(48px, 6.5vw, 96px);
+    font-weight: 900; letter-spacing: -0.04em; line-height: 1.05;
+    color: #0a0f1e; display: block; white-space: nowrap;
   }
   .hx-bar { display: none; }
-
   .hx-bottom-row {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding-bottom: 44px;
-    gap: 60px;
+    display: flex; align-items: flex-end;
+    justify-content: space-between; gap: 32px;
   }
   .hx-sub {
-    font-size: 14px; color: #64748b; line-height: 1.8;
-    max-width: 360px; margin: 0; flex: 1;
+    font-size: 13px; color: #64748b; line-height: 1.8;
+    max-width: 320px; margin: 0; flex: 1;
   }
   .hx-btn-wrap {
     display: flex; flex-direction: column;
-    align-items: flex-end; gap: 12px; flex-shrink: 0;
+    align-items: flex-end; gap: 10px; flex-shrink: 0;
   }
   .hx-trust { font-size: 11px; color: #94a3b8; }
   .hx-btn {
-    display: inline-block;
-    background: #0a0f1e; color: #fff; border: none;
-    padding: 16px 52px; font-size: 14px; font-weight: 700;
-    cursor: pointer; font-family: inherit; letter-spacing: 0.06em;
-    transition: opacity 0.15s;
+    display: inline-block; background: #0a0f1e; color: #fff; border: none;
+    padding: 15px 44px; font-size: 14px; font-weight: 700;
+    cursor: pointer; font-family: inherit; letter-spacing: 0.04em;
+    transition: opacity 0.15s; white-space: nowrap;
   }
   .hx-btn:hover { opacity: 0.72; }
+
+  /* 右：ネイビーエリア */
+  .hx-dark-area {
+    background: #0a0f1e;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    padding: 48px 40px;
+  }
+  .hx-dark-label {
+    font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.3);
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .hx-dark-center {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .hx-dark-num {
+    font-size: clamp(72px, 8vw, 120px);
+    font-weight: 900; color: white;
+    letter-spacing: -0.06em; line-height: 1;
+  }
+  .hx-dark-unit {
+    font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.04em;
+  }
+  .hx-dark-desc {
+    font-size: 12px; color: rgba(255,255,255,0.35);
+    line-height: 1.7; margin-top: 16px;
+  }
+  .hx-dark-bottom {
+    font-size: 11px; color: rgba(255,255,255,0.2);
+    letter-spacing: 0.06em;
+  }
 
   /* 旧クラス非表示 */
   .hx-tags, .hx-tag, .hx-stats, .hx-stat, .hx-wrap, .hx-left,
@@ -1807,7 +1818,8 @@
   .hx-left-panel, .hx-right-panel, .hx-bottom-bar, .hx-cta-area,
   .hx-body, .hx-footer, .hx-top, .hx-mid, .hx-bottom, .hx-bottom-right,
   .hx-topbar, .hx-center, .hx-statusbar, .hx-bg-num, .hx-giant-num,
-  .hx-mid-text, .hx-tag-list, .hx-制度-label, .hx-chart-panel, .hx-footer-row,
+  .hx-mid-text, .hx-tag-list, .hx-制度-label, .hx-chart-panel,
+  .hx-top-row, .hx-footer-row, .hx-right-cta,
   .hero-layout, .hero-panel, .hero-stats-strip, .hero-points, .hero-features,
   .hero-visual, .hero-graphic, .hero-content, .hero-overline,
   .hero-inner, .hero-kicker, .hero-btn-row,
@@ -1816,6 +1828,15 @@
   .hx-visual, .hx-vis-card, .hx-vis-tag, .hx-vis-row, .hx-vis-name, .hx-vis-amt
   { display: none !important; }
   .btn-hero { display: none !important; }
+
+  @media (max-width: 860px) {
+    #intro-hero { grid-template-columns: 1fr; }
+    .hx-dark-area { display: none; }
+    .hx-white-area { padding: 40px 24px; }
+    .hx-line-outline, .hx-line-solid { font-size: 48px; white-space: normal; }
+    .hx-bottom-row { flex-direction: column; align-items: flex-start; }
+    .hx-btn-wrap { align-items: flex-start; }
+  }
 
   @media (max-width: 700px) {
     #intro-hero { padding: 0 24px; }
@@ -2274,25 +2295,32 @@
 
 <!-- INTRO HERO -->
 <div id="intro-hero">
-  <div class="hx-top-row">
-    <div class="hx-eyebrow">補助金・助成金 無料診断</div>
-    <div class="hx-top-meta">国・都道府県・市区町村 — 80制度対応 — 2026年度版</div>
-  </div>
-  <h1 class="hx-h1">
-    <span class="hx-line-outline">使える助成金を、</span>
-    <span class="hx-line-solid">全部調べる。</span>
-  </h1>
-  <div class="hx-bottom-row">
-    <p class="hx-sub">業種・従業員数・経営状況を入力するだけ。80制度の中から、受給できる可能性のある補助金・助成金を5分でリストアップします。</p>
-    <div class="hx-btn-wrap">
-      <div class="hx-trust">登録不要 · 完全無料 · 約5分</div>
-      <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
+  <!-- 左：白エリア -->
+  <div class="hx-white-area">
+    <div class="hx-eyebrow">補助金・助成金 無料診断 — 2026年度版</div>
+    <h1 class="hx-h1">
+      <span class="hx-line-outline">使える助成金を、</span>
+      <span class="hx-line-solid">全部調べる。</span>
+    </h1>
+    <div class="hx-bottom-row">
+      <p class="hx-sub">業種・従業員数・経営状況を入力するだけ。国・県・市の80制度から、受給できる可能性のある補助金・助成金を5分でリストアップします。</p>
+      <div class="hx-btn-wrap">
+        <div class="hx-trust">登録不要 · 完全無料 · 約5分</div>
+        <button class="hx-btn" id="btn-start-diagnosis">無料で診断する</button>
+      </div>
     </div>
   </div>
+  <!-- 右：ネイビーエリア -->
+  <div class="hx-dark-area">
+    <div class="hx-dark-label">対応制度数</div>
+    <div class="hx-dark-center">
+      <div class="hx-dark-num">80</div>
+      <div class="hx-dark-unit">制度</div>
+      <div class="hx-dark-desc">国・都道府県・市区町村の補助金・助成金に対応。業種・規模・経営状況から自動で絞り込みます。</div>
+    </div>
+    <div class="hx-dark-bottom">登録不要 · 完全無料 · 約5分</div>
+  </div>
 </div>
-
-
-
 <!-- HEARING FORM -->
 <div id="form-area" style="display:none">
 

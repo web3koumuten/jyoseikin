@@ -848,14 +848,23 @@
     display: flex;
     align-items: center;
     gap: 0;
-    padding: 0;
-    margin-bottom: 16px;
+    padding: 0 2px 14px;
+    margin-bottom: 18px;
     background: none;
     border: none;
+    border-bottom: 1px solid var(--border);
     border-radius: 0;
     box-shadow: none;
     flex-wrap: wrap;
     row-gap: 2px;
+  }
+  .result-group-label::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 17px;
+    background: var(--primary);
+    margin-right: 11px;
+    vertical-align: -2px;
   }
   .result-group-head.grp-invest,
   .result-group-head.grp-it,
@@ -938,10 +947,10 @@
     overflow: hidden;
   }
   .result-row:last-child { border-bottom: 1px solid var(--border); }
-  .result-row:hover { border-color: var(--primary); border-left-color: var(--primary); box-shadow: 0 6px 20px -10px rgba(10,20,50,0.22); }
-  .result-row.is-open { border-color: var(--primary); border-left-color: var(--primary); box-shadow: 0 6px 20px -10px rgba(10,20,50,0.18); }
+  .result-row:hover { border-color: var(--primary); border-left-color: var(--primary); box-shadow: 0 14px 30px -14px rgba(10,20,50,0.28); transform: translateY(-2px); }
+  .result-row.is-open { border-color: var(--primary); border-left-color: var(--primary); box-shadow: 0 14px 30px -14px rgba(10,20,50,0.22); }
   .result-row-head {
-    padding: 20px 24px 16px;
+    padding: 24px 28px 18px;
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: auto auto auto;
@@ -1058,8 +1067,13 @@
   .result-row-amount {
     grid-area: amount;
     text-align: right;
-    align-self: center;
-    padding-bottom: 12px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4px 0 4px 26px;
+    margin-left: 4px;
+    border-left: 1px solid var(--border-light);
   }
   .result-row-amount-label {
     font-size: 11px;

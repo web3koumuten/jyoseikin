@@ -813,6 +813,84 @@
   /* ══════════════════════════════════════════════════════
      結果カードリスト（ダッシュボード型）
      ══════════════════════════════════════════════════════ */
+  /* ── TOP3 主力制度インデックス ── */
+  .top3-section {
+    margin-bottom: 24px;
+    border: 2px solid var(--black, #0a0f1e);
+  }
+  .top3-head {
+    background: var(--black, #0a0f1e);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    padding: 9px 20px;
+  }
+  .top3-row {
+    display: grid;
+    grid-template-columns: 56px 1fr auto 32px;
+    align-items: center;
+    padding: 22px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    gap: 0;
+    transition: background .1s;
+  }
+  .top3-row:last-child { border-bottom: none; }
+  .top3-row.matched:hover { background: #f8fafc; }
+  .top3-num {
+    font-size: 38px;
+    font-weight: 900;
+    color: #0a0f1e;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    opacity: 0.1;
+  }
+  .top3-info { padding-right: 16px; }
+  .top3-name {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0a0f1e;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 5px;
+  }
+  .top3-desc {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.45;
+  }
+  .top3-amount-block { text-align: right; }
+  .top3-amount {
+    font-size: 22px;
+    font-weight: 900;
+    color: #0a0f1e;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .top3-amount-note {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 3px;
+    display: block;
+    text-align: right;
+  }
+  .top3-arrow {
+    font-size: 16px;
+    color: #94a3b8;
+    text-align: right;
+    padding-left: 12px;
+    transition: transform .15s, color .15s;
+  }
+  .top3-row.matched:hover .top3-arrow { transform: translateX(3px); color: #0a0f1e; }
+  .top3-row.unmatched { opacity: 0.4; }
+  @media (max-width: 600px) {
+    .top3-row { grid-template-columns: 40px 1fr auto; padding: 16px 14px; }
+    .top3-num { font-size: 26px; }
+    .top3-name { font-size: 15px; }
+    .top3-amount { font-size: 17px; }
+    .top3-arrow { display: none; }
+  }
+
   .result-rows {
     margin-top: 8px;
   }
@@ -7322,6 +7400,51 @@ function renderResults(scored, combos, conflicts, meta) {
         </table></div>
       </div>
     </div>`;
+  }
+
+  // ── TOP3 主力制度インデックス ──
+  const TOP3_PROGRAMS = [
+    {
+      label: 'キャリアアップ助成金',
+      desc: 'パート・契約社員の正社員化・待遇改善。何人でも繰り返し受給可',
+      ids: new Set(['career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu','career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka']),
+      fallback: 1800000
+    },
+    {
+      label: '特定求職者雇用開発助成金',
+      desc: '障害者・高齢者等の採用で最大2年間にわたり支給',
+      ids: new Set(['tokutei-shushokukonnansha']),
+      fallback: 2400000
+    },
+    {
+      label: 'IT導入補助金',
+      desc: 'ITツール・AIシステム導入費を最大3/4補助',
+      ids: new Set(['it-donyu','it-security']),
+      fallback: 4500000
+    }
+  ];
+  const top3Matched = TOP3_PROGRAMS.filter(p => scored.some(s => p.ids.has(s.id)));
+  if (top3Matched.length > 0) {
+    html += `<div class="top3-section"><div class="top3-head">主力3制度 — 取得対象</div>`;
+    TOP3_PROGRAMS.forEach((prog, i) => {
+      const matchedItems = scored.filter(s => prog.ids.has(s.id));
+      const hasMatch = matchedItems.length > 0;
+      const maxAmt = hasMatch ? Math.max(...matchedItems.map(s => s.max_amount)) : prog.fallback;
+      html += `
+        <div class="top3-row ${hasMatch ? 'matched' : 'unmatched'}">
+          <div class="top3-num">0${i+1}</div>
+          <div class="top3-info">
+            <div class="top3-name">${prog.label}</div>
+            <div class="top3-desc">${prog.desc}</div>
+          </div>
+          <div class="top3-amount-block">
+            <div class="top3-amount">最大 ${fmt(maxAmt)}</div>
+            <span class="top3-amount-note">${hasMatch ? '条件合致 ✓' : '条件未達'}</span>
+          </div>
+          <div class="top3-arrow">${hasMatch ? '→' : '—'}</div>
+        </div>`;
+    });
+    html += `</div>`;
   }
 
   // グループ別表示

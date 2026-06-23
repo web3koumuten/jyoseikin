@@ -892,47 +892,52 @@
   }
 
   /* ── 取得しやすい制度コンパクトリスト ── */
-  .easy-list-section { margin-bottom: 20px; }
+  .easy-list-section { margin-bottom: 28px; }
   .easy-list-label {
-    font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
-    color: #0a0f1e; padding: 12px 0 8px;
+    font-size: 10px; font-weight: 800; letter-spacing: 0.15em;
+    color: #0a0f1e; padding: 14px 0 10px;
     border-bottom: 2px solid #0a0f1e;
     margin-bottom: 0;
   }
-  .easy-list { background: #fff; }
+  .easy-list {
+    border: 1.5px solid #0a0f1e;
+    border-top: none;
+    background: #fff;
+  }
   .easy-list-item {
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    padding: 14px 4px;
+    padding: 18px 20px;
     border-bottom: 1px solid #e2e8f0;
     text-decoration: none;
     color: inherit;
-    gap: 24px;
-    transition: border-color .1s;
+    gap: 28px;
+    transition: background .12s;
     cursor: pointer;
   }
   .easy-list-item:last-child { border-bottom: none; }
-  .easy-list-item:hover { border-color: #0a0f1e; }
+  .easy-list-item:hover { background: #f8fafc; }
   .easy-list-left { min-width: 0; }
   .easy-list-name {
-    font-size: 14px; font-weight: 700; color: #0a0f1e;
-    line-height: 1.35; margin-bottom: 4px;
+    font-size: 15px; font-weight: 700; color: #0a0f1e;
+    line-height: 1.3; margin-bottom: 6px;
   }
   .easy-list-desc {
-    font-size: 12px; color: #475569; line-height: 1.5;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-size: 12px; color: #334155; line-height: 1.6;
+    overflow: hidden;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
   }
-  .easy-list-right { text-align: right; flex-shrink: 0; }
+  .easy-list-right { text-align: right; flex-shrink: 0; min-width: 100px; }
   .easy-list-amount {
-    font-size: 16px; font-weight: 900; color: #0a0f1e;
-    letter-spacing: -0.02em; white-space: nowrap;
+    font-size: 22px; font-weight: 900; color: #0a0f1e;
+    letter-spacing: -0.03em; white-space: nowrap;
+    line-height: 1;
   }
   .easy-list-hint {
-    font-size: 10px; color: #94a3b8; margin-top: 3px;
-    letter-spacing: 0.04em;
+    font-size: 10px; color: #94a3b8; margin-top: 5px;
+    letter-spacing: 0.06em;
   }
-  .easy-list-item:hover .easy-list-amount { color: #0a0f1e; }
   .easy-list-item:hover .easy-list-hint { color: #475569; }
 
   /* ── 折りたたみ式サブ一覧 ── */
@@ -7616,7 +7621,7 @@ function renderResults(scored, combos, conflicts, meta) {
       <div class="easy-list-label">取得しやすい制度</div>
       <div class="easy-list">`;
     easyItems.forEach(s => {
-      const shortDesc = (s.description||'').replace(/<[^>]*>/g,'').substring(0,45);
+      const shortDesc = (s.description||'').replace(/<[^>]*>/g,'').substring(0,90);
       html += `<a class="easy-list-item" href="#det-${s.id}" onclick="(function(){
         var sec=document.getElementById('detail-body');
         var tog=document.getElementById('detail-toggle');

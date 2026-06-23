@@ -537,6 +537,101 @@ body {
   .tl-step:nth-child(2n) { border-right: none; }
 }
 
+/* ── 3制度 プログラムインデックス ── */
+.prog-index {
+  margin-top: 44px;
+  border-top: 2px solid var(--black);
+}
+.prog-row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto 140px 28px;
+  align-items: center;
+  gap: 0;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: background .12s;
+}
+.prog-row:hover { background: var(--bg); }
+.prog-row:last-child { border-bottom: none; }
+.prog-num {
+  font-size: 42px;
+  font-weight: 900;
+  color: var(--black);
+  letter-spacing: -0.05em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.15;
+}
+.prog-info { padding: 0 32px 0 0; }
+.prog-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--black);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.prog-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.prog-diff { text-align: center; padding: 0 24px; }
+.diff-easy {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 4px 12px;
+  border: 1.5px solid var(--black);
+  color: var(--black);
+  white-space: nowrap;
+}
+.diff-mid {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 4px 12px;
+  border: 1.5px solid var(--border);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.prog-amount {
+  text-align: right;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--black);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.prog-amount span {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0;
+  margin-left: 2px;
+}
+.prog-arrow {
+  font-size: 18px;
+  color: var(--faint);
+  text-align: right;
+  transition: transform .15s, color .15s;
+}
+.prog-row:hover .prog-arrow { transform: translateX(4px); color: var(--black); }
+
+@media (max-width: 820px) {
+  .prog-row { grid-template-columns: 48px 1fr auto; gap: 0; padding: 20px 0; }
+  .prog-num { font-size: 28px; }
+  .prog-name { font-size: 17px; }
+  .prog-diff { display: none; }
+  .prog-amount { font-size: 20px; }
+  .prog-arrow { display: none; }
+}
+
 /* BACK CTA */
 .back-cta {
   margin-top: 80px; padding: 56px;
@@ -701,25 +796,37 @@ body {
     <div class="hero-label">補助金・助成金 活用ガイド — 2026年度版</div>
     <h1>知っておくべき<br>3つの助成金</h1>
     <p class="hero-lead">キャリアアップ助成金・IT導入補助金・特定求職者雇用開発助成金。制度の概要から必要書類・申請ステップまで解説します。</p>
-    <div class="hero-metrics">
-      <div class="metric">
-        <div class="metric-tag">01 — キャリアアップ助成金</div>
-        <div class="metric-label">非正規の正社員化・待遇改善</div>
-        <div class="metric-value"><sup>最大</sup>80<sup>万円</sup></div>
-        <div class="metric-note">/ 人 × 何人でも繰り返し申請可</div>
-      </div>
-      <div class="metric">
-        <div class="metric-tag">02 — 特定求職者雇用開発助成金</div>
-        <div class="metric-label">障害者・高齢者・母子等の採用</div>
-        <div class="metric-value"><sup>最大</sup>240<sup>万円</sup></div>
-        <div class="metric-note">/ 人（重度障害者・中小・2年間）</div>
-      </div>
-      <div class="metric">
-        <div class="metric-tag">03 — IT導入補助金</div>
-        <div class="metric-label">ITツール・AIシステム導入</div>
-        <div class="metric-value"><sup>最大</sup>450<sup>万円</sup></div>
-        <div class="metric-note">補助率 2/3（小規模 3/4）</div>
-      </div>
+    <div class="prog-index">
+      <a href="#career-up" class="prog-row">
+        <div class="prog-num">01</div>
+        <div class="prog-info">
+          <div class="prog-name">キャリアアップ助成金</div>
+          <div class="prog-desc">パート・契約社員を正社員化 / 待遇改善で繰り返し受給</div>
+        </div>
+        <div class="prog-diff"><span class="diff-easy">取得しやすい</span></div>
+        <div class="prog-amount">最大 180万円<span>/ 人</span></div>
+        <span class="prog-arrow">→</span>
+      </a>
+      <a href="#tokutei" class="prog-row">
+        <div class="prog-num">02</div>
+        <div class="prog-info">
+          <div class="prog-name">特定求職者雇用開発助成金</div>
+          <div class="prog-desc">障害者・高齢者等の採用で最大2年間にわたり支給</div>
+        </div>
+        <div class="prog-diff"><span class="diff-easy">取得しやすい</span></div>
+        <div class="prog-amount">最大 240万円<span>/ 人</span></div>
+        <span class="prog-arrow">→</span>
+      </a>
+      <a href="#it-donyu" class="prog-row">
+        <div class="prog-num">03</div>
+        <div class="prog-info">
+          <div class="prog-name">IT導入補助金</div>
+          <div class="prog-desc">ITツール・AIシステムの導入費用を最大3/4補助</div>
+        </div>
+        <div class="prog-diff"><span class="diff-mid">IT導入支援者と連携</span></div>
+        <div class="prog-amount">最大 450万円</div>
+        <span class="prog-arrow">→</span>
+      </a>
     </div>
   </div>
 </div>
@@ -937,8 +1044,8 @@ body {
       </div>
     </div>
 
-    <!-- 賃金規定等共通化 -->
-    <div class="course" id="c-kyotsu">
+    <!-- 賃金規定等共通化（要件複雑・社労士必須のため個別相談） -->
+    <div class="course" id="c-kyotsu" style="display:none">
       <button class="course-trigger" onclick="toggle('c-kyotsu')">
         <span class="course-chip">賃金共通化</span>
         <span class="course-name">賃金規定等共通化コース — 正規・非正規の賃金体系を統一（同一労働同一賃金）</span>

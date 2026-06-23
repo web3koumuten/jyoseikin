@@ -6963,6 +6963,9 @@ function renderResults(scored, combos, conflicts, meta) {
   el.style.display = 'block';
 
   const totalMax = scored.reduce((s, x) => s + x.max_amount, 0);
+  // 難易度3・リスキリングを表示から除外
+  const DISPLAY_EXCLUDE = new Set(['jinzai-reskilling']);
+  const displayScored = scored.filter(s => s.difficulty < 3 && !DISPLAY_EXCLUDE.has(s.id));
   const budget = meta.q16 || 0;  // 投資予算（万円）
   const noAddPoints = meta.q20.length === 0 || (meta.q20.length === 1 && meta.q20.includes('なし'));
   const urgentTiming = meta.q17 === '1〜2ヶ月以内' || meta.q17 === '半年以内';
@@ -7096,10 +7099,9 @@ function renderResults(scored, combos, conflicts, meta) {
   // ══════════════════════════════════════════════════════
   // ① 結果ヘッダー（ダッシュボード型サマリー）
   // ══════════════════════════════════════════════════════
-  const amountManTotal = Math.floor((totalMax || 0) / 10000).toLocaleString('ja-JP');
-  const topMax = scored.length ? Math.max(...scored.map(s => s.max_amount || 0)) : 0;
+  const topMax = displayScored.length ? Math.max(...displayScored.map(s => s.max_amount || 0)) : 0;
   const topMaxMan = Math.floor(topMax / 10000).toLocaleString('ja-JP');
-  const leadTimes = scored.map(s => s.lead_time_months).filter(x => typeof x === 'number' && x > 0);
+  const leadTimes = displayScored.map(s => s.lead_time_months).filter(x => typeof x === 'number' && x > 0);
   const minLead = leadTimes.length > 0 ? Math.min(...leadTimes) : null;
   html += `
     <div class="results-header">
@@ -7108,8 +7110,8 @@ function renderResults(scored, combos, conflicts, meta) {
         <span class="results-back-note">入力データは保持されています</span>
       </div>
       <div class="results-header-eyebrow">診断結果</div>
-      <h2 class="results-header-title">${scored.length}件の制度が該当しました</h2>
-      <p class="results-header-sub">事業内容・従業員規模・今後の計画から、最適な補助金・助成金を抽出しています。</p>
+      <h2 class="results-header-title">${displayScored.length}件の制度が該当しました</h2>
+      <p class="results-header-sub">事業内容・従業員規模・今後の計画から、取得しやすい補助金・助成金を抽出しています。</p>
       <div class="results-summary">
         <div class="results-summary-cell is-primary">
           <div class="results-summary-label">最大受給額の目安</div>
@@ -7117,12 +7119,12 @@ function renderResults(scored, combos, conflicts, meta) {
             <span class="results-summary-num">${topMaxMan}</span>
             <span class="results-summary-unit">万円</span>
           </div>
-          <div class="results-summary-note">該当制度のうち最も大きい上限額</div>
+          <div class="results-summary-note">取得しやすい制度の上限額</div>
         </div>
         <div class="results-summary-cell">
           <div class="results-summary-label">該当件数</div>
           <div class="results-summary-value">
-            <span class="results-summary-num">${scored.length}</span>
+            <span class="results-summary-num">${displayScored.length}</span>
             <span class="results-summary-unit">件</span>
           </div>
           <div class="results-summary-note">国・県・市の制度から抽出</div>
@@ -7135,9 +7137,6 @@ function renderResults(scored, combos, conflicts, meta) {
           </div>
           ${minLead !== null ? `<div class="results-summary-note">最短で着手可能な制度の目安</div>` : ''}
         </div>
-      </div>
-      <div class="results-disclaimer">
-        <div>※ この結果はあくまで目安です。各制度には詳細な要件や審査があるため、すべてが受給・採択されるとは限りません。</div>
       </div>
     </div>
   `;
@@ -7380,28 +7379,6 @@ function renderResults(scored, combos, conflicts, meta) {
     return out;
   };
 
-  // ══════════════════════════════════════════════════════
-  // ③ 比較表（ヘッダー直後・カード一覧の前）
-  // ══════════════════════════════════════════════════════
-  if (scored.length >= 2) {
-    html += `
-    <div class="compact-panel">
-      <div class="compact-panel-toggle" onclick="toggleCompact('compare-panel', this)">全件を一覧で見る <span>▼</span></div>
-      <div class="compact-panel-body" id="compare-panel">
-        <div class="compare-wrap"><table>
-          <thead><tr><th>名称</th><th>最大受給額</th><th>難易度</th><th>準備期間</th><th>申請タイミング</th></tr></thead>
-          <tbody>${scored.map(s=>`<tr>
-            <td style="font-weight:600;font-size:12px">${s.name}</td>
-            <td style="font-weight:700;color:var(--primary)">${fmt(s.max_amount)}</td>
-            <td class="${['','d1c','d2c','d3c'][s.difficulty]}">${['','易','中','難'][s.difficulty]}</td>
-            <td>約${s.lead_time_months}ヶ月</td>
-            <td style="font-size:11px">${timingLbl(s.timing)}</td>
-          </tr>`).join('')}</tbody>
-        </table></div>
-      </div>
-    </div>`;
-  }
-
   // ── TOP3 主力制度インデックス ──
   const TOP3_PROGRAMS = [
     {
@@ -7423,11 +7400,11 @@ function renderResults(scored, combos, conflicts, meta) {
       fallback: 4500000
     }
   ];
-  const top3Matched = TOP3_PROGRAMS.filter(p => scored.some(s => p.ids.has(s.id)));
+  const top3Matched = TOP3_PROGRAMS.filter(p => displayScored.some(s => p.ids.has(s.id)));
   if (top3Matched.length > 0) {
     html += `<div class="top3-section"><div class="top3-head">主力3制度 — 取得対象</div>`;
     TOP3_PROGRAMS.forEach((prog, i) => {
-      const matchedItems = scored.filter(s => prog.ids.has(s.id));
+      const matchedItems = displayScored.filter(s => prog.ids.has(s.id));
       const hasMatch = matchedItems.length > 0;
       const maxAmt = hasMatch ? Math.max(...matchedItems.map(s => s.max_amount)) : prog.fallback;
       html += `
@@ -7448,11 +7425,11 @@ function renderResults(scored, combos, conflicts, meta) {
   }
 
   // グループ別表示
-  if (scored.length > 0) {
+  if (displayScored.length > 0) {
     html += `<div class="result-rows">`;
 
     RESULT_GROUPS.forEach(grp => {
-      const items = scored.filter(s => getResultGroup(s.id) === grp.key);
+      const items = displayScored.filter(s => getResultGroup(s.id) === grp.key);
       if (items.length === 0) return;
       html += `
       <div class="result-group">
@@ -7469,59 +7446,8 @@ function renderResults(scored, combos, conflicts, meta) {
     html += `</div>`;
   }
 
-  // ══════════════════════════════════════════════════════
-  // ⑥ 赤字特例メモ（コンパクト）
-  // ══════════════════════════════════════════════════════
-  if (meta.isDeficit) {
-    const wageMsg = meta.wageUp
-      ? '赤字×賃上げ意欲ありの条件で、複数の補助金で補助率が上がる特例枠の対象になる可能性があります。'
-      : '赤字企業向けに補助率が上がる枠を設けている補助金があります。賃上げ計画をセットにするとさらに有利です。';
-    html += `
-    <div class="compact-panel">
-      <div class="compact-panel-toggle" onclick="toggleCompact('deficit-panel', this)">赤字でも使える特例について <span>▼</span></div>
-      <div class="compact-panel-body" id="deficit-panel">
-        <p style="font-size:13px;line-height:1.7;color:var(--gray-700)">${wageMsg}<br>「赤字だから審査に通らない」は誤解で、補助金は立て直しを後押しする制度でもあります。省力化や生産性向上のストーリーと合わせると説得力が増します。</p>
-      </div>
-    </div>`;
-  }
+  // 注・コンボパネルは省略（シンプル化）
 
-  // ══════════════════════════════════════════════════════
-  // ⑦ 組み合わせ提案（コンパクト）
-  // ══════════════════════════════════════════════════════
-  if (combos.length > 0) {
-    html += `
-    <div class="compact-panel">
-      <div class="compact-panel-toggle" onclick="toggleCompact('combo-panel', this)">同時申請できる組み合わせ（${combos.length}件） <span>▼</span></div>
-      <div class="compact-panel-body" id="combo-panel">
-        ${combos.map(c => `
-          <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--gray-100)">
-            <div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:6px">${c.label}</div>
-            <div class="stack-flow">${c.items.map((item,i)=>`${i>0?'<span class="stack-arrow">+</span>':''}<div class="stack-item">${item.name}</div>`).join('')}</div>
-            <div style="font-size:12px;color:var(--primary);font-weight:600;margin-top:6px">合計最大 ${fmt(c.total)}</div>
-            <div style="font-size:12px;color:var(--gray-600);margin-top:2px">${c.note}</div>
-          </div>`).join('')}
-      </div>
-    </div>`;
-  }
-
-
-  // ══════════════════════════════════════════════════════
-  // ⑨ 加点ロードマップ（コンパクト・折りたたみ）
-  // ══════════════════════════════════════════════════════
-  if (noAddPoints) {
-    html += `
-    <div class="compact-panel">
-      <div class="compact-panel-toggle" onclick="toggleCompact('roadmap-panel', this)">採択率を上げるためにやっておくこと <span>▼</span></div>
-      <div class="compact-panel-body" id="roadmap-panel">
-        <div class="roadmap-steps">
-          <div class="roadmap-step"><div class="step-period">今すぐ〜1週間</div><div class="step-title">gBizID取得 + みらデジ経営チェック</div><div class="step-detail">gBizIDプライム申請（オンライン＋郵送）。みらデジ経営チェックは10分で完了、デジタル化補助金の加点対象</div></div>
-          <div class="roadmap-step"><div class="step-period">1〜2ヶ月以内</div><div class="step-title">事業継続力強化計画（BCP）の策定</div><div class="step-detail">中小企業庁への申請で認定取得。複数の補助金で加点対象。ひな形を使えば短期間で作成可能</div></div>
-          <div class="roadmap-step"><div class="step-period">3〜6ヶ月以内</div><div class="step-title">経営革新計画の承認申請</div><div class="step-detail">都道府県への申請で審査の加点に。商工会議所・認定支援機関に相談すると手続きがスムーズです</div></div>
-          <div class="roadmap-step"><div class="step-period">並行して</div><div class="step-title">パートナーシップ構築宣言</div><div class="step-detail">オンラインで宣言するだけ（無料・即日）。ものづくり補助金などで加点対象</div></div>
-        </div>
-      </div>
-    </div>`;
-  }
 
   if (conflicts.length > 0) {
     html += `<div class="conflict-panel"><strong>同時申請できない組み合わせ</strong>${conflicts.map(c=>`<div>「${c.a.name}」と「${c.b.name}」は同一案件での併用不可</div>`).join('')}</div>`;

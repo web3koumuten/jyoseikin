@@ -891,6 +891,87 @@
     .top3-arrow { display: none; }
   }
 
+  /* ── 折りたたみ式サブ一覧 ── */
+  .sublist-panel {
+    margin-bottom: 20px;
+    border: 1px solid #e2e8f0;
+  }
+  .sublist-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 18px;
+    cursor: pointer;
+    background: #f8fafc;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    gap: 10px;
+    transition: background .1s;
+  }
+  .sublist-toggle:hover { background: #f1f5f9; }
+  .sublist-toggle-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #334155;
+    letter-spacing: 0.01em;
+  }
+  .sublist-toggle-count {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+    margin-left: 6px;
+  }
+  .sublist-toggle-chevron {
+    font-size: 11px;
+    color: #94a3b8;
+    transition: transform .2s;
+    flex-shrink: 0;
+  }
+  .sublist-toggle.open .sublist-toggle-chevron { transform: rotate(180deg); }
+  .sublist-body { display: none; }
+  .sublist-body.open { display: block; }
+  .sublist-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 11px 18px;
+    border-bottom: 1px solid #f1f5f9;
+    gap: 12px;
+  }
+  .sublist-item:last-child { border-bottom: none; }
+  .sublist-item-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+    line-height: 1.4;
+  }
+  .sublist-item-meta {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 2px;
+  }
+  .sublist-item-amount {
+    font-size: 15px;
+    font-weight: 800;
+    color: #0a0f1e;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    text-align: right;
+  }
+  .sublist-diff {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+    display: inline-block;
+  }
+  .sublist-diff.d1 { border-color: #0a0f1e; color: #0a0f1e; }
+
   .result-rows {
     margin-top: 8px;
   }
@@ -7424,26 +7505,37 @@ function renderResults(scored, combos, conflicts, meta) {
     html += `</div>`;
   }
 
-  // グループ別表示
-  if (displayScored.length > 0) {
-    html += `<div class="result-rows">`;
-
-    RESULT_GROUPS.forEach(grp => {
-      const items = displayScored.filter(s => getResultGroup(s.id) === grp.key);
-      if (items.length === 0) return;
-      html += `
-      <div class="result-group">
-        <div class="result-group-head ${grp.cls}">
-          <span class="result-group-icon">${grp.icon}</span>
-          <span class="result-group-label">${grp.label}</span>
-          ${grp.desc ? `<span class="result-group-desc">— ${grp.desc}</span>` : ''}
-          <span class="result-group-count">${items.length}件</span>
-        </div>`;
-      html += renderGroupItems(items);
-      html += `</div>`;
+  // ── 折りたたみ式サブ一覧（TOP3以外の低難易度制度）──
+  const TOP3_ALL_IDS = new Set([
+    'career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu',
+    'career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka',
+    'tokutei-shushokukonnansha','it-donyu','it-security'
+  ]);
+  const subItems = displayScored.filter(s => !TOP3_ALL_IDS.has(s.id));
+  if (subItems.length > 0) {
+    const subListId = 'sublist-body-main';
+    html += `<div class="sublist-panel">
+      <button class="sublist-toggle" onclick="(function(btn){
+        var body=document.getElementById('${subListId}');
+        var open=body.classList.toggle('open');
+        btn.classList.toggle('open',open);
+      })(this)">
+        <span class="sublist-toggle-label">その他の取得しやすい制度<span class="sublist-toggle-count">${subItems.length}件</span></span>
+        <span class="sublist-toggle-chevron">▼</span>
+      </button>
+      <div class="sublist-body" id="${subListId}">`;
+    subItems.forEach(s => {
+      const diffLabel = s.difficulty === 1 ? '易' : '中';
+      const diffCls = s.difficulty === 1 ? 'd1' : '';
+      html += `<div class="sublist-item">
+        <div>
+          <div class="sublist-item-name">${s.name}</div>
+          <div class="sublist-item-meta"><span class="sublist-diff ${diffCls}">${diffLabel}</span></div>
+        </div>
+        <div class="sublist-item-amount">最大 ${fmt(s.max_amount)}</div>
+      </div>`;
     });
-
-    html += `</div>`;
+    html += `</div></div>`;
   }
 
   // 注・コンボパネルは省略（シンプル化）

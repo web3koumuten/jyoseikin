@@ -7091,17 +7091,19 @@ function renderResults(scored, combos, conflicts, meta) {
   el.style.display = 'block';
 
   const totalMax = scored.reduce((s, x) => s + x.max_amount, 0);
-  // 難易度3・リスキリングを表示から除外
-  const DISPLAY_EXCLUDE = new Set(['jinzai-reskilling']);
+  // 難易度3のみ除外（リスキリングは診断で選ばれた時に表示するので除外しない）
+  const DISPLAY_EXCLUDE = new Set([]);
   const displayScored = scored.filter(s => s.difficulty < 3 && !DISPLAY_EXCLUDE.has(s.id));
 
   // 実際に画面に表示される件数を先行計算（ヘッダー表示用）
   const _T3IDS = new Set(['career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu','career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka','tokutei-shushokukonnansha','it-donyu','it-security']);
-  const _EXCL  = new Set(['judokyuen-boushi','jinzai-ikusei-shien']);
+  const _EASY_EXCL   = new Set(['judokyuen-boushi','jinzai-ikusei-shien']); // easyリストのみ除外
+  const _DETAIL_EXCL = new Set(['jinzai-ikusei-shien']); // detailからも除外（受動喫煙はdetailに出す）
   const _RYO   = '両立支援等助成金';
-  const _easyAll = SUBSIDIES.filter(s => s.difficulty===1 && !_T3IDS.has(s.id) && !s.id.startsWith('iwate-') && !s.id.startsWith('morioka-') && SUBSIDY_SERIES_MAP[s.id]!==_RYO && !s.id.startsWith('kosodate-') && !_EXCL.has(s.id));
+  const _isArea = s => s.id.startsWith('iwate-') || s.id.startsWith('morioka-') || s.id.startsWith('sanriku-');
+  const _easyAll = SUBSIDIES.filter(s => s.difficulty===1 && !_T3IDS.has(s.id) && !_isArea(s) && SUBSIDY_SERIES_MAP[s.id]!==_RYO && !s.id.startsWith('kosodate-') && !_EASY_EXCL.has(s.id));
   const _easyIds = new Set(_easyAll.map(s => s.id));
-  const _nonTop3 = displayScored.filter(s => !_T3IDS.has(s.id) && !s.id.startsWith('iwate-') && !s.id.startsWith('morioka-') && SUBSIDY_SERIES_MAP[s.id]!==_RYO && !s.id.startsWith('kosodate-') && !_EXCL.has(s.id));
+  const _nonTop3 = displayScored.filter(s => !_T3IDS.has(s.id) && !_isArea(s) && SUBSIDY_SERIES_MAP[s.id]!==_RYO && !s.id.startsWith('kosodate-') && !_DETAIL_EXCL.has(s.id));
   const _mediumMatched = _nonTop3.filter(s => !_easyIds.has(s.id));
   const visibleCount = _easyAll.length + _mediumMatched.length; // TOP3（3件）は常時表示なので別
 
@@ -7562,31 +7564,33 @@ function renderResults(scored, combos, conflicts, meta) {
     html += `</div>`;
   }
 
-  // ── Top3以外・岩手盛岡・両立支援（受動）除外 ──
+  // ── Top3以外・地域系・両立支援 除外ルール ──
   const TOP3_ALL_IDS = new Set([
     'career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu',
     'career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka',
     'tokutei-shushokukonnansha','it-donyu','it-security'
   ]);
   const RYORITSU_SERIES = '両立支援等助成金';
-  const EASY_EXCLUDE_IDS = new Set(['judokyuen-boushi', 'jinzai-ikusei-shien']);
+  const isAreaId = s => s.id.startsWith('iwate-') || s.id.startsWith('morioka-') || s.id.startsWith('sanriku-');
+  const EASY_LIST_EXCL   = new Set(['judokyuen-boushi','jinzai-ikusei-shien']); // easyリストのみ除外
+  const DETAIL_EXCL      = new Set(['jinzai-ikusei-shien']); // detailからも除外（受動喫煙はdetailに出す）
+
+  // nonTop3: displayScored から地域系・両立支援・人材育成支援コースを除外
   const nonTop3 = displayScored.filter(s =>
     !TOP3_ALL_IDS.has(s.id) &&
-    !s.id.startsWith('iwate-') &&
-    !s.id.startsWith('morioka-') &&
+    !isAreaId(s) &&
     SUBSIDY_SERIES_MAP[s.id] !== RYORITSU_SERIES &&
     !s.id.startsWith('kosodate-') &&
-    !EASY_EXCLUDE_IDS.has(s.id)
+    !DETAIL_EXCL.has(s.id)
   );
   // 難易度1は診断マッチに関係なく常に表示（SUBSIDIES全件から取る）
   const easyItems = SUBSIDIES.filter(s =>
     s.difficulty === 1 &&
     !TOP3_ALL_IDS.has(s.id) &&
-    !s.id.startsWith('iwate-') &&
-    !s.id.startsWith('morioka-') &&
+    !isAreaId(s) &&
     SUBSIDY_SERIES_MAP[s.id] !== RYORITSU_SERIES &&
     !s.id.startsWith('kosodate-') &&
-    !EASY_EXCLUDE_IDS.has(s.id)
+    !EASY_LIST_EXCL.has(s.id)
   );
   // 詳細セクション：easy全件＋診断でマッチした難易度2（重複なし）
   const easyItemIds = new Set(easyItems.map(s => s.id));

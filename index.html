@@ -949,32 +949,33 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 13px 18px;
+    padding: 20px 24px;
     cursor: pointer;
-    background: #f8fafc;
+    background: #f1f5f9;
     border: none;
+    border-top: 2px solid #0a0f1e;
     width: 100%;
     text-align: left;
     font-family: inherit;
     gap: 10px;
     transition: background .1s;
   }
-  .sublist-toggle:hover { background: #f1f5f9; }
+  .sublist-toggle:hover { background: #e8edf3; }
   .sublist-toggle-label {
-    font-size: 13px;
-    font-weight: 700;
-    color: #334155;
+    font-size: 16px;
+    font-weight: 800;
+    color: #0a0f1e;
     letter-spacing: 0.01em;
   }
   .sublist-toggle-count {
-    font-size: 12px;
-    color: #94a3b8;
-    font-weight: 500;
-    margin-left: 6px;
+    font-size: 14px;
+    color: #475569;
+    font-weight: 600;
+    margin-left: 8px;
   }
   .sublist-toggle-chevron {
-    font-size: 11px;
-    color: #94a3b8;
+    font-size: 14px;
+    color: #0a0f1e;
     transition: transform .2s;
     flex-shrink: 0;
   }
@@ -7240,7 +7241,7 @@ function renderResults(scored, combos, conflicts, meta) {
   // ══════════════════════════════════════════════════════
   // ① 結果ヘッダー（ダッシュボード型サマリー）
   // ══════════════════════════════════════════════════════
-  const topMax = displayScored.length ? Math.max(...displayScored.filter(s => s.max_amount <= 50000000).map(s => s.max_amount || 0)) : 0;
+  const topMax = displayScored.length ? Math.max(...displayScored.filter(s => s.max_amount <= 50000000 && !s.id.startsWith('iwate-') && !s.id.startsWith('morioka-') && !s.id.startsWith('sanriku-')).map(s => s.max_amount || 0)) : 0;
   const topMaxMan = Math.floor(topMax / 10000).toLocaleString('ja-JP');
   const leadTimes = displayScored.map(s => s.lead_time_months).filter(x => typeof x === 'number' && x > 0);
   const minLead = leadTimes.length > 0 ? Math.min(...leadTimes) : null;

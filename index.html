@@ -7562,8 +7562,20 @@ function renderResults(scored, combos, conflicts, meta) {
     !s.id.startsWith('kosodate-') &&
     !EASY_EXCLUDE_IDS.has(s.id)
   );
-  const easyItems   = nonTop3.filter(s => s.difficulty === 1);
-  const detailItems = nonTop3; // 全件を詳細セクションに（易+中）
+  // 難易度1は診断マッチに関係なく常に表示（SUBSIDIES全件から取る）
+  const easyItems = SUBSIDIES.filter(s =>
+    s.difficulty === 1 &&
+    !TOP3_ALL_IDS.has(s.id) &&
+    !s.id.startsWith('iwate-') &&
+    !s.id.startsWith('morioka-') &&
+    SUBSIDY_SERIES_MAP[s.id] !== RYORITSU_SERIES &&
+    !s.id.startsWith('kosodate-') &&
+    !EASY_EXCLUDE_IDS.has(s.id)
+  );
+  // 詳細セクション：easy全件＋診断でマッチした難易度2（重複なし）
+  const easyItemIds = new Set(easyItems.map(s => s.id));
+  const mediumItems = nonTop3.filter(s => !easyItemIds.has(s.id));
+  const detailItems = [...easyItems, ...mediumItems];
 
   function buildRowGroup(items, idPrefix) {
     const si = {}, so = [], ss = [];

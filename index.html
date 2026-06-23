@@ -836,7 +836,7 @@
     transition: background .1s;
   }
   .top3-row:last-child { border-bottom: none; }
-  .top3-row.matched:hover { background: #f8fafc; }
+  .top3-row:hover { background: #f8fafc; }
   .top3-num {
     font-size: 38px;
     font-weight: 900;
@@ -881,8 +881,8 @@
     padding-left: 12px;
     transition: transform .15s, color .15s;
   }
-  .top3-row.matched:hover .top3-arrow { transform: translateX(3px); color: #0a0f1e; }
-  .top3-row.unmatched { opacity: 0.4; }
+  .top3-row:hover .top3-arrow { transform: translateX(3px); color: #0a0f1e; }
+  .top3-row.unmatched { opacity: 1; }
   @media (max-width: 600px) {
     .top3-row { grid-template-columns: 40px 1fr auto; padding: 16px 14px; }
     .top3-num { font-size: 26px; }
@@ -7495,21 +7495,24 @@ function renderResults(scored, combos, conflicts, meta) {
           </div>
           <div class="top3-amount-block">
             <div class="top3-amount">最大 ${fmt(maxAmt)}</div>
-            <span class="top3-amount-note">${hasMatch ? '条件合致 ✓' : '条件未達'}</span>
           </div>
-          <div class="top3-arrow">${hasMatch ? '→' : '—'}</div>
+          <div class="top3-arrow">→</div>
         </div>`;
     });
     html += `</div>`;
   }
 
-  // ── 折りたたみ式サブ一覧（TOP3以外の低難易度制度）──
+  // ── その他の制度（詳細カード、岩手・盛岡除外）──
   const TOP3_ALL_IDS = new Set([
     'career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu',
     'career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka',
     'tokutei-shushokukonnansha','it-donyu','it-security'
   ]);
-  const subItems = displayScored.filter(s => !TOP3_ALL_IDS.has(s.id));
+  const subItems = displayScored.filter(s =>
+    !TOP3_ALL_IDS.has(s.id) &&
+    !s.id.startsWith('iwate-') &&
+    !s.id.startsWith('morioka-')
+  );
   if (subItems.length > 0) {
     const subListId = 'sublist-body-main';
     html += `<div class="sublist-panel">
@@ -7521,18 +7524,29 @@ function renderResults(scored, combos, conflicts, meta) {
         <span class="sublist-toggle-label">その他の取得しやすい制度<span class="sublist-toggle-count">${subItems.length}件</span></span>
         <span class="sublist-toggle-chevron">▼</span>
       </button>
-      <div class="sublist-body" id="${subListId}">`;
+      <div class="sublist-body" id="${subListId}">
+        <div class="result-rows" style="margin:0">`;
+    // シリーズでまとめて表示
+    const subSeriesItems = {}, subSeriesOrder = [], subStandalone = [];
     subItems.forEach(s => {
-      const diffLabel = s.difficulty === 1 ? '易' : '中';
-      const diffCls = s.difficulty === 1 ? 'd1' : '';
-      html += `<div class="sublist-item">
-        <div class="sublist-item-name">
-          <span class="sublist-diff ${diffCls}">${diffLabel}</span>${s.name}
-        </div>
-        <div class="sublist-item-amount">${fmt(s.max_amount)}</div>
-      </div>`;
+      const series = SUBSIDY_SERIES_MAP[s.id];
+      if (series) {
+        if (!subSeriesItems[series]) { subSeriesItems[series] = []; subSeriesOrder.push(series); }
+        subSeriesItems[series].push(s);
+      } else { subStandalone.push(s); }
     });
-    html += `</div></div>`;
+    let subHtml = '';
+    subSeriesOrder.forEach(series => {
+      const si = subSeriesItems[series];
+      if (si.length >= 2) {
+        subHtml += `<div class="result-series-block"><div class="result-series-label">${series}（${si.length}コース）</div>`;
+        si.forEach(s => { subHtml += renderRow(s); });
+        subHtml += `</div>`;
+      } else { si.forEach(s => { subHtml += renderRow(s); }); }
+    });
+    subStandalone.forEach(s => { subHtml += renderRow(s); });
+    html += subHtml;
+    html += `</div></div></div>`;
   }
 
   // 注・コンボパネルは省略（シンプル化）

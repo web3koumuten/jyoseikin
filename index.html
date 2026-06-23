@@ -3070,7 +3070,7 @@ const SUBSIDIES = [
     "amount_note": "【製品・サービス高付加価値化枠（通常）】対象経費の1/2（小規模・赤字は2/3）、上限750万円〜4,000万円。※自動化専用設備は「省力化（オーダーメード）枠」（別エントリー）を確認",
     "timing": "before_investment",
     "lead_time_months": 12,
-    "difficulty": 3,
+    "difficulty": 2,
     "company_size": [
       "中小企業",
       "小規模事業者"
@@ -3175,7 +3175,7 @@ const SUBSIDIES = [
     "amount_note": "対象経費の50%（上限7,000万円）。第4回公募：2026年5月19日〜6月19日予定。※2026年度中にものづくり補助金と統合予定",
     "timing": "before_investment",
     "lead_time_months": 12,
-    "difficulty": 3,
+    "difficulty": 2,
     "company_size": [
       "中小企業"
     ],
@@ -4218,7 +4218,7 @@ const SUBSIDIES = [
     "amount_note": "設備投資等の対象経費の1/2（上限5億円）。工場・拠点の新増設、大型設備導入が対象。総予算1,000億円規模（2025年5月公募開始）",
     "timing": "before_investment",
     "lead_time_months": 12,
-    "difficulty": 3,
+    "difficulty": 2,
     "company_size": [
       "中小企業"
     ],
@@ -5952,7 +5952,7 @@ function runDiagnosis() {
       addP('iwate-chinagekankyo', 2, '岩手県内＋賃上げ意向あり→県の賃上げ環境整備支援補助金（上限200万円）を活用');
     }
     // 起業・新事業
-    if (q14.includes('startup') || q14.includes('jigyo-shinsyutsu')) {
+    if (q14.includes('jigyo-shinsyutsu')) {
       addP('iwate-sogyoshien', 2, '岩手県内での新規起業・第二創業→県の地方創生起業支援金（上限200万円）が有力');
     }
     // 建設業
@@ -5994,7 +5994,7 @@ function runDiagnosis() {
       addP('iwate-suisan-renkei', 1, '岩手県内＋製造・加工業→水産加工業連携新活動促進補助金（沿岸エリア・グループ申請）を確認');
     }
     // 新商品開発・地域資源活用
-    if (q14.includes('jigyo-shinsyutsu') || q14.includes('shinki-kaihatsu')) {
+    if (q14.includes('jigyo-shinsyutsu')) {
       addP('iwate-shinshop-chiiki', 1, '岩手県北・沿岸エリア→農林水産物・観光資源活用の新商品・サービス開発補助金を検討');
     }
     // 知的財産・特許
@@ -6039,7 +6039,7 @@ function runDiagnosis() {
     if (q16 >= 10000) {
       addP('morioka-kigyo-richi', 2, '盛岡市内＋大型設備投資→企業立地促進補助金（上限3億円）の検討を');
     }
-    if (q14.includes('startup')) {
+    if (q14.includes('jigyo-shinsyutsu')) {
       addP('morioka-furusato-kigyo', 2, '盛岡市内での新規起業→ふるさと起業家支援補助金の活用を検討');
     }
     // 県外企業のサテライトオフィス設置（IT・製造業）
@@ -7090,14 +7090,15 @@ function renderResults(scored, combos, conflicts, meta) {
   const el = document.getElementById('results');
   el.style.display = 'block';
 
-  const totalMax = scored.reduce((s, x) => s + x.max_amount, 0);
   // 難易度3のみ除外（リスキリングは診断で選ばれた時に表示するので除外しない）
   const DISPLAY_EXCLUDE = new Set([]);
   const displayScored = scored.filter(s => s.difficulty < 3 && !DISPLAY_EXCLUDE.has(s.id));
+  // totalMaxはdisplayScored（実際に表示する制度）ベースで計算
+  const totalMax = displayScored.reduce((s, x) => s + x.max_amount, 0);
 
   // 実際に画面に表示される件数を先行計算（ヘッダー表示用）
   const _T3IDS = new Set(['career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu','career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka','tokutei-shushokukonnansha','it-donyu','it-security']);
-  const _EASY_EXCL   = new Set(['judokyuen-boushi','jinzai-ikusei-shien']); // easyリストのみ除外
+  const _EASY_EXCL   = new Set(['judokyuen-boushi','jinzai-ikusei-shien','trial-ippan','trial-shogaisha','trial-shogaisha-tanjikan']); // easyリストのみ除外
   const _DETAIL_EXCL = new Set(['jinzai-ikusei-shien']); // detailからも除外（受動喫煙はdetailに出す）
   const _RYO   = '両立支援等助成金';
   const _isArea = s => s.id.startsWith('iwate-') || s.id.startsWith('morioka-') || s.id.startsWith('sanriku-');
@@ -7572,7 +7573,7 @@ function renderResults(scored, combos, conflicts, meta) {
   ]);
   const RYORITSU_SERIES = '両立支援等助成金';
   const isAreaId = s => s.id.startsWith('iwate-') || s.id.startsWith('morioka-') || s.id.startsWith('sanriku-');
-  const EASY_LIST_EXCL   = new Set(['judokyuen-boushi','jinzai-ikusei-shien']); // easyリストのみ除外
+  const EASY_LIST_EXCL   = new Set(['judokyuen-boushi','jinzai-ikusei-shien','trial-ippan','trial-shogaisha','trial-shogaisha-tanjikan']); // easyリストのみ除外（ハローワーク紹介状必須・特定対象者限定のため）
   const DETAIL_EXCL      = new Set(['jinzai-ikusei-shien']); // detailからも除外（受動喫煙はdetailに出す）
 
   // nonTop3: displayScored から地域系・両立支援・人材育成支援コースを除外

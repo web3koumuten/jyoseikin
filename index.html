@@ -7089,6 +7089,17 @@ function renderResults(scored, combos, conflicts, meta) {
   // 難易度3・リスキリングを表示から除外
   const DISPLAY_EXCLUDE = new Set(['jinzai-reskilling']);
   const displayScored = scored.filter(s => s.difficulty < 3 && !DISPLAY_EXCLUDE.has(s.id));
+
+  // 実際に画面に表示される件数を先行計算（ヘッダー表示用）
+  const _T3IDS = new Set(['career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu','career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka','tokutei-shushokukonnansha','it-donyu','it-security']);
+  const _EXCL  = new Set(['judokyuen-boushi','jinzai-ikusei-shien']);
+  const _RYO   = '両立支援等助成金';
+  const _easyAll = SUBSIDIES.filter(s => s.difficulty===1 && !_T3IDS.has(s.id) && !s.id.startsWith('iwate-') && !s.id.startsWith('morioka-') && SUBSIDY_SERIES_MAP[s.id]!==_RYO && !s.id.startsWith('kosodate-') && !_EXCL.has(s.id));
+  const _easyIds = new Set(_easyAll.map(s => s.id));
+  const _nonTop3 = displayScored.filter(s => !_T3IDS.has(s.id) && !s.id.startsWith('iwate-') && !s.id.startsWith('morioka-') && SUBSIDY_SERIES_MAP[s.id]!==_RYO && !s.id.startsWith('kosodate-') && !_EXCL.has(s.id));
+  const _mediumMatched = _nonTop3.filter(s => !_easyIds.has(s.id));
+  const visibleCount = _easyAll.length + _mediumMatched.length; // TOP3（3件）は常時表示なので別
+
   const budget = meta.q16 || 0;  // 投資予算（万円）
   const noAddPoints = meta.q20.length === 0 || (meta.q20.length === 1 && meta.q20.includes('なし'));
   const urgentTiming = meta.q17 === '1〜2ヶ月以内' || meta.q17 === '半年以内';
@@ -7233,7 +7244,7 @@ function renderResults(scored, combos, conflicts, meta) {
         <span class="results-back-note">入力データは保持されています</span>
       </div>
       <div class="results-header-eyebrow">診断結果</div>
-      <h2 class="results-header-title">${displayScored.length}件の制度が該当しました</h2>
+      <h2 class="results-header-title">主力3制度＋${visibleCount}件の制度が対象です</h2>
       <p class="results-header-sub">事業内容・従業員規模・今後の計画から、取得しやすい補助金・助成金を抽出しています。</p>
       <div class="results-summary">
         <div class="results-summary-cell is-primary">
@@ -7245,12 +7256,12 @@ function renderResults(scored, combos, conflicts, meta) {
           <div class="results-summary-note">取得しやすい制度の上限額</div>
         </div>
         <div class="results-summary-cell">
-          <div class="results-summary-label">該当件数</div>
+          <div class="results-summary-label">その他の対象制度</div>
           <div class="results-summary-value">
-            <span class="results-summary-num">${displayScored.length}</span>
+            <span class="results-summary-num">${visibleCount}</span>
             <span class="results-summary-unit">件</span>
           </div>
-          <div class="results-summary-note">国・県・市の制度から抽出</div>
+          <div class="results-summary-note">主力3制度に加えて取得可能</div>
         </div>
         <div class="results-summary-cell">
           <div class="results-summary-label">最短準備期間</div>

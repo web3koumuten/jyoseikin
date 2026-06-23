@@ -7240,7 +7240,7 @@ function renderResults(scored, combos, conflicts, meta) {
   // ══════════════════════════════════════════════════════
   // ① 結果ヘッダー（ダッシュボード型サマリー）
   // ══════════════════════════════════════════════════════
-  const topMax = displayScored.length ? Math.max(...displayScored.map(s => s.max_amount || 0)) : 0;
+  const topMax = displayScored.length ? Math.max(...displayScored.filter(s => s.max_amount <= 50000000).map(s => s.max_amount || 0)) : 0;
   const topMaxMan = Math.floor(topMax / 10000).toLocaleString('ja-JP');
   const leadTimes = displayScored.map(s => s.lead_time_months).filter(x => typeof x === 'number' && x > 0);
   const minLead = leadTimes.length > 0 ? Math.min(...leadTimes) : null;

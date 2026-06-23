@@ -936,41 +936,39 @@
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    padding: 11px 18px;
+    padding: 9px 18px;
     border-bottom: 1px solid #f1f5f9;
-    gap: 12px;
+    gap: 16px;
   }
   .sublist-item:last-child { border-bottom: none; }
   .sublist-item-name {
     font-size: 13px;
     font-weight: 600;
     color: #1e293b;
-    line-height: 1.4;
-  }
-  .sublist-item-meta {
-    font-size: 11px;
-    color: #94a3b8;
-    margin-top: 2px;
+    line-height: 1.3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
   .sublist-item-amount {
-    font-size: 15px;
-    font-weight: 800;
-    color: #0a0f1e;
-    letter-spacing: -0.02em;
+    font-size: 13px;
+    font-weight: 700;
+    color: #334155;
+    letter-spacing: -0.01em;
     white-space: nowrap;
     text-align: right;
   }
   .sublist-diff {
     font-size: 10px;
     font-weight: 700;
-    padding: 2px 7px;
+    padding: 1px 6px;
     border: 1px solid #e2e8f0;
-    color: #64748b;
+    color: #94a3b8;
     letter-spacing: 0.04em;
-    margin-top: 4px;
-    display: inline-block;
+    flex-shrink: 0;
   }
-  .sublist-diff.d1 { border-color: #0a0f1e; color: #0a0f1e; }
+  .sublist-diff.d1 { border-color: #cbd5e1; color: #64748b; }
 
   .result-rows {
     margin-top: 8px;
@@ -7528,11 +7526,10 @@ function renderResults(scored, combos, conflicts, meta) {
       const diffLabel = s.difficulty === 1 ? '易' : '中';
       const diffCls = s.difficulty === 1 ? 'd1' : '';
       html += `<div class="sublist-item">
-        <div>
-          <div class="sublist-item-name">${s.name}</div>
-          <div class="sublist-item-meta"><span class="sublist-diff ${diffCls}">${diffLabel}</span></div>
+        <div class="sublist-item-name">
+          <span class="sublist-diff ${diffCls}">${diffLabel}</span>${s.name}
         </div>
-        <div class="sublist-item-amount">最大 ${fmt(s.max_amount)}</div>
+        <div class="sublist-item-amount">${fmt(s.max_amount)}</div>
       </div>`;
     });
     html += `</div></div>`;

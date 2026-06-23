@@ -7502,50 +7502,65 @@ function renderResults(scored, combos, conflicts, meta) {
     html += `</div>`;
   }
 
-  // ── その他の制度（詳細カード、岩手・盛岡除外）──
+  // ── Top3以外・岩手盛岡除外 ──
   const TOP3_ALL_IDS = new Set([
     'career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu',
     'career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka',
     'tokutei-shushokukonnansha','it-donyu','it-security'
   ]);
-  const subItems = displayScored.filter(s =>
+  const nonTop3 = displayScored.filter(s =>
     !TOP3_ALL_IDS.has(s.id) &&
     !s.id.startsWith('iwate-') &&
     !s.id.startsWith('morioka-')
   );
-  if (subItems.length > 0) {
-    const subListId = 'sublist-body-main';
+  const easyItems  = nonTop3.filter(s => s.difficulty === 1);
+  const otherItems = nonTop3.filter(s => s.difficulty !== 1);
+
+  function buildRowGroup(items) {
+    const si = {}, so = [], ss = [];
+    items.forEach(s => {
+      const series = SUBSIDY_SERIES_MAP[s.id];
+      if (series) {
+        if (!si[series]) { si[series] = []; so.push(series); }
+        si[series].push(s);
+      } else { ss.push(s); }
+    });
+    let out = '';
+    so.forEach(series => {
+      const arr = si[series];
+      if (arr.length >= 2) {
+        out += `<div class="result-series-block"><div class="result-series-label">${series}（${arr.length}コース）</div>`;
+        arr.forEach(s => { out += renderRow(s); });
+        out += `</div>`;
+      } else { arr.forEach(s => { out += renderRow(s); }); }
+    });
+    ss.forEach(s => { out += renderRow(s); });
+    return out;
+  }
+
+  // ② 取得しやすい制度（直接表示）
+  if (easyItems.length > 0) {
+    html += `<div style="margin-bottom:6px;padding:10px 0 6px;font-size:11px;font-weight:800;letter-spacing:0.1em;color:#94a3b8">取得しやすい制度</div>`;
+    html += `<div class="result-rows" style="margin:0 0 16px">`;
+    html += buildRowGroup(easyItems);
+    html += `</div>`;
+  }
+
+  // ③ その他、取得できる制度（折りたたみ）
+  if (otherItems.length > 0) {
+    const otherId = 'other-items-body';
     html += `<div class="sublist-panel">
       <button class="sublist-toggle" onclick="(function(btn){
-        var body=document.getElementById('${subListId}');
+        var body=document.getElementById('${otherId}');
         var open=body.classList.toggle('open');
         btn.classList.toggle('open',open);
       })(this)">
-        <span class="sublist-toggle-label">その他の取得しやすい制度<span class="sublist-toggle-count">${subItems.length}件</span></span>
+        <span class="sublist-toggle-label">その他、取得できる制度<span class="sublist-toggle-count">${otherItems.length}件</span></span>
         <span class="sublist-toggle-chevron">▼</span>
       </button>
-      <div class="sublist-body" id="${subListId}">
+      <div class="sublist-body" id="${otherId}">
         <div class="result-rows" style="margin:0">`;
-    // シリーズでまとめて表示
-    const subSeriesItems = {}, subSeriesOrder = [], subStandalone = [];
-    subItems.forEach(s => {
-      const series = SUBSIDY_SERIES_MAP[s.id];
-      if (series) {
-        if (!subSeriesItems[series]) { subSeriesItems[series] = []; subSeriesOrder.push(series); }
-        subSeriesItems[series].push(s);
-      } else { subStandalone.push(s); }
-    });
-    let subHtml = '';
-    subSeriesOrder.forEach(series => {
-      const si = subSeriesItems[series];
-      if (si.length >= 2) {
-        subHtml += `<div class="result-series-block"><div class="result-series-label">${series}（${si.length}コース）</div>`;
-        si.forEach(s => { subHtml += renderRow(s); });
-        subHtml += `</div>`;
-      } else { si.forEach(s => { subHtml += renderRow(s); }); }
-    });
-    subStandalone.forEach(s => { subHtml += renderRow(s); });
-    html += subHtml;
+    html += buildRowGroup(otherItems);
     html += `</div></div></div>`;
   }
 

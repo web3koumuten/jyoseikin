@@ -7762,15 +7762,8 @@ function renderResults(scored, combos, conflicts, meta) {
   }
 
   html += `
-  <div class="lead-form-card" id="lead-form-area">
-    <div class="lead-form-title">診断結果を保存 ＋ 無料相談を申し込む</div>
-    <div class="lead-form-sub">会社名と連絡先をご入力いただくと、診断結果をまとめてスタッフよりご案内します。入力は任意です。</div>
-    <div class="lead-form-fields">
-      <input type="text" id="lf-company" placeholder="会社名（必須）" required>
-      <input type="text" id="lf-person" placeholder="担当者名">
-      <input type="text" id="lf-contact" placeholder="電話番号またはメールアドレス（必須）" required>
-    </div>
-    <button class="lead-form-submit" onclick="submitLeadForm()">送信する →</button>
+  <div style="max-width:860px;margin:32px auto 0;padding:0 40px;">
+    <a href="./shindan3.html" style="display:block;text-align:center;background:#0f172a;color:#fff;padding:18px;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;">STEP3 申請ヒアリングへ進む →</a>
   </div>`;
 
   html += `

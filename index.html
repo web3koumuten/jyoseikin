@@ -1850,6 +1850,71 @@
   }
 
   /* Conflict */
+  /* ── リード獲得フォーム ── */
+  .lead-form-card {
+    background: #0a0f1e;
+    color: #fff;
+    padding: 36px 32px;
+    margin-bottom: 24px;
+  }
+  .lead-form-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+  .lead-form-sub {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+  .lead-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .lead-form-fields input {
+    padding: 13px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #1e2536;
+    border: 1.5px solid #334155;
+    border-radius: 0;
+    color: #fff;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .lead-form-fields input::placeholder { color: #64748b; }
+  .lead-form-fields input:focus { border-color: #64748b; }
+  .lead-form-submit {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 800;
+    font-family: inherit;
+    background: #fff;
+    color: #0a0f1e;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background .15s;
+  }
+  .lead-form-submit:hover { background: #e2e8f0; }
+  .lead-form-thanks {
+    text-align: center;
+    padding: 24px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #94a3b8;
+  }
+  .lead-form-thanks strong { display: block; font-size: 20px; color: #fff; margin-bottom: 8px; }
+  @media (max-width: 600px) {
+    .lead-form-card { padding: 28px 20px; }
+  }
+
   .conflict-panel {
     background: #fff;
     border: 1px solid var(--border);
@@ -6297,6 +6362,18 @@ function runDiagnosis() {
     });
   });
 
+  // 診断データをグローバルに保持（リード送信フォーム用）
+  window._lastDiagnosis = {
+    q6, q7,
+    q8_employees: q8,
+    q9_revenue: q9,
+    q13_wage: q13,
+    q14_plans: q14.join('・'),
+    q18_hiring: q18,
+    q20_other: q20.join('・'),
+    matched_subsidies: scored.filter(s => s.difficulty < 3).map(s => s.name).join('、')
+  };
+
   // ローディング演出を挟んでから結果表示
   showLoading(scored.length, () => {
     renderResults(scored, combos, conflicts, { q13, q18, q20, isSmall, isSME, wageUp, isDeficit, q16, q17 });
@@ -7678,6 +7755,18 @@ function renderResults(scored, combos, conflicts, meta) {
   }
 
   html += `
+  <div class="lead-form-card" id="lead-form-area">
+    <div class="lead-form-title">診断結果を保存 ＋ 無料相談を申し込む</div>
+    <div class="lead-form-sub">会社名と連絡先をご入力いただくと、診断結果をまとめてスタッフよりご案内します。入力は任意です。</div>
+    <div class="lead-form-fields">
+      <input type="text" id="lf-company" placeholder="会社名（必須）" required>
+      <input type="text" id="lf-person" placeholder="担当者名">
+      <input type="text" id="lf-contact" placeholder="電話番号またはメールアドレス（必須）" required>
+    </div>
+    <button class="lead-form-submit" onclick="submitLeadForm()">送信する →</button>
+  </div>`;
+
+  html += `
   <div class="lp-cta">
     <div class="lp-cta-body">
       <span class="lp-cta-label">もっとくわしく</span>
@@ -8045,6 +8134,56 @@ window.addEventListener('popstate', function(e) {
   }
   window.scrollTo(0, 0);
 });
+
+// ── リード送信フォーム ──────────────────────────────────
+// ★ GASをデプロイしたらこのURLを差し替えてください
+const GAS_ENDPOINT = 'YOUR_GAS_URL_HERE';
+
+function submitLeadForm() {
+  const company = document.getElementById('lf-company').value.trim();
+  const contact = document.getElementById('lf-contact').value.trim();
+  if (!company) { alert('会社名を入力してください'); return; }
+  if (!contact) { alert('電話番号またはメールアドレスを入力してください'); return; }
+
+  const diag = window._lastDiagnosis || {};
+  const payload = {
+    timestamp: new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' }),
+    company,
+    person: document.getElementById('lf-person').value.trim(),
+    contact,
+    legal_form: diag.q6 || '',
+    industry: diag.q7 || '',
+    employees: diag.q8_employees || '',
+    revenue: diag.q9_revenue || '',
+    wage_plan: diag.q13_wage || '',
+    investment_plans: diag.q14_plans || '',
+    hiring_plan: diag.q18_hiring || '',
+    other_flags: diag.q20_other || '',
+    matched_subsidies: diag.matched_subsidies || ''
+  };
+
+  const area = document.getElementById('lead-form-area');
+  area.innerHTML = '<div class="lead-form-thanks"><strong>送信中…</strong></div>';
+
+  if (!GAS_ENDPOINT || GAS_ENDPOINT === 'YOUR_GAS_URL_HERE') {
+    // GAS未設定の場合はコンソールにログだけ出す（開発確認用）
+    console.log('[リード送信データ]', payload);
+    setTimeout(() => {
+      area.innerHTML = '<div class="lead-form-thanks"><strong>✓ 受け付けました</strong>担当者よりご連絡いたします。</div>';
+    }, 500);
+    return;
+  }
+
+  fetch(GAS_ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify(payload)
+  }).then(() => {
+    area.innerHTML = '<div class="lead-form-thanks"><strong>✓ 受け付けました</strong>担当者よりご連絡いたします。</div>';
+  }).catch(() => {
+    area.innerHTML = '<div class="lead-form-thanks" style="color:#f87171"><strong>送信に失敗しました</strong>お手数ですがお電話にてご連絡ください。</div>';
+  });
+}
 
 // 診断結果 → フォームに戻る（入力データは保持）
 function goBackToForm() {

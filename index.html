@@ -834,6 +834,9 @@
     border-bottom: 1px solid #e2e8f0;
     gap: 0;
     transition: background .1s;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
   .top3-row:last-child { border-bottom: none; }
   .top3-row:hover { background: #f8fafc; }
@@ -7527,19 +7530,22 @@ function renderResults(scored, combos, conflicts, meta) {
       label: 'キャリアアップ助成金',
       desc: 'パート・契約社員の正社員化・待遇改善。何人でも繰り返し受給可',
       ids: new Set(['career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu','career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka']),
-      fallback: 1800000
+      fallback: 1800000,
+      lpUrl: './lp.html#career-up'
     },
     {
       label: '特定求職者雇用開発助成金',
       desc: '障害者・高齢者等の採用で最大2年間にわたり支給',
       ids: new Set(['tokutei-shushokukonnansha']),
-      fallback: 2400000
+      fallback: 2400000,
+      lpUrl: './lp.html#tokutei'
     },
     {
       label: 'IT導入補助金',
       desc: 'ITツール・AIシステム導入費を最大3/4補助',
       ids: new Set(['it-donyu','it-security']),
-      fallback: 4500000
+      fallback: 4500000,
+      lpUrl: './lp.html#it-donyu'
     }
   ];
   const top3Matched = TOP3_PROGRAMS.filter(p => displayScored.some(s => p.ids.has(s.id)));
@@ -7550,7 +7556,7 @@ function renderResults(scored, combos, conflicts, meta) {
       const hasMatch = matchedItems.length > 0;
       const maxAmt = hasMatch ? Math.max(...matchedItems.map(s => s.max_amount)) : prog.fallback;
       html += `
-        <div class="top3-row ${hasMatch ? 'matched' : 'unmatched'}">
+        <a class="top3-row ${hasMatch ? 'matched' : 'unmatched'}" href="${prog.lpUrl}">
           <div class="top3-num">0${i+1}</div>
           <div class="top3-info">
             <div class="top3-name">${prog.label}</div>
@@ -7560,7 +7566,7 @@ function renderResults(scored, combos, conflicts, meta) {
             <div class="top3-amount">最大 ${fmt(maxAmt)}</div>
           </div>
           <div class="top3-arrow">→</div>
-        </div>`;
+        </a>`;
     });
     html += `</div>`;
   }

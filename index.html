@@ -6373,13 +6373,37 @@ function runDiagnosis() {
     q20_other: q20.join('・'),
     matched_subsidies: scored.filter(s => s.difficulty < 3).map(s => s.name).join('、')
   };
+  // session_idを生成して保存（診断1→診断3の行紐付け用）
+  const sessionId = Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
   // sessionStorageに保存（shindan2.html / shindan3.html への引き継ぎ）
   try {
     sessionStorage.setItem('shindan1_result', JSON.stringify({
       meta: window._lastDiagnosis,
       scored: scored.filter(s => s.difficulty < 3).map(s => ({ id: s.id, name: s.name, max_amount: s.max_amount }))
     }));
+    sessionStorage.setItem('session_id', sessionId);
   } catch(e) {}
+
+  // 診断1データをGASに自動送信
+  (function sendShindan1ToGAS() {
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbwVzEeVCWyYn0JZdMv7pG4_YDUlppqcLo__fUgCSTnBqSTfQB7ZkW3ACKmJ9mI_AK2pqA/exec';
+    const m = window._lastDiagnosis;
+    const payload = {
+      type: 'shindan1',
+      session_id: sessionId,
+      timestamp: new Date().toLocaleString('ja-JP'),
+      s1_legal_form:       m.q6 || '',
+      s1_industry:         m.q7 || '',
+      s1_employees:        m.q8_employees || '',
+      s1_revenue:          m.q9_revenue || '',
+      s1_wage_plan:        m.q13_wage || '',
+      s1_investment_plans: m.q14_plans || '',
+      s1_hiring_plan:      m.q18_hiring || '',
+      s1_other_flags:      m.q20_other || '',
+      s1_matched:          m.matched_subsidies || '',
+    };
+    fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }).catch(() => {});
+  })();
 
   // ローディング演出を挟んでから結果表示
   showLoading(scored.length, () => {

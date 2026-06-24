@@ -1067,7 +1067,11 @@ function submitShindan3() {
   const formData = collectFormData();
   const inherited = getInheritedData();
 
+  const sessionId = (() => { try { return sessionStorage.getItem('session_id') || ''; } catch(e) { return ''; } })();
+
   const payload = {
+    type: 'shindan3',
+    session_id: sessionId,
     timestamp: new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' }),
     ...inherited,
     ...formData

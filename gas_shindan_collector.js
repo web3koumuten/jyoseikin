@@ -2,30 +2,24 @@
  * 助成金診断 — 診断1・2・3 統合データ収集スクリプト
  * =====================================================
  * 【セットアップ手順】
- * 1. Google スプレッドシートを新規作成
- * 2. 拡張機能 → Apps Script を開く
- * 3. このスクリプトを全文貼り付けて保存
- * 4. 「デプロイ」→「新しいデプロイ」→ 種類：ウェブアプリ
- *    - 次のユーザーとして実行：自分
- *    - アクセスできるユーザー：全員
- * 5. デプロイ後に表示されるURLをコピー
- * 6. shindan3.html の GAS_ENDPOINT にURLを貼り付ける
- *    const GAS_ENDPOINT = 'https://script.google.com/macros/s/XXXXX/exec';
+ * 1. このスクリプトをGASエディタに全文貼り付けて保存
+ * 2. 「デプロイ」→「デプロイを管理」→ 新バージョンで更新
+ * 3. 初回のみ: setupSheet() を手動実行してヘッダー行を作成
  * =====================================================
  */
 
-// ★ スプレッドシートIDを入れてください
-// URLから取得: https://docs.google.com/spreadsheets/d/【このID】/edit
-const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID_HERE';
-
+const SPREADSHEET_ID = '1wHsxcl8Phcp4RI82Xwe0w9zVtm7qivo71iGKfSzhBnU';
 const SHEET_NAME = '診断データ';
 
-// ─── ヘッダー定義（スプレッドシートの列）───
+// ─── ヘッダー定義（列順） ───
 const HEADERS = [
-  // メタ
+  // ── 管理列 ──
   '送信日時',
+  'session_id',
+  '診断ステータス',       // 「診断1完了」→「診断3完了」に更新
+  '診断3完了日時',
 
-  // ── 診断1（引き継ぎ） ──
+  // ── 診断1 ──
   '【診断1】法人形態',
   '【診断1】業種',
   '【診断1】従業員数',
@@ -36,7 +30,7 @@ const HEADERS = [
   '【診断1】その他フラグ',
   '【診断1】マッチした助成金',
 
-  // ── 診断2（引き継ぎ） ──
+  // ── 診断2（診断3送信時に引き継ぎ）──
   '【診断2】取り逃し概算額（万円）',
   '【診断2】取り逃し制度',
 
@@ -203,8 +197,9 @@ const HEADERS = [
   '持続化_補助対象経費',
 ];
 
-// ─── フィールドマッピング（フォームname → ヘッダー） ───
+// ─── フィールドマッピング（送信フィールド名 → ヘッダー列名） ───
 const FIELD_MAP = {
+  // 診断1
   's1_legal_form':      '【診断1】法人形態',
   's1_industry':        '【診断1】業種',
   's1_employees':       '【診断1】従業員数',
@@ -214,8 +209,10 @@ const FIELD_MAP = {
   's1_hiring_plan':     '【診断1】採用予定',
   's1_other_flags':     '【診断1】その他フラグ',
   's1_matched':         '【診断1】マッチした助成金',
+  // 診断2
   's2_total_miss':      '【診断2】取り逃し概算額（万円）',
   's2_missed_details':  '【診断2】取り逃し制度',
+  // 診断3 第1部
   'q1_name':            '法人名',
   'q1_kana':            '法人名フリガナ',
   'q2_hojin_num':       '法人番号',
@@ -231,6 +228,7 @@ const FIELD_MAP = {
   'q8_industry_code':   '業種コード',
   'q9_rodo_num':        '労働保険番号',
   'q10_koyo_num':       '雇用保険適用事業所番号',
+  // 第2部
   'q11':                '大企業出資',
   'q11_source':         '大企業出資元',
   'q11_ratio':          '大企業出資比率',
@@ -242,7 +240,9 @@ const FIELD_MAP = {
   'q14_detail':         '違反内容',
   'q15':                '不正受給歴',
   'q15_detail':         '不正受給内容',
+  // 第3部
   'q16_goal':           '今回の申請で実現したいこと',
+  // 第4部
   'q17_exist':          '就業規則',
   'q17_year':           '就業規則改定年',
   'q17_hiseiki':        '就業規則・非正規条項あり',
@@ -253,6 +253,7 @@ const FIELD_MAP = {
   'q21':                '雇用保険未加入者',
   'q21_cnt':            '雇用保険未加入者数',
   'q22_overtime':       '月平均残業時間',
+  // 第5部
   'skip5':              '第5部スキップ',
   'q23_part':           'パート人数',
   'q23_fixed':          '有期契約社員人数',
@@ -268,6 +269,7 @@ const FIELD_MAP = {
   'q28_num':            'キャリアアップ計画番号',
   'q29_bonus':          '賞与制度あり',
   'q29_retire':         '退職金制度あり',
+  // 第6部
   'skip6':              '第6部スキップ',
   'q30_cnt':            '採用予定人数',
   'q30_type':           '採用雇用形態',
@@ -286,6 +288,7 @@ const FIELD_MAP = {
   'q34_hours':          '採用後週所定時間',
   'q34_contract':       '採用後雇用期間',
   'q34_months':         '採用後契約期間（ヶ月）',
+  // 第7部
   'q35_history':        '過去の受給・申請中制度',
   'q36_keikaku':        '認定_経営革新計画',
   'q36_jigyokei':       '認定_事業継続力強化計画',
@@ -302,6 +305,7 @@ const FIELD_MAP = {
   'q37_shindanshi':     '顧問_中小企業診断士',
   'q37_sh_firm':        '顧問_診断士事務所',
   'q37_none':           '顧問_なし',
+  // 第8部 キャリアアップ
   'skip8a':             'CA_スキップ',
   'q38':                'CA_転換規定の明記',
   'q39':                'CA_転換対象雇用形態',
@@ -309,6 +313,7 @@ const FIELD_MAP = {
   'q41':                'CA_転換後賞与退職金対象',
   'q42_reason':         'CA_転換急ぐ理由',
   'q43_goal':           'CA_転換で実現したいこと',
+  // 第8部 特開金
   'skip8b':             '特開_スキップ',
   'q44':                '特開_試用期間',
   'q44_months':         '特開_試用期間月数',
@@ -318,6 +323,7 @@ const FIELD_MAP = {
   'q47_job':            '特開_採用後職種・業務内容',
   'q48':                '特開_長期雇用予定',
   'q49_goal':           '特開_採用で実現したいこと',
+  // 第8部 IT導入
   'skip8c':             'IT_スキップ',
   'q50':                'IT_gBizIDプライム',
   'q51_kaikei':         'IT_ツール_会計財務',
@@ -341,6 +347,7 @@ const FIELD_MAP = {
   'q57_antivirus':      'IT_セキュリティ対策_ウイルス対策',
   'q57_backup':         'IT_セキュリティ対策_バックアップ',
   'q57_none':           'IT_セキュリティ対策_なし',
+  // 第8部 持続化補助金
   'skip8d':             '持続化_スキップ',
   'q58':                '持続化_商工会議所会員',
   'q59':                '持続化_過去採択',
@@ -358,59 +365,133 @@ const FIELD_MAP = {
   'q63_cost':           '持続化_補助対象経費',
 };
 
+// ─── ヘッダーセットアップ（初回のみ手動実行）───
+function setupSheet() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  let sheet = ss.getSheetByName(SHEET_NAME);
+
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME);
+  } else {
+    sheet.clearContents();
+  }
+
+  // ヘッダー行を書き込む
+  sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
+
+  // スタイル
+  const headerRange = sheet.getRange(1, 1, 1, HEADERS.length);
+  headerRange
+    .setFontWeight('bold')
+    .setBackground('#0a0f1e')
+    .setFontColor('#ffffff')
+    .setFontSize(10)
+    .setWrap(false);
+
+  sheet.setFrozenRows(1);
+  sheet.setFrozenColumns(3); // 送信日時・session_id・ステータスを固定
+
+  // 列幅
+  sheet.setColumnWidth(1, 150);  // 送信日時
+  sheet.setColumnWidth(2, 130);  // session_id
+  sheet.setColumnWidth(3, 120);  // 診断ステータス
+  sheet.setColumnWidth(4, 150);  // 診断3完了日時
+  sheet.setColumnWidth(17, 180); // 法人名
+  sheet.setColumnWidth(23, 160); // 代表者氏名
+
+  // 管理列（A〜D）を色分け
+  sheet.getRange(1, 1, 1, 4).setBackground('#1a237e').setFontColor('#ffffff');
+  // 診断1列（E〜M）
+  sheet.getRange(1, 5, 1, 9).setBackground('#1b5e20').setFontColor('#ffffff');
+  // 診断2列（N〜O）
+  sheet.getRange(1, 14, 1, 2).setBackground('#e65100').setFontColor('#ffffff');
+  // 診断3列（P〜）
+  sheet.getRange(1, 16, 1, HEADERS.length - 15).setBackground('#4a148c').setFontColor('#ffffff');
+
+  Logger.log('✅ シート「' + SHEET_NAME + '」のヘッダーを作成しました（' + HEADERS.length + '列）');
+}
+
 // ─── メイン処理 ───
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
+    const type = data.type || 'shindan3'; // 'shindan1' or 'shindan3'
+    const sessionId = data.session_id || '';
 
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
     let sheet = ss.getSheetByName(SHEET_NAME);
 
-    // シートが存在しない場合は作成してヘッダーを付ける
+    // シートがなければ自動作成
     if (!sheet) {
-      sheet = ss.insertSheet(SHEET_NAME);
-      sheet.appendRow(HEADERS);
-
-      // ヘッダー行のスタイル
-      const headerRange = sheet.getRange(1, 1, 1, HEADERS.length);
-      headerRange
-        .setFontWeight('bold')
-        .setBackground('#0a0f1e')
-        .setFontColor('#ffffff')
-        .setFontSize(10);
-      sheet.setFrozenRows(1);
-      sheet.setFrozenColumns(2); // 送信日時・法人名を固定
-
-      // 列幅を調整
-      sheet.setColumnWidth(1, 140);  // 送信日時
-      sheet.setColumnWidth(13, 160); // 法人名
+      setupSheet();
+      sheet = ss.getSheetByName(SHEET_NAME);
     }
 
-    // ヘッダー→インデックスのマップ
+    // ヘッダー→列インデックスのマップ
     const headerRow = sheet.getRange(1, 1, 1, HEADERS.length).getValues()[0];
     const headerIndex = {};
     headerRow.forEach((h, i) => { headerIndex[h] = i; });
 
-    // 行データを構築
-    const row = new Array(HEADERS.length).fill('');
-    row[headerIndex['送信日時']] = data.timestamp || '';
+    // ── 診断1: 新規行を追加 ──
+    if (type === 'shindan1') {
+      const row = new Array(HEADERS.length).fill('');
+      row[headerIndex['送信日時']]    = data.timestamp || new Date().toLocaleString('ja-JP');
+      row[headerIndex['session_id']]  = sessionId;
+      row[headerIndex['診断ステータス']] = '診断1完了';
 
-    // フィールドマッピングで埋める
-    Object.entries(FIELD_MAP).forEach(([fieldName, headerName]) => {
-      const idx = headerIndex[headerName];
-      if (idx !== undefined && data[fieldName] !== undefined) {
-        let val = data[fieldName];
-        // チェックボックス: 1→✓、0→空
-        if (val === '1') val = '✓';
-        if (val === '0') val = '';
-        row[idx] = val;
+      // 診断1フィールドのみ埋める
+      const s1Fields = ['s1_legal_form','s1_industry','s1_employees','s1_revenue',
+                        's1_wage_plan','s1_investment_plans','s1_hiring_plan',
+                        's1_other_flags','s1_matched'];
+      s1Fields.forEach(field => {
+        const col = FIELD_MAP[field];
+        if (col && headerIndex[col] !== undefined && data[field] !== undefined) {
+          row[headerIndex[col]] = data[field];
+        }
+      });
+
+      sheet.appendRow(row);
+
+    // ── 診断3: session_idで行を探して更新（なければ追加）──
+    } else if (type === 'shindan3') {
+      const allData = sheet.getDataRange().getValues();
+      const sidCol = headerIndex['session_id'];
+      let targetRowNum = -1;
+
+      // session_idが一致する行を検索（1行目はヘッダーなので2行目から）
+      for (let i = 1; i < allData.length; i++) {
+        if (sessionId && allData[i][sidCol] === sessionId) {
+          targetRowNum = i + 1; // Sheets は1始まり
+          break;
+        }
       }
-    });
 
-    sheet.appendRow(row);
+      if (targetRowNum === -1) {
+        // 診断1がない場合（診断3のみ）: 新規行追加
+        const row = new Array(HEADERS.length).fill('');
+        row[headerIndex['送信日時']]       = data.timestamp || new Date().toLocaleString('ja-JP');
+        row[headerIndex['session_id']]     = sessionId;
+        row[headerIndex['診断ステータス']]  = '診断3完了（診断1データなし）';
+        row[headerIndex['診断3完了日時']]   = data.timestamp || new Date().toLocaleString('ja-JP');
+        fillFields(row, headerIndex, data);
+        sheet.appendRow(row);
+      } else {
+        // 診断1の行が見つかった: 同じ行を更新
+        const existingRow = allData[targetRowNum - 1].slice(); // コピー
+
+        // ステータス・完了日時を更新
+        existingRow[headerIndex['診断ステータス']] = '診断3完了';
+        existingRow[headerIndex['診断3完了日時']]  = data.timestamp || new Date().toLocaleString('ja-JP');
+
+        // 診断2・3の全フィールドを上書き
+        fillFields(existingRow, headerIndex, data);
+
+        sheet.getRange(targetRowNum, 1, 1, HEADERS.length).setValues([existingRow]);
+      }
+    }
 
     return ContentService
-      .createTextOutput(JSON.stringify({ status: 'ok' }))
+      .createTextOutput(JSON.stringify({ status: 'ok', type: type }))
       .setMimeType(ContentService.MimeType.JSON);
 
   } catch (err) {
@@ -420,61 +501,57 @@ function doPost(e) {
   }
 }
 
-// ─── テスト用（GASエディタから手動実行） ───
-function testDoPost() {
+// ─── フィールドを行配列に書き込む共通処理 ───
+function fillFields(row, headerIndex, data) {
+  Object.entries(FIELD_MAP).forEach(([fieldName, headerName]) => {
+    const idx = headerIndex[headerName];
+    if (idx !== undefined && data[fieldName] !== undefined) {
+      let val = data[fieldName];
+      if (val === '1') val = '✓';
+      if (val === '0') val = '';
+      row[idx] = val;
+    }
+  });
+}
+
+// ─── テスト用（GASエディタから手動実行）───
+function testShindan1() {
   const testData = {
+    type: 'shindan1',
+    session_id: 'test_' + Date.now(),
     timestamp: new Date().toLocaleString('ja-JP'),
-    // 診断1
     s1_legal_form: '法人',
     s1_industry: '建設業',
-    s1_employees: '15',
+    s1_employees: '13',
     s1_revenue: '8000',
     s1_wage_plan: 'yes',
-    s1_investment_plans: 'IT導入・設備投資',
+    s1_investment_plans: 'IT導入',
     s1_hiring_plan: 'yes',
     s1_other_flags: '',
-    s1_matched: 'キャリアアップ助成金、IT導入補助金、特定求職者雇用開発助成金',
-    // 診断2
-    s2_total_miss: '180',
-    s2_missed_details: 'キャリアアップ助成金、特定求職者雇用開発助成金',
-    // 診断3 第1部
-    q1_name: 'テスト建設株式会社',
-    q1_kana: 'テストケンセツカブシキガイシャ',
-    q2_hojin_num: '1234567890123',
-    q3_zip: '020-0001',
-    q3_pref: '岩手県盛岡市',
-    q3_addr: '中央通1-1-1',
-    q4_name: '山田 太郎',
-    q4_kana: 'ヤマダ タロウ',
-    q4_role: '代表取締役',
-    q5_founded: '2010年4月1日',
-    q6_capital: '500',
-    q7_business: '建築工事の設計・施工・監理',
-    q8_industry_code: 'F建設業',
-    // 第2部
-    q11: 'ない',
-    q12: 'ない',
-    q13: 'ない（全額納付済み）',
-    q14: 'ない',
-    q15: 'ない',
-    // 第3部
-    q16_goal: 'パート社員2名を正社員に転換して組織を安定させたい',
-    // 第4部
-    q17_exist: 'ある',
-    q17_year: '2022年',
-    q18: '締結済み・届出済み',
-    q19: 'ある',
-    q20_min_wage: '950',
-    q21: '全員加入済み',
-    q22_overtime: '15',
-    // 第8部 キャリアアップ
-    q38: '明記されている',
-    q39: '有期雇用（パート・契約社員）',
-    q40: 'なる',
-    q41: '含まれる',
-    q43_goal: '人材の定着・採用コスト削減',
+    s1_matched: 'キャリアアップ助成金、IT導入補助金',
   };
-  const fakeEvent = { postData: { contents: JSON.stringify(testData) } };
-  const result = doPost(fakeEvent);
-  Logger.log(result.getContent());
+  const result = doPost({ postData: { contents: JSON.stringify(testData) } });
+  Logger.log('診断1テスト: ' + result.getContent());
+}
+
+function testShindan3() {
+  // ※ testShindan1() で作ったsession_idに合わせて変更してください
+  const testData = {
+    type: 'shindan3',
+    session_id: 'test_XXXXXXXXXX', // ← testShindan1のsession_idに変更
+    timestamp: new Date().toLocaleString('ja-JP'),
+    s2_total_miss: '180',
+    s2_missed_details: 'キャリアアップ助成金',
+    q1_name: 'テスト建設株式会社',
+    q4_name: '山田 太郎',
+    q4_role: '代表取締役',
+    q16_goal: 'パート社員2名を正社員転換したい',
+    q17_exist: 'ある',
+    q18: '締結済み・届出済み',
+    q20_min_wage: '950',
+    q22_overtime: '15',
+    q38: '明記されている',
+  };
+  const result = doPost({ postData: { contents: JSON.stringify(testData) } });
+  Logger.log('診断3テスト: ' + result.getContent());
 }

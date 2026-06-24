@@ -5507,7 +5507,7 @@ function renderResults(scored, combos, conflicts, meta) {
       { done: false, title: '販売店またはSIerに見積もりを依頼する', detail: '導入には専門業者の設計が必要です。複数社に相見積もりを取ってください。' },
     ],
     'gyomu-kaizen': [
-      { done: false, title: '事業場内最低賃金を確認する', detail: '現在の最低時給と地域別最低賃金を比較し、30円以上の引き上げ幅を決めましょう。' },
+      { done: false, title: '事業場内最低賃金を確認する', detail: '現在の最低時給を確認し、50円以上の引き上げ幅を決めましょう（令和8年度より30円コース廃止・最低50円以上）。' },
       { done: false, title: '導入する設備の見積もりを取る', detail: '加工機械・搬送設備・POSレジなど、業務改善につながる設備なら対象になります。' },
       { done: false, title: '都道府県労働局に申請書類を確認する', detail: '申請窓口は都道府県労働局（雇用環境・均等部）です。事前に問い合わせておくと確実です。' },
     ],
@@ -6170,19 +6170,19 @@ function onQ12Change(val) {
     fb.className = 'inline-feedback warn';
     fb.innerHTML = `
       【注意】入力した時給 <strong>${inputWage.toLocaleString()}円</strong> は、${baseLabel}を下回っています。<br>
-      最低賃金法違反の可能性があります。補助金の賃上げ要件（地域最低賃金＋30円以上）を確認のうえ、早めに見直してください。<br>
-      <small>業務改善助成金を活用すれば、賃上げに必要な設備投資費用の最大90%が補助されます</small>
+      最低賃金法違反の可能性があります。業務改善助成金の賃上げ要件（50円以上引き上げ・令和8年度）を確認のうえ、早めに見直してください。<br>
+      <small>業務改善助成金を活用すれば、賃上げに必要な設備投資費用の最大4/5が補助されます</small>
     `;
-  } else if (inputWage < localMin + 30) {
+  } else if (inputWage < localMin + 50) {
     fb.className = 'inline-feedback warn';
     fb.innerHTML = `
-      時給 <strong>${inputWage.toLocaleString()}円</strong> は${baseLabel}はクリアしていますが、多くの補助金で求められる「地域最低賃金＋30円以上」にギリギリの水準です。<br>
-      業務改善助成金などを活用すれば、<u>賃上げ費用の最大90%を補助</u>してもらいながら時給を上げることができます。
+      時給 <strong>${inputWage.toLocaleString()}円</strong> は${baseLabel}はクリアしていますが、業務改善助成金の賃上げ要件（50円以上引き上げ・令和8年度）にギリギリの水準です。<br>
+      業務改善助成金などを活用すれば、<u>賃上げ費用の最大4/5を補助</u>してもらいながら時給を上げることができます。
     `;
   } else if (inputWage < localMin + 80) {
     fb.className = 'inline-feedback';
     fb.innerHTML = `
-      ✅ 時給 <strong>${inputWage.toLocaleString()}円</strong> — 補助金の賃上げ要件（地域最低賃金＋30円）をクリアできる水準です。<br>
+      ✅ 時給 <strong>${inputWage.toLocaleString()}円</strong> — 業務改善助成金の賃上げ要件（50円以上）をクリアできる水準です。<br>
       業務改善助成金で設備投資費用の一部を補助してもらいながら、さらなる賃上げを実現できます。
     `;
   } else {

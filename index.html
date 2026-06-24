@@ -5739,9 +5739,9 @@ function classifyCompany(q6, q7, q8, q9) {
   let isSmall = false;
   if (legalForm === '個人事業主') {
     isSmall = true;
-  } else if (['製造業', '建設業', '卸売業'].includes(q7) && employees <= 20) {
+  } else if (['製造業', '建設業'].includes(q7) && employees <= 20) {
     isSmall = true;
-  } else if (['小売業', 'サービス業（宿泊・娯楽以外）', 'サービス業（宿泊・娯楽）', '医療・介護・福祉'].includes(q7) && employees <= 5) {
+  } else if (['小売業', '卸売業', 'サービス業（宿泊・娯楽以外）', 'サービス業（宿泊・娯楽）', '医療・介護・福祉'].includes(q7) && employees <= 5) {
     isSmall = true;
   } else if (q7 === 'その他' && employees <= 5) {
     isSmall = true;
@@ -5757,7 +5757,9 @@ function classifyCompany(q6, q7, q8, q9) {
     isSME = true;
   } else if (['小売業'].includes(q7) && (capital <= 5000 || employees <= 50)) {
     isSME = true;
-  } else if (['サービス業（宿泊・娯楽以外）', 'サービス業（宿泊・娯楽）', 'その他', '建設業', '医療・介護・福祉'].includes(q7) && (capital <= 5000 || employees <= 100)) {
+  } else if (q7 === '建設業' && (capital <= 30000 || employees <= 300)) {
+    isSME = true;
+  } else if (['サービス業（宿泊・娯楽以外）', 'サービス業（宿泊・娯楽）', 'その他', '医療・介護・福祉'].includes(q7) && (capital <= 5000 || employees <= 100)) {
     isSME = true;
   }
 

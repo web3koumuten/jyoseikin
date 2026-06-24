@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>キャリアアップ助成金 書類チェックツール</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+:root {
+  --primary: #1d4ed8;
+  --primary-light: #eff6ff;
+  --accent: #059669;
+  --warn: #d97706;
+  --danger: #dc2626;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-400: #9ca3af;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-900: #111827;
+  --radius: 10px;
+  --font: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: var(--gray-50); color: var(--gray-900); line-height: 1.6; font-size: 14px; }
+
+/* ── ヘッダー ── */
+.header {
+  background: white;
+  border-bottom: 1px solid var(--gray-200);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border: 1px solid var(--primary);
+  border-radius: 6px;
+}
+.header-back:hover { background: var(--primary-light); }
+.header-title { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+.header-badge {
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  border: 1px solid #fcd34d;
+}
+
+/* ── コンテナ ── */
+.container { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
+
+/* ── ページ説明 ── */
+.page-desc {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--gray-600);
+  line-height: 1.8;
+}
+.page-desc strong { color: var(--gray-900); }
+
+/* ── アップロードエリア ── */
+.upload-section {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.upload-section-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--gray-900); }
+.drop-zone {
+  border: 2px dashed var(--gray-200);
+  border-radius: 8px;
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.drop-zone:hover, .drop-zone.drag-over {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+.drop-icon { font-size: 36px; margin-bottom: 8px; }
+.drop-label { font-size: 14px; font-weight: 600; color: var(--gray-700); margin-bottom: 4px; }
+.drop-sub { font-size: 12px; color: var(--gray-400); }
+.drop-input { display: none; }
+
+/* ── アップロード済みファイル ── */
+.file-list { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+.file-icon { font-size: 18px; flex-shrink: 0; }
+.file-info { flex: 1; min-width: 0; }
+.file-name { font-size: 13px; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-meta { font-size: 11px; color: var(--gray-400); }
+.file-type-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.badge-unknown { background: var(--gray-100); color: var(--gray-600); border: 1px solid var(--gray-200); }
+.badge-shugyo { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.badge-chingin { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.badge-rodojooken { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+.badge-kyujin { background: #fdf4ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+.badge-kyaria { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
+.badge-chingindata { background: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd; }
+.badge-shukkin { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+.btn-remove {
+  background: none;
+  border: none;
+  color: var(--gray-400);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.btn-remove:hover { color: var(--danger); }
+
+/* ── チェック実行ボタン ── */
+.run-section { text-align: center; margin: 20px 0; }
+.btn-run {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 40px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-run:hover:not(:disabled) { background: #1e40af; transform: translateY(-1px); }
+.btn-run:disabled { background: var(--gray-400); cursor: not-allowed; transform: none; }
+.btn-run-sub { font-size: 12px; color: var(--gray-400); margin-top: 6px; }
+
+/* ── ローディング ── */
+.loading-wrap {
+  display: none;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 40px 20px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.loading-spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--gray-200);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 14px; color: var(--gray-600); }
+.loading-step { font-size: 12px; color: var(--gray-400); margin-top: 6px; }
+
+/* ── 結果エリア ── */
+.result-wrap { display: none; }
+
+/* 総合判定 */
+.overall-card {
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.overall-card.rating-a { background: #f0fdf4; border: 2px solid #4ade80; }
+.overall-card.rating-b { background: #fefce8; border: 2px solid #facc15; }
+.overall-card.rating-c { background: #fff7ed; border: 2px solid #fb923c; }
+.overall-card.rating-d { background: #fef2f2; border: 2px solid #f87171; }
+.rating-badge {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rating-a .rating-badge { background: #4ade80; color: white; }
+.rating-b .rating-badge { background: #facc15; color: white; }
+.rating-c .rating-badge { background: #fb923c; color: white; }
+.rating-d .rating-badge { background: #f87171; color: white; }
+.overall-body { flex: 1; }
+.overall-label { font-size: 12px; font-weight: 700; color: var(--gray-600); margin-bottom: 4px; }
+.overall-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.overall-comment { font-size: 13px; line-height: 1.8; color: var(--gray-700); }
+
+/* サマリーバー */
+.summary-bar {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.summary-item { display: flex; align-items: center; gap: 6px; }
+.summary-count { font-size: 20px; font-weight: 900; line-height: 1; }
+.s-ok { color: var(--accent); }
+.s-fix { color: var(--warn); }
+.s-check { color: var(--primary); }
+.s-ng { color: var(--danger); }
+.s-unknown { color: var(--gray-400); }
+.summary-label { font-size: 11px; color: var(--gray-600); }
+
+/* チェック結果カード */
+.checks-section {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.checks-header {
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.check-item {
+  border-bottom: 1px solid var(--gray-100);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.check-item:last-child { border-bottom: none; }
+.check-item:hover { background: var(--gray-50); }
+.check-item-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+}
+.check-status-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.status-ok { background: #f0fdf4; color: #166534; border: 1px solid #86efac; }
+.status-fix { background: #fefce8; color: #854d0e; border: 1px solid #fde047; }
+.status-check { background: #eff6ff; color: #1d4ed8; border: 1px solid #93c5fd; }
+.status-ng { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+.status-unknown { background: var(--gray-100); color: var(--gray-600); border: 1px solid var(--gray-300); }
+.check-item-name { flex: 1; font-size: 13px; font-weight: 600; }
+.check-risk-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+.risk-high { background: #fee2e2; color: #991b1b; }
+.risk-mid { background: #fef3c7; color: #92400e; }
+.risk-low { background: #f0fdf4; color: #166534; }
+.check-arrow { font-size: 12px; color: var(--gray-400); transition: transform 0.15s; flex-shrink: 0; }
+.check-item.open .check-arrow { transform: rotate(90deg); }
+
+.check-item-body {
+  display: none;
+  padding: 0 20px 16px;
+  border-top: 1px solid var(--gray-100);
+  background: #fafafa;
+}
+.check-item.open .check-item-body { display: block; }
+.check-row { margin-top: 10px; }
+.check-row-label { font-size: 11px; font-weight: 700; color: var(--gray-600); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.04em; }
+.check-row-value {
+  font-size: 12px;
+  color: var(--gray-700);
+  line-height: 1.7;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  padding: 8px 10px;
+  white-space: pre-wrap;
+}
+.evidence-text { border-left: 3px solid var(--primary); }
+.fix-text { border-left: 3px solid var(--warn); }
+.ng-text { border-left: 3px solid var(--danger); }
+
+/* 追加情報セクション */
+.info-section {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+.info-section-title { font-size: 13px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.info-list { display: flex; flex-direction: column; gap: 6px; }
+.info-list-item {
+  font-size: 12px;
+  color: var(--gray-700);
+  padding: 6px 10px;
+  background: var(--gray-50);
+  border-radius: 6px;
+  border-left: 3px solid var(--gray-200);
+  line-height: 1.6;
+}
+.info-list-item.danger { border-left-color: var(--danger); background: #fef2f2; }
+.info-list-item.warn { border-left-color: var(--warn); background: #fff7ed; }
+.info-list-item.ok { border-left-color: var(--accent); background: #f0fdf4; }
+.info-list-item.info { border-left-color: var(--primary); background: var(--primary-light); }
+
+/* 注意書き */
+.disclaimer {
+  background: #f8f9fa;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: 11px;
+  color: var(--gray-600);
+  line-height: 1.8;
+  margin-top: 16px;
+}
+
+/* エラー */
+.error-card {
+  background: #fef2f2;
+  border: 1.5px solid #fca5a5;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  color: #991b1b;
+  font-size: 13px;
+  margin-bottom: 16px;
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .overall-card { flex-direction: column; gap: 12px; }
+  .summary-bar { gap: 12px; }
+  .check-item-header { gap: 8px; }
+  .check-item-name { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a class="header-back" href="index.html">← 診断に戻る</a>
+  <div class="header-title">キャリアアップ助成金 書類チェックツール</div>
+  <div class="header-badge">正社員化コース</div>
+</div>
+
+<div class="container">
+
+  <!-- 説明 -->
+  <div class="page-desc">
+    <strong>使い方：</strong>就業規則・賃金規程・労働条件通知書・求人票などのPDFをアップロードして「チェック実行」を押してください。<br>
+    キャリアアップ助成金（正社員化コース）の申請前に<strong>不備・矛盾・不支給リスク</strong>がないか14項目でチェックします。<br>
+    ※ スキャンPDF（紙を写真撮影したもの）はテキストが読み取れません。WordやExcelから作成したPDFをご使用ください。
+  </div>
+
+  <!-- アップロードエリア -->
+  <div class="upload-section">
+    <div class="upload-section-title">書類をアップロード（複数可）</div>
+    <div class="drop-zone" id="drop-zone">
+      <div class="drop-icon"></div>
+      <div class="drop-label">クリックまたはドラッグ＆ドロップ</div>
+      <div class="drop-sub">PDF・テキストファイル対応 ／ 複数ファイル同時アップロード可</div>
+      <input type="file" class="drop-input" id="file-input" accept=".pdf,.txt" multiple>
+    </div>
+    <div class="file-list" id="file-list"></div>
+  </div>
+
+  <!-- チェック実行 -->
+  <div class="run-section">
+    <button class="btn-run" id="btn-run" onclick="runCheck()" disabled>
+      <span>書類チェックを実行</span>
+    </button>
+    <div class="btn-run-sub" id="run-sub-text">書類をアップロードしてください</div>
+  </div>
+
+  <!-- エラー -->
+  <div class="error-card" id="error-card"></div>
+
+  <!-- ローディング -->
+  <div class="loading-wrap" id="loading-wrap">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">書類を解析しています...</div>
+    <div class="loading-step" id="loading-step">PDFテキストを抽出中</div>
+  </div>
+
+  <!-- 結果 -->
+  <div class="result-wrap" id="result-wrap"></div>
+
+  <!-- 免責事項 -->
+  <div class="disclaimer">
+    ※ 本ツールはキーワード・パターンマッチングによる参考チェックです。法的アドバイスや受給保証を行うものではありません。
+    申請可否の最終判断は、ハローワーク、都道府県労働局、または社会保険労務士にご確認ください。
+    書類の記載方法によっては、正しく検出できない場合があります。
+  </div>
+</div>
+
+<script>
+// ── pdf.js ワーカー設定 ──
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+// ── ファイルデータ保持 ──
+const uploadedFiles = []; // { file, text, detectedType }
+
+// ── 書類種別の自動判定 ──
+function detectDocType(text) {
+  const t = text.slice(0, 3000);
+  if (/就業規則/.test(t) && /非正規|パート|アルバイト|有期/.test(t)) return { type: 'shugyo_hireg', label: '非正規就業規則', cls: 'badge-shugyo' };
+  if (/就業規則/.test(t)) return { type: 'shugyo', label: '就業規則', cls: 'badge-shugyo' };
+  if (/賃金規程|賃金規則|給与規程/.test(t)) return { type: 'chingin', label: '賃金規程', cls: 'badge-chingin' };
+  if (/労働条件通知書|雇用契約書/.test(t)) return { type: 'rodo', label: '労働条件通知書', cls: 'badge-rodojooken' };
+  if (/求人票|求人情報|ハローワーク求人/.test(t)) return { type: 'kyujin', label: '求人票', cls: 'badge-kyujin' };
+  if (/キャリアアップ計画|労働者キャリアアップ/.test(t)) return { type: 'kyaria', label: 'キャリアアップ計画書', cls: 'badge-kyaria' };
+  if (/賃金台帳/.test(t)) return { type: 'chingin_data', label: '賃金台帳', cls: 'badge-chingindata' };
+  if (/出勤簿|タイムカード|勤怠/.test(t)) return { type: 'shukkin', label: '出勤簿', cls: 'badge-shukkin' };
+  return { type: 'unknown', label: '種別不明', cls: 'badge-unknown' };
+}
+
+// ── PDF テキスト抽出 ──
+async function extractPdfText(file) {
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+  let text = '';
+  for (let i = 1; i <= Math.min(pdf.numPages, 30); i++) {
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    text += content.items.map(item => item.str).join(' ') + '\n';
+  }
+  return text;
+}
+
+// ── ファイル読み込み処理 ──
+async function processFile(file) {
+  let text = '';
+  if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) {
+    text = await extractPdfText(file);
+  } else {
+    text = await file.text();
+  }
+  const detected = detectDocType(text);
+  return { file, text, detectedType: detected };
+}
+
+function renderFileList() {
+  const list = document.getElementById('file-list');
+  list.innerHTML = '';
+  uploadedFiles.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'file-item';
+    div.innerHTML = `
+      <div class="file-icon"></div>
+      <div class="file-info">
+        <div class="file-name">${item.file.name}</div>
+        <div class="file-meta">${(item.file.size / 1024).toFixed(0)}KB ／ ${item.text.length}文字抽出</div>
+      </div>
+      <span class="file-type-badge ${item.detectedType.cls}">${item.detectedType.label}</span>
+      <button class="btn-remove" onclick="removeFile(${idx})">×</button>
+    `;
+    list.appendChild(div);
+  });
+  updateRunButton();
+}
+
+function removeFile(idx) {
+  uploadedFiles.splice(idx, 1);
+  renderFileList();
+}
+
+function updateRunButton() {
+  const btn = document.getElementById('btn-run');
+  const sub = document.getElementById('run-sub-text');
+  if (uploadedFiles.length === 0) {
+    btn.disabled = true;
+    sub.textContent = '書類をアップロードしてください';
+  } else {
+    btn.disabled = false;
+    sub.textContent = `${uploadedFiles.length}件の書類をチェックします`;
+  }
+}
+
+// ── ドラッグ＆ドロップ ──
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', async e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  await addFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener('change', async e => {
+  await addFiles(e.target.files);
+  e.target.value = '';
+});
+
+async function addFiles(fileList) {
+  document.getElementById('btn-run').disabled = true;
+  for (const file of fileList) {
+    if (uploadedFiles.find(f => f.file.name === file.name)) continue;
+    try {
+      const processed = await processFile(file);
+      uploadedFiles.push(processed);
+    } catch(e) {
+      console.error(e);
+    }
+  }
+  renderFileList();
+}
+
+// ════════════════════════════════════════════════════
+// ルールベースチェックエンジン
+// ════════════════════════════════════════════════════
+
+function has(text, pattern) {
+  return new RegExp(pattern).test(text);
+}
+function hasAny(text, patterns) {
+  return patterns.some(p => new RegExp(p).test(text));
+}
+function countMatches(text, patterns) {
+  return patterns.filter(p => new RegExp(p).test(text)).length;
+}
+function extract(text, pattern) {
+  const m = text.match(new RegExp('.{0,35}(?:' + pattern + ').{0,35}'));
+  return m ? '…' + m[0].trim() + '…' : null;
+}
+
+function runRuleBasedCheck(files) {
+  const allText = files.map(f => f.text).join('\n');
+
+  // 書類種別ごとにテキストを分類
+  const byType = {};
+  files.forEach(f => {
+    const t = f.detectedType.type;
+    if (!byType[t]) byType[t] = '';
+    byType[t] += '\n' + f.text;
+  });
+
+  const hasShugyo   = !!(byType['shugyo'] || byType['shugyo_hireg']);
+  const hasChingin  = !!byType['chingin'];
+  const hasRodo     = !!byType['rodo'];
+  const hasKyujin   = !!byType['kyujin'];
+  const hasKyaria   = !!byType['kyaria'];
+
+  const shugyoText  = (byType['shugyo'] || '') + (byType['shugyo_hireg'] || '');
+  const chinginText = byType['chingin'] || '';
+  const rodoText    = byType['rodo']    || '';
+  const kyujinText  = byType['kyujin']  || '';
+  const kyariaText  = byType['kyaria']  || '';
+
+  const checks = [];
+
+  // ── 1. 書類種別判定 ──
+  {
+    const types = files.map(f => f.detectedType.label).join('、');
+    const score = [hasShugyo, hasChingin].filter(Boolean).length;
+    let status, evidence, missing, fix_suggestion, notes;
+    if (score === 2) {
+      status = 'OK';
+      evidence = '検出書類: ' + types;
+      missing = '—'; fix_suggestion = '—';
+      notes = '労働条件通知書・求人票・キャリアアップ計画書も追加すると精度が上がります';
+    } else if (score === 1) {
+      status = '要確認';
+      evidence = '検出書類: ' + types;
+      missing = hasShugyo ? '賃金規程が未提出です' : '就業規則が未提出です';
+      fix_suggestion = '就業規則・賃金規程は審査の核となる書類です。両方アップロードしてください';
+      notes = '最低限、就業規則と賃金規程の2点が必要です';
+    } else {
+      status = '不明';
+      evidence = '検出書類: ' + (types || '不明');
+      missing = '就業規則・賃金規程いずれも確認できません';
+      fix_suggestion = '就業規則・賃金規程を準備してアップロードしてください';
+      notes = 'スキャンPDFの場合はテキスト抽出ができないため、種別不明になります';
+    }
+    checks.push({ id: 1, name: '書類種別判定', status,
+      risk: status === 'OK' ? '低' : status === '要確認' ? '中' : '高',
+      source_docs: files.map(f => f.file.name),
+      evidence, missing, fix_suggestion, notes });
+  }
+
+  // ── 2. 雇用区分判定（4区分） ──
+  {
+    const cats = [
+      { name: '正社員',               p: ['正社員', '正規従業員', '正規雇用労働者'] },
+      { name: '有期契約社員',         p: ['有期契約社員', '契約社員', '有期雇用労働者', '有期雇用社員'] },
+      { name: '無期雇用パート',       p: ['無期雇用.*パート', '無期パート', '短時間無期', '無期転換後.*パート'] },
+      { name: '有期雇用パート・アルバイト', p: ['パートタイム労働者', 'パート労働者', 'アルバイト', '短時間有期'] },
+    ];
+    const found   = cats.filter(c => c.p.some(p => new RegExp(p).test(allText)));
+    const missing = cats.filter(c => !c.p.some(p => new RegExp(p).test(allText)));
+    let status = found.length >= 4 ? 'OK' : found.length >= 2 ? '要修正' : 'NG';
+    checks.push({ id: 2, name: '雇用区分判定', status,
+      risk: status === 'OK' ? '低' : '高',
+      source_docs: ['就業規則'],
+      evidence: found.length > 0 ? '確認できた区分: ' + found.map(c => c.name).join('、') : '雇用区分の定義が見当たりません',
+      missing: missing.length > 0 ? '未確認の区分: ' + missing.map(c => c.name).join('、') : '—',
+      fix_suggestion: missing.length > 0
+        ? '就業規則に ' + missing.map(c => c.name).join('・') + ' の定義を明記してください'
+        : '—',
+      notes: '正社員・有期・無期パート・有期パートの4区分それぞれを就業規則で定義する必要があります'
+    });
+  }
+
+  // ── 3. 適用規程判定 ──
+  {
+    const hasSeparate = has(allText, '別に定める|別途定める|パート就業規則|有期.*就業規則|非正規.*就業規則');
+    const hasScope    = has(allText, '適用範囲|適用する従業員|適用対象|この規則は.*従業員|この規則は.*社員');
+    const hasDual     = hasScope && has(allText, '正社員') && has(allText, 'パート|有期|非正規');
+    let status, evidence, missing, fix_suggestion;
+    if (hasSeparate || hasDual) {
+      status = 'OK';
+      evidence = hasSeparate ? '正社員用・非正規用の就業規則が別途参照されています'
+        : (extract(allText, '適用範囲|適用する従業員') || '適用範囲の記載が確認されました');
+      missing = '—'; fix_suggestion = '—';
+    } else if (hasScope) {
+      status = '要修正';
+      evidence = extract(allText, '適用範囲|この規則は') || '適用範囲の記載あり（対象者が不明確）';
+      missing = '正社員・非正規それぞれへの適用を明示する記載が不明確です';
+      fix_suggestion = '「この規則は正社員に適用する」「非正規には別規則を適用する」等を明記してください';
+    } else {
+      status = '要確認';
+      evidence = '適用範囲の明示的な記載が見当たりません';
+      missing = '就業規則の適用範囲（対象となる従業員区分）の記載が必要です';
+      fix_suggestion = '就業規則第1条等に適用範囲を明記し、正社員・非正規で規則が分かれていることを示してください';
+    }
+    checks.push({ id: 3, name: '適用規程判定', status, risk: status === 'OK' ? '低' : '中',
+      source_docs: ['就業規則'], evidence, missing, fix_suggestion,
+      notes: '正社員と非正規社員で別々の就業規則がある場合は両方アップロードするとチェック精度が上がります'
+    });
+  }
+
+  // ── 4. 正社員転換制度判定 ──
+  {
+    const hasSystem = hasAny(allText, ['正社員転換', '正社員に転換', '正社員への転換', '正社員化', '転換制度', '転換コース', '正規雇用への転換']);
+    const hasTarget = has(allText, '対象者|転換の対象|転換対象者');
+    let status, evidence, missing, fix_suggestion;
+    if (hasSystem && hasTarget) {
+      status = 'OK';
+      evidence = extract(allText, '正社員転換|正社員に転換|正社員化') || '正社員転換制度と対象者の記載が確認されました';
+      missing = '—'; fix_suggestion = '—';
+    } else if (hasSystem) {
+      status = '要修正';
+      evidence = extract(allText, '正社員転換|正社員に転換|正社員化') || '転換制度の記載あり';
+      missing = '転換の対象者（有期・無期パート・アルバイト等の区分）が明記されていません';
+      fix_suggestion = '転換制度の条文に対象者として有期契約社員・短時間労働者等を明示してください';
+    } else {
+      status = 'NG';
+      evidence = '正社員転換制度の記載が見当たりません';
+      missing = '就業規則への「正社員転換制度」の明記が必須です';
+      fix_suggestion = '就業規則に正社員転換コースの条文を追加してください（対象者・在籍期間・選考方法・転換日・処遇を定める）';
+    }
+    checks.push({ id: 4, name: '正社員転換制度判定', status, risk: status === 'OK' ? '低' : '高',
+      source_docs: ['就業規則'], evidence, missing, fix_suggestion,
+      notes: 'キャリアアップ助成金の最重要要件。転換制度がない・または申請後に追加した場合は不支給になります'
+    });
+  }
+
+  // ── 5. 転換手続判定 ──
+  {
+    const subs = [
+      { name: '在籍期間',    p: ['在籍期間', '勤続期間', '継続勤務.*[0-9]', '[0-9].*か月.*在籍', '[0-9].*ヶ月.*勤務'] },
+      { name: '選考方法',    p: ['選考', '審査', '面接', '試験', '申請.*転換'] },
+      { name: '転換日',      p: ['転換日', '転換の日', '転換する日', '転換後.*日'] },
+      { name: '通知書交付',  p: ['通知書', '通知.*交付', '交付.*通知'] },
+      { name: '出勤状況',    p: ['出勤.*[0-9]', '[0-9].*割.*出勤', '欠勤', '出勤率', '出勤状況'] },
+    ];
+    const found   = subs.filter(s => s.p.some(p => new RegExp(p).test(allText)));
+    const missing = subs.filter(s => !s.p.some(p => new RegExp(p).test(allText)));
+    const status  = found.length >= 4 ? 'OK' : found.length >= 2 ? '要修正' : 'NG';
+    checks.push({ id: 5, name: '転換手続判定', status, risk: status === 'OK' ? '低' : '高',
+      source_docs: ['就業規則'],
+      evidence: '確認できた手続き要素: ' + (found.map(s => s.name).join('、') || 'なし') + '（' + found.length + '/' + subs.length + '項目）',
+      missing: missing.length > 0 ? '未確認: ' + missing.map(s => s.name).join('、') : '—',
+      fix_suggestion: missing.length > 0 ? '以下を就業規則に追記してください: ' + missing.map(s => s.name).join('・') : '—',
+      notes: '「転換日は○月○日とする」「転換前に選考を行う」等の具体的な記載が審査で求められます'
+    });
+  }
+
+  // ── 6. 正社員処遇判定 ──
+  {
+    const items = [
+      { name: '昇給規定',      p: '昇給' },
+      { name: '賞与または退職金', p: '賞与|ボーナス|退職金|退職一時金' },
+      { name: '賃金決定方法',  p: '賃金.*決定|基本給.*決定|格付け|職位|等級.*賃金|賃金表' },
+    ];
+    const found   = items.filter(i => new RegExp(i.p).test(allText));
+    const missing = items.filter(i => !new RegExp(i.p).test(allText));
+    const status  = found.length >= 3 ? 'OK' : found.length >= 2 ? '要修正' : 'NG';
+    checks.push({ id: 6, name: '正社員処遇判定', status,
+      risk: status === 'OK' ? '低' : status === '要修正' ? '中' : '高',
+      source_docs: ['就業規則', '賃金規程'],
+      evidence: '確認できた処遇規定: ' + (found.map(i => i.name).join('、') || 'なし'),
+      missing: missing.length > 0 ? missing.map(i => i.name).join('・') + 'の記載が不足しています' : '—',
+      fix_suggestion: missing.length > 0 ? missing.map(i => i.name).join('・') + 'を就業規則または賃金規程に明記してください' : '—',
+      notes: '転換後の正社員処遇が転換前と明確に異なることを示すことが重要です'
+    });
+  }
+
+  // ── 7. 3%増額判定 ──
+  {
+    const has3pct  = has(allText, '3[%％]|3パーセント|三パーセント');
+    const hasUp    = has(allText, '増額|増加|引上げ|昇給|アップ');
+    const hasCtx   = has(allText, '転換.*賃金|賃金.*転換|転換前.*転換後|転換後.*賃金');
+    const has6m    = has(allText, '6か月|6ヶ月|6カ月|六か月|6箇月');
+    let status, evidence, missing, fix_suggestion;
+    if (has3pct && hasUp) {
+      status = 'OK';
+      evidence = extract(allText, '3[%％].*増額|増額.*3[%％]|3[%％].*以上') || '3%増額の記載が確認されました';
+      missing = '—'; fix_suggestion = '—';
+    } else if (hasUp && hasCtx) {
+      status = '要修正';
+      evidence = extract(allText, '増額|増加|引上げ') || '賃金増加の記載あり（%明示なし）';
+      missing = '「転換後6か月賃金が転換前6か月比で3%以上増額する」旨の明示がありません';
+      fix_suggestion = '賃金規程または転換制度条文に「転換後6か月の賃金は転換前6か月の1か月平均比で3%以上増額させる」と明記してください';
+    } else {
+      status = 'NG';
+      evidence = '転換に伴う賃金増額の根拠が見当たりません';
+      missing = '3%以上の賃金増額根拠が必要です（最頻出の不支給理由）';
+      fix_suggestion = '「正社員転換後の賃金は転換前6か月の1か月平均賃金に比べ3%以上増額する」等の条文を追加してください';
+    }
+    checks.push({ id: 7, name: '3%増額判定', status, risk: status === 'OK' ? '低' : '高',
+      source_docs: ['賃金規程', '就業規則'],
+      evidence, missing, fix_suggestion,
+      notes: '最も多い不支給・返還事例の原因。書類上の記載と実際の支払いが一致していることが必須です'
+    });
+  }
+
+  // ── 8. 労働条件通知書判定 ──
+  {
+    if (hasRodo) {
+      const items = [
+        { name: '雇用形態・区分', p: '雇用形態|雇用区分|パートタイム|有期契約|正社員' },
+        { name: '契約期間',       p: '契約期間|雇用期間' },
+        { name: '更新条件',       p: '更新|自動更新|更新しない|更新の有無' },
+        { name: '労働時間',       p: '労働時間|始業|終業|所定労働時間' },
+        { name: '適用規程',       p: '就業規則|適用規則|規程を適用' },
+      ];
+      const found   = items.filter(i => new RegExp(i.p).test(rodoText));
+      const missing = items.filter(i => !new RegExp(i.p).test(rodoText));
+      const status  = found.length >= 4 ? 'OK' : found.length >= 2 ? '要修正' : 'NG';
+      checks.push({ id: 8, name: '労働条件通知書判定', status, risk: status === 'OK' ? '低' : '中',
+        source_docs: ['労働条件通知書'],
+        evidence: '確認できた記載: ' + found.map(i => i.name).join('、') + '（' + found.length + '/' + items.length + '項目）',
+        missing: missing.length > 0 ? missing.map(i => i.name).join('・') + 'の記載を確認してください' : '—',
+        fix_suggestion: missing.length > 0 ? missing.map(i => i.name).join('・') + 'を労働条件通知書に明記してください' : '—',
+        notes: '「雇用形態」欄には実態に即した雇用区分（有期・無期パート等）を正確に記入することが重要です'
+      });
+    } else {
+      checks.push({ id: 8, name: '労働条件通知書判定', status: '要確認', risk: '中',
+        source_docs: [],
+        evidence: '労働条件通知書がアップロードされていません',
+        missing: '労働条件通知書（または雇用契約書）の確認が必要です',
+        fix_suggestion: '転換前の労働条件通知書をアップロードしてチェックしてください',
+        notes: '雇用形態・契約期間・更新条件・労働時間・適用規程が記載されている必要があります'
+      });
+    }
+  }
+
+  // ── 9. 有期雇用条件チェック ──
+  {
+    const hasCP     = has(allText, '契約期間|雇用期間');
+    const hasRenew  = has(allText, '更新|自動更新|更新しない|更新の有無');
+    const hasLimit  = has(allText, '通算.*5年|5年.*通算|更新上限|上限.*[0-9]回|[0-9]回.*上限|無期転換');
+    const cnt = [hasCP, hasRenew, hasLimit].filter(Boolean).length;
+    const status = cnt === 3 ? 'OK' : cnt >= 1 ? '要修正' : '要確認';
+    const evidArr = [];
+    if (hasCP)    evidArr.push('契約期間の記載あり');
+    if (hasRenew) evidArr.push('更新条件の記載あり');
+    if (hasLimit) evidArr.push('更新上限または無期転換の記載あり');
+    checks.push({ id: 9, name: '有期雇用条件チェック', status, risk: status === 'OK' ? '低' : '中',
+      source_docs: ['就業規則', '労働条件通知書'],
+      evidence: evidArr.length > 0 ? evidArr.join('・') : '有期雇用条件の記載が不明瞭です',
+      missing: !hasCP ? '契約期間の明記が必要です' : !hasRenew ? '更新条件の明記が必要です' : !hasLimit ? '更新上限または無期転換ルールの明記が必要です' : '—',
+      fix_suggestion: cnt < 3 ? '有期雇用の契約期間・更新条件・上限（または無期転換権）を明記してください' : '—',
+      notes: '無期転換申込権（5年ルール）と正社員転換は別物です。混同しないよう規程を整理してください'
+    });
+  }
+
+  // ── 10. 求人票判定 ──
+  {
+    if (hasKyujin) {
+      const risks = [
+        { p: '必ず正社員|全員正社員|正社員確約|正社員として採用', label: '「必ず正社員」等の確約表現' },
+        { p: '試用期間終了後.*正社員|試用期間後.*正社員', label: '試用期間後の正社員化記載（転換と混同リスク）' },
+        { p: '入社後.*全員正社員|採用後.*全員正社員', label: '採用時点での正社員化表現' },
+      ];
+      const foundRisks = risks.filter(r => new RegExp(r.p).test(kyujinText));
+      const hasPos = has(kyujinText, '正社員登用制度|登用実績|登用あり|転換制度あり');
+      if (foundRisks.length > 0) {
+        checks.push({ id: 10, name: '求人票判定', status: 'NG', risk: '高',
+          source_docs: ['求人票'],
+          evidence: foundRisks.map(r => r.label).join('、') + 'が検出されました',
+          missing: '「最初から正社員として採用する意図あり」と解釈される表現があります',
+          fix_suggestion: '「有期雇用として採用し、正社員転換制度あり」の記載に変更してください。確約表現があると不支給になります',
+          notes: '求人票の「雇用形態」欄は「パートタイム」「有期契約」等と記載し、転換制度は「正社員登用制度あり（条件あり）」とするのが安全です'
+        });
+      } else {
+        checks.push({ id: 10, name: '求人票判定', status: hasPos ? 'OK' : '要確認', risk: '中',
+          source_docs: ['求人票'],
+          evidence: hasPos ? '「正社員登用制度あり」等の適切な表現が確認されました' : '高リスク表現は検出されませんでした',
+          missing: '—', fix_suggestion: '—',
+          notes: '念のため、雇用形態欄・転換制度欄の表現を目視で確認してください'
+        });
+      }
+    } else {
+      checks.push({ id: 10, name: '求人票判定', status: '要確認', risk: '中',
+        source_docs: [],
+        evidence: '求人票がアップロードされていません',
+        missing: '採用時の求人票は審査書類として提出が必要です',
+        fix_suggestion: '求人票をアップロードしてチェックしてください',
+        notes: '「必ず正社員」等の確約表現があると不支給になります。求人票は必ず確認が必要な書類です'
+      });
+    }
+  }
+
+  // ── 11. キャリアアップ計画判定 ──
+  {
+    if (hasKyaria) {
+      const hasDate   = has(kyariaText, '[0-9]{1,4}年[0-9]{1,2}月[0-9]{1,2}日|提出日|計画日|届出日');
+      const hasAction = has(kyariaText, '転換|正社員化|処遇改善|賃金引上げ');
+      const status    = hasDate && hasAction ? 'OK' : hasAction ? '要確認' : '要修正';
+      checks.push({ id: 11, name: 'キャリアアップ計画判定', status, risk: status === 'OK' ? '低' : '中',
+        source_docs: ['キャリアアップ計画書'],
+        evidence: hasDate ? '計画書と日付が確認されました' : 'キャリアアップ計画書の記載が確認されました（日付確認が必要）',
+        missing: !hasDate ? '提出日・計画日の記載を確認してください' : '—',
+        fix_suggestion: !hasDate ? '計画書には提出日が必要です。転換日より前の日付であることが必須です' : '—',
+        notes: 'キャリアアップ計画書は転換日の前日までにハローワークへ提出済みでなければなりません'
+      });
+    } else {
+      checks.push({ id: 11, name: 'キャリアアップ計画判定', status: '要確認', risk: '高',
+        source_docs: [],
+        evidence: 'キャリアアップ計画書がアップロードされていません',
+        missing: 'ハローワークへの計画書提出が転換日前に完了している必要があります',
+        fix_suggestion: '計画書をアップロードして提出日と内容を確認してください',
+        notes: '計画書の提出が転換日より後だと受給不可。最も見落とされやすい書類の一つです'
+      });
+    }
+  }
+
+  // ── 12. 申請期限判定 ──
+  {
+    const has6m      = has(allText, '6か月|6ヶ月|6カ月|六か月|6箇月');
+    const has2m      = has(allText, '2か月以内|2ヶ月以内|2カ月以内|二か月以内');
+    const hasDeadline = has(allText, '申請期限|申請期間|申請日');
+    let status, evidence, missing, fix_suggestion;
+    if (has2m || (has6m && hasDeadline)) {
+      status = 'OK';
+      evidence = '申請期限に関する記載が確認されました';
+      missing = '—'; fix_suggestion = '—';
+    } else {
+      status = '要確認';
+      evidence = has6m ? '6か月の記載はありますが、申請期限（2か月以内）の明示的な記載が見当たりません' : '申請期限に関する記載が確認できませんでした';
+      missing = '申請タイミングの日程管理が必要です';
+      fix_suggestion = '転換後6か月賃金を支払った翌日から起算して2か月以内に申請が必要です。日程管理表の作成を推奨します';
+    }
+    checks.push({ id: 12, name: '申請期限判定', status, risk: '中',
+      source_docs: [],
+      evidence, missing, fix_suggestion,
+      notes: '申請期限：転換後6か月分の賃金支給日の翌日から2か月以内。例）4月1日転換→10月31日賃金支払→12月31日が申請期限'
+    });
+  }
+
+  // ── 13. 試用期間判定 ──
+  {
+    const hasTrial = has(allText, '試用期間|試用.*[0-9]|[0-9].*か月.*試用');
+    checks.push({ id: 13, name: '試用期間判定', status: hasTrial ? 'OK' : '要確認', risk: '低',
+      source_docs: ['就業規則'],
+      evidence: hasTrial ? (extract(allText, '試用期間') || '試用期間の記載が確認されました') : '試用期間に関する記載が見当たりません',
+      missing: hasTrial ? '—' : '転換後の試用期間の有無・期間の明記（または「試用期間なし」の明示）',
+      fix_suggestion: hasTrial ? '—' : '試用期間を設ける場合は就業規則に期間（上限6か月）を明記してください。試用期間中も賃金3%増額要件は適用されます',
+      notes: '転換後に試用期間を設ける場合、試用期間中の賃金も転換前比3%増額を確保する必要があります'
+    });
+  }
+
+  // ── 14. 書類間整合性判定 ──
+  {
+    if (files.length < 2) {
+      checks.push({ id: 14, name: '書類間整合性判定', status: '要確認', risk: '中',
+        source_docs: files.map(f => f.file.name),
+        evidence: '書類が1件のみのため書類間の整合性チェックができません',
+        missing: '複数書類のアップロードが必要です',
+        fix_suggestion: '就業規則・賃金規程・労働条件通知書を合わせてアップロードしてください',
+        notes: '書類間で雇用区分名・規程名・賃金決定方法が一致しているかの確認が重要です'
+      });
+    } else {
+      const issues = [];
+      // 就業規則と労働条件通知書の雇用区分名の整合チェック
+      if (hasRodo && hasShugyo) {
+        const rodoHasPartTime = has(rodoText, 'パートタイム|短時間|パート');
+        const shugyoHasPartDef = has(shugyoText, 'パートタイム|短時間.*労働者|パート労働者');
+        if (rodoHasPartTime && !shugyoHasPartDef) {
+          issues.push('労働条件通知書にパートタイムの記載がありますが、就業規則での定義が不明瞭です');
+        }
+      }
+      // 賃金規程と就業規則の賃金決定方法の整合チェック
+      if (hasChingin && hasShugyo) {
+        const chinginHasTable = has(chinginText, '賃金表|賃金テーブル|等級.*金額|号俸');
+        const shugyoHasRef    = has(shugyoText,  '賃金規程|賃金規則|給与規程|別に定める.*賃金|賃金.*別に定める');
+        if (chinginHasTable && !shugyoHasRef) {
+          issues.push('賃金規程に賃金表の記載がありますが、就業規則から賃金規程への参照が不明瞭です');
+        }
+      }
+      // 複数の規則名称が混在していないか
+      const ruleNames = ['就業規則', '勤務規則', '雇用規則'].filter(n => new RegExp(n).test(allText));
+      if (ruleNames.length > 1) {
+        issues.push('複数の規則名称が混在しています（' + ruleNames.join('・') + '）。統一することを推奨します');
+      }
+      const status = issues.length === 0 ? 'OK' : issues.length <= 2 ? '要確認' : '要修正';
+      checks.push({ id: 14, name: '書類間整合性判定', status, risk: status === 'OK' ? '低' : '中',
+        source_docs: files.map(f => f.file.name),
+        evidence: issues.length === 0
+          ? files.length + '件の書類間で重大な不整合は検出されませんでした'
+          : issues.join('・'),
+        missing: issues.length > 0 ? '書類間の記載統一が必要です' : '—',
+        fix_suggestion: issues.length > 0 ? '書類間で矛盾する記載を修正してください。特に雇用区分名・規程名・転換条件の表現を統一することが重要です' : '—',
+        notes: '目視での確認も必要です。就業規則の雇用区分名と労働条件通知書の雇用形態欄が一致しているか確認してください'
+      });
+    }
+  }
+
+  // ── 総合評価の算出 ──
+  const ngCount  = checks.filter(c => c.status === 'NG').length;
+  const fixCount = checks.filter(c => c.status === '要修正').length;
+  const chkCount = checks.filter(c => c.status === '要確認').length;
+  const okCount  = checks.filter(c => c.status === 'OK').length;
+
+  let overall_rating, rating_label, overall_comment;
+  if (ngCount === 0 && fixCount === 0) {
+    overall_rating = 'A';
+    rating_label   = 'A：申請に進める可能性が高い';
+    overall_comment = okCount + '項目がOKです。要確認事項（' + chkCount + '件）を整理してから申請に進んでください。';
+  } else if (ngCount === 0 && fixCount <= 2) {
+    overall_rating = 'B';
+    rating_label   = 'B：一部修正すれば申請に進める可能性がある';
+    overall_comment = '要修正が' + fixCount + '件あります。修正項目を対応してから申請を検討してください。';
+  } else if (ngCount <= 2) {
+    overall_rating = 'C';
+    rating_label   = 'C：重大な不備があり、このままでは危ない';
+    overall_comment = '重大な不備（NG）が' + ngCount + '件あります。このまま申請すると不支給になるリスクが高いです。社労士への相談を強く推奨します。';
+  } else {
+    overall_rating = 'D';
+    rating_label   = 'D：書類不足または重大な不備が多数';
+    overall_comment = '重大な不備が多数（NG: ' + ngCount + '件）あります。書類の整備から見直しが必要です。';
+  }
+
+  const missing_docs = [];
+  if (!hasShugyo)  missing_docs.push('就業規則（または非正規就業規則）');
+  if (!hasChingin) missing_docs.push('賃金規程');
+  if (!hasRodo)    missing_docs.push('労働条件通知書または雇用契約書');
+  if (!hasKyujin)  missing_docs.push('求人票（雇用時のもの）');
+  if (!hasKyaria)  missing_docs.push('キャリアアップ計画書');
+
+  const high_risk_items = checks
+    .filter(c => c.risk === '高' && c.status !== 'OK')
+    .map(c => c.name + '（' + c.status + '）');
+
+  const next_actions = [];
+  if (ngCount > 0)  next_actions.push('NGとなった項目を優先的に修正してください');
+  if (fixCount > 0) next_actions.push('「要修正」項目を就業規則・賃金規程に追記してください');
+  if (missing_docs.length > 0) next_actions.push('不足書類を用意してください: ' + missing_docs.join('・'));
+  next_actions.push('修正後、改めて書類チェックを実行してください');
+  next_actions.push('申請前にハローワークまたは社労士に最終確認を依頼することを推奨します');
+
+  const expert_consult = checks
+    .filter(c => c.status !== 'OK' && c.risk === '高')
+    .map(c => c.name + '：' + c.fix_suggestion);
+
+  return {
+    overall_rating, rating_label, overall_comment,
+    detected_docs: files.map(f => f.detectedType.label + '（' + f.file.name + '）'),
+    checks, missing_docs,
+    docs_to_fix: checks.filter(c => c.status === '要修正').map(c => c.name),
+    high_risk_items, next_actions, expert_consult
+  };
+}
+
+// ── チェック実行 ──
+function runCheck() {
+  if (uploadedFiles.length === 0) { alert('書類をアップロードしてください'); return; }
+
+  document.getElementById('error-card').style.display = 'none';
+  document.getElementById('result-wrap').style.display = 'none';
+  document.getElementById('loading-wrap').style.display = 'block';
+  document.getElementById('btn-run').disabled = true;
+  document.getElementById('loading-step').textContent = 'テキストを解析中...';
+
+  // 非同期に見せるため setTimeout で実行（UIが固まらないように）
+  setTimeout(() => {
+    try {
+      const result = runRuleBasedCheck(uploadedFiles);
+      document.getElementById('loading-wrap').style.display = 'none';
+      renderResult(result);
+    } catch(err) {
+      document.getElementById('loading-wrap').style.display = 'none';
+      document.getElementById('btn-run').disabled = false;
+      const ec = document.getElementById('error-card');
+      ec.style.display = 'block';
+      ec.innerHTML = '<strong>エラーが発生しました</strong><br>' + err.message;
+    }
+  }, 300);
+}
+
+// ── 結果レンダリング ──
+function renderResult(result) {
+  const wrap = document.getElementById('result-wrap');
+  const ratingMap = {
+    A: { cls: 'rating-a', title: 'A：申請に進める可能性が高い' },
+    B: { cls: 'rating-b', title: 'B：一部修正すれば申請に進める可能性がある' },
+    C: { cls: 'rating-c', title: 'C：重大な不備があり、このままでは危ない' },
+    D: { cls: 'rating-d', title: 'D：書類不足または判定不能' }
+  };
+  const r = ratingMap[result.overall_rating] || ratingMap['D'];
+  const statusMap = {
+    'OK':   { cls: 'status-ok',      label: 'OK' },
+    '要修正': { cls: 'status-fix',   label: '要修正' },
+    '要確認': { cls: 'status-check', label: '要確認' },
+    'NG':   { cls: 'status-ng',      label: 'NG' },
+    '不明': { cls: 'status-unknown', label: '不明' }
+  };
+  const riskMap = { '高': 'risk-high', '中': 'risk-mid', '低': 'risk-low' };
+  const checks = result.checks || [];
+  const counts = { OK: 0, '要修正': 0, '要確認': 0, NG: 0, '不明': 0 };
+  checks.forEach(c => { counts[c.status] = (counts[c.status] || 0) + 1; });
+
+  function safeText(v) {
+    if (!v || v === '' || v === 'null' || v === 'undefined') return '—';
+    if (Array.isArray(v)) return v.join('、') || '—';
+    return String(v);
+  }
+  function listHtml(arr, cls) {
+    if (!arr || arr.length === 0) return '<div class="info-list-item">なし</div>';
+    return arr.map(item => '<div class="info-list-item ' + (cls||'') + '">' + item + '</div>').join('');
+  }
+
+  wrap.innerHTML = `
+    <div class="overall-card ${r.cls}">
+      <div class="rating-badge">${result.overall_rating || 'D'}</div>
+      <div class="overall-body">
+        <div class="overall-label">総合判定</div>
+        <div class="overall-title">${r.title}</div>
+        <div class="overall-comment">${safeText(result.overall_comment)}</div>
+      </div>
+    </div>
+    <div class="summary-bar">
+      <div class="summary-item"><div class="summary-count s-ok">${counts['OK']}</div><div class="summary-label">OK</div></div>
+      <div class="summary-item"><div class="summary-count s-fix">${counts['要修正']}</div><div class="summary-label">要修正</div></div>
+      <div class="summary-item"><div class="summary-count s-check">${counts['要確認']}</div><div class="summary-label">要確認</div></div>
+      <div class="summary-item"><div class="summary-count s-ng">${counts['NG']}</div><div class="summary-label">NG</div></div>
+      <div class="summary-item"><div class="summary-count s-unknown">${counts['不明']}</div><div class="summary-label">不明</div></div>
+    </div>
+    <div class="checks-section">
+      <div class="checks-header">チェック結果一覧（${checks.length}項目）</div>
+      ${checks.map((c, i) => {
+        const s = statusMap[c.status] || statusMap['不明'];
+        const riskCls = riskMap[c.risk] || 'risk-low';
+        return `
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-item-header">
+            <span class="check-status-badge ${s.cls}">${s.label}</span>
+            <span class="check-item-name">${c.name || 'チェック' + (i+1)}</span>
+            <span class="check-risk-badge ${riskCls}">リスク${c.risk || '低'}</span>
+            <span class="check-arrow">▶</span>
+          </div>
+          <div class="check-item-body">
+            ${c.source_docs && c.source_docs.length ? `<div class="check-row"><div class="check-row-label">確認書類</div><div class="check-row-value">${safeText(c.source_docs)}</div></div>` : ''}
+            ${c.evidence ? `<div class="check-row"><div class="check-row-label">根拠・検出内容</div><div class="check-row-value evidence-text">${c.evidence}</div></div>` : ''}
+            ${c.missing && c.missing !== '—' ? `<div class="check-row"><div class="check-row-label">不足・問題点</div><div class="check-row-value ng-text">${c.missing}</div></div>` : ''}
+            ${c.fix_suggestion && c.fix_suggestion !== '—' ? `<div class="check-row"><div class="check-row-label">修正案</div><div class="check-row-value fix-text">${c.fix_suggestion}</div></div>` : ''}
+            ${c.notes ? `<div class="check-row"><div class="check-row-label">確認推奨事項</div><div class="check-row-value">${c.notes}</div></div>` : ''}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+    ${(result.high_risk_items && result.high_risk_items.length) ? `
+    <div class="info-section">
+      <div class="info-section-title" style="color:#991b1b;">⚠ 高リスク項目</div>
+      <div class="info-list">${listHtml(result.high_risk_items, 'danger')}</div>
+    </div>` : ''}
+    ${(result.missing_docs && result.missing_docs.length) ? `
+    <div class="info-section">
+      <div class="info-section-title" style="color:#92400e;">📂 不足している書類</div>
+      <div class="info-list">${listHtml(result.missing_docs, 'warn')}</div>
+    </div>` : ''}
+    ${(result.docs_to_fix && result.docs_to_fix.length) ? `
+    <div class="info-section">
+      <div class="info-section-title" style="color:#c2410c;">✏ 修正が必要な書類</div>
+      <div class="info-list">${listHtml(result.docs_to_fix, 'warn')}</div>
+    </div>` : ''}
+    ${(result.next_actions && result.next_actions.length) ? `
+    <div class="info-section">
+      <div class="info-section-title" style="color:#1d4ed8;">次にやるべき作業</div>
+      <div class="info-list">${listHtml(result.next_actions, 'info')}</div>
+    </div>` : ''}
+    ${(result.expert_consult && result.expert_consult.length) ? `
+    <div class="info-section">
+      <div class="info-section-title" style="color:#166534;">💬 専門家・労働局への確認推奨項目</div>
+      <div class="info-list">${listHtml(result.expert_consult, 'ok')}</div>
+    </div>` : ''}
+  `;
+
+  wrap.style.display = 'block';
+  wrap.scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('btn-run').disabled = false;
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>

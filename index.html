@@ -5085,7 +5085,7 @@ const SUBSIDIES = [
     "difficulty": 1,
     "company_size": ["中小企業", "小規模事業者"],
     "legal_form_eligible": ["法人", "個人事業主"],
-    "industry_restriction": ["運送業"],
+    "industry_restriction": ["その他"],
     "requires_employee_insurance": false,
     "min_employees": 0,
     "note_eligibility": "盛岡市内に営業所を有する一般貨物・特定貨物自動車運送事業者等。第4弾の申請期限は2026年7月31日",
@@ -5108,7 +5108,7 @@ const SUBSIDIES = [
     "difficulty": 1,
     "company_size": ["中小企業", "小規模事業者"],
     "legal_form_eligible": ["法人", "個人事業主"],
-    "industry_restriction": ["製造業", "情報サービス業"],
+    "industry_restriction": ["製造業", "サービス業（宿泊・娯楽以外）"],
     "requires_employee_insurance": false,
     "min_employees": 0,
     "note_eligibility": "盛岡市内の中小製造業者または情報サービス業者（団体も可）。展示会・見本市への出品・出展が対象",
@@ -5131,7 +5131,7 @@ const SUBSIDIES = [
     "difficulty": 2,
     "company_size": ["中小企業", "小規模事業者"],
     "legal_form_eligible": ["法人"],
-    "industry_restriction": ["製造業", "情報サービス業"],
+    "industry_restriction": ["製造業", "サービス業（宿泊・娯楽以外）"],
     "requires_employee_insurance": false,
     "min_employees": 0,
     "note_eligibility": "岩手県外に主たる事業所を有する製造業または情報サービス業の事業者が、盛岡市内にサテライトオフィスを新たに設置する場合",
@@ -5154,7 +5154,7 @@ const SUBSIDIES = [
     "difficulty": 3,
     "company_size": ["中小企業"],
     "legal_form_eligible": ["法人"],
-    "industry_restriction": ["製造業", "情報サービス業"],
+    "industry_restriction": ["製造業", "サービス業（宿泊・娯楽以外）"],
     "requires_employee_insurance": true,
     "min_employees": 5,
     "note_eligibility": "盛岡市内の工場新設・拡充・移転またはコンタクトセンター等の立地。製造業は市内居住者を10人以上新規雇用、IT・ソフト業は5人以上新規雇用が要件",
@@ -5292,7 +5292,7 @@ const SUBSIDIES = [
     "difficulty": 1,
     "company_size": ["中小企業", "小規模事業者"],
     "legal_form_eligible": ["法人", "個人事業主"],
-    "industry_restriction": ["宿泊・飲食・観光"],
+    "industry_restriction": ["サービス業（宿泊・娯楽）"],
     "requires_employee_insurance": false,
     "min_employees": 0,
     "note_eligibility": "岩手県内の宿泊事業者または貸切バス事業者。文部科学省が定める教育課程の一環として実施される旅行（修学旅行等）の受入が対象",
@@ -5338,7 +5338,7 @@ const SUBSIDIES = [
     "difficulty": 1,
     "company_size": ["中小企業", "小規模事業者"],
     "legal_form_eligible": ["法人", "個人事業主"],
-    "industry_restriction": ["宿泊・飲食・観光"],
+    "industry_restriction": ["サービス業（宿泊・娯楽）"],
     "requires_employee_insurance": false,
     "min_employees": 0,
     "note_eligibility": "盛岡市内に所在する飲食店・店舗等（物販業含む）で、盛岡市産の薪の利用に努めること。発注（購入）前に申請が必要",
@@ -5430,7 +5430,7 @@ const SUBSIDIES = [
     "difficulty": 2,
     "company_size": ["中小企業", "小規模事業者"],
     "legal_form_eligible": ["法人", "個人事業主"],
-    "industry_restriction": ["製造業", "水産業"],
+    "industry_restriction": ["製造業", "その他"],
     "requires_employee_insurance": false,
     "min_employees": 0,
     "note_eligibility": "岩手県の沿岸12市町村に立地する水産加工業者2社以上のグループが対象。新たな販路開拓・商品開発・広報活動等の取り組みが対象。設備投資費は補助対象外",
@@ -5660,7 +5660,7 @@ const SUBSIDIES = [
     "difficulty": 3,
     "company_size": ["中小企業", "小規模事業者"],
     "legal_form_eligible": ["法人", "個人事業主"],
-    "industry_restriction": ["情報サービス業", "製造業"],
+    "industry_restriction": ["サービス業（宿泊・娯楽以外）", "製造業"],
     "requires_employee_insurance": false,
     "min_employees": 0,
     "note_eligibility": "盛岡市内に主たる事業所を有する情報サービス業・インターネット附随サービス業・製造業の事業者または事業者団体。AI/IoT/ロボティクス等先端技術を活用し、公共性・緊急性の高い社会課題を解決する実証実験事業が対象。早期の社会実装が期待できる熟度の高い事業であること。問合せ：盛岡市ものづくり推進課 019-626-7538",
@@ -5741,7 +5741,7 @@ function classifyCompany(q6, q7, q8, q9) {
     isSmall = true;
   } else if (['製造業', '建設業', '卸売業'].includes(q7) && employees <= 20) {
     isSmall = true;
-  } else if (['小売業', 'サービス業（宿泊・娯楽以外）', 'サービス業（宿泊・娯楽）'].includes(q7) && employees <= 5) {
+  } else if (['小売業', 'サービス業（宿泊・娯楽以外）', 'サービス業（宿泊・娯楽）', '医療・介護・福祉'].includes(q7) && employees <= 5) {
     isSmall = true;
   } else if (q7 === 'その他' && employees <= 5) {
     isSmall = true;
@@ -6083,7 +6083,7 @@ function runDiagnosis() {
       addP('iwate-gaikoku-kaigo', 1, '外国人介護人材の受入を検討なら→県の受入施設環境整備補助金を活用');
     }
     // 宿泊・観光
-    if (industry === '宿泊・飲食・観光') {
+    if (industry === 'サービス業（宿泊・娯楽）') {
       addP('iwate-kyoiku-ryoko', 2, '岩手県内宿泊・観光事業者→教育旅行催行支援金で修学旅行受入コスト補填');
     }
     // 設備投資（太陽光・EV）
@@ -6102,7 +6102,7 @@ function runDiagnosis() {
     // 知的財産・特許
     addP('iwate-chizai', 1, '岩手県内事業者→いわて産業振興センターの産業財産権取得補助金（上限20万円）を活用');
     // 飲食・商店街
-    if (industry === '宿泊・飲食・観光' || industry === '小売業') {
+    if (industry === 'サービス業（宿泊・娯楽）' || industry === '小売業') {
       addP('iwate-shogyo-kasseika', 2, '岩手県内飲食店・商店街→利用促進費補助金（上限250万円）で集客・販促コスト削減');
     }
     // テレワーク（業種問わず・従業員あり）
@@ -6132,10 +6132,10 @@ function runDiagnosis() {
   }
   {
     // 盛岡市制度スコアリング（常時実行）
-    if (industry === '運送業') {
+    if (industry === 'その他') {
       addP('morioka-unso-nenryo', 3, '盛岡市内運送事業者→燃料価格高騰対策支援金（最大160万円）を申請');
     }
-    if (industry === '製造業' || industry === '情報サービス業') {
+    if (industry === '製造業' || industry === 'サービス業（宿泊・娯楽以外）') {
       addP('morioka-shijo-kaitaku', 2, '盛岡市内製造業・情報サービス業→市の展示会出展補助金（国内10万・海外25万円）が活用可能');
     }
     if (q16 >= 10000) {
@@ -6145,10 +6145,10 @@ function runDiagnosis() {
       addP('morioka-furusato-kigyo', 2, '盛岡市内での新規起業→ふるさと起業家支援補助金の活用を検討');
     }
     // 県外企業のサテライトオフィス設置（IT・製造業）
-    if (industry === '情報サービス業' || industry === '製造業') {
+    if (industry === 'サービス業（宿泊・娯楽以外）' || industry === '製造業') {
       addP('morioka-satellite', 2, '盛岡市内に拠点設置を検討している製造業・IT企業→サテライトオフィス設置支援補助金（最大500万円）を活用');
     }
-    if (industry === '宿泊・飲食・観光') {
+    if (industry === 'サービス業（宿泊・娯楽）') {
       addP('morioka-takimaki', 2, '盛岡市内飲食店→薪ストーブ設置補助金（上限50万円）で暖房コスト削減と集客力アップ');
     }
     // 建設・店舗改修予定
@@ -6156,7 +6156,7 @@ function runDiagnosis() {
       addP('morioka-sanzai', 1, '盛岡市内＋店舗改修予定→市産材利用補助金（上限20万円）で内装に木材活用');
     }
     // デジタル技術実証実験（情報サービス業・製造業）
-    if (industry === '情報サービス業' || industry === '製造業') {
+    if (industry === 'サービス業（宿泊・娯楽以外）' || industry === '製造業') {
       addP('morioka-digital-jissho', 2, '盛岡市内＋情報サービス・製造業→デジタル技術実証実験補助金（補助率4/5・上限100万円）でAI/IoT等の実証をほぼ無償で');
     }
     // 人材育成（従業員あり・業種問わず）
@@ -6164,7 +6164,7 @@ function runDiagnosis() {
       addP('morioka-jinzai-ikusei', 1, '盛岡市内＋従業員あり→中小企業人材育成支援補助金（上限15万円）で役員・幹部の研修費を補助');
     }
     // 農畜産物活用（食品・農業・観光系）
-    if (industry === '宿泊・飲食・観光' || industry === '製造業' || industry === 'その他') {
+    if (industry === 'サービス業（宿泊・娯楽）' || industry === '製造業' || industry === 'その他') {
       addP('morioka-nosanbutsu-kasseika', 1, '盛岡市内＋食品・観光・製造系→農畜産物活用事業補助金（上限240万円）で盛岡産素材を使った商品・サービス開発を');
     }
   }

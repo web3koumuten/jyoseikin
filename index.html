@@ -7235,9 +7235,13 @@ function renderResults(scored, combos, conflicts, meta) {
   const el = document.getElementById('results');
   el.style.display = 'block';
 
-  // 難易度3のみ除外（リスキリングは診断で選ばれた時に表示するので除外しない）
+  // 難易度3は通常除外。ただしQ14で明示的に選択された制度は難易度3でも表示する
   const DISPLAY_EXCLUDE = new Set([]);
-  const displayScored = scored.filter(s => s.difficulty < 3 && !DISPLAY_EXCLUDE.has(s.id));
+  const _q14Selected = meta.q14 || [];
+  const displayScored = scored.filter(s =>
+    (s.difficulty < 3 || (s.q14_key && _q14Selected.includes(s.q14_key))) &&
+    !DISPLAY_EXCLUDE.has(s.id)
+  );
   // totalMaxはdisplayScored（実際に表示する制度）ベースで計算
   const totalMax = displayScored.reduce((s, x) => s + x.max_amount, 0);
 

@@ -6362,7 +6362,7 @@ function runDiagnosis() {
     });
   });
 
-  // 診断データをグローバルに保持（リード送信フォーム用）
+  // 診断データをグローバルに保持（リード送信フォーム・診断3引き継ぎ用）
   window._lastDiagnosis = {
     q6, q7,
     q8_employees: q8,
@@ -6373,6 +6373,13 @@ function runDiagnosis() {
     q20_other: q20.join('・'),
     matched_subsidies: scored.filter(s => s.difficulty < 3).map(s => s.name).join('、')
   };
+  // sessionStorageに保存（shindan2.html / shindan3.html への引き継ぎ）
+  try {
+    sessionStorage.setItem('shindan1_result', JSON.stringify({
+      meta: window._lastDiagnosis,
+      scored: scored.filter(s => s.difficulty < 3).map(s => ({ id: s.id, name: s.name, max_amount: s.max_amount }))
+    }));
+  } catch(e) {}
 
   // ローディング演出を挟んでから結果表示
   showLoading(scored.length, () => {

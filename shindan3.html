@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>申請支援ヒアリング Step 3 | 詳細情報の収集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0f1e;
+    --ink: #1e293b;
+    --muted: #64748b;
+    --faint: #94a3b8;
+    --border: #e2e8f0;
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --accent: #0066ff;
+    --accent-light: #eff6ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: white;
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    border-top: 3px solid var(--black);
+  }
+
+  /* ── ナビ ── */
+  .site-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .site-nav-inner {
+    max-width: 860px; margin: 0 auto; padding: 0 40px;
+    height: 56px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .site-logo {
+    font-size: 15px; font-weight: 800; color: var(--black);
+    letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px;
+    text-decoration: none;
+  }
+  .site-logo-mark {
+    width: 28px; height: 28px; background: var(--black);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 12px; font-weight: 900; flex-shrink: 0;
+  }
+  .nav-tag { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; }
+
+  /* ── ステップバー ── */
+  .step-bar { background: #f8fafc; border-bottom: 1px solid var(--border); padding: 13px 0; }
+  .step-bar-inner {
+    max-width: 860px; margin: 0 auto; padding: 0 40px;
+    display: flex; align-items: center; gap: 0;
+  }
+  .step-item { font-size: 13px; font-weight: 500; color: var(--faint); }
+  .step-item.done { color: var(--muted); }
+  .step-item.active { color: var(--black); font-weight: 700; }
+  .step-arrow { margin: 0 10px; color: var(--faint); font-size: 12px; }
+
+  /* ── 引き継ぎバナー ── */
+  .inherited-banner { max-width: 860px; margin: 28px auto 0; padding: 0 40px; }
+  .inherited-inner {
+    border-left: 3px solid var(--border); padding: 6px 0 6px 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .inherited-label {
+    font-size: 11px; font-weight: 600; color: var(--faint);
+    letter-spacing: 0.06em; text-transform: uppercase; margin-right: 8px;
+  }
+  .inherited-detail { font-size: 13px; color: var(--muted); display: inline; }
+  .inherited-detail strong { font-weight: 700; color: var(--ink); }
+  .inherited-text { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; }
+
+  /* ── コンテナ ── */
+  .container { max-width: 860px; margin: 0 auto; padding: 40px 40px 120px; }
+
+  /* ── ページヘッダー ── */
+  .page-header { margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 28px; }
+  .page-header h1 { font-size: 28px; font-weight: 800; color: var(--black); letter-spacing: -0.03em; line-height: 1.3; }
+  .page-header p { font-size: 14px; color: var(--muted); margin-top: 10px; line-height: 1.7; }
+
+  /* ── セクション ── */
+  .section { margin-bottom: 52px; }
+  .section-header {
+    background: var(--black); color: white;
+    padding: 12px 20px; margin-bottom: 0;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-num {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    opacity: 0.6; white-space: nowrap;
+  }
+  .section-title { font-size: 15px; font-weight: 700; }
+  .section-skip {
+    margin-left: auto; font-size: 12px; font-weight: 600;
+    color: rgba(255,255,255,0.5); white-space: nowrap;
+  }
+  .section-body { border: 1px solid var(--border); border-top: none; }
+
+  /* ── 質問行 ── */
+  .q-row {
+    display: grid; grid-template-columns: 280px 1fr;
+    border-bottom: 1px solid var(--border);
+    min-height: 60px;
+  }
+  .q-row:last-child { border-bottom: none; }
+  .q-label {
+    background: #f8fafc; padding: 16px 18px;
+    font-size: 13px; font-weight: 600; color: var(--ink);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .q-num { font-size: 11px; font-weight: 700; color: var(--faint); }
+  .q-note { font-size: 11px; color: var(--faint); font-weight: 400; line-height: 1.5; margin-top: 4px; }
+  .q-answer { padding: 14px 18px; display: flex; flex-direction: column; gap: 8px; }
+
+  /* ── フォームパーツ ── */
+  input[type="text"], input[type="number"], textarea, select {
+    width: 100%; border: 1px solid var(--border); border-radius: 4px;
+    padding: 8px 12px; font-family: inherit; font-size: 14px; color: var(--ink);
+    background: white; transition: border-color 0.15s;
+    outline: none;
+  }
+  input[type="text"]:focus, input[type="number"]:focus,
+  textarea:focus, select:focus {
+    border-color: var(--black); box-shadow: 0 0 0 2px rgba(10,15,30,0.08);
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  .input-row { display: flex; gap: 12px; align-items: center; }
+  .input-row label { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .input-unit { font-size: 13px; color: var(--muted); white-space: nowrap; }
+
+  /* ラジオ・チェック */
+  .radio-group, .check-group { display: flex; flex-direction: column; gap: 6px; }
+  .radio-group.inline, .check-group.inline { flex-direction: row; flex-wrap: wrap; gap: 6px 20px; }
+  .radio-item, .check-item {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 14px; color: var(--ink); cursor: pointer; line-height: 1.5;
+  }
+  .radio-item input, .check-item input { margin-top: 3px; flex-shrink: 0; accent-color: var(--black); }
+  .reveal-target { display: none; margin-top: 8px; padding-left: 24px; }
+  .reveal-target.shown { display: block; }
+
+  /* スキップ */
+  .skip-bar {
+    background: #f8fafc; padding: 10px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--muted);
+  }
+  .skip-bar input { accent-color: var(--black); }
+  .skip-bar label { cursor: pointer; font-weight: 600; }
+  .skip-content { }
+  .skip-content.hidden { display: none; }
+
+  /* ── 送信ボタン ── */
+  .submit-area {
+    margin-top: 48px; padding-top: 32px; border-top: 2px solid var(--black);
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+  }
+  .btn-submit {
+    background: var(--black); color: white;
+    border: none; border-radius: 4px;
+    padding: 18px 60px; font-family: inherit;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+    letter-spacing: 0.02em; transition: background 0.15s;
+  }
+  .btn-submit:hover { background: #2d3748; }
+  .submit-note { font-size: 12px; color: var(--faint); text-align: center; }
+
+  /* ── 完了画面 ── */
+  #done-screen { display: none; text-align: center; padding: 80px 40px; }
+  #done-screen h2 { font-size: 28px; font-weight: 800; color: var(--black); margin-bottom: 16px; }
+  #done-screen p { font-size: 15px; color: var(--muted); line-height: 1.8; }
+
+  /* ── レスポンシブ ── */
+  @media (max-width: 640px) {
+    .site-nav-inner, .step-bar-inner, .inherited-banner, .container { padding-left: 20px; padding-right: 20px; }
+    .q-row { grid-template-columns: 1fr; }
+    .q-label { border-right: none; border-bottom: 1px solid var(--border); }
+    .page-header h1 { font-size: 22px; }
+    .radio-group.inline { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ナビ -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="./index.html" class="site-logo">
+      <div class="site-logo-mark">W3</div>
+      WEB3工務店
+    </a>
+    <span class="nav-tag">助成金・補助金 申請支援</span>
+  </div>
+</nav>
+
+<!-- ステップバー -->
+<div class="step-bar">
+  <div class="step-bar-inner">
+    <span class="step-item done">STEP 1 簡易診断</span>
+    <span class="step-arrow">›</span>
+    <span class="step-item done">STEP 2 詳細チェック</span>
+    <span class="step-arrow">›</span>
+    <span class="step-item active">STEP 3 申請ヒアリング</span>
+  </div>
+</div>
+
+<!-- 引き継ぎバナー -->
+<div class="inherited-banner">
+  <div class="inherited-inner">
+    <div class="inherited-text">
+      <span class="inherited-label">引き継ぎ</span>
+      <span class="inherited-detail" id="inherited-detail">診断1・2の情報を引き継いでいます。</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- ページヘッダー -->
+  <div class="page-header">
+    <h1>申請支援ヒアリングシート</h1>
+    <p>診断１・２でご確認いただいた情報を引き継いでいます。以下は申請書類の作成に必要な追加情報です。</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- フォーム -->
+  <!-- ══════════════════════════════════════════ -->
+  <div id="form-area">
+
+    <!-- ■ 第1部 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">第１部</span>
+        <span class="section-title">会社の登記情報</span>
+      </div>
+      <div class="section-body">
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q1</span>法人名（正式名称）<span class="q-note">フリガナも記入</span></div>
+          <div class="q-answer">
+            <input type="text" name="q1_name" placeholder="例：合同会社WEB3工務店">
+            <input type="text" name="q1_kana" placeholder="フリガナ：ゴウドウカイシャウェブスリーコウムテン">
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q2</span>法人番号（13桁）</div>
+          <div class="q-answer"><input type="text" name="q2_hojin_num" placeholder="1234567890123" maxlength="13"></div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q3</span>登記上の本店住所<span class="q-note">略称・通称ではなく登記上の住所</span></div>
+          <div class="q-answer">
+            <input type="text" name="q3_zip" placeholder="〒000-0000">
+            <input type="text" name="q3_pref" placeholder="都道府県・市区町村">
+            <input type="text" name="q3_addr" placeholder="番地・建物名・部屋番号">
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q4</span>代表者氏名・役職<span class="q-note">フリガナも記入</span></div>
+          <div class="q-answer">
+            <div class="input-row">
+              <label>氏名</label><input type="text" name="q4_name" placeholder="山田 太郎">
+              <label>役職</label><input type="text" name="q4_role" placeholder="代表社員">
+            </div>
+            <input type="text" name="q4_kana" placeholder="フリガナ：ヤマダ タロウ">
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q5</span>設立年月日</div>
+          <div class="q-answer"><input type="text" name="q5_founded" placeholder="例：2015年4月1日"></div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q6</span>資本金</div>
+          <div class="q-answer">
+            <div class="input-row"><input type="number" name="q6_capital" placeholder="300" style="max-width:140px"><span class="input-unit">万円</span></div>
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q7</span>事業内容<span class="q-note">定款上の主な目的</span></div>
+          <div class="q-answer"><textarea name="q7_business" placeholder="例：建築工事の設計・施工・監理、WEBシステムの開発・販売"></textarea></div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q8</span>業種コード<span class="q-note">日本標準産業分類。不明なら大分類でも可</span></div>
+          <div class="q-answer"><input type="text" name="q8_industry_code" placeholder="例：F建設業 / D建設業（コード：060）"></div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q9</span>労働保険番号（14桁）</div>
+          <div class="q-answer"><input type="text" name="q9_rodo_num" placeholder="00-000000-000-000"></div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q10</span>雇用保険適用事業所番号（11桁）</div>
+          <div class="q-answer"><input type="text" name="q10_koyo_num" placeholder="00-000000-0"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ■ 第2部 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">第２部</span>
+        <span class="section-title">資格要件の確認</span>
+      </div>
+      <div class="section-body">
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q11</span>大企業からの出資<span class="q-note">発行済株式の2/3超保有</span></div>
+          <div class="q-answer">
+            <div class="radio-group inline">
+              <label class="radio-item"><input type="radio" name="q11" value="ない"> ない</label>
+              <label class="radio-item"><input type="radio" name="q11" value="ある" onclick="reveal('q11_detail')"> ある</label>
+            </div>
+            <div class="reveal-target" id="q11_detail">
+              <div class="input-row">
+                <label>出資元</label><input type="text" name="q11_source" placeholder="出資元会社名">
+                <label>出資比率</label><input type="number" name="q11_ratio" placeholder="70" style="max-width:80px"><span class="input-unit">%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q12</span>グループ会社・関連会社<span class="q-note">グループ全体人数で中小判定をする補助金あり</span></div>
+          <div class="q-answer">
+            <div class="radio-group inline">
+              <label class="radio-item"><input type="radio" name="q12" value="ない"> ない</label>
+              <label class="radio-item"><input type="radio" name="q12" value="ある" onclick="reveal('q12_detail')"> ある</label>
+            </div>
+            <div class="reveal-target" id="q12_detail">
+              <textarea name="q12_detail" placeholder="会社名と従業員数（例：○○株式会社 30名）"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q13</span>社会保険料・税金の滞納<span class="q-note">滞納があると多くの制度で申請資格を失います</span></div>
+          <div class="q-answer">
+            <div class="radio-group inline">
+              <label class="radio-item"><input type="radio" name="q13" value="ない（全額納付済み）"> ない（全額納付済み）</label>
+              <label class="radio-item"><input type="radio" name="q13" value="ある" onclick="reveal('q13_detail')"> ある</label>
+            </div>
+            <div class="reveal-target" id="q13_detail">
+              <input type="text" name="q13_detail" placeholder="内容">
+            </div>
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q14</span>過去5年以内の労基法違反・行政処分</div>
+          <div class="q-answer">
+            <div class="radio-group inline">
+              <label class="radio-item"><input type="radio" name="q14" value="ない"> ない</label>
+              <label class="radio-item"><input type="radio" name="q14" value="ある" onclick="reveal('q14_detail')"> ある</label>
+            </div>
+            <div class="reveal-target" id="q14_detail">
+              <input type="text" name="q14_detail" placeholder="内容・時期">
+            </div>
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q15</span>助成金・補助金の不正受給歴<span class="q-note">不正受給歴があると5年間受給資格なし</span></div>
+          <div class="q-answer">
+            <div class="radio-group inline">
+              <label class="radio-item"><input type="radio" name="q15" value="ない"> ない</label>
+              <label class="radio-item"><input type="radio" name="q15" value="ある" onclick="reveal('q15_detail')"> ある</label>
+            </div>
+            <div class="reveal-target" id="q15_detail">
+              <input type="text" name="q15_detail" placeholder="制度名・時期">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ■ 第3部 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">第３部</span>
+        <span class="section-title">今回の申請の大目標</span>
+      </div>
+      <div class="section-body">
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q16</span>今回最も実現したいこと</div>
+          <div class="q-answer">
+            <textarea name="q16_goal" rows="4" placeholder="例：非正規スタッフを正社員にして組織を安定させたい ／ 業務をシステム化して残業を減らしたい ／ 新しい客層を開拓して売上の柱を増やしたい"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ■ 第4部 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">第４部</span>
+        <span class="section-title">労務管理の実態</span>
+      </div>
+      <div class="section-body">
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q17</span>就業規則</div>
+          <div class="q-answer">
+            <div class="radio-group inline">
+              <label class="radio-item"><input type="radio" name="q17_exist" value="ない"> ない</label>
+              <label class="radio-item"><input type="radio" name="q17_exist" value="ある" onclick="reveal('q17_detail')"> ある</label>
+            </div>
+            <div class="reveal-target" id="q17_detail">
+              <div class="input-row" style="margin-bottom:8px">
+                <label>最終改定年</label><input type="text" name="q17_year" placeholder="2022年" style="max-width:120px">
+              </div>
+              <div class="check-group">
+                <label class="check-item"><input type="checkbox" name="q17_hiseiki" value="1"> 非正規社員向けの条項がある</label>
+                <label class="check-item"><input type="checkbox" name="q17_todoke" value="1"> 労働基準監督署に届出済み（常時10名以上の場合は必須）</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q18</span>36協定<span class="q-note">未締結だと業務改善助成金等は申請不可</span></div>
+          <div class="q-answer">
+            <div class="radio-group">
+              <label class="radio-item"><input type="radio" name="q18" value="締結済み・届出済み"> 締結済み・届出済み</label>
+              <label class="radio-item"><input type="radio" name="q18" value="締結済み・届出未了"> 締結済み・届出未了</label>
+              <label class="radio-item"><input type="radio" name="q18" value="未締結"> 未締結</label>
+            </div>
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q19</span>育児・介護休業規程</div>
+          <div class="q-answer">
+            <div class="radio-group inline">
+              <label class="radio-item"><input type="radio" name="q19" value="ある"> ある</label>
+              <label class="radio-item"><input type="radio" name="q19" value="ない"> ない</label>
+            </div>
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q20</span>事業場内最低時給<span class="q-note">社内で一番低い方の時給。業務改善助成金の判定に使用</span></div>
+          <div class="q-answer">
+            <div class="input-row">
+              <label>約</label><input type="number" name="q20_min_wage" placeholder="950" style="max-width:120px"><span class="input-unit">円</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q21</span>雇用保険に未加入の従業員</div>
+          <div class="q-answer">
+            <div class="radio-group inline">
+              <label class="radio-item"><input type="radio" name="q21" value="全員加入済み"> 全員加入済み</label>
+              <label class="radio-item"><input type="radio" name="q21" value="いる" onclick="reveal('q21_detail')"> いる</label>
+            </div>
+            <div class="reveal-target" id="q21_detail">
+              <div class="input-row"><label>人数</label><input type="number" name="q21_cnt" placeholder="2" style="max-width:80px"><span class="input-unit">名</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q22</span>月平均残業時間の目安</div>
+          <div class="q-answer">
+            <div class="input-row">
+              <label>月平均</label><input type="number" name="q22_overtime" placeholder="20" style="max-width:100px"><span class="input-unit">時間程度</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ■ 第5部（スキップ可） -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">第５部</span>
+        <span class="section-title">非正規社員の詳細</span>
+        <span class="section-skip">非正規社員がいない場合はスキップ可</span>
+      </div>
+      <div class="section-body">
+        <div class="skip-bar">
+          <input type="checkbox" id="skip5" onchange="toggleSkip('skip5','sec5body')">
+          <label for="skip5">非正規社員がいないためスキップ</label>
+        </div>
+        <div class="skip-content" id="sec5body">
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q23</span>非正規社員の雇用形態別人数</div>
+            <div class="q-answer">
+              <div class="input-row"><label>パート</label><input type="number" name="q23_part" placeholder="0" style="max-width:80px"><span class="input-unit">名</span></div>
+              <div class="input-row"><label>有期契約社員</label><input type="number" name="q23_fixed" placeholder="0" style="max-width:80px"><span class="input-unit">名</span></div>
+              <div class="input-row"><label>派遣</label><input type="number" name="q23_dispatch" placeholder="0" style="max-width:80px"><span class="input-unit">名</span></div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q24</span>最長在籍の非正規社員の通算勤務期間<span class="q-note">6ヶ月未満は正社員化コース対象外</span></div>
+            <div class="q-answer">
+              <div class="input-row">
+                <label>通算</label><input type="number" name="q24_months" placeholder="12" style="max-width:80px"><span class="input-unit">ヶ月</span>
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q25</span>現在の賃金水準<span class="q-note">転換前賃金として申請書に記載</span></div>
+            <div class="q-answer">
+              <div class="input-row"><label>時給の場合</label><input type="number" name="q25_hourly" placeholder="1050" style="max-width:120px"><span class="input-unit">円</span></div>
+              <div class="input-row"><label>月給の場合</label><input type="number" name="q25_monthly" placeholder="18" style="max-width:100px"><span class="input-unit">万円</span></div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q26</span>正社員転換予定の人数・時期</div>
+            <div class="q-answer">
+              <div class="input-row">
+                <label>人数</label><input type="number" name="q26_cnt" placeholder="2" style="max-width:80px"><span class="input-unit">名</span>
+                <label>時期</label><input type="text" name="q26_timing" placeholder="2025年10月頃">
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q27</span>転換後の予定賃金<span class="q-note">現行から3%以上の引上げが正社員化コースの要件</span></div>
+            <div class="q-answer">
+              <div class="input-row"><label>時給の場合</label><input type="number" name="q27_hourly" placeholder="1100" style="max-width:120px"><span class="input-unit">円</span></div>
+              <div class="input-row"><label>月給の場合</label><input type="number" name="q27_monthly" placeholder="20" style="max-width:100px"><span class="input-unit">万円</span></div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q28</span>キャリアアップ計画書<span class="q-note">転換前に提出が必須</span></div>
+            <div class="q-answer">
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="q28" value="提出済み" onclick="reveal('q28_detail')"> 提出済み</label>
+                <label class="radio-item"><input type="radio" name="q28" value="未提出"> 未提出</label>
+              </div>
+              <div class="reveal-target" id="q28_detail">
+                <input type="text" name="q28_num" placeholder="計画番号">
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q29</span>賞与・退職金制度</div>
+            <div class="q-answer">
+              <div class="check-group">
+                <label class="check-item"><input type="checkbox" name="q29_bonus" value="1"> 賞与制度あり</label>
+                <label class="check-item"><input type="checkbox" name="q29_retire" value="1"> 退職金制度あり（中退共・企業型DC等含む）</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ■ 第6部（スキップ可） -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">第６部</span>
+        <span class="section-title">採用計画の詳細</span>
+        <span class="section-skip">採用予定がない場合はスキップ可</span>
+      </div>
+      <div class="section-body">
+        <div class="skip-bar">
+          <input type="checkbox" id="skip6" onchange="toggleSkip('skip6','sec6body')">
+          <label for="skip6">採用予定がないためスキップ</label>
+        </div>
+        <div class="skip-content" id="sec6body">
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q30</span>採用予定の人数・雇用形態・時期</div>
+            <div class="q-answer">
+              <div class="input-row">
+                <label>人数</label><input type="number" name="q30_cnt" placeholder="1" style="max-width:80px"><span class="input-unit">名</span>
+                <label>雇用形態</label><input type="text" name="q30_type" placeholder="正社員・パート等">
+              </div>
+              <div class="input-row"><label>採用予定時期</label><input type="text" name="q30_timing" placeholder="2025年9月頃"></div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q31</span>ハローワーク経由での採用<span class="q-note">特開金・トライアル雇用は「紹介状」が必須。これがないと申請できません</span></div>
+            <div class="q-answer">
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="q31" value="はい（紹介状をもらう予定）"> はい（紹介状をもらう予定）</label>
+                <label class="radio-item"><input type="radio" name="q31" value="いいえ（自社採用・求人媒体等）"> いいえ（自社採用・求人媒体等）</label>
+                <label class="radio-item"><input type="radio" name="q31" value="未定"> 未定</label>
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q32</span>採用予定者の属性<span class="q-note">特定層を採用すると最大2年間助成される制度があります</span></div>
+            <div class="q-answer">
+              <div class="check-group">
+                <label class="check-item"><input type="checkbox" name="q32_general" value="1"> 一般求職者（特に指定なし）</label>
+                <label class="check-item"><input type="checkbox" name="q32_disabled" value="1"> 障害者（身体・知的・精神）</label>
+                <label class="check-item"><input type="checkbox" name="q32_senior" value="1"> 60歳以上の高齢者</label>
+                <label class="check-item"><input type="checkbox" name="q32_single" value="1"> 母子・父子家庭の親</label>
+                <label class="check-item"><input type="checkbox" name="q32_welfare" value="1"> 生活保護受給者</label>
+                <label class="check-item"><input type="checkbox" name="q32_mid45" value="1"> 就労経験のない職業に就くことを希望する45歳以上の者</label>
+                <label class="check-item"><input type="checkbox" name="q32_other" value="1" onclick="reveal('q32_other_detail')"> その他</label>
+              </div>
+              <div class="reveal-target" id="q32_other_detail">
+                <input type="text" name="q32_other_text" placeholder="属性を記入">
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q33</span>障害者採用の場合：手帳の種類と等級</div>
+            <div class="q-answer">
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="q33" value="該当なし"> 該当なし</label>
+                <label class="radio-item"><input type="radio" name="q33" value="身体障害者手帳" onclick="reveal('q33_detail')"> 身体障害者手帳</label>
+                <label class="radio-item"><input type="radio" name="q33" value="療育手帳" onclick="reveal('q33_detail')"> 療育手帳</label>
+                <label class="radio-item"><input type="radio" name="q33" value="精神障害者保健福祉手帳" onclick="reveal('q33_detail')"> 精神障害者保健福祉手帳</label>
+              </div>
+              <div class="reveal-target" id="q33_detail">
+                <input type="text" name="q33_grade" placeholder="等級・判定（例：2級、B判定）">
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q34</span>採用後の労働条件</div>
+            <div class="q-answer">
+              <div class="input-row"><label>週所定労働時間</label><input type="number" name="q34_hours" placeholder="40" style="max-width:80px"><span class="input-unit">時間</span></div>
+              <div class="radio-group inline" style="margin-top:4px">
+                <label class="radio-item"><input type="radio" name="q34_contract" value="期間の定めなし（正社員・無期）"> 期間の定めなし</label>
+                <label class="radio-item"><input type="radio" name="q34_contract" value="有期契約" onclick="reveal('q34_term')"> 有期契約</label>
+              </div>
+              <div class="reveal-target" id="q34_term">
+                <div class="input-row"><input type="number" name="q34_months" placeholder="6" style="max-width:80px"><span class="input-unit">ヶ月</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ■ 第7部 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">第７部</span>
+        <span class="section-title">過去の受給歴・認定・加点要素</span>
+      </div>
+      <div class="section-body">
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q35</span>過去3年以内の受給・申請中の制度</div>
+          <div class="q-answer">
+            <textarea name="q35_history" rows="3" placeholder="制度名・受給年度・金額概算を記入（例：IT導入補助金 2023年度 80万円受給）&#10;ない場合は「なし」と記入"></textarea>
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q36</span>取得済みの認定・宣言・計画<span class="q-note">これらは審査の加点項目です</span></div>
+          <div class="q-answer">
+            <div class="check-group">
+              <label class="check-item"><input type="checkbox" name="q36_keikaku" value="1"> 経営革新計画の承認（都道府県知事等）</label>
+              <label class="check-item"><input type="checkbox" name="q36_jigyokei" value="1"> 事業継続力強化計画の認定（経済産業大臣）</label>
+              <label class="check-item"><input type="checkbox" name="q36_partner" value="1"> パートナーシップ構築宣言</label>
+              <label class="check-item"><input type="checkbox" name="q36_miradegi" value="1"> みらデジ経営チェック（実施済み）</label>
+              <label class="check-item"><input type="checkbox" name="q36_security1" value="1"> SECURITY ACTION ★1</label>
+              <label class="check-item"><input type="checkbox" name="q36_security2" value="1"> SECURITY ACTION ★2</label>
+              <label class="check-item"><input type="checkbox" name="q36_dx" value="1"> DX認定</label>
+              <label class="check-item"><input type="checkbox" name="q36_none" value="1"> 特にない</label>
+            </div>
+          </div>
+        </div>
+        <div class="q-row">
+          <div class="q-label"><span class="q-num">Q37</span>顧問契約している専門家<span class="q-note">ものづくり補助金等は認定支援機関との連名申請が必要</span></div>
+          <div class="q-answer">
+            <div class="check-group">
+              <label class="check-item"><input type="checkbox" name="q37_tax" value="1" onclick="revealCheck('q37_tax','q37_tax_name')"> 税理士</label>
+              <div class="reveal-target" id="q37_tax_name"><input type="text" name="q37_tax_firm" placeholder="事務所名"></div>
+              <label class="check-item"><input type="checkbox" name="q37_sr" value="1" onclick="revealCheck('q37_sr','q37_sr_name')"> 社会保険労務士</label>
+              <div class="reveal-target" id="q37_sr_name"><input type="text" name="q37_sr_firm" placeholder="事務所名"></div>
+              <label class="check-item"><input type="checkbox" name="q37_shindanshi" value="1" onclick="revealCheck('q37_shindanshi','q37_sh_name')"> 中小企業診断士</label>
+              <div class="reveal-target" id="q37_sh_name"><input type="text" name="q37_sh_firm" placeholder="事務所名"></div>
+              <label class="check-item"><input type="checkbox" name="q37_none" value="1"> 顧問はいない</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ■ 第8部 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">第８部</span>
+        <span class="section-title">重点制度ごとの追加情報</span>
+        <span class="section-skip">該当する制度のみ回答</span>
+      </div>
+      <div class="section-body">
+
+        <!-- キャリアアップ -->
+        <div class="skip-bar" style="background:#f1f5f9; font-weight:700; color:#0a0f1e; border-bottom: 1px solid #e2e8f0;">
+          【キャリアアップ助成金】
+          <span style="margin-left:auto">
+            <input type="checkbox" id="skip8a" onchange="toggleSkip('skip8a','sec8a')">
+            <label for="skip8a" style="font-size:12px; font-weight:400; color:var(--muted)">対象外のためスキップ</label>
+          </span>
+        </div>
+        <div class="skip-content" id="sec8a">
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q38</span>就業規則に「有期→正社員転換規定」の明記</div>
+            <div class="q-answer">
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="q38" value="明記されている"> 明記されている</label>
+                <label class="radio-item"><input type="radio" name="q38" value="されていない"> されていない</label>
+                <label class="radio-item"><input type="radio" name="q38" value="確認中"> 確認中</label>
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q39</span>転換対象の非正規社員の雇用形態</div>
+            <div class="q-answer">
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="q39" value="有期雇用（パート・契約社員）"> 有期雇用（パート・契約社員）</label>
+                <label class="radio-item"><input type="radio" name="q39" value="無期雇用（無期転換後のパート等）"> 無期雇用（無期転換後のパート等）</label>
+                <label class="radio-item"><input type="radio" name="q39" value="派遣"> 派遣</label>
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q40</span>転換後、正社員就業規則が適用されるか</div>
+            <div class="q-answer">
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="q40" value="なる"> なる</label>
+                <label class="radio-item"><input type="radio" name="q40" value="ならない（別規則のまま）"> ならない（別規則のまま）</label>
+                <label class="radio-item"><input type="radio" name="q40" value="未整備"> 未整備</label>
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q41</span>転換後、賞与・退職金の支給対象に含まれるか</div>
+            <div class="q-answer">
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="q41" value="含まれる"> 含まれる</label>
+                <label class="radio-item"><input type="radio" name="q41" value="含まれない"> 含まれない</label>
+                <label class="radio-item"><input type="radio" name="q41" value="制度自体がない"> 制度自体がない</label>
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q42</span>転換を急いでいる理由・背景</div>
+            <div class="q-answer"><input type="text" name="q42_reason" placeholder="例：本人の希望・繁忙期前に安定させたい"></div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q43</span>この転換で何を解決・実現したいか</div>
+            <div class="q-answer"><input type="text" name="q43_goal" placeholder="例：人材の定着・採用コスト削減・チームの安定"></div>
+          </div>
+        </div>
+
+        <!-- 特開金 -->
+        <div class="skip-bar" style="background:#f1f5f9; font-weight:700; color:#0a0f1e; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
+          【特定求職者雇用開発助成金】
+          <span style="margin-left:auto">
+            <input type="checkbox" id="skip8b" onchange="toggleSkip('skip8b','sec8b')">
+            <label for="skip8b" style="font-size:12px; font-weight:400; color:var(--muted)">対象外のためスキップ</label>
+          </span>
+        </div>
+        <div class="skip-content" id="sec8b">
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q44</span>採用後の試用期間</div>
+            <div class="q-answer">
+              <div class="radio-group inline">
+                <label class="radio-item"><input type="radio" name="q44" value="なし"> なし</label>
+                <label class="radio-item"><input type="radio" name="q44" value="あり" onclick="reveal('q44_term')"> あり</label>
+              </div>
+              <div class="reveal-target" id="q44_term">
+                <div class="input-row"><input type="number" name="q44_months" placeholder="3" style="max-width:80px"><span class="input-unit">ヶ月</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q45</span>雇用契約書・労働条件通知書を採用日当日に交付できるか</div>
+            <div class="q-answer">
+              <div class="radio-group inline">
+                <label class="radio-item"><input type="radio" name="q45" value="できる"> できる</label>
+                <label class="radio-item"><input type="radio" name="q45" value="難しい" onclick="reveal('q45_reason')"> 難しい</label>
+              </div>
+              <div class="reveal-target" id="q45_reason">
+                <input type="text" name="q45_reason_text" placeholder="理由">
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q46</span>採用予定者の前職・離職理由（把握している場合）</div>
+            <div class="q-answer"><input type="text" name="q46_prev" placeholder="例：建設業で5年勤務後、会社都合で離職"></div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q47</span>採用後に予定している職種・業務内容</div>
+            <div class="q-answer"><textarea name="q47_job" rows="2" placeholder="具体的に記入（例：現場作業員として施工補助・資材管理）"></textarea></div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q48</span>採用後、長期雇用を見込んでいるか</div>
+            <div class="q-answer">
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="q48" value="継続雇用予定"> 継続雇用予定</label>
+                <label class="radio-item"><input type="radio" name="q48" value="繁忙期のみ"> 繁忙期のみ</label>
+                <label class="radio-item"><input type="radio" name="q48" value="未定"> 未定</label>
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q49</span>この採用で何を解決・実現したいか</div>
+            <div class="q-answer"><input type="text" name="q49_goal" placeholder="例：人手不足解消・新事業立ち上げ・特定スキルの確保"></div>
+          </div>
+        </div>
+
+        <!-- IT導入 -->
+        <div class="skip-bar" style="background:#f1f5f9; font-weight:700; color:#0a0f1e; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
+          【IT導入補助金】
+          <span style="margin-left:auto">
+            <input type="checkbox" id="skip8c" onchange="toggleSkip('skip8c','sec8c')">
+            <label for="skip8c" style="font-size:12px; font-weight:400; color:var(--muted)">対象外のためスキップ</label>
+          </span>
+        </div>
+        <div class="skip-content" id="sec8c">
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q50</span>gBizIDプライムの取得<span class="q-note">申請には必須。取得に約2〜3週間かかります</span></div>
+            <div class="q-answer">
+              <div class="radio-group inline">
+                <label class="radio-item"><input type="radio" name="q50" value="取得済み"> 取得済み</label>
+                <label class="radio-item"><input type="radio" name="q50" value="未取得"> 未取得</label>
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q51</span>導入を検討しているITツール・システム（複数可）</div>
+            <div class="q-answer">
+              <div class="check-group">
+                <label class="check-item"><input type="checkbox" name="q51_kaikei" value="1"> 会計・財務管理</label>
+                <label class="check-item"><input type="checkbox" name="q51_juchu" value="1"> 受発注・在庫管理</label>
+                <label class="check-item"><input type="checkbox" name="q51_crm" value="1"> 顧客管理（CRM）</label>
+                <label class="check-item"><input type="checkbox" name="q51_kinmu" value="1"> 勤怠・給与管理</label>
+                <label class="check-item"><input type="checkbox" name="q51_contract" value="1"> 電子契約</label>
+                <label class="check-item"><input type="checkbox" name="q51_ec" value="1"> ECサイト構築</label>
+                <label class="check-item"><input type="checkbox" name="q51_yoyaku" value="1"> 予約管理</label>
+                <label class="check-item"><input type="checkbox" name="q51_security" value="1"> セキュリティ対策</label>
+                <label class="check-item"><input type="checkbox" name="q51_other" value="1" onclick="reveal('q51_other_text')"> その他</label>
+              </div>
+              <div class="reveal-target" id="q51_other_text">
+                <input type="text" name="q51_other_detail" placeholder="ツール名・内容">
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q52</span>最も時間がかかっている・非効率な作業</div>
+            <div class="q-answer"><textarea name="q52_inefficient" rows="2" placeholder="具体的に記入（例：Excel手入力による見積書作成・請求書発行に月30時間かかっている）"></textarea></div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q53</span>導入でどの業務をどのくらい効率化したいか</div>
+            <div class="q-answer"><textarea name="q53_improve" rows="2" placeholder="例：見積書作成を月20時間→5時間に削減したい"></textarea></div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q54</span>現在使用中の主なソフト・システム</div>
+            <div class="q-answer"><input type="text" name="q54_current_tools" placeholder="例：Excel・弥生会計・kintone等"></div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q55</span>インボイス（適格請求書発行事業者）の登録状況</div>
+            <div class="q-answer">
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="q55" value="登録済み" onclick="reveal('q55_num')"> 登録済み</label>
+                <label class="radio-item"><input type="radio" name="q55" value="未登録"> 未登録</label>
+                <label class="radio-item"><input type="radio" name="q55" value="申請中"> 申請中</label>
+              </div>
+              <div class="reveal-target" id="q55_num">
+                <div class="input-row"><label>登録番号</label><input type="text" name="q55_invoice_num" placeholder="T1234567890123"></div>
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q56</span>IT導入支援事業者（登録ベンダー）との接触状況</div>
+            <div class="q-answer">
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="q56" value="接触済み" onclick="reveal('q56_vendor')"> 接触済み</label>
+                <label class="radio-item"><input type="radio" name="q56" value="まだない"> まだない</label>
+                <label class="radio-item"><input type="radio" name="q56" value="紹介してほしい"> 紹介してほしい</label>
+              </div>
+              <div class="reveal-target" id="q56_vendor">
+                <input type="text" name="q56_vendor_name" placeholder="会社名">
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q57</span>自社のサイバーセキュリティ対策の現状</div>
+            <div class="q-answer">
+              <div class="check-group">
+                <label class="check-item"><input type="checkbox" name="q57_utm" value="1"> UTMの導入</label>
+                <label class="check-item"><input type="checkbox" name="q57_antivirus" value="1"> ウイルス対策ソフト</label>
+                <label class="check-item"><input type="checkbox" name="q57_backup" value="1"> 定期的なバックアップ</label>
+                <label class="check-item"><input type="checkbox" name="q57_none" value="1"> 特になし</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 持続化 -->
+        <div class="skip-bar" style="background:#f1f5f9; font-weight:700; color:#0a0f1e; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
+          【小規模事業者持続化補助金】
+          <span style="margin-left:auto">
+            <input type="checkbox" id="skip8d" onchange="toggleSkip('skip8d','sec8d')">
+            <label for="skip8d" style="font-size:12px; font-weight:400; color:var(--muted)">対象外のためスキップ</label>
+          </span>
+        </div>
+        <div class="skip-content" id="sec8d">
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q58</span>商工会議所または商工会の会員</div>
+            <div class="q-answer">
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="q58" value="商工会議所の会員"> 商工会議所の会員</label>
+                <label class="radio-item"><input type="radio" name="q58" value="商工会の会員"> 商工会の会員</label>
+                <label class="radio-item"><input type="radio" name="q58" value="会員ではないが管轄地域に事業所がある"> 会員ではないが管轄地域に事業所がある</label>
+                <label class="radio-item"><input type="radio" name="q58" value="非該当"> 非該当</label>
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q59</span>過去に持続化補助金を申請・採択されたことはあるか<span class="q-note">採択回数によって申請可否の条件が変わります</span></div>
+            <div class="q-answer">
+              <div class="radio-group inline">
+                <label class="radio-item"><input type="radio" name="q59" value="ない"> ない</label>
+                <label class="radio-item"><input type="radio" name="q59" value="ある" onclick="reveal('q59_cnt')"> ある</label>
+              </div>
+              <div class="reveal-target" id="q59_cnt">
+                <div class="input-row"><label>採択回数</label><input type="number" name="q59_times" placeholder="1" style="max-width:80px"><span class="input-unit">回</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q60</span>自社の強み・競合や同業他社にない特徴<span class="q-note">経営計画書の核となる部分です</span></div>
+            <div class="q-answer"><textarea name="q60_strength" rows="3" placeholder="例：地元密着で創業30年の信頼・即日対応できる小回りの良さ・特定の技術に特化した専門性"></textarea></div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q61</span>今回の取り組みで狙いたい新規顧客層・新しいエリア</div>
+            <div class="q-answer"><input type="text" name="q61_target" placeholder="例：隣市の飲食店オーナー層・30〜40代の女性顧客"></div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q62</span>実施したい取り組みの内容（複数可）</div>
+            <div class="q-answer">
+              <div class="check-group">
+                <label class="check-item"><input type="checkbox" name="q62_chirashi" value="1"> チラシ・DM・広告</label>
+                <label class="check-item"><input type="checkbox" name="q62_hp" value="1"> ホームページ・ECサイト制作</label>
+                <label class="check-item"><input type="checkbox" name="q62_exhibit" value="1"> 展示会・商談会への出展</label>
+                <label class="check-item"><input type="checkbox" name="q62_equip" value="1"> 設備・機器の購入</label>
+                <label class="check-item"><input type="checkbox" name="q62_reform" value="1"> 店舗改装・バリアフリー化</label>
+                <label class="check-item"><input type="checkbox" name="q62_newprod" value="1"> 新商品・新サービスの開発</label>
+                <label class="check-item"><input type="checkbox" name="q62_other" value="1" onclick="reveal('q62_other_text')"> その他</label>
+              </div>
+              <div class="reveal-target" id="q62_other_text">
+                <input type="text" name="q62_other_detail" placeholder="内容を記入">
+              </div>
+            </div>
+          </div>
+          <div class="q-row">
+            <div class="q-label"><span class="q-num">Q63</span>補助対象に使いたい経費の種類と金額感</div>
+            <div class="q-answer"><textarea name="q63_cost" rows="2" placeholder="例：HP制作50万円・チラシ印刷10万円"></textarea></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 送信エリア -->
+    <div class="submit-area">
+      <button class="btn-submit" onclick="submitShindan3()">送信して完了 →</button>
+      <p class="submit-note">ご入力いただいた情報は申請書類の作成のみに使用します。</p>
+    </div>
+
+  </div><!-- /form-area -->
+
+  <!-- 完了画面 -->
+  <div id="done-screen">
+    <h2>✓ 送信が完了しました</h2>
+    <p>ヒアリング情報を受け付けました。<br>担当者が内容を確認のうえ、申請書類の作成を進めます。</p>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ════════════════════════════════════════════
+// 診断1・2の引き継ぎ
+// ════════════════════════════════════════════
+(function loadInherited() {
+  try {
+    const r1 = sessionStorage.getItem('shindan1_result');
+    const r2 = sessionStorage.getItem('shindan2_result');
+    const parts = [];
+    if (r1) {
+      const d1 = JSON.parse(r1);
+      const m = d1.meta || {};
+      if (m.q7)  parts.push(m.q7);
+      if (m.q8_employees) parts.push('従業員 ' + m.q8_employees + '名');
+      if (m.q6)  parts.push(m.q6);
+      if (m.matched_subsidies) parts.push('マッチ制度：' + m.matched_subsidies);
+    }
+    if (parts.length > 0) {
+      document.getElementById('inherited-detail').innerHTML =
+        '<strong>' + parts.join('　/　') + '</strong> の情報を引き継いでいます。';
+    }
+  } catch(e) {}
+})();
+
+// ════════════════════════════════════════════
+// UI ヘルパー
+// ════════════════════════════════════════════
+function reveal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('shown');
+}
+function revealCheck(cbName, targetId) {
+  const cb = document.querySelector(`input[name="${cbName}"]`);
+  const el = document.getElementById(targetId);
+  if (!el) return;
+  if (cb && cb.checked) el.classList.add('shown');
+  else el.classList.remove('shown');
+}
+function toggleSkip(cbId, contentId) {
+  const cb = document.getElementById(cbId);
+  const el = document.getElementById(contentId);
+  if (!el) return;
+  el.classList.toggle('hidden', cb.checked);
+}
+
+// ════════════════════════════════════════════
+// フォームデータ収集
+// ════════════════════════════════════════════
+function collectFormData() {
+  const form = document.getElementById('form-area');
+  const data = {};
+
+  // テキスト・数値
+  form.querySelectorAll('input[name], textarea[name], select[name]').forEach(el => {
+    if (el.type === 'radio' || el.type === 'checkbox') return;
+    if (el.value.trim()) data[el.name] = el.value.trim();
+  });
+
+  // ラジオ
+  form.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+    data[el.name] = el.value;
+  });
+
+  // チェックボックス（グループ化）
+  const cbGroups = {};
+  form.querySelectorAll('input[type="checkbox"]').forEach(el => {
+    const base = el.name.replace(/_\w+$/, '');
+    if (!cbGroups[el.name]) cbGroups[el.name] = [];
+    if (el.checked) cbGroups[el.name].push(el.value);
+    data[el.name] = el.checked ? '1' : '0';
+  });
+
+  return data;
+}
+
+// ════════════════════════════════════════════
+// 診断1・2データを取得
+// ════════════════════════════════════════════
+function getInheritedData() {
+  const inherited = {};
+  try {
+    const r1 = sessionStorage.getItem('shindan1_result');
+    if (r1) {
+      const d1 = JSON.parse(r1);
+      const m = d1.meta || {};
+      inherited.s1_legal_form      = m.q6 || '';
+      inherited.s1_industry        = m.q7 || '';
+      inherited.s1_employees       = m.q8_employees || '';
+      inherited.s1_revenue         = m.q9_revenue || '';
+      inherited.s1_wage_plan       = m.q13_wage || '';
+      inherited.s1_investment_plans= m.q14_plans || '';
+      inherited.s1_hiring_plan     = m.q18_hiring || '';
+      inherited.s1_other_flags     = m.q20_other || '';
+      inherited.s1_matched         = m.matched_subsidies || '';
+    }
+    const r2 = sessionStorage.getItem('shindan2_result');
+    if (r2) {
+      const d2 = JSON.parse(r2);
+      inherited.s2_total_miss      = d2.totalMiss || '';
+      inherited.s2_missed_details  = (d2.missed || []).map(x => x.name).join('、');
+    }
+  } catch(e) {}
+  return inherited;
+}
+
+// ════════════════════════════════════════════
+// GAS送信
+// ════════════════════════════════════════════
+const GAS_ENDPOINT = 'YOUR_GAS_URL_HERE';
+
+function submitShindan3() {
+  const formData = collectFormData();
+  const inherited = getInheritedData();
+
+  const payload = {
+    timestamp: new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' }),
+    ...inherited,
+    ...formData
+  };
+
+  // GAS未設定の場合はコンソール確認
+  if (!GAS_ENDPOINT || GAS_ENDPOINT === 'YOUR_GAS_URL_HERE') {
+    console.log('[診断3送信データ]', payload);
+    document.getElementById('form-area').style.display = 'none';
+    document.getElementById('done-screen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  const btn = document.querySelector('.btn-submit');
+  btn.textContent = '送信中…';
+  btn.disabled = true;
+
+  fetch(GAS_ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify(payload)
+  }).then(() => {
+    document.getElementById('form-area').style.display = 'none';
+    document.getElementById('done-screen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }).catch(() => {
+    btn.textContent = '送信に失敗しました。再度お試しください';
+    btn.disabled = false;
+  });
+}
+</script>
+</body>
+</html>

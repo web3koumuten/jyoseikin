@@ -894,6 +894,67 @@
     .top3-arrow { display: none; }
   }
 
+  /* ── 小規模事業者セクション ── */
+  .small-biz-section {
+    margin-bottom: 24px;
+    border: 2px solid #16a34a;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .small-biz-head {
+    background: #16a34a;
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .small-biz-badge {
+    background: white;
+    color: #16a34a;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .small-biz-note {
+    background: #f0fdf4;
+    color: #166534;
+    font-size: 12px;
+    padding: 10px 20px;
+    border-bottom: 1px solid #bbf7d0;
+  }
+
+  /* ── Q14マッチセクション ── */
+  .q14-match-section {
+    margin-bottom: 24px;
+    border: 2px solid #2563eb;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .q14-match-head {
+    background: #2563eb;
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .q14-match-badge {
+    background: white;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
   /* ── 取得しやすい制度コンパクトリスト ── */
   .easy-list-section { margin-bottom: 28px; }
   .easy-list-label {
@@ -6406,7 +6467,7 @@ function runDiagnosis() {
 
   // ローディング演出を挟んでから結果表示
   showLoading(scored.length, () => {
-    renderResults(scored, combos, conflicts, { q13, q18, q20, isSmall, isSME, wageUp, isDeficit, q16, q17 });
+    renderResults(scored, combos, conflicts, { q13, q14, q18, q20, isSmall, isSME, wageUp, isDeficit, q16, q17 });
   });
 }
 
@@ -7689,13 +7750,69 @@ function renderResults(scored, combos, conflicts, meta) {
   const EASY_LIST_EXCL   = new Set(['judokyuen-boushi','jinzai-ikusei-shien']); // easyリストのみ除外
   const DETAIL_EXCL      = new Set(['jinzai-ikusei-shien']); // detailからも除外（受動喫煙はdetailに出す）
 
-  // nonTop3: displayScored から地域系・両立支援・人材育成支援コースを除外
+  // ── ★ 小規模事業者向け重点制度セクション（常時表示） ──
+  const shownAbove = new Set(); // 上のセクションで表示済みのID（重複防止）
+  if (meta.isSmall) {
+    const _smallIds = ['jizokuka-hojyokin', 'gyomu-kaizen'];
+    const smallBizItems = displayScored.filter(s => _smallIds.includes(s.id));
+    if (smallBizItems.length > 0) {
+      html += `
+      <div class="small-biz-section">
+        <div class="small-biz-head">
+          <span class="small-biz-badge">小規模事業者</span>
+          小規模事業者の優先取得制度
+        </div>
+        <div class="small-biz-note">従業員規模に応じて優先的に取り組むべき制度です。商工会・商工会議所のサポートを活用できます。</div>`;
+      smallBizItems.forEach(s => {
+        html += renderRow(s);
+        shownAbove.add(s.id);
+      });
+      html += `</div>`;
+    }
+  }
+
+  // ── ★ Q14選択にマッチした制度（常時表示・折りたたみなし） ──
+  const q14Val = meta.q14 || [];
+  const q14MatchItems = q14Val.length > 0 ? displayScored.filter(s =>
+    s.q14_key && q14Val.includes(s.q14_key) &&
+    !TOP3_ALL_IDS.has(s.id) &&
+    !isAreaId(s) &&
+    !shownAbove.has(s.id)
+  ) : [];
+  if (q14MatchItems.length > 0) {
+    const q14LabelMap = {
+      'jinzai': '人材育成・リスキリング',
+      'chinage': '賃上げ',
+      'shooryoka': '省力化',
+      'jigyo-shinsyutsu': '新事業展開',
+      'jizokuka': '販路拡大',
+      'it-donyu': 'IT化・DX',
+      'shoene': '省エネ',
+      'jigyo-shokei': '事業承継',
+      'monozukuri': '設備投資',
+    };
+    const selLabels = [...new Set(q14MatchItems.map(s => q14LabelMap[s.q14_key] || s.q14_key))].join('・');
+    html += `
+    <div class="q14-match-section">
+      <div class="q14-match-head">
+        <span class="q14-match-badge">課題マッチ</span>
+        「${selLabels}」に対応した制度
+      </div>`;
+    q14MatchItems.forEach(s => {
+      html += renderRow(s);
+      shownAbove.add(s.id);
+    });
+    html += `</div>`;
+  }
+
+  // nonTop3: displayScored から地域系・両立支援・人材育成支援コースを除外（上で表示済みも除外）
   const nonTop3 = displayScored.filter(s =>
     !TOP3_ALL_IDS.has(s.id) &&
     !isAreaId(s) &&
     SUBSIDY_SERIES_MAP[s.id] !== RYORITSU_SERIES &&
     !s.id.startsWith('kosodate-') &&
-    !DETAIL_EXCL.has(s.id)
+    !DETAIL_EXCL.has(s.id) &&
+    !shownAbove.has(s.id)  // 上のセクションで表示済みは除外
   );
   // 難易度1は診断マッチに関係なく常に表示（SUBSIDIES全件から取る）
   const easyItems = SUBSIDIES.filter(s =>
@@ -7704,7 +7821,8 @@ function renderResults(scored, combos, conflicts, meta) {
     !isAreaId(s) &&
     SUBSIDY_SERIES_MAP[s.id] !== RYORITSU_SERIES &&
     !s.id.startsWith('kosodate-') &&
-    !EASY_LIST_EXCL.has(s.id)
+    !EASY_LIST_EXCL.has(s.id) &&
+    !shownAbove.has(s.id)  // 上のセクションで表示済みは除外
   );
   // 詳細セクション：easy全件＋診断でマッチした難易度2（重複なし）
   const easyItemIds = new Set(easyItems.map(s => s.id));

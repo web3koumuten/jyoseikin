@@ -8,7 +8,7 @@
  * =====================================================
  */
 
-const SPREADSHEET_ID = '1wHsxcl8Phcp4RI82Xwe0w9zVtm7qivo71iGKfSzhBnU';
+const SPREADSHEET_ID = '1ii6R5K8mXPPKnBcXwUxAsAvir8fLqJLSSFNk1z7MXJo';
 const SHEET_NAME = '診断データ';
 
 // ─── ヘッダー定義（列順） ───
@@ -393,11 +393,18 @@ function setupSheet() {
 
   // 列幅
   sheet.setColumnWidth(1, 150);  // 送信日時
-  sheet.setColumnWidth(2, 130);  // session_id
+  sheet.setColumnWidth(2, 130);  // 診断セッションID
   sheet.setColumnWidth(3, 120);  // 診断ステータス
   sheet.setColumnWidth(4, 150);  // 診断3完了日時
   sheet.setColumnWidth(17, 180); // 法人名
   sheet.setColumnWidth(23, 160); // 代表者氏名
+
+  // マッチした助成金列：幅広め＋折り返し設定
+  const matchedColNum = HEADERS.indexOf('【診断1】マッチした助成金') + 1;
+  if (matchedColNum > 0) {
+    sheet.setColumnWidth(matchedColNum, 280);
+    sheet.getRange(2, matchedColNum, 1000, 1).setWrap(true);
+  }
 
   // 管理列（A〜D）を色分け
   sheet.getRange(1, 1, 1, 4).setBackground('#1a237e').setFontColor('#ffffff');
@@ -443,14 +450,24 @@ function doPost(e) {
       const s1Fields = ['s1_legal_form','s1_industry','s1_employees','s1_revenue',
                         's1_wage_plan','s1_investment_plans','s1_hiring_plan',
                         's1_other_flags','s1_matched'];
-      s1Fields.forEach(field => {
+      s1Fields.forEach(function(field) {
         const col = FIELD_MAP[field];
         if (col && headerIndex[col] !== undefined && data[field] !== undefined) {
-          row[headerIndex[col]] = data[field];
+          let val = data[field];
+          // マッチした助成金は箇条書きに変換
+          if (field === 's1_matched') val = formatMatchedSubsidies(val);
+          row[headerIndex[col]] = val;
         }
       });
 
       sheet.appendRow(row);
+
+      // マッチした助成金列に折り返し設定
+      const matchedColIdx = headerIndex['【診断1】マッチした助成金'];
+      if (matchedColIdx !== undefined) {
+        const lastRow = sheet.getLastRow();
+        sheet.getRange(lastRow, matchedColIdx + 1).setWrap(true);
+      }
 
     // ── 診断3: session_idで行を探して更新（なければ追加）──
     } else if (type === 'shindan3') {
@@ -514,6 +531,14 @@ function fillFields(row, headerIndex, data) {
   });
 }
 
+// ─── マッチした助成金を箇条書きに変換 ───
+function formatMatchedSubsidies(val) {
+  if (!val || typeof val !== 'string' || val.trim() === '') return '';
+  // 「、」区切りの制度名リストを「・制度名」の改行区切りに変換
+  var items = val.split('、').map(function(s) { return s.trim(); }).filter(function(s) { return s !== ''; });
+  return items.map(function(s) { return '・' + s; }).join('\n');
+}
+
 // ─── テスト用（GASエディタから手動実行）───
 function testShindan1() {
   const testData = {
@@ -528,7 +553,7 @@ function testShindan1() {
     s1_investment_plans: 'IT導入',
     s1_hiring_plan: 'yes',
     s1_other_flags: '',
-    s1_matched: 'キャリアアップ助成金、IT導入補助金',
+    s1_matched: 'キャリアアップ助成金 正社員化コース、デジタル化・AI導入補助金2026、小規模事業者持続化補助金',
   };
   const result = doPost({ postData: { contents: JSON.stringify(testData) } });
   Logger.log('診断1テスト: ' + result.getContent());

@@ -7274,10 +7274,10 @@ function renderResults(scored, combos, conflicts, meta) {
   const _DETAIL_EXCL = new Set(['jinzai-ikusei-shien']); // detailからも除外（受動喫煙はdetailに出す）
   const _RYO   = '両立支援等助成金';
   const _isArea = s => s.id.startsWith('iwate-') || s.id.startsWith('morioka-') || s.id.startsWith('sanriku-');
-  // 表示件数先行計算：TOP4以外のdisplayScored（診断マッチのみカウント）
+  // 表示件数先行計算（折りたたみパネル内の件数）
   const _nonTop3 = displayScored.filter(s => !_T3IDS.has(s.id) && !_isArea(s) && SUBSIDY_SERIES_MAP[s.id]!==_RYO && !s.id.startsWith('kosodate-') && !_DETAIL_EXCL.has(s.id));
   const _easyMatched = _nonTop3.filter(s => s.difficulty===1 && !_EASY_EXCL.has(s.id));
-  const _mediumMatched = _nonTop3.filter(s => s.difficulty>1 && !_easyMatched.some(e=>e.id===s.id));
+  const _mediumMatched = _nonTop3.filter(s => !_easyMatched.some(e=>e.id===s.id));
   const visibleCount = _easyMatched.length + _mediumMatched.length;
 
   const budget = meta.q16 || 0;  // 投資予算（万円）
@@ -7794,10 +7794,10 @@ function renderResults(scored, combos, conflicts, meta) {
     !EASY_LIST_EXCL.has(s.id)
   );
   const easyItemIds = new Set(easyItems.map(s => s.id));
-  // 診断マッチした難易度2以上（nonTop3 からeasy除く）→ 折りたたまず表示
+  // 診断マッチした難易度2以上
   const mediumItems = nonTop3.filter(s => !easyItemIds.has(s.id));
-  // 折りたたみパネルはeasyのみ
-  const detailItems = [...easyItems];
+  // 折りたたみパネル：easy全件 + 診断マッチのmedium
+  const detailItems = [...easyItems, ...mediumItems];
 
   function buildRowGroup(items, idPrefix) {
     const si = {}, so = [], ss = [];
@@ -7821,16 +7821,7 @@ function renderResults(scored, combos, conflicts, meta) {
     return out;
   }
 
-  // ② 診断マッチ制度（難易度2以上・折りたたみなしで表示）
-  if (mediumItems.length > 0) {
-    html += `<div class="medium-match-section">
-      <div class="medium-match-head">診断でマッチした制度</div>
-      <div class="result-rows" style="margin:0">`;
-    html += buildRowGroup(mediumItems, 'med-');
-    html += `</div></div>`;
-  }
-
-  // ③ 取得しやすい制度（コンパクトリスト → 折りたたみ内詳細へリンク）
+  // ② 取得しやすい制度（コンパクトリスト → 折りたたみ内詳細へリンク）
   if (easyItems.length > 0) {
     html += `<div class="easy-list-section">
       <div class="easy-list-label">取得しやすい制度</div>
@@ -7857,7 +7848,7 @@ function renderResults(scored, combos, conflicts, meta) {
     html += `</div></div>`;
   }
 
-  // ④ 取得しやすい制度の詳細（折りたたみ）
+  // ③ 取得できる制度（詳細・折りたたみ）easy + 診断マッチmedium
   if (detailItems.length > 0) {
     html += `<div class="sublist-panel">
       <button class="sublist-toggle" id="detail-toggle" onclick="(function(btn){
@@ -7865,7 +7856,7 @@ function renderResults(scored, combos, conflicts, meta) {
         var open=body.classList.toggle('open');
         btn.classList.toggle('open',open);
       })(this)">
-        <span class="sublist-toggle-label">取得しやすい制度の詳細<span class="sublist-toggle-count">${detailItems.length}件</span></span>
+        <span class="sublist-toggle-label">取得できる制度の詳細<span class="sublist-toggle-count">${detailItems.length}件</span></span>
         <span class="sublist-toggle-chevron">▼</span>
       </button>
       <div class="sublist-body" id="detail-body">

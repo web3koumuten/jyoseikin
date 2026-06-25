@@ -5772,7 +5772,7 @@ function classifyCompany(q6, q7, q8, q9) {
 }
 
 // 適格性チェック（3段階の厳密判定）
-function checkEligibility(s, company) {
+function checkEligibility(s, company, { q14Selected = [] } = {}) {
   const { legalForm, sizes, employees, industry } = company;
   const reasons = [];
 
@@ -5805,12 +5805,20 @@ function checkEligibility(s, company) {
   const q8Val = (document.getElementById('q8')?.value || '').trim();
   const q8Filled = q8Val !== '';
   if (s.min_employees > 0 && q8Filled && employees < s.min_employees) {
-    return { ok: false, reason: `従業員${s.min_employees}名以上が必要（現在：${employees}名）` };
+    // Q14で明示的にこの制度カテゴリを選択した場合は除外しない（研修系は雇用前提でも表示）
+    if (s.q14_key && q14Selected.includes(s.q14_key)) {
+      reasons.push(`申請には従業員${s.min_employees}名以上が必要（雇用が前提の制度です）`);
+    } else {
+      return { ok: false, reason: `従業員${s.min_employees}名以上が必要（現在：${employees}名）` };
+    }
   }
 
   // ⑤ 雇用保険チェック（Q8入力済みかつ従業員0人の場合のみ）
   if (s.requires_employee_insurance && q8Filled && employees === 0 && legalForm !== '個人事業主') {
-    return { ok: false, reason: '雇用保険適用事業所であること（従業員が必要）' };
+    // Q14で明示的に選択した場合は除外しない
+    if (!(s.q14_key && q14Selected.includes(s.q14_key))) {
+      return { ok: false, reason: '雇用保険適用事業所であること（従業員が必要）' };
+    }
   }
 
   return { ok: true, reasons };
@@ -6200,7 +6208,7 @@ function runDiagnosis() {
   const rawScored = SUBSIDIES.map(s => {
 
     // ① 厳密な適格性チェック（NGなら絶対に除外）
-    const elig = checkEligibility(s, company);
+    const elig = checkEligibility(s, company, { q14Selected: q14 });
     if (!elig.ok) return null;
 
     let score = 0;
@@ -6247,8 +6255,11 @@ function runDiagnosis() {
 
     // ── 例外③：雇用保険適用が必須な補助金は従業員0名には不要
     // ※ Q8が未入力（空欄）の場合は除外しない（従業員がいる可能性があるため）
+    // ※ Q14で明示的に選択した場合（研修系など）は除外しない
     const q8Filled = (document.getElementById('q8')?.value || '').trim() !== '';
-    if (s.requires_employee_insurance && q8Filled && employees === 0) return null;
+    if (s.requires_employee_insurance && q8Filled && employees === 0) {
+      if (!(s.q14_key && q14.includes(s.q14_key))) return null;
+    }
 
     // ── 例外④：障害者向け助成金は従業員のいない事業者には不要
     const isDisabilitySubsidy = ['trial-shogaisha','trial-shogaisha-tanjikan','career-up-shogaisha-seishainuka'].includes(s.id);
@@ -7182,6 +7193,21 @@ function buildSummaryCharts(scored) {
     <text x="${cx}" y="${cy + 14}" text-anchor="middle" font-size="12" fill="#64748b" font-family="sans-serif">補助金割合</text>
   </svg>`;
 
+  // ── TOP4制度は nationScored にない場合もグラフに必ず含める（重点4制度セクションと整合）
+  const _nsIds = new Set(nationScored.map(s => s.id));
+  const _TOP4_CHART = [
+    { ids: ['career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu','career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka','tokutei-shushokukonnansha'], group: 'jinzai', fallback: 4200000 },
+    { ids: ['it-donyu','it-security'], group: 'setsubiS', fallback: 4500000 },
+    { ids: ['jizokuka-hojyokin'], group: 'marketing', fallback: 2500000 },
+  ];
+  for (const t of _TOP4_CHART) {
+    if (!t.ids.some(id => _nsIds.has(id))) {
+      const cat = CHART_CATS.find(c => c.groups.includes(t.group));
+      const label = cat ? cat.key : 'その他（社会課題）';
+      catTotals[label] = (catTotals[label] || 0) + t.fallback;
+    }
+  }
+
   // ── 縦棒グラフ HTML ──
   const activeCAts = CHART_CATS.filter(c => catTotals[c.key] > 0);
   const maxAmt = activeCAts.length > 0 ? Math.max(...activeCAts.map(c => catTotals[c.key] || 0)) : 1;
@@ -7248,7 +7274,7 @@ function renderResults(scored, combos, conflicts, meta) {
   const totalMax = displayScored.reduce((s, x) => s + x.max_amount, 0);
 
   // 実際に画面に表示される件数を先行計算（ヘッダー表示用）
-  const _T3IDS = new Set(['career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu','career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka','tokutei-shushokukonnansha','it-donyu','it-security']);
+  const _T3IDS = new Set(['career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu','career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka','tokutei-shushokukonnansha','it-donyu','it-security','jizokuka-hojyokin']);
   const _EASY_EXCL   = new Set(['judokyuen-boushi','jinzai-ikusei-shien']); // easyリストのみ除外
   const _DETAIL_EXCL = new Set(['jinzai-ikusei-shien']); // detailからも除外（受動喫煙はdetailに出す）
   const _RYO   = '両立支援等助成金';
@@ -7672,7 +7698,7 @@ function renderResults(scored, combos, conflicts, meta) {
     return out;
   };
 
-  // ── TOP3 主力制度インデックス ──
+  // ── 重点4制度インデックス ──
   const TOP3_PROGRAMS = [
     {
       label: 'キャリアアップ助成金',
@@ -7694,11 +7720,18 @@ function renderResults(scored, combos, conflicts, meta) {
       ids: new Set(['it-donyu','it-security']),
       fallback: 4500000,
       lpUrl: './lp.html#it-donyu'
+    },
+    {
+      label: '小規模事業者持続化補助金',
+      desc: '販路開拓・チラシ・HP制作など広く使える中小の定番補助金',
+      ids: new Set(['jizokuka-hojyokin']),
+      fallback: 2500000,
+      lpUrl: './lp.html#jizokuka'
     }
   ];
   const top3Matched = TOP3_PROGRAMS.filter(p => displayScored.some(s => p.ids.has(s.id)));
-  if (top3Matched.length > 0) {
-    html += `<div class="top3-section"><div class="top3-head">主力3制度 — 取得対象</div>`;
+  if (displayScored.length > 0) {
+    html += `<div class="top3-section"><div class="top3-head">取得対象の重点4制度</div>`;
     TOP3_PROGRAMS.forEach((prog, i) => {
       const matchedItems = displayScored.filter(s => prog.ids.has(s.id));
       const hasMatch = matchedItems.length > 0;
@@ -7723,7 +7756,7 @@ function renderResults(scored, combos, conflicts, meta) {
   const TOP3_ALL_IDS = new Set([
     'career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu',
     'career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka',
-    'tokutei-shushokukonnansha','it-donyu','it-security'
+    'tokutei-shushokukonnansha','it-donyu','it-security','jizokuka-hojyokin'
   ]);
   const RYORITSU_SERIES = '両立支援等助成金';
   const isAreaId = s => s.id.startsWith('iwate-') || s.id.startsWith('morioka-') || s.id.startsWith('sanriku-');

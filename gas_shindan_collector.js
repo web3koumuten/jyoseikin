@@ -531,12 +531,16 @@ function fillFields(row, headerIndex, data) {
   });
 }
 
-// ─── マッチした助成金を箇条書きに変換 ───
+// ─── マッチした助成金を3件ずつ1行にまとめて変換 ───
 function formatMatchedSubsidies(val) {
   if (!val || typeof val !== 'string' || val.trim() === '') return '';
-  // 「、」区切りの制度名リストを「・制度名」の改行区切りに変換
+  // 「、」区切りの制度名リストを3件ずつ「・制度A、制度B、制度C」の改行区切りに変換
   var items = val.split('、').map(function(s) { return s.trim(); }).filter(function(s) { return s !== ''; });
-  return items.map(function(s) { return '・' + s; }).join('\n');
+  var lines = [];
+  for (var i = 0; i < items.length; i += 3) {
+    lines.push('・' + items.slice(i, i + 3).join('、'));
+  }
+  return lines.join('\n');
 }
 
 // ─── テスト用（GASエディタから手動実行）───

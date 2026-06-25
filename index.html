@@ -7758,35 +7758,13 @@ function renderResults(scored, combos, conflicts, meta) {
   const EASY_LIST_EXCL   = new Set(['judokyuen-boushi','jinzai-ikusei-shien']); // easyリストのみ除外
   const DETAIL_EXCL      = new Set(['jinzai-ikusei-shien']); // detailからも除外（受動喫煙はdetailに出す）
 
-  // ── ★ 小規模事業者向け重点制度セクション（常時表示） ──
-  const shownAbove = new Set(); // 上のセクションで表示済みのID（重複防止）
-  if (meta.isSmall) {
-    const _smallIds = ['jizokuka-hojyokin', 'gyomu-kaizen'];
-    const smallBizItems = displayScored.filter(s => _smallIds.includes(s.id));
-    if (smallBizItems.length > 0) {
-      html += `
-      <div class="small-biz-section">
-        <div class="small-biz-head">
-          <span class="small-biz-badge">小規模事業者</span>
-          小規模事業者の優先取得制度
-        </div>
-        <div class="small-biz-note">従業員規模に応じて優先的に取り組むべき制度です。商工会・商工会議所のサポートを活用できます。</div>`;
-      smallBizItems.forEach(s => {
-        html += renderRow(s);
-        shownAbove.add(s.id);
-      });
-      html += `</div>`;
-    }
-  }
-
-  // nonTop3: displayScored から地域系・両立支援・人材育成支援コースを除外（小規模セクション表示済みは除外）
+  // nonTop3: displayScored から地域系・両立支援を除外
   const nonTop3 = displayScored.filter(s =>
     !TOP3_ALL_IDS.has(s.id) &&
     !isAreaId(s) &&
     SUBSIDY_SERIES_MAP[s.id] !== RYORITSU_SERIES &&
     !s.id.startsWith('kosodate-') &&
-    !DETAIL_EXCL.has(s.id) &&
-    !shownAbove.has(s.id)  // 小規模セクションで表示済みは除外
+    !DETAIL_EXCL.has(s.id)
   );
   // 取得しやすい制度（難易度1）→ 診断マッチのもののみ表示（nonTop3から絞る）
   const easyItems = nonTop3.filter(s =>

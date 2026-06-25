@@ -6428,7 +6428,7 @@ function runDiagnosis() {
     q14_plans: q14.join('・'),
     q18_hiring: q18,
     q20_other: q20.join('・'),
-    matched_subsidies: scored.filter(s => s.difficulty < 3).map(s => s.name).join('、')
+    matched_subsidies: (()=>{ const ns=scored.filter(s=>s.difficulty<3).map(s=>s.name); return ns.slice(0,5).join('、')+(ns.length>5?`（他${ns.length-5}件）`:''); })()
   };
   // session_idを生成して保存（診断1→診断3の行紐付け用）
   const sessionId = Math.random().toString(36).substr(2, 9) + Date.now().toString(36);

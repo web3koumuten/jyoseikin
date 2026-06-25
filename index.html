@@ -930,6 +930,16 @@
 
 
   /* ── 取得しやすい制度コンパクトリスト ── */
+  /* ── 診断マッチ制度セクション（難易度2以上のマッチ済み案件） */
+  .medium-match-section {
+    max-width: 860px; margin: 0 auto 28px; padding: 0 40px;
+  }
+  .medium-match-head {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.15em;
+    text-transform: uppercase; color: #0a0f1e;
+    padding: 14px 0 10px; border-bottom: 2px solid #0a0f1e;
+    margin-bottom: 12px;
+  }
   .easy-list-section { margin-bottom: 28px; }
   .easy-list-label {
     font-size: 10px; font-weight: 800; letter-spacing: 0.15em;
@@ -7193,21 +7203,6 @@ function buildSummaryCharts(scored) {
     <text x="${cx}" y="${cy + 14}" text-anchor="middle" font-size="12" fill="#64748b" font-family="sans-serif">補助金割合</text>
   </svg>`;
 
-  // ── TOP4制度は nationScored にない場合もグラフに必ず含める（重点4制度セクションと整合）
-  const _nsIds = new Set(nationScored.map(s => s.id));
-  const _TOP4_CHART = [
-    { ids: ['career-up-seishainuka','career-up-chingin-kaitei','career-up-chingin-kyotsu','career-up-shoyo-taishokukin','career-up-tanjikan-enchyo','career-up-shogaisha-seishainuka','tokutei-shushokukonnansha'], group: 'jinzai', fallback: 4200000 },
-    { ids: ['it-donyu','it-security'], group: 'setsubiS', fallback: 4500000 },
-    { ids: ['jizokuka-hojyokin'], group: 'marketing', fallback: 2500000 },
-  ];
-  for (const t of _TOP4_CHART) {
-    if (!t.ids.some(id => _nsIds.has(id))) {
-      const cat = CHART_CATS.find(c => c.groups.includes(t.group));
-      const label = cat ? cat.key : 'その他（社会課題）';
-      catTotals[label] = (catTotals[label] || 0) + t.fallback;
-    }
-  }
-
   // ── 縦棒グラフ HTML ──
   const activeCAts = CHART_CATS.filter(c => catTotals[c.key] > 0);
   const maxAmt = activeCAts.length > 0 ? Math.max(...activeCAts.map(c => catTotals[c.key] || 0)) : 1;
@@ -7279,11 +7274,11 @@ function renderResults(scored, combos, conflicts, meta) {
   const _DETAIL_EXCL = new Set(['jinzai-ikusei-shien']); // detailからも除外（受動喫煙はdetailに出す）
   const _RYO   = '両立支援等助成金';
   const _isArea = s => s.id.startsWith('iwate-') || s.id.startsWith('morioka-') || s.id.startsWith('sanriku-');
-  const _easyAll = SUBSIDIES.filter(s => s.difficulty===1 && !_T3IDS.has(s.id) && !_isArea(s) && SUBSIDY_SERIES_MAP[s.id]!==_RYO && !s.id.startsWith('kosodate-') && !_EASY_EXCL.has(s.id));
-  const _easyIds = new Set(_easyAll.map(s => s.id));
+  // 表示件数先行計算：TOP4以外のdisplayScored（診断マッチのみカウント）
   const _nonTop3 = displayScored.filter(s => !_T3IDS.has(s.id) && !_isArea(s) && SUBSIDY_SERIES_MAP[s.id]!==_RYO && !s.id.startsWith('kosodate-') && !_DETAIL_EXCL.has(s.id));
-  const _mediumMatched = _nonTop3.filter(s => !_easyIds.has(s.id));
-  const visibleCount = _easyAll.length + _mediumMatched.length; // TOP3（3件）は常時表示なので別
+  const _easyMatched = _nonTop3.filter(s => s.difficulty===1 && !_EASY_EXCL.has(s.id));
+  const _mediumMatched = _nonTop3.filter(s => s.difficulty>1 && !_easyMatched.some(e=>e.id===s.id));
+  const visibleCount = _easyMatched.length + _mediumMatched.length;
 
   const budget = meta.q16 || 0;  // 投資予算（万円）
   const noAddPoints = meta.q20.length === 0 || (meta.q20.length === 1 && meta.q20.includes('なし'));
@@ -7734,10 +7729,10 @@ function renderResults(scored, combos, conflicts, meta) {
     html += `<div class="top3-section"><div class="top3-head">取得対象の重点4制度</div>`;
     TOP3_PROGRAMS.forEach((prog, i) => {
       const matchedItems = displayScored.filter(s => prog.ids.has(s.id));
-      const hasMatch = matchedItems.length > 0;
-      const maxAmt = hasMatch ? Math.max(...matchedItems.map(s => s.max_amount)) : prog.fallback;
+      // 重点4制度は常に「取得対象」として matched スタイルで表示
+      const maxAmt = matchedItems.length > 0 ? Math.max(...matchedItems.map(s => s.max_amount)) : prog.fallback;
       html += `
-        <a class="top3-row ${hasMatch ? 'matched' : 'unmatched'}" href="${prog.lpUrl}">
+        <a class="top3-row matched" href="${prog.lpUrl}">
           <div class="top3-num">0${i+1}</div>
           <div class="top3-info">
             <div class="top3-name">${prog.label}</div>
@@ -7793,20 +7788,16 @@ function renderResults(scored, combos, conflicts, meta) {
     !DETAIL_EXCL.has(s.id) &&
     !shownAbove.has(s.id)  // 小規模セクションで表示済みは除外
   );
-  // 難易度1は診断マッチに関係なく常に表示（SUBSIDIES全件から取る）
-  const easyItems = SUBSIDIES.filter(s =>
+  // 取得しやすい制度（難易度1）→ 診断マッチのもののみ表示（nonTop3から絞る）
+  const easyItems = nonTop3.filter(s =>
     s.difficulty === 1 &&
-    !TOP3_ALL_IDS.has(s.id) &&
-    !isAreaId(s) &&
-    SUBSIDY_SERIES_MAP[s.id] !== RYORITSU_SERIES &&
-    !s.id.startsWith('kosodate-') &&
-    !EASY_LIST_EXCL.has(s.id) &&
-    !shownAbove.has(s.id)  // 小規模セクションで表示済みは除外
+    !EASY_LIST_EXCL.has(s.id)
   );
-  // 詳細セクション：easy全件＋診断でマッチした難易度2（重複なし）
   const easyItemIds = new Set(easyItems.map(s => s.id));
+  // 診断マッチした難易度2以上（nonTop3 からeasy除く）→ 折りたたまず表示
   const mediumItems = nonTop3.filter(s => !easyItemIds.has(s.id));
-  const detailItems = [...easyItems, ...mediumItems];
+  // 折りたたみパネルはeasyのみ
+  const detailItems = [...easyItems];
 
   function buildRowGroup(items, idPrefix) {
     const si = {}, so = [], ss = [];
@@ -7830,7 +7821,16 @@ function renderResults(scored, combos, conflicts, meta) {
     return out;
   }
 
-  // ② 取得しやすい制度（コンパクトリスト）
+  // ② 診断マッチ制度（難易度2以上・折りたたみなしで表示）
+  if (mediumItems.length > 0) {
+    html += `<div class="medium-match-section">
+      <div class="medium-match-head">診断でマッチした制度</div>
+      <div class="result-rows" style="margin:0">`;
+    html += buildRowGroup(mediumItems, 'med-');
+    html += `</div></div>`;
+  }
+
+  // ③ 取得しやすい制度（コンパクトリスト → 折りたたみ内詳細へリンク）
   if (easyItems.length > 0) {
     html += `<div class="easy-list-section">
       <div class="easy-list-label">取得しやすい制度</div>
@@ -7857,7 +7857,7 @@ function renderResults(scored, combos, conflicts, meta) {
     html += `</div></div>`;
   }
 
-  // ③ 取得できる制度（詳細・折りたたみ）
+  // ④ 取得しやすい制度の詳細（折りたたみ）
   if (detailItems.length > 0) {
     html += `<div class="sublist-panel">
       <button class="sublist-toggle" id="detail-toggle" onclick="(function(btn){
@@ -7865,7 +7865,7 @@ function renderResults(scored, combos, conflicts, meta) {
         var open=body.classList.toggle('open');
         btn.classList.toggle('open',open);
       })(this)">
-        <span class="sublist-toggle-label">取得できる制度の詳細<span class="sublist-toggle-count">${detailItems.length}件</span></span>
+        <span class="sublist-toggle-label">取得しやすい制度の詳細<span class="sublist-toggle-count">${detailItems.length}件</span></span>
         <span class="sublist-toggle-chevron">▼</span>
       </button>
       <div class="sublist-body" id="detail-body">
